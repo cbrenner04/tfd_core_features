@@ -1,9 +1,9 @@
 # filename: ./spec/support/feature_helper.rb
 
-def sign_in_pt(participant, password)
+def sign_in_pt(participant, old_participant, password)
   visit "#{ENV['Base_URL']}/participants/sign_in"
   if ENV['safari'] && page.has_css?('.navbar-collapse', text: 'Sign Out')
-    sign_out
+    sign_out(old_participant)
   end
   if page.has_css?('#new_participant')
     within('#new_participant') do
@@ -17,10 +17,10 @@ def sign_in_pt(participant, password)
   end
 end
 
-def sign_in_user(user, password)
+def sign_in_user(user, old_user, password)
   visit "#{ENV['Base_URL']}/users/sign_in"
   if ENV['safari'] && page.has_css?('.navbar-collapse', text: 'Sign Out')
-    sign_out
+    sign_out(old_user)
   end
   if page.has_css?('#new_user')
     within('#new_user') do
@@ -102,4 +102,9 @@ def go_to_next_page(module_text)
       click_on '2'
     end
   end
+end
+
+def accept_social
+  page.driver.execute_script('window.confirm = function() {return true}')
+  click_on 'Next'
 end

@@ -4,13 +4,15 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
          type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+      sign_in_pt(ENV['Participant_Email'], 'participant1',
+                 ENV['Participant_Password'])
     end
   end
 
   before do
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+      sign_in_pt(ENV['Participant_Email'], 'participant1',
+                 ENV['Participant_Password'])
     end
 
     visit "#{ENV['Base_URL']}/navigator/contexts/DO"
@@ -133,7 +135,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     pick_tomorrow
     choose_rating('pleasure_0', 6)
     choose_rating('accomplishment_0', 3)
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Activity saved'
 
     page.execute_script('window.scrollTo(0,5000)')
@@ -143,7 +145,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     pick_tomorrow
     choose_rating('pleasure_0', 4)
     choose_rating('accomplishment_0', 8)
-    click_on 'Next'
+    accept_social
     find('h1', text: 'OK...')
     click_on 'Next'
     within('#previous_activities') do
@@ -163,13 +165,13 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     find('.btn.btn-success').click
     select '7', from: 'activity[actual_pleasure_intensity]'
     select '5', from: 'activity[actual_accomplishment_intensity]'
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Activity saved'
 
     if page.has_text?('You said you were going to')
       find('.btn.btn-danger').click
       fill_in 'activity[noncompliance_reason]', with: "I didn't have time"
-      click_on 'Next'
+      accept_social
       expect(page).to have_content 'Activity saved'
     end
   end
@@ -183,7 +185,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     pick_tomorrow
     choose_rating('pleasure_0', 4)
     choose_rating('accomplishment_0', 3)
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Activity saved'
   end
 
@@ -303,8 +305,19 @@ end
 
 describe 'Active participant in group 3 signs in, navigates to DO tool,',
          type: :feature, sauce: sauce_labs do
+  if ENV['safari']
+    before(:all) do
+      sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
+                 ENV['Alt_Participant_Password'])
+    end
+  end
+
   before do
-    sign_in_pt(ENV['Alt_Participant_Email'], ENV['Alt_Participant_Password'])
+    unless ENV['safari']
+      sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
+                 ENV['Alt_Participant_Password'])
+    end
+
     visit "#{ENV['Base_URL']}/navigator/contexts/DO"
   end
 
