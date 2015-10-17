@@ -108,3 +108,19 @@ def accept_social
   page.driver.execute_script('window.confirm = function() {return true}')
   click_on 'Next'
 end
+
+def find_feed_item(item)
+  counter = 0
+  while page.has_no_css?('.list-group-item.ng-scope',
+                         text: item) && counter < 15
+    page.execute_script('window.scrollTo(0,100000)')
+    counter += 1
+  end
+end
+
+def answer_profile_question(question, id, answer)
+  within('.panel.panel-default.ng-scope', text: question) do
+    fill_in "new-answer-description-#{id}", with: answer
+    click_on 'Save'
+  end
+end

@@ -15,7 +15,7 @@ namespace :tfd do
 
   # dump database
 
-  desc 'Dump database'
+  desc 'Dump think_feel_do_development database'
   task :dump_db do
     system '/Applications/Postgres.app/Contents/Versions/9.3/bin/pg_dump ' \
            '-c -C -o -U Chris think_feel_do_development -f ' \
@@ -24,7 +24,7 @@ namespace :tfd do
 
   # load database with data from database dump
 
-  desc 'Restore database'
+  desc 'Restore think_feel_do_development database'
   task :restore_db do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb ' \
            'think_feel_do_development')
@@ -41,7 +41,7 @@ namespace :tfd do
   # load development version of think_feel_do on staging, keeping selenium
   # as driver
 
-  desc 'Set test database for testing on staging and keep driver'
+  desc 'Set test database for testing think_feel_do on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
     Dir.chdir('/Users/Chris/Work/think_feel_do') do
@@ -69,7 +69,7 @@ namespace :tfd do
   # load development version of think_feel_do on staging and switch driver
   # to sauce
 
-  desc 'Set test database for testing on staging and switch driver'
+  desc 'Set test database for testing think_feel_do on staging, switch driver'
   task :load_app_sauce do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
     system('Sauce=true')
@@ -83,7 +83,7 @@ namespace :tfd do
 
   # load staging version of think_feel_do on staging
 
-  desc 'Returning staging database on staging'
+  desc 'Returning think_feel_do staging database on staging'
   task :return_staging do
     Dir.chdir('/Users/Chris/Work/think_feel_do') do
       system('cap staging deploy:use_staging_db')

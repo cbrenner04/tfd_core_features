@@ -16,7 +16,7 @@ namespace :tfdso do
 
   # dump database
 
-  desc 'Dump database'
+  desc 'Dump think_feel_do_so_development database'
   task :dump_db do
     system '/Applications/Postgres.app/Contents/Versions/9.3/bin/pg_dump ' \
            '-c -C -o -U Chris think_feel_do_so_development -f ' \
@@ -25,7 +25,7 @@ namespace :tfdso do
 
   # load database with data from database dump
 
-  desc 'Restore database'
+  desc 'Restore think_feel_do_so_development database'
   task :restore_db do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb ' \
            'think_feel_do_so_development')
@@ -42,7 +42,7 @@ namespace :tfdso do
   # load development version of think_feel_do_so on staging, keeping selenium
   # as driver
 
-  desc 'Set test database for testing on staging and keep driver'
+  desc 'Set test database for testing think_feel_do_so on staging, keep driver'
   task :load_app_staging do
     system('export Base_URL=https://moodtech-staging.cbits.northwestern.edu')
     Dir.chdir('/Users/Chris/Work/think_feel_do_so') do
@@ -68,10 +68,10 @@ namespace :tfdso do
 
   # run cap commands from clean_db
 
-  # load development version of think_feel_do_so on staging and switch driver 
+  # load development version of think_feel_do_so on staging and switch driver
   # to sauce
 
-  desc 'Set test database for testing on staging and switch driver'
+  desc 'Set test database for testing think_feel_do_so staging, switch driver'
   task :load_app_sauce do
     system('export Base_URL=https://moodtech-staging.cbits.northwestern.edu')
     system('Sauce=true')
@@ -86,7 +86,7 @@ namespace :tfdso do
 
   # load staging version of think_feel_do_so on staging
 
-  desc 'Returning staging database on staging'
+  desc 'Returning think_feel_do_so staging database on staging'
   task :load_tfdso_staging do
     Dir.chdir('/Users/Chris/Work/think_feel_do_so') do
       system('cap staging deploy:use_staging_db')
