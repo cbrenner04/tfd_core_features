@@ -1,15 +1,17 @@
-# filename: participant_login_spec.rb
+# filename: ./spec/features/participant/core/participant_login_spec.rb
 
-describe 'A visitor to the site,', type: :feature, sauce: sauce_labs do
+describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   it 'is an active participant, signs in' do
-    sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+    sign_in_pt(ENV['Participant_Email'], 'nonsocialpt',
+               ENV['Participant_Password'])
     expect(page).to have_content 'Signed in successfully.'
   end
 
   it 'is an active participant, signs in, visits another page, uses ' \
      'brand link to get to home page' do
     unless ENV['Safari']
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+      sign_in_pt(ENV['Participant_Email'], 'participant1',
+                 ENV['Participant_Password'])
     end
 
     visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
@@ -23,10 +25,11 @@ describe 'A visitor to the site,', type: :feature, sauce: sauce_labs do
     if ENV['safari']
       visit ENV['Base_URL']
     else
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+      sign_in_pt(ENV['Participant_Email'], 'participant1',
+                 ENV['Participant_Password'])
     end
 
-    sign_out
+    sign_out('participant1')
     expect(page).to have_content 'You need to sign in or sign up before ' \
                                  'continuing.'
   end
@@ -42,18 +45,10 @@ describe 'A visitor to the site,', type: :feature, sauce: sauce_labs do
     expect(page).to have_content 'Invalid email address or password'
   end
 
-  it 'was an active participant who has completed' do
-    sign_in_pt(ENV['Completed_Pt_Email'], ENV['Completed_Pt_Password'])
-    find('h1', text: 'HOME')
-    visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
-    expect(page).to have_content 'Inbox'
-    expect(page).to_not have_content 'Compose'
-  end
-
   it 'was an active participant who has withdrawn' do
     visit "#{ENV['Base_URL']}/participants/sign_in"
     if ENV['safari']
-      sign_out
+      sign_out('completer')
     end
 
     within('#new_participant') do
@@ -68,22 +63,12 @@ describe 'A visitor to the site,', type: :feature, sauce: sauce_labs do
   end
 
   it 'tries to visit a specific page, is redirected to log in page' do
-    visit "#{ENV['Base_URL']}"
-    if page.has_css?('.navbar-collapse', text: 'Sign Out')
-      sign_out
-    end
-
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
     expect(page).to have_content 'You need to sign in or sign up before ' \
                                  'continuing'
   end
 
   it 'views the intro slideshow' do
-    visit "#{ENV['Base_URL']}"
-    if page.has_css?('.navbar-collapse', text: 'Sign Out')
-      sign_out
-    end
-
     visit ENV['Base_URL']
     click_on 'Introduction to ThinkFeelDo'
     click_on 'Done'
@@ -92,11 +77,6 @@ describe 'A visitor to the site,', type: :feature, sauce: sauce_labs do
   end
 
   it 'is an active participant, uses the forgot password functionality' do
-    visit "#{ENV['Base_URL']}"
-    if page.has_css?('.navbar-collapse', text: 'Sign Out')
-      sign_out
-    end
-
     visit ENV['Base_URL']
     click_on 'Forgot your password?'
     find('h2', text: 'Forgot your password?')
@@ -108,5 +88,16 @@ describe 'A visitor to the site,', type: :feature, sauce: sauce_labs do
     expect(page).to have_content 'You will receive an email with ' \
                                  'instructions on how to reset your password ' \
                                  'in a few minutes.'
+  end
+end
+
+describe 'A visitor to the site,', :tfd, type: :feature, sauce: sauce_labs do
+  it 'was an active participant who has completed' do
+    sign_in_pt(ENV['Completed_Pt_Email'], 'participant1',
+               ENV['Completed_Pt_Password'])
+    find('h1', text: 'HOME')
+    visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
+    expect(page).to have_content 'Inbox'
+    expect(page).to_not have_content 'Compose'
   end
 end

@@ -48,7 +48,7 @@ def choose_rating(element_id, value)
 end
 
 def compare_thought(thought)
-  click_on 'Next'
+  accept_social
   expect(page).to have_content 'Thought saved'
   within('.panel-body.adjusted-list-group-item') do
     expect(page).to_not have_content thought

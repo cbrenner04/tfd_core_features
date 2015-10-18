@@ -1,4 +1,4 @@
-# filename: do1_spec.rb
+# filename: ./spec/features/participant/core/do_spec.rb
 
 describe 'Active participant in group 1 signs in, navigates to DO tool,',
          :core, type: :feature, sauce: sauce_labs do
@@ -304,7 +304,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
 end
 
 describe 'Active participant in group 3 signs in, navigates to DO tool,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',

@@ -1,9 +1,20 @@
-# filename: learn_spec.rb
+# filename: ./spec/features/participant/core/learn_spec.rb
 
 describe 'Active participant in group 1 signs in, navigates to LEARN,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
+  if ENV['safari']
+    before(:all) do
+      sign_in_pt(ENV['Participant_Email'], 'participant3',
+                 ENV['Participant_Password'])
+    end
+  end
+
   before do
-    sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+    unless ENV['safari']
+      sign_in_pt(ENV['Participant_Email'], 'participant3',
+                 ENV['Participant_Password'])
+    end
+
     visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
   end
 
@@ -38,13 +49,45 @@ describe 'Active participant in group 1 signs in, navigates to LEARN,',
   end
 
   it 'only sees lessons listed to the end of study length' do
-    sixteen_wks = Date.today + 105
-    seventeen_wks = Date.today + 112
     expect(page)
       .to have_css('.panel-title.panel-unreleased',
-                   text: "Week 16 · #{sixteen_wks.strftime('%b %d %Y')}")
+                   text: "Week #{last_wk_num} " \
+                   "· #{last_week.strftime('%b %d %Y')}")
     expect(page)
       .to_not have_css('.panel-title.panel-unreleased',
-                       text: "Week 17 · #{seventeen_wks.strftime('%b %d %Y')}")
+                       text: "Week #{after_wk_num} " \
+                       "· #{after_study.strftime('%b %d %Y')}")
+  end
+end
+
+def last_week
+  if ENV['tfd']
+    Date.today + 105
+  elsif ENV['tfdso']
+    Date.today + 49
+  end
+end
+
+def after_study
+  if ENV['tfd']
+    Date.today + 112
+  elsif ENV['tfdso']
+    Date.today + 56
+  end
+end
+
+def last_wk_num
+  if ENV['tfd']
+    16
+  elsif ENV['tfdso']
+    8
+  end
+end
+
+def after_wk_num
+  if ENV['tfd']
+    17
+  elsif ENV['tfdso']
+    9
   end
 end

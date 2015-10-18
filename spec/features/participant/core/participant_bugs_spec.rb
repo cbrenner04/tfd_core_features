@@ -1,12 +1,71 @@
 # filename: participant_bugs_spec.rb
 
-describe 'Participant Bugs', type: :feature, sauce: sauce_labs do
+describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
   describe 'Participant 1 signs in,' do
-    before do
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+    if ENV['safari']
+      before(:all) do
+        sign_in_pt(ENV['Participant_Email'], 'participant3',
+                   ENV['Participant_Password'])
+      end
     end
 
-    it 'visits Your Activities, selects Previous Day w/out exception' do
+    before do
+      unless ENV['safari']
+        sign_in_pt(ENV['Participant_Email'], 'participant3',
+                   ENV['Participant_Password'])
+      end
+    end
+
+    it 'navigates to the DO tool, completes Planning without multiple alerts' do
+      visit "#{ENV['Base_URL']}/navigator/contexts/DO"
+      click_on '#2 Planning'
+      click_on 'Next'
+      find('#new_activity_radio').click
+      fill_in 'activity_activity_type_new_title', with: 'New planned activity'
+      page.execute_script('window.scrollTo(0,5000)')
+      find('.fa.fa-calendar').click
+      pick_tomorrow
+      choose_rating('pleasure_0', 6)
+      choose_rating('accomplishment_0', 3)
+      accept_social
+      expect(page).to have_content 'Activity saved'
+
+      page.execute_script('window.scrollTo(0,5000)')
+      find('#new_activity_radio').click
+      fill_in 'activity_activity_type_new_title',
+              with: 'Another planned activity'
+      find('.fa.fa-calendar').click
+      pick_tomorrow
+      choose_rating('pleasure_0', 4)
+      choose_rating('accomplishment_0', 8)
+      accept_social
+      expect(page).to have_content 'Activity saved'
+
+      find('h1', text: 'OK...')
+      click_on 'Next'
+      expect(page).to have_content 'Your Planned Activities'
+
+      click_on 'Next'
+      expect(page).to have_content 'Do Landing'
+    end
+
+    it 'navigates to the DO tool, completes Plan a New Activity without ' \
+       'multiple alerts' do
+      visit "#{ENV['Base_URL']}/navigator/contexts/DO"
+      click_on 'Add a New Activity'
+      find('#new_activity_radio').click
+      fill_in 'activity_activity_type_new_title', with: 'New planned activity'
+      page.execute_script('window.scrollTo(0,5000)')
+      find('.fa.fa-calendar').click
+      pick_tomorrow
+      choose_rating('pleasure_0', 4)
+      choose_rating('accomplishment_0', 3)
+      accept_social
+      expect(page).to have_content 'Activity saved'
+    end
+
+    it 'navigates to the DO tool, visits Your Activities, selects Previous ' \
+       'Day w/out exception' do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       click_on '#1 Awareness'
       click_on 'Next'
@@ -21,7 +80,7 @@ describe 'Participant Bugs', type: :feature, sauce: sauce_labs do
       fill_in 'activity_type_0', with: 'Sleep'
       choose_rating('pleasure_0', 9)
       choose_rating('accomplishment_0', 3)
-      click_on 'Next'
+      accept_social
       expect(page).to have_content 'Activity saved'
 
       expect(page).to have_content 'Take a look - does this all seem right? ' \
@@ -71,10 +130,11 @@ describe 'Participant Bugs', type: :feature, sauce: sauce_labs do
 
   describe 'Participant 2 signs in,' do
     before do
-      sign_in_pt(ENV['Participant_2_Email'], ENV['Participant_2_Password'])
+      sign_in_pt(ENV['Participant_2_Email'], 'participant1',
+                 ENV['Participant_2_Password'])
     end
 
-    it 'navigates to a module, completes the module, the module appears complete' do
+    it 'navigates and completes a module, it appears complete' do
       within('.dropdown-toggle', text: 'FEEL') do
         expect(page).to have_content 'New!'
       end

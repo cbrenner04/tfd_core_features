@@ -1,9 +1,20 @@
-# filename: feel1_spec.rb
+# filename: ./spec/features/participant/core/feel_spec.rb
 
 describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
+  if ENV['safari']
+    before(:all) do
+      sign_in_pt(ENV['Participant_Email'], 'participant3',
+                 ENV['Participant_Password'])
+    end
+  end
+
   before do
-    sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+    unless ENV['safari']
+      sign_in_pt(ENV['Participant_Email'], 'participant3',
+                 ENV['Participant_Password'])
+    end
+
     visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"
   end
 
@@ -20,16 +31,18 @@ describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
 end
 
 describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_pt(ENV['Alt_Participant_Email'], ENV['Alt_Participant_Password'])
+      sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
+                 ENV['Alt_Participant_Password'])
     end
   end
 
   before do
     unless ENV['safari']
-      sign_in_pt(ENV['Alt_Participant_Email'], ENV['Alt_Participant_Password'])
+      sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
+                 ENV['Alt_Participant_Password'])
     end
 
     visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"

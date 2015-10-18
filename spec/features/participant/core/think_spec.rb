@@ -1,10 +1,11 @@
 # filename: think_spec.rb
 
 describe 'Active participant signs in, navigates to THINK tool,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+      sign_in_pt(ENV['Participant_Email'], 'nonsocialpt',
+                 ENV['Participant_Password'])
     end
 
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
@@ -27,19 +28,19 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
     click_on 'Next'
     fill_in 'thought_content', with: 'Testing helpful thought'
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Thought saved'
 
     expect(page).to have_content 'Now list another harmful thought...'
 
     fill_in 'thought_content', with: 'Testing negative thought'
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Thought saved'
 
     expect(page).to have_content 'Just one more'
 
     fill_in 'thought_content', with: 'Forced negative thought'
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Good work'
 
     click_on 'Next'
@@ -53,15 +54,14 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
     thought_value = find('.panel-body.adjusted-list-group-item').text
     select 'Personalization', from: 'thought_pattern_id'
-    thought_value = compare_thought(thought_value)
-    select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
-    thought_value = compare_thought(thought_value)
-    select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
-    thought_value = compare_thought(thought_value)
-    select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
+    3.times do
+      thought_value = compare_thought(thought_value)
+      select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
+    end
+
     compare_thought(thought_value)
     select 'Personalization', from: 'thought_pattern_id'
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Thought saved'
   end
 
@@ -74,11 +74,17 @@ describe 'Active participant signs in, navigates to THINK tool,',
     click_on 'Next'
     expect(page).to have_content 'Challenging a thought means'
 
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Next'
-    reshape('Example challenge', 'Example act-as-if')
-    reshape('Example challenge', 'Example act-as-if')
-    reshape('Example challenge', 'Example act-as-if')
+    begin
+      tries ||= 5
+      click_on 'Next'
+    rescue Selenium::WebDriver::Error::UnknownError
+      page.execute_script('window.scrollBy(0,1000)')
+      retry unless (tries -= 1).zero?
+    end
+
+    3.times do
+      reshape('Example challenge', 'Example act-as-if')
+    end
   end
 
   it 'completes Add a New Thought module' do
@@ -88,7 +94,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     fill_in 'thought_challenging_thought', with: 'Testing challenge thought'
     fill_in 'thought_act_as_if', with: 'Testing act-as-if action'
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Next'
+    accept_social
     expect(page).to have_content 'Thought saved'
 
     page.execute_script('window.scrollTo(0,5000)')
@@ -170,6 +176,6 @@ describe 'Active participant signs in, navigates to THINK tool,',
     click_on 'Close'
     expect(page).to have_content 'Click a bubble for more info'
 
-    sign_out
+    sign_out('participant1')
   end
 end
