@@ -16,10 +16,11 @@ describe 'Active participant in a social arm signs in,',
 
   it 'nudges another participant' do
     visit ENV['Base_URL']
-      within('.profile-border.profile-icon-top',
-             text: 'ThinkFeelDo') do
-        click_on 'ThinkFeelDo'
-      end
+    within('.profile-border.profile-icon-top',
+           text: 'ThinkFeelDo') do
+      click_on 'ThinkFeelDo'
+    end
+
     click_on 'Nudge'
     expect(page).to have_content 'Nudge sent!'
 

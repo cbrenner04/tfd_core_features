@@ -62,7 +62,7 @@ end
 
 def app_email
   if ENV['tfd']
-    'steppedcare-no-reply'
+    'localhost'
   elsif ENV['tfdso']
     'moodtech-no-reply'
   elsif ENV['sunnyside']

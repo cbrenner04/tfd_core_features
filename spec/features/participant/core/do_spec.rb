@@ -34,7 +34,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
                 'Work', 'Work', 'Work', 'Work', 'Work', 'Travel from work',
                 'Eat dinner', 'Watch TV', 'read', 'Get ready for bed']
     pleasure = [6, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 9, 9, 2]
-    accomplishment = [7, 5, 8, 8, 8, 8, 8, 8, 8, 8,8, 8, 3, 3, 3]
+    accomplishment = [7, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3]
 
     (0..14).zip(activity, pleasure, accomplishment) do |a, b, c, d|
       fill_in "activity_type_#{a}", with: b

@@ -149,7 +149,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     content = ['Like we said, you are what you think...',
                'You are what you think...', 'Challenging Harmful Thoughts',
                'Add a New Harmful Thought', 'Harmful Thoughts']
-    
+
     tool.zip(content) do |t, c|
       click_on 'THINK'
       click_on t

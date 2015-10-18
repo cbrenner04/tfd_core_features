@@ -141,9 +141,10 @@ describe 'Researcher signs in, navigates to Participants,',
       week_num = 8
     end
 
-    expect(page).to have_content "Standard number of weeks: #{week_num}, Projected End" \
-                                 ' Date from today: ' \
-                                 "#{weeks_later.strftime('%m/%d/%Y')}"
+    expect(page)
+      .to have_content "Standard number of weeks: #{week_num}, Projected" \
+                       ' End Date from today: ' \
+                       "#{weeks_later.strftime('%m/%d/%Y')}"
 
     click_on 'Assign'
     expect(page).to have_content 'Group was successfully assigned'

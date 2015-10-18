@@ -30,7 +30,8 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
        'able to see patient specific data' do
       within('table#patients tr', text: 'TFD-Withdraw') do
         unless driver == :firefox
-          page.driver.execute_script('window.confirm = function() {return true}')
+          page.driver
+            .execute_script('window.confirm = function() {return true}')
         end
 
         click_on 'Terminate Access'
@@ -38,10 +39,11 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
 
       if driver == :firefox
         page.accept_alert 'Are you sure you would like to terminate access ' \
-                          'to this membership? This option should also be used ' \
-                          'before changing membership of the patient to a ' \
-                          'different group or to completely revoke access to ' \
-                          'this membership. You will not be able to undo this.'
+                          'to this membership? This option should also be ' \
+                          'used before changing membership of the patient to ' \
+                          'a different group or to completely revoke access ' \
+                          'to this membership. You will not be able to undo ' \
+                          'this.'
       end
 
       expect(page).to_not have_content 'TFD-Withdraw'
@@ -70,11 +72,12 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
           week_num = 8
         end
 
-        expect(page).to have_content 'Started on: ' \
-                                     "#{Date.today.strftime('%A, %m/%d/%Y')}" \
-                                     "\n#{week_num} weeks from the start date is: " \
-                                     "#{weeks_later.strftime('%A, %m/%d/%Y')}" \
-                                     "\nStatus: Active Currently in week 1"
+        expect(page)
+          .to have_content 'Started on: ' \
+                           "#{Date.today.strftime('%A, %m/%d/%Y')}" \
+                           "\n#{week_num} weeks from the start date is: " \
+                           "#{weeks_later.strftime('%A, %m/%d/%Y')}" \
+                           "\nStatus: Active Currently in week 1"
 
         unless page.has_text? 'week: 0'
           expect(page).to have_content 'Lessons read this week: 1'
@@ -297,7 +300,8 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
           end
         end
 
-        if page.all('tr:nth-child(1)')[1].has_text? 'Reviewed and did not complete'
+        if page.all('tr:nth-child(1)')[1]
+           .has_text? 'Reviewed and did not complete'
           click_on 'Noncompliance'
           within('.popover.fade.right.in') do
             expect(page).to have_content "Why was this not completed?\nI " \
@@ -392,7 +396,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
         click_on 'Patient Dashboard'
         select_patient('TFD-1111')
         expect(page).to have_content 'Last Activity Detected At: ' \
-                                     "#{Time.now.strftime('%A, %b %d %Y %I:%M')}"
+                                     "#{Time.now.strftime('%A, %b %d %Y %I')}"
 
         expect(page).to have_content 'Duration of Last Session: ' \
                                      'less than 5 seconds'
@@ -470,7 +474,8 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       within('#patients') do
         within('table#patients tr', text: 'TFD-PHQ') do
           unless driver == :firefox
-            page.driver.execute_script('window.confirm = function() {return true}')
+            page.driver
+              .execute_script('window.confirm = function() {return true}')
           end
 
           click_on 'Step'

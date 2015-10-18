@@ -1,6 +1,6 @@
 # filename: ./spec/features/participant/social_networking/landing_page_spec.rb
 
-describe 'SocialNetworking Landing Page, ', 
+describe 'SocialNetworking Landing Page, ',
          :social_networking, type: :feature, sauce: sauce_labs do
   describe 'Active participant in social arm signs in,' do
     before do
@@ -23,12 +23,12 @@ describe 'SocialNetworking Landing Page, ',
       expect(page).to have_content 'Fill out your profile so other group ' \
                                    'members can get to know you!'
 
-      answer = ['What are your hobbies?', 'What is your favorite color?',
-                'Animal, vegetable or mineral?', 'Group 1 profile question']
+      question = ['What are your hobbies?', 'What is your favorite color?',
+                  'Animal, vegetable or mineral?', 'Group 1 profile question']
       id = ['781294868', '932760744', '10484799', '933797305']
-      answer =  ['Running', 'Blue', 'Mineral', 'Group 1']
-      
-      answer.zip(id, answer) do |x, y, z|
+      answer = ['Running', 'Blue', 'Mineral', 'Group 1']
+
+      question.zip(id, answer) do |x, y, z|
         answer_profile_question(x, y, z)
         page.execute_script('window.scrollBy(0,500)')
       end
@@ -207,6 +207,8 @@ describe 'SocialNetworking Landing Page, ',
         expect(page).to_not have_link 'Create a Profile'
         expect(page).to have_content 'You are all caught up! Great work!'
       end
+
+      sign_out('participant4')
     end
   end
 end

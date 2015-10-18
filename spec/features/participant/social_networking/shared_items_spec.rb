@@ -263,7 +263,6 @@ end
 
 describe 'Active participant in a social arm signs in,',
          :social_networking, type: :feature, sauce: sauce_labs do
-
   if ENV['safari']
     before(:all) do
       sign_in_pt(ENV['Participant_5_Email'], 'nonsocialpt',
@@ -317,7 +316,7 @@ describe 'Active participant in a social arm signs in,',
         .to have_content "predicted accomplishment: 4\npredicted pleasure: " \
                          "9\nactual accomplishment: 5\nactual pleasure: 7"
     end
-    
+
     expect(page).to_not have_content 'Reviewed & Completed an Activity: Loving'
   end
 
@@ -359,7 +358,7 @@ describe 'Active participant in a social arm signs in,',
 
     thought_value = find('.panel-body.adjusted-list-group-item').text
     select 'Personalization', from: 'thought_pattern_id'
-    thought_value = compare_thought(thought_value)
+    compare_thought(thought_value)
     select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
     accept_social
     expect(page).to have_content 'Thought saved'
@@ -397,9 +396,10 @@ describe 'Active participant in a social arm signs in,',
       click_on 'More'
 
       expect(page).to have_content 'this thought is: I am useless' \
-                                   "\nthought pattern: Labeling and Mislabeling" \
-                                   "\nchallenging thought: Example challenge" \
-                                   "\nas if action: Example act-as-if"
+                                   "\nthought pattern: Labeling and" \
+                                   " Mislabeling\nchallenging thought:" \
+                                   ' Example challenge' \
+                                   " \nas if action: Example act-as-if"
     end
   end
 end
