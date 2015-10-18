@@ -37,6 +37,6 @@ build/
 
 .idea
 .DS_Store
-spec/configure_cloud.rb
+spec/env_variables.rb
 screenshots/
 output/

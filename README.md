@@ -37,7 +37,7 @@ the participants and users above as well as a couple of pieces of data for
 specific tests. These are set as environment variables to protect sensitive
 data as well as access to the application. 
 
-I have set up a `configure_cloud.rb` file that has each of these environment
+I have set up a variables file that has each of these environment
 variables defined which the test suite will reference.
 
 The  `Participant_Phone_Number` variable is formatted 18885559999 while the

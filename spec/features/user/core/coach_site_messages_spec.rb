@@ -1,7 +1,7 @@
 # filename: ./spec/features/user/core/coach_site_messages_spec.rb
 
 describe 'Coach signs in, navigates to Site Messages tool,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
       sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
