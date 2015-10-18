@@ -1,8 +1,11 @@
 # ThinkFeelDo Core Features
 
-This is a test suite that can be pointed at any of the host apps running
-`think_feel_do_engine`, `event_capture`, `think_feel_do_dashboard`, `bit_core`,
-and `bit_player`.
+This is a test suite that can be pointed at any of the ThinkFeelDo host apps:
+
+* [ThinkFeelDo](https://github.com/cbitstech/think_feel_do)
+* [ThinkFeelDoSo](https://github.com/cbitstech/think_feel_do_so)
+* [SunnySide](https://github.com/cbitstech/sunnyside)
+* [Marigold](https://github.com/NU-CBITS/marigold)
 
 ## Information for running this test suite
 
@@ -19,6 +22,11 @@ You will need to set up the following participants and users in the host app:
   for granular detail)
 * Completed_Pt - a participant who is an arm that does not allow messaging
   functionality after completion and is flagged as complete
+* Mobile_Comp_Pt - a participant who is an arm that does not allow messaging
+  functionality after completion and is flagged as complete
+* PT61 - an active participant in a social arm
+* Participant_5 - an active participant with access to most tools (see tests
+  for granular detail)
 * User - user given a super user role
 * Clinician - user with a clinician role
 * Researcher - user with a researcher role
@@ -40,9 +48,11 @@ variable is a URL specific to the host app.
     Participant_2_Password; PT61_Email; PT61_Password; Old_Participant_Email;
     Old_Participant_Password; Alt_Participant_Email; Alt_Participant_Password;
     NS_Participant_Email; NS_Participant_Password; Completed_Pt_Email;
-    Completed_Pt_Password; User_Email; User_Password; Clinician_Email;
-    Clinician_Password; Researcher_Email; Researcher_Password;
-    Content_Author_Email; Content_Author_Password; Participant_Phone_Number;
+    Completed_Pt_Password; Mobile_Comp_Pt_Email; Mobile_Comp_Pt_Password;
+    PT61_Email; PT61_Password; Participant_5_Email; Participant_5_Password;
+    User_Email; User_Password; Clinician_Email; Clinician_Password;
+    Researcher_Email; Researcher_Password; Content_Author_Email;
+    Content_Author_Password; Participant_Phone_Number;
     Participant_Phone_Number_1; Audio_File
 
 To run on Sauce Labs you will need to set the following environment variables,
