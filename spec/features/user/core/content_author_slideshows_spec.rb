@@ -1,10 +1,11 @@
-# filename: content_author_slideshows_spec.rb
+# filename: ./spec/features/user/core/content_author_slideshows_spec.rb
 
 describe 'Content Author signs in, navigates to Slideshows tool,',
          type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Content_Author_Email'], ENV['Content_Author_Password'])
+      sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+                   ENV['Content_Author_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"

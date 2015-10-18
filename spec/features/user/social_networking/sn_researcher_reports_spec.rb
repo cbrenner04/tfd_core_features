@@ -1,9 +1,9 @@
-# filename: researcher_reports_spec.rb
+# filename: ./spec/features/user/social_networking/sn_researcher_reports_spec.rb
 
 require 'uuid'
 require 'fileutils'
 
-describe 'Researcher signs in,' do
+describe 'Researcher signs in,', :social_networking, type: :feature do
   before do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
@@ -29,50 +29,30 @@ describe 'Researcher signs in,' do
 
   it 'navigates to CSV reports, downloads all reports' do
     @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
-    download_link = @driver.find_elements(class: 'list-group-item')[0]
+
+    download_link = @driver.find_elements(class: 'list-group-item')[14]
     download_link.click
 
-    download_link = @driver.find_elements(class: 'list-group-item')[1]
+    download_link = @driver.find_elements(class: 'list-group-item')[15]
     download_link.click
 
-    download_link = @driver.find_elements(class: 'list-group-item')[2]
+    download_link = @driver.find_elements(class: 'list-group-item')[16]
     download_link.click
 
-    download_link = @driver.find_elements(class: 'list-group-item')[3]
+    download_link = @driver.find_elements(class: 'list-group-item')[17]
     download_link.click
 
-    download_link = @driver.find_elements(class: 'list-group-item')[4]
+    download_link = @driver.find_elements(class: 'list-group-item')[18]
     download_link.click
 
-    download_link = @driver.find_elements(class: 'list-group-item')[5]
+    download_link = @driver.find_elements(class: 'list-group-item')[19]
     download_link.click
 
-    download_link = @driver.find_elements(class: 'list-group-item')[6]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[7]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[8]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[9]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[10]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[11]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[12]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[13]
+    download_link = @driver.find_elements(class: 'list-group-item')[20]
     download_link.click
 
     files = Dir.glob("#{@download_dir}/**")
-    files.count.should be == 14
+    files.count.should be == 7
 
     sorted_files = files.sort_by { |file| File.mtime(file) }
     File.size(sorted_files.last).should be > 0

@@ -1,10 +1,11 @@
 # filename: researcher_participants_spec.rb
 
 describe 'Researcher signs in, navigates to Participants,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Researcher_Email'], ENV['Researcher_Password'])
+      sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+                   ENV['Researcher_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/participants"
@@ -26,6 +27,7 @@ describe 'Researcher signs in, navigates to Participants,',
   end
 
   it 'updates a participant' do
+    find('h1', text: 'Participants')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'TFD-1111'
     click_on 'Edit'
@@ -70,6 +72,10 @@ describe 'Researcher signs in, navigates to Participants,',
     click_on 'Tests'
     click_on 'Assign New Group'
     select 'Group 1', from: 'membership_group_id'
+    unless ENV['tfd']
+      fill_in 'membership_display_name', with: 'Tester'
+    end
+
     fill_in 'membership_start_date', with: 'mm/dd/yyyy'
     next_year = Date.today + 365
     fill_in 'membership_end_date', with: next_year.strftime('%Y-%m-%d')
@@ -84,6 +90,10 @@ describe 'Researcher signs in, navigates to Participants,',
       click_on 'Tests'
       click_on 'Assign New Group'
       select 'Group 1', from: 'membership_group_id'
+      unless ENV['tfd']
+        fill_in 'membership_display_name', with: 'Tester'
+      end
+
       fill_in 'membership_start_date',
               with: Date.today.prev_day.strftime('%Y-%m-%d')
       fill_in 'membership_end_date', with: 'mm/dd/yyyy'
@@ -97,6 +107,10 @@ describe 'Researcher signs in, navigates to Participants,',
       click_on 'Tests'
       click_on 'Assign New Group'
       select 'Group 1', from: 'membership_group_id'
+      unless ENV['tfd']
+        fill_in 'membership_display_name', with: 'Tester'
+      end
+
       fill_in 'membership_start_date',
               with: Date.today.prev_day.strftime('%Y-%m-%d')
       past_date = Date.today - 5
@@ -119,8 +133,15 @@ describe 'Researcher signs in, navigates to Participants,',
       fill_in 'membership_end_date', with: next_year.strftime('%Y-%m-%d')
     end
 
-    weeks_later = Date.today + 20 * 7
-    expect(page).to have_content 'Standard number of weeks: 20, Projected End' \
+    if ENV['tfd']
+      weeks_later = Date.today + 20 * 7
+      week_num = 20
+    else
+      weeks_later = Date.today + 56
+      week_num = 8
+    end
+
+    expect(page).to have_content "Standard number of weeks: #{week_num}, Projected End" \
                                  ' Date from today: ' \
                                  "#{weeks_later.strftime('%m/%d/%Y')}"
 

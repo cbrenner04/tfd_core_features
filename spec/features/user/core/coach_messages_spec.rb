@@ -1,16 +1,18 @@
-# filename: coach_messages_spec.rb
+# filename: ./spec/features/user/core/coach_messages_spec.rb
 
 describe 'Coach signs in and navigates to messages tool for Group 1',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_user(ENV['Clinician_Email'], ENV['Clinician_Password'])
+      sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
+                   ENV['Clinician_Password'])
     end
   end
 
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Clinician_Email'], ENV['Clinician_Password'])
+      sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
+                   ENV['Clinician_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -45,7 +47,8 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     expect(page).to have_content 'Message saved'
 
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+      sign_in_pt(ENV['Participant_Email'], 'TFD Moderator',
+                 ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Reply: I like this app'
     end
@@ -62,7 +65,8 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     expect(page).to have_content 'Message saved'
 
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], ENV['Participant_Password'])
+      sign_in_pt(ENV['Participant_Email'], 'TFD Moderator',
+                 ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Testing compose functionality'
     end

@@ -1,10 +1,11 @@
-# filename: researcher_users_spec.rb
+# filename: ./spec/features/user/core/researcher_users_spec.rb
 
 describe 'Research signs in, navigates to Users,',
-         type: :feature, sauce: sauce_labs do
+         :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Researcher_Email'], ENV['Researcher_Password'])
+      sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+                   ENV['Researcher_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/users"
@@ -157,6 +158,6 @@ describe 'Research signs in, navigates to Users,',
 
     expect(page).to have_content 'Arms'
 
-    sign_out
+    sign_out('TFD Moderator')
   end
 end

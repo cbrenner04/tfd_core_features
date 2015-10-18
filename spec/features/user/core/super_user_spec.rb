@@ -1,9 +1,10 @@
-# filename: super_user_spec.rb
+# filename: ./spec/features/user/core/super_user_spec.rb
 
-describe 'Super User signs in,', type: :feature, sauce: sauce_labs do
+describe 'Super User signs in,', :core, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_user(ENV['User_Email'], ENV['User_Password'])
+      sign_in_user(ENV['User_Email'], 'TFD Moderator',
+                   ENV['User_Password'])
     end
 
     before do
@@ -12,7 +13,8 @@ describe 'Super User signs in,', type: :feature, sauce: sauce_labs do
 
   else
     before do
-      sign_in_user(ENV['User_Email'], ENV['User_Password'])
+      sign_in_user(ENV['User_Email'], 'TFD Moderator',
+                   ENV['User_Password'])
     end
   end
 
@@ -95,6 +97,6 @@ describe 'Super User signs in,', type: :feature, sauce: sauce_labs do
 
     expect(page).to_not have_content 'superuser@test.com'
 
-    sign_out
+    sign_out('admin1')
   end
 end

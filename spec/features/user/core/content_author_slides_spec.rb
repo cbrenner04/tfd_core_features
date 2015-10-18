@@ -1,11 +1,12 @@
-# filename: content_author_slides_spec.rb
+# filename: ./spec/features/user/core/content_author_slides_spec.rb
 
 describe 'Content Author signs in, navigates to Arm 1,',
          type: :feature, sauce: sauce_labs do
   describe 'navigates to Lesson Modules, selects a lesson,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Content_Author_Email'], ENV['Content_Author_Password'])
+        sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+                     ENV['Content_Author_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -140,7 +141,8 @@ describe 'Content Author signs in, navigates to Arm 1,',
   describe 'navigates to Slideshows, selects a slideshow,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Content_Author_Email'], ENV['Content_Author_Password'])
+        sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+                     ENV['Content_Author_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -256,6 +258,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       click_on 'Update'
       expect(page).to have_content 'Testing adding/updating slides/lessons'
 
+      find('small', text: 'Testing adding/updating slides/lessons')
       page.all('a', text: 'Edit')[5].click
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')

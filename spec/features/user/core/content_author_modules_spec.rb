@@ -1,10 +1,11 @@
-# filename: content_author_modules_spec.rb
+# filename: ./spec/features/user/core/content_author_modules_spec.rb
 
 describe 'Content Author signs in, visits Content Modules tool,',
          type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Content_Author_Email'], ENV['Content_Author_Password'])
+      sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+                   ENV['Content_Author_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -23,6 +24,9 @@ describe 'Content Author signs in, visits Content Modules tool,',
   end
 
   it 'edits a module' do
+    expect(page).to have_content 'Listing Content Modules'
+
+    page.execute_script('window.scrollTo(0,5000)')
     click_on '#1 Awareness'
     click_on 'Edit'
     select 'THINK', from: 'content_module_bit_core_tool_id'
@@ -42,12 +46,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
   end
 
   it 'destroys a module' do
-    unless page.has_text? 'Test content module'
-      page.execute_script('window.scrollTo(0,5000)')
-      within('.pagination') do
-        click_on '2'
-      end
-    end
+    go_to_next_page('Test content module')
 
     click_on 'Test content module'
     page.driver.execute_script('window.confirm = function() {return true}')
@@ -61,11 +60,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
   it 'creates a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    unless page.has_text? 'Home Introduction'
-      within('.pagination') do
-        click_on '2'
-      end
-    end
+    go_to_next_page('Home Introduction')
 
     click_on 'Home Introduction'
 
@@ -91,11 +86,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
   it 'updates a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    unless page.has_text? 'Home Introduction'
-      within('.pagination') do
-        click_on '2'
-      end
-    end
+    go_to_next_page('Home Introduction')
 
     click_on 'Home Introduction'
     click_on '1 slideshow provider'
@@ -123,11 +114,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
   it 'destroys a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    unless page.has_text? 'Home Introduction'
-      within('.pagination') do
-        click_on '2'
-      end
-    end
+    go_to_next_page('Home Introduction')
 
     click_on 'Home Introduction'
     click_on '4 slideshow provider'

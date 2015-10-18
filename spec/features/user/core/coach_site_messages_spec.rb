@@ -1,10 +1,11 @@
-# filename: coach_site_messages_spec.rb
+# filename: ./spec/features/user/core/coach_site_messages_spec.rb
 
 describe 'Coach signs in, navigates to Site Messages tool,',
          type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Clinician_Email'], ENV['Clinician_Password'])
+      sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+                   ENV['Clinician_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -56,7 +57,5 @@ describe 'Coach signs in, navigates to Site Messages tool,',
     end
 
     expect(page).to have_content 'Arms'
-
-    sign_out
   end
 end
