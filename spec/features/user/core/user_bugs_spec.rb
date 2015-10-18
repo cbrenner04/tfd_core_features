@@ -42,9 +42,16 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
         fill_in 'membership_end_date', with: next_year.strftime('%Y-%m-%d')
       end
 
-      weeks_later = Date.today + 20 * 7
-      expect(page).to have_content 'Standard number of weeks: 20, Projected ' \
-                                   'End Date from today: ' \
+      if ENV['tfd']
+        weeks_later = Date.today + 20 * 7
+        week_num = 20
+      else
+        weeks_later = Date.today + 56
+        week_num = 8
+      end
+
+      expect(page).to have_content "Standard number of weeks: #{week_num}, " \
+                                   'Projected End Date from today: ' \
                                    "#{weeks_later.strftime('%m/%d/%Y')}"
 
       click_on 'Assign'
@@ -79,41 +86,25 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
       click_on 'Arms'
       find('h1', text: 'Arms')
       click_on 'Arm 1'
-      click_on 'Group 1'
+      click_on 'Group 6'
       click_on 'Patient Dashboard'
       within('#patients') do
         within('table#patients tr', text: 'participant61') do
           expect(page).to have_content 'participant61 0 6'
-
-          if ENV['tfd']
-            date1 = Date.today - 4
-            total = 11
-          else
-            date1 = Date.today
-            total = 13
-          end
-
-          expect(page).to have_content "#{total} #{date1.strftime('%b %d %Y')}"
+          
+          date1 = Date.today - 4
+          expect(page).to have_content "11 #{date1.strftime('%b %d %Y')}"
         end
       end
 
       select_patient('participant61')
       within('.panel.panel-default', text: 'Login Info') do
-        if ENV['tfd']
-          date1 = Date.today - 4
-          total = 11
-          logins = 0
-        else
-          date1 = Date.today
-          total = 13
-          logins = 2
-        end
-
+        date1 = Date.today - 4
         expect(page).to have_content 'Last Logged In: ' \
                                      "#{date1.strftime('%A, %b %d %Y')}"
 
-        expect(page).to have_content "Logins Today: #{logins}\nLogins during this " \
-                                     "treatment week: #{logins}\nTotal Logins:#{total}"
+        expect(page).to have_content "Logins Today: 0\nLogins during this " \
+                                     "treatment week: 0\nTotal Logins:#{total}"
       end
     end
   end

@@ -158,8 +158,11 @@ describe 'Researcher signs in, navigates to Participants,',
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Tests'
     click_on 'Assign Coach/Moderator'
-    select 'clinician1@example.com', from: 'coach_assignment_coach_id'
-    click_on 'Assign'
+    if ENV['tfd']
+      select 'clinician1@example.com', from: 'coach_assignment_coach_id'
+      click_on 'Assign'
+    end
+
     expect(page).to have_content 'Coach/Moderator was successfully assigned'
 
     expect(page).to have_content 'Current Coach/Moderator: ' \

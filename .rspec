@@ -1,5 +1,5 @@
 --require spec_helper
---require configure_cloud.rb
+--require env_variables.rb
 --require support/feature_helper.rb
 --format documentation
 --format progress

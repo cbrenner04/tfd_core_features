@@ -20,26 +20,9 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       click_on '#2 Planning'
       click_on 'Next'
-      find('#new_activity_radio').click
-      fill_in 'activity_activity_type_new_title', with: 'New planned activity'
+      plan_activity('New planned activity', 6, 3)
       page.execute_script('window.scrollTo(0,5000)')
-      find('.fa.fa-calendar').click
-      pick_tomorrow
-      choose_rating('pleasure_0', 6)
-      choose_rating('accomplishment_0', 3)
-      accept_social
-      expect(page).to have_content 'Activity saved'
-
-      page.execute_script('window.scrollTo(0,5000)')
-      find('#new_activity_radio').click
-      fill_in 'activity_activity_type_new_title',
-              with: 'Another planned activity'
-      find('.fa.fa-calendar').click
-      pick_tomorrow
-      choose_rating('pleasure_0', 4)
-      choose_rating('accomplishment_0', 8)
-      accept_social
-      expect(page).to have_content 'Activity saved'
+      plan_activity('Another planned activity', 4, 8)
 
       find('h1', text: 'OK...')
       click_on 'Next'
@@ -53,15 +36,7 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
        'multiple alerts' do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       click_on 'Add a New Activity'
-      find('#new_activity_radio').click
-      fill_in 'activity_activity_type_new_title', with: 'New planned activity'
-      page.execute_script('window.scrollTo(0,5000)')
-      find('.fa.fa-calendar').click
-      pick_tomorrow
-      choose_rating('pleasure_0', 4)
-      choose_rating('accomplishment_0', 3)
-      accept_social
-      expect(page).to have_content 'Activity saved'
+      plan_activity('New planned activity', 4, 3)
     end
 
     it 'navigates to the DO tool, visits Your Activities, selects Previous ' \
@@ -81,17 +56,11 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       choose_rating('pleasure_0', 9)
       choose_rating('accomplishment_0', 3)
       accept_social
-      expect(page).to have_content 'Activity saved'
 
-      expect(page).to have_content 'Take a look - does this all seem right? ' \
-                                   'Recently, you...'
-
-      click_on 'Next'
-      expect(page).to have_content 'Things you found fun.'
-
-      click_on 'Next'
-      expect(page).to have_content "Things that make you feel like you've " \
-                                   'accomplished something.'
+      ['recent', 'fun', 'accomplished'].each do |x|
+        find("##{x}_activities")
+        click_on 'Next'
+      end
 
       click_on 'Next'
       expect(page).to have_content 'Add a New Activity'

@@ -2,7 +2,7 @@
 
 def sign_in_pt(participant, old_participant, password)
   visit "#{ENV['Base_URL']}/participants/sign_in"
-  if ENV['safari'] && page.has_css?('.navbar-collapse', text: 'Sign Out')
+  unless page.has_no_css?('.navbar-collapse', text: 'Sign Out')
     sign_out(old_participant)
   end
   if page.has_css?('#new_participant')
@@ -19,7 +19,7 @@ end
 
 def sign_in_user(user, old_user, password)
   visit "#{ENV['Base_URL']}/users/sign_in"
-  if ENV['safari'] && page.has_css?('.navbar-collapse', text: 'Sign Out')
+  unless page.has_no_css?('.navbar-collapse', text: 'Sign Out')
     sign_out(old_user)
   end
   if page.has_css?('#new_user')
@@ -123,4 +123,16 @@ def answer_profile_question(question, id, answer)
     fill_in "new-answer-description-#{id}", with: answer
     click_on 'Save'
   end
+end
+
+def plan_activity(activity, x, y)
+  find('#new_activity_radio').click
+  fill_in 'activity_activity_type_new_title', with: activity
+  page.execute_script('window.scrollTo(0,5000)')
+  find('.fa.fa-calendar').click
+  pick_tomorrow
+  choose_rating('pleasure_0', x)
+  choose_rating('accomplishment_0', y)
+  accept_social
+  expect(page).to have_content 'Activity saved'
 end

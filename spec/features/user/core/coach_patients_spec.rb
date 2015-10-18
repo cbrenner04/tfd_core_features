@@ -62,10 +62,17 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     it 'views General Patient Info' do
       select_patient('TFD-1111')
       within('.panel.panel-default', text: 'General Patient Info') do
-        weeks_later = Date.today + 20 * 7
+        if ENV['tfd']
+          weeks_later = Date.today + 20 * 7
+          week_num = 20
+        else
+          weeks_later = Date.today + 56
+          week_num = 8
+        end
+
         expect(page).to have_content 'Started on: ' \
                                      "#{Date.today.strftime('%A, %m/%d/%Y')}" \
-                                     "\n20 weeks from the start date is: " \
+                                     "\n#{week_num} weeks from the start date is: " \
                                      "#{weeks_later.strftime('%A, %m/%d/%Y')}" \
                                      "\nStatus: Active Currently in week 1"
 
@@ -372,9 +379,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
         sign_in_pt(ENV['Participant_Email'], 'TFD Moderator',
                    ENV['Participant_Password'])
         expect(page).to have_content 'HOME'
-        within '.navbar-collapse' do
-          click_on 'Sign Out'
-        end
+        sign_out('participant1')
       end
 
       it 'Coach signs in, navigates to Patient Dashboard, views ' \

@@ -69,7 +69,8 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     within('.panel.panel-default', text: 'Lesson View Summary') do
       table_row_0 = page.all('tr:nth-child(1)')
       within table_row_0[0] do
-        expect(page).to have_content 'Home Introduction 1 of 5 COMPLETE'
+        expect(page).to have_content 'Testing adding/updating slides/lessons ' \
+                                     '1 of 5 COMPLETE'
 
         page.execute_script('window.scrollTo(0,5000)')
         click_on 'View Complete Participants'

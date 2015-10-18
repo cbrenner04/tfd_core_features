@@ -103,16 +103,16 @@ describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
 
   it 'uses navbar functionality in all of FEEL' do
     visit "#{ENV['Base_URL']}/navigator/modules/86966983"
-    click_on 'FEEL'
-    click_on 'Your Recent Moods & Emotions'
-    expect(page).to have_content 'Positive and Negative Emotions'
 
-    click_on 'FEEL'
-    click_on 'Tracking Your Mood & Emotions'
-    expect(page).to have_content 'Rate your Mood'
+    tool = ['Your Recent Moods & Emotions', 'Tracking Your Mood & Emotions',
+            'FEEL Home']
+    content = ['Positive and Negative Emotions', 'Rate your Mood',
+               'Feeling Tracker Landing']
 
-    click_on 'FEEL'
-    click_on 'FEEL Home'
-    expect(page).to have_content 'Feeling Tracker Landing'
+    tool.zip(content) do |t, c|
+      click_on 'FEEL'
+      click_on t
+      expect(page).to have_content c
+    end
   end
 end

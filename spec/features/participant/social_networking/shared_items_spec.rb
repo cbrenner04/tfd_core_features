@@ -95,65 +95,10 @@ describe 'Active participant in a social arm signs in,',
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
     end
 
-    # Monitoring an activity is not longer something can be shared, holding
-    # on to the code in case it is reinstated in some way
-    # it 'shares DO > Awareness responses' do
-    #   click_on '#1 Awareness'
-    #   click_on 'Next'
-    # find('h1', text: 'Just a slide')
-    # click_on 'Next'
-    #   select "#{Date.today.strftime('%a')} 6 AM",
-    #          from: 'awake_period_start_time'
-    #   select "#{Date.today.strftime('%a')} 8 AM",
-    #           from: 'awake_period_end_time'
-    #   click_on 'Create'
-    #   expect(page).to have_content 'Awake Period saved'
-
-    #   fill_in 'activity_type_0', with: 'public sleep 1'
-    #   choose_rating('pleasure_0', 6)
-    #   choose_rating('accomplishment_0', 7)
-    #   fill_in 'activity_type_1', with: 'private sleep'
-    #   choose_rating('pleasure_1', 2)
-    #   choose_rating('accomplishment_1', 3)
-    #   shareable_form = page.all('.new-shareable-form-after-form-groups')
-    #   within shareable_form[1] do
-    #     choose 'No'
-    #   end
-
-    #   accept_social
-    #   expect(page).to have_content 'Activity saved'
-
-    #   expect(page).to have_content 'Take a look'
-
-    #   click_on 'Next'
-    #   expect(page).to have_content 'Things you found fun.'
-
-    #   click_on 'Next'
-    #   expect(page).to have_content "Things that make you feel like you've " \
-    #                                'accomplished something.'
-
-    #   click_on 'Next'
-    #   expect(page).to have_content 'Add a New Activity'
-
-    #   visit ENV['Base_URL']
-    #   find_feed_item('public sleep 1')
-    #   expect(page).to_not have_content 'private sleep'
-
-    #   expect(page).to have_content 'public sleep 1'
-    # end
-
     it 'shares DO > Planning responses' do
       click_on '#2 Planning'
       click_on 'Next'
-      find('#new_activity_radio').click
-      fill_in 'activity_activity_type_new_title', with: 'New public activity'
-      page.execute_script('window.scrollTo(0,5000)')
-      find('.fa.fa-calendar').click
-      pick_tomorrow
-      choose_rating('pleasure_0', 6)
-      choose_rating('accomplishment_0', 3)
-      accept_social
-      expect(page).to have_content 'Activity saved'
+      plan_activity('New public activity', 6, 3)
 
       page.execute_script('window.scrollTo(0,5000)')
       find('#new_activity_radio').click
@@ -190,15 +135,7 @@ describe 'Active participant in a social arm signs in,',
 
     it 'shares Add a New Activity responses' do
       click_on 'Add a New Activity'
-      find('#new_activity_radio').click
-      fill_in 'activity_activity_type_new_title', with: 'New public activity 2'
-      page.execute_script('window.scrollTo(0,5000)')
-      find('.fa.fa-calendar').click
-      pick_tomorrow
-      choose_rating('pleasure_0', 4)
-      choose_rating('accomplishment_0', 3)
-      accept_social
-      expect(page).to have_content 'Activity saved'
+      plan_activity('New public activity 2', 4, 3)
 
       visit ENV['Base_URL']
       find_feed_item('New public activity 2')

@@ -72,11 +72,14 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
     expect(page).to_not have_content 'Manage Content'
 
     click_on 'Group 1'
-    expect(page).to have_content 'Patient Dashboard  Messaging'
+    expect(page).to have_content 'Patient Dashboard'
+
+    expect(page).to have_content 'Messaging'
 
     unless ENV['tfd']
-      expect(page).to have_content 'Group Dashboard  Moderate  ' \
-                                   'Manage Profile Questions'
+      expect(page).to have_content 'Group Dashboard'
+
+      expect(page).to have_content 'Moderate  Manage Profile Questions'
     end
 
     expect(page).to_not have_content 'Manage Tasks'
@@ -172,12 +175,16 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
 
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Group 1'
-    expect(page).to have_content 'Patient Dashboard  Messaging  ' \
-                                 'Manage Tasks  Edit  Destroy'
+    expect(page).to have_content 'Patient Dashboard'
+
+    expect(page).to have_content 'Messaging'
+
+    expect(page).to have_content 'Manage Tasks  Edit  Destroy'
 
     unless ENV['tfd']
-      expect(page).to have_content 'Group Dashboard  Moderate  ' \
-                                   'Manage Profile Questions'
+      expect(page).to have_content 'Group Dashboard'
+
+      expect(page).to have_content 'Moderate  Manage Profile Questions'
     end
   end
 

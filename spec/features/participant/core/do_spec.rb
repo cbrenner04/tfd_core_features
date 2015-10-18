@@ -30,56 +30,33 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     click_on 'Create'
     expect(page).to have_content 'Awake Period saved'
 
-    fill_in 'activity_type_0', with: 'Get ready for work'
-    choose_rating('pleasure_0', 6)
-    choose_rating('accomplishment_0', 7)
-    fill_in 'activity_type_1', with: 'Travel to work'
-    choose_rating('pleasure_1', 3)
-    choose_rating('accomplishment_1', 5)
-    fill_in 'activity_type_2', with: 'Work'
-    choose_rating('pleasure_2', 5)
-    choose_rating('accomplishment_2', 8)
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'copy_3'
-    click_on 'copy_4'
-    click_on 'copy_5'
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'copy_6'
-    click_on 'copy_7'
-    click_on 'copy_8'
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'copy_9'
-    fill_in 'activity_type_10', with: 'Travel from work'
-    choose_rating('pleasure_10', 5)
-    choose_rating('accomplishment_10', 8)
-    fill_in 'activity_type_11', with: 'eat dinner'
-    choose_rating('pleasure_11', 8)
-    choose_rating('accomplishment_11', 8)
-    fill_in 'activity_type_12', with: 'Watch TV'
-    choose_rating('pleasure_12', 9)
-    choose_rating('accomplishment_12', 3)
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'copy_13'
-    fill_in 'activity_type_14', with: 'Get ready for bed'
-    choose_rating('pleasure_14', 2)
-    choose_rating('accomplishment_14', 3)
-    click_on 'Next'
-    within('#recent_activities') do
-      expect(page).to have_css('tr', count: '17')
-    end
+    activity = ['Get ready for work', 'Travel to work', 'Work', 'Work', 'Work',
+                'Work', 'Work', 'Work', 'Work', 'Work', 'Travel from work',
+                'Eat dinner', 'Watch TV', 'read', 'Get ready for bed']
+    pleasure = [6, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 9, 9, 2]
+    accomplishment = [7, 5, 8, 8, 8, 8, 8, 8, 8, 8,8, 8, 3, 3, 3]
 
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Next'
-    within('#fun_activities') do
-      expect(page).to have_css('tr', count: '4')
+    (0..14).zip(activity, pleasure, accomplishment) do |a, b, c, d|
+      fill_in "activity_type_#{a}", with: b
+      choose_rating("pleasure_#{a}", c)
+      choose_rating("accomplishment_#{a}", d)
+      page.execute_script('window.scrollBy(0,500)')
     end
 
     click_on 'Next'
-    within('#accomplished_activities') do
-      expect(page).to have_css('tr', count: '5')
+
+    table = ['recent', 'fun', 'accomplished']
+    row = ['17', '5', '5']
+
+    table.zip(row) do |x, y|
+      within("##{x}_activities") do
+        expect(page).to have_css('tr', count: y)
+      end
+
+      page.execute_script('window.scrollTo(0,5000)')
+      click_on 'Next'
     end
 
-    click_on 'Next'
     find('h1', text: 'Do Landing')
   end
 
@@ -116,36 +93,21 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     click_on 'copy_1'
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Next'
-    find('#recent_activities')
-    click_on 'Next'
-    find('#fun_activities')
-    click_on 'Next'
-    find('#accomplished_activities')
-    click_on 'Next'
+
+    ['recent', 'fun', 'accomplished'].each do |x|
+      find("##{x}_activities")
+      click_on 'Next'
+    end
+
     find('h1', text: 'Do Landing')
   end
 
   it 'completes Planning' do
     click_on '#2 Planning'
     click_on 'Next'
-    find('#new_activity_radio').click
-    fill_in 'activity_activity_type_new_title', with: 'New planned activity'
-    page.execute_script('window.scrollTo(0,5000)')
-    find('.fa.fa-calendar').click
-    pick_tomorrow
-    choose_rating('pleasure_0', 6)
-    choose_rating('accomplishment_0', 3)
-    accept_social
-    expect(page).to have_content 'Activity saved'
-
-    page.execute_script('window.scrollTo(0,5000)')
-    find('#new_activity_radio').click
-    fill_in 'activity_activity_type_new_title', with: 'Another planned activity'
-    find('.fa.fa-calendar').click
-    pick_tomorrow
-    choose_rating('pleasure_0', 4)
-    choose_rating('accomplishment_0', 8)
-    accept_social
+    plan_activity('New planned activity', 6, 3)
+    page.execute_script('window.scrollBy(0,500)')
+    plan_activity('Another planned activity', 4, 8)
     find('h1', text: 'OK...')
     click_on 'Next'
     within('#previous_activities') do
@@ -178,15 +140,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
 
   it 'completes Plan a New Activity' do
     click_on 'Add a New Activity'
-    find('#new_activity_radio').click
-    fill_in 'activity_activity_type_new_title', with: 'New planned activity'
-    page.execute_script('window.scrollTo(0,5000)')
-    find('.fa.fa-calendar').click
-    pick_tomorrow
-    choose_rating('pleasure_0', 4)
-    choose_rating('accomplishment_0', 3)
-    accept_social
-    expect(page).to have_content 'Activity saved'
+    plan_activity('New planned activity', 4, 3)
   end
 
   it 'uses Your Activities viz' do
@@ -244,33 +198,18 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     visit "#{ENV['Base_URL']}/navigator/modules/339588004"
     expect(page).to have_content 'This is just the beginning...'
 
-    click_on 'DO'
-    click_on '#2 Planning'
-    expect(page).to have_content 'The last few times you were here...'
+    tool = ['#2 Planning', '#1 Awareness', '#3 Doing', 'Add a New Activity',
+            'Your Activities', 'View Planned Activities', 'DO Home']
+    content = ['The last few times you were here...',
+               'This is just the beginning...', 'Welcome back!',
+               "But you don't have to start from scratch", 'Today', 'Speech',
+               'Add a New Activity']
 
-    click_on 'DO'
-    click_on '#1 Awareness'
-    expect(page).to have_content 'This is just the beginning...'
-
-    click_on 'DO'
-    click_on '#3 Doing'
-    expect(page).to have_content 'Welcome back!'
-
-    click_on 'DO'
-    click_on 'Add a New Activity'
-    expect(page).to have_content "But you don't have to start from scratch,"
-
-    click_on 'DO'
-    click_on 'Your Activities'
-    expect(page).to have_content 'Today'
-
-    click_on 'DO'
-    click_on 'View Planned Activities'
-    expect(page).to have_content 'Speech'
-
-    click_on 'DO'
-    click_on 'DO Home'
-    expect(page).to have_content 'Add a New Activity'
+    tool.zip(content) do |t, c|
+      click_on 'DO'
+      click_on t
+      expect(page).to have_content c
+    end
   end
 
   it 'uses skip functionality in all of DO slideshows' do
@@ -327,22 +266,25 @@ describe 'Active participant in group 3 signs in, navigates to DO tool,',
     find('h1', text: 'Just a slide')
     click_on 'Next'
     click_on 'Complete'
-    fill_in 'activity_type_0', with: 'Get ready for work'
-    choose_rating('pleasure_0', 6)
-    choose_rating('accomplishment_0', 7)
-    fill_in 'activity_type_1', with: 'Travel to work'
-    choose_rating('pleasure_1', 2)
-    choose_rating('accomplishment_1', 3)
-    fill_in 'activity_type_2', with: 'Work'
-    choose_rating('pleasure_2', 8)
-    choose_rating('accomplishment_2', 9)
+
+    activity = ['Get ready for work', 'Travel to work', 'Work']
+    pleasure = [6, 2, 8]
+    accomplishment = [7, 3, 9]
+
+    (0..2).zip(activity, pleasure, accomplishment) do |a, b, c, d|
+      fill_in "activity_type_#{a}", with: b
+      choose_rating("pleasure_#{a}", c)
+      choose_rating("accomplishment_#{a}", d)
+      page.execute_script('window.scrollBy(0,500)')
+    end
+
     click_on 'Next'
-    find('#recent_activities')
-    click_on 'Next'
-    find('#fun_activities')
-    click_on 'Next'
-    find('#accomplished_activities')
-    click_on 'Next'
+
+    ['recent', 'fun', 'accomplished'].each do |x|
+      find("##{x}_activities")
+      click_on 'Next'
+    end
+
     find('h1', text: 'Do Landing')
   end
 

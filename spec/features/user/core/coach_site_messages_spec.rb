@@ -17,7 +17,7 @@ describe 'Coach signs in, navigates to Site Messages tool,',
 
   it 'creates and sends a new site message' do
     click_on 'New'
-    expect(page).to have_content 'localhost'
+    expect(page).to have_content "#{app_email}"
 
     select 'TFD-1111', from: 'site_message_participant_id'
     fill_in 'site_message_subject', with: 'Testing site messaging'
@@ -57,5 +57,17 @@ describe 'Coach signs in, navigates to Site Messages tool,',
     end
 
     expect(page).to have_content 'Arms'
+  end
+end
+
+def app_email
+  if ENV['tfd']
+    'steppedcare-no-reply'
+  elsif ENV['tfdso']
+    'moodtech-no-reply'
+  elsif ENV['sunnyside']
+    'sunnyside-no-reply'
+  elsif ENV['marigold']
+    'marigold-no-reply'
   end
 end

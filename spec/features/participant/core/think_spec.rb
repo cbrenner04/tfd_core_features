@@ -143,25 +143,18 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
   it 'uses navbar functionality for all of THINK' do
     visit "#{ENV['Base_URL']}/navigator/modules/954850709"
-    click_on 'THINK'
-    click_on '#2 Patterns'
-    expect(page).to have_content 'Like we said, you are what you think...'
 
-    click_on 'THINK'
-    click_on '#1 Identifying'
-    expect(page).to have_content 'You are what you think...'
-
-    click_on 'THINK'
-    click_on '#3 Reshape'
-    expect(page).to have_content 'Challenging Harmful Thoughts'
-
-    click_on 'THINK'
-    click_on 'Add a New Thought'
-    expect(page).to have_content 'Add a New Harmful Thought'
-
-    click_on 'THINK'
-    click_on 'Thoughts'
-    expect(page).to have_content 'Harmful Thoughts'
+    tool = ['#2 Patterns', '#1 Identifying', '#3 Reshape', 'Add a New Thought',
+            'Thoughts']
+    content = ['Like we said, you are what you think...',
+               'You are what you think...', 'Challenging Harmful Thoughts',
+               'Add a New Harmful Thought', 'Harmful Thoughts']
+    
+    tool.zip(content) do |t, c|
+      click_on 'THINK'
+      click_on t
+      expect(page).to have_content c
+    end
   end
 
   it 'uses the visualization' do
@@ -171,9 +164,12 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
     find('.thoughtviz_text.viz-clickable',
          text: 'Magnification or Catastro...').click
-    expect(page).to have_content 'Testing add a new thought'
+    within('.modal-dialog') do
+      expect(page).to have_content 'Testing add a new thought'
 
-    click_on 'Close'
+      click_on 'Close'
+    end
+
     expect(page).to have_content 'Click a bubble for more info'
 
     sign_out('participant1')

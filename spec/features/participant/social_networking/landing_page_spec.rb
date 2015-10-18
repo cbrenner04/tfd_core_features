@@ -23,20 +23,19 @@ describe 'SocialNetworking Landing Page, ',
       expect(page).to have_content 'Fill out your profile so other group ' \
                                    'members can get to know you!'
 
-      answer_profile_question('What are your hobbies?', '781294868', 'Running')
+      answer = ['What are your hobbies?', 'What is your favorite color?',
+                'Animal, vegetable or mineral?', 'Group 1 profile question']
+      id = ['781294868', '932760744', '10484799', '933797305']
+      answer =  ['Running', 'Blue', 'Mineral', 'Group 1']
+      
+      answer.zip(id, answer) do |x, y, z|
+        answer_profile_question(x, y, z)
+        page.execute_script('window.scrollBy(0,500)')
+      end
 
       expect(page).to_not have_content 'Fill out your profile so other ' \
                                        'group members can get to know you!'
 
-      page.execute_script('window.scrollBy(0,500)')
-      answer_profile_question('What is your favorite color?', '932760744',
-                              'Blue')
-      page.execute_script('window.scrollBy(0,500)')
-      answer_profile_question('Animal, vegetable or mineral?', '10484799',
-                              'Mineral')
-      page.execute_script('window.scrollBy(0,500)')
-      answer_profile_question('Group 1 profile question', '933797305',
-                              'Group 1')
       within('.panel.panel-default.ng-scope',
              text: 'Group 1 profile question') do
         expect(page).to have_css '.fa.fa-pencil'
@@ -58,6 +57,7 @@ describe 'SocialNetworking Landing Page, ',
     end
 
     it "does not see 'Last seen:' for moderator" do
+      find('h1', text: 'HOME')
       within('.col-xs-12.col-md-4.text-center.ng-scope', text: 'ThinkFeelDo') do
         expect('.profile-border.profile-last-seen')
           .to_not have_content 'Last seen:'
