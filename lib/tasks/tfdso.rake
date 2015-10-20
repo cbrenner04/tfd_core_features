@@ -87,7 +87,7 @@ namespace :tfdso do
   # load staging version of think_feel_do_so on staging
 
   desc 'Returning think_feel_do_so staging database on staging'
-  task :load_tfdso_staging do
+  task :return_staging do
     Dir.chdir('/Users/Chris/Work/think_feel_do_so') do
       system('cap staging deploy:use_staging_db')
     end

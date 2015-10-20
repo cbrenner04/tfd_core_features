@@ -16,10 +16,13 @@ end
 
 def driver
   if ENV['safari']
+    puts 'Running in Safari'
     :safari
   elsif ENV['chrome']
+    puts 'Running in Chrome'
     :chrome
   else
+    puts 'Running in Firefox'
     :firefox
   end
 end
