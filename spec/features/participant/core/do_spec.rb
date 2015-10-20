@@ -90,6 +90,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     fill_in 'activity_type_0', with: 'Sleep'
     choose_rating('pleasure_0', 6)
     choose_rating('accomplishment_0', 1)
+    page.execute_script('window.scrollBy(0,500)')
     click_on 'copy_1'
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Next'
@@ -127,6 +128,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     find('.btn.btn-success').click
     select '7', from: 'activity[actual_pleasure_intensity]'
     select '5', from: 'activity[actual_accomplishment_intensity]'
+    page.execute_script('window.scrollBy(0,500)')
     accept_social
     expect(page).to have_content 'Activity saved'
 
@@ -202,8 +204,8 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
             'Your Activities', 'View Planned Activities', 'DO Home']
     content = ['The last few times you were here...',
                'This is just the beginning...', 'Welcome back!',
-               "But you don't have to start from scratch", 'Today', 'Speech',
-               'Add a New Activity']
+               "But you don't have to start from scratch", 'Daily Averages',
+               'Speech', 'Add a New Activity']
 
     tool.zip(content) do |t, c|
       click_on 'DO'

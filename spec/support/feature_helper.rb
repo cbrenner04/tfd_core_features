@@ -126,9 +126,11 @@ def answer_profile_question(question, id, answer)
 end
 
 def plan_activity(activity, x, y)
+  find('#new_activity_radio')
+  page.execute_script('window.scrollBy(0,500)')
   find('#new_activity_radio').click
   fill_in 'activity_activity_type_new_title', with: activity
-  page.execute_script('window.scrollTo(0,5000)')
+  page.execute_script('window.scrollBy(0,500)')
   find('.fa.fa-calendar').click
   pick_tomorrow
   choose_rating('pleasure_0', x)
