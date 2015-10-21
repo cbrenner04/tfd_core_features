@@ -39,8 +39,8 @@ describe 'Active participant in a social arm signs in,',
       end
     end
 
-    it 'shares Add a New Thought responses' do
-      click_on 'Add a New Thought'
+    it 'shares Add a New Harmful Thought responses' do
+      click_on 'Add a New Harmful Thought'
       fill_in 'thought_content', with: 'Public thought 3'
       select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
       fill_in 'thought_challenging_thought', with: 'Testing challenge thought'
@@ -51,7 +51,7 @@ describe 'Active participant in a social arm signs in,',
 
       page.execute_script('window.scrollTo(0,5000)')
       find('.btn.btn-primary.pull-right', text: 'Next').click
-      expect(page).to have_content 'Add a New Thought'
+      expect(page).to have_content 'Add a New Harmful Thought'
 
       visit ENV['Base_URL']
       find_feed_item('Public thought 3')
@@ -62,8 +62,8 @@ describe 'Active participant in a social arm signs in,',
       end
     end
 
-    it 'does not share Add a New Thought responses' do
-      click_on 'Add a New Thought'
+    it 'does not share Add a New Harmful Thought responses' do
+      click_on 'Add a New Harmful Thought'
       fill_in 'thought_content', with: 'Private thought 2'
       select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
       fill_in 'thought_challenging_thought', with: 'Testing challenge thought'
@@ -75,7 +75,7 @@ describe 'Active participant in a social arm signs in,',
 
       page.execute_script('window.scrollTo(0,5000)')
       find('.btn.btn-primary.pull-right', text: 'Next').click
-      expect(page).to have_content 'Add a New Thought'
+      expect(page).to have_content 'Add a New Harmful Thought'
 
       visit ENV['Base_URL']
       find_feed_item('Public thought 1')
@@ -209,8 +209,8 @@ describe 'Active participant in a non-social arm signs in,',
       expect(page).to have_content 'Now list another harmful thought...'
     end
 
-    it 'is not able to create a shared item in Add a New Thought' do
-      click_on 'Add a New Thought'
+    it 'is not able to create a shared item in Add a New Harmful Thought' do
+      click_on 'Add a New Harmful Thought'
       expect(page).to have_content 'Add A New Thought'
 
       expect(page).to_not have_content 'Share the content of this thought?'

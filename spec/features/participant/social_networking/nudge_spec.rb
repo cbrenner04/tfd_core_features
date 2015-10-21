@@ -4,29 +4,28 @@ describe 'Active participant in a social arm signs in,',
          :social_networking, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_pt(ENV['Participant_Email'], 'participant4',
+      sign_in_pt(ENV['Participant_Email'], 'participant1',
                  ENV['Participant_Password'])
     end
   else
     before do
-      sign_in_pt(ENV['Participant_Email'], 'participant4',
+      sign_in_pt(ENV['Participant_Email'], 'participant1',
                  ENV['Participant_Password'])
     end
   end
 
   it 'nudges another participant' do
     visit ENV['Base_URL']
-    within('.profile-border.profile-icon-top',
-           text: 'ThinkFeelDo') do
-      click_on 'ThinkFeelDo'
+    within('.profile-border.profile-icon-top', text: moderator) do
+      click_on moderator
     end
 
     click_on 'Nudge'
     expect(page).to have_content 'Nudge sent!'
 
     visit ENV['Base_URL']
-    find_feed_item('nudged ThinkFeelDo')
-    expect(page).to have_content 'nudged ThinkFeelDo'
+    find_feed_item("nudged #{moderator}")
+    expect(page).to have_content "nudged #{moderator}"
   end
 
   it 'receives a nudge alert on profile page' do
@@ -37,7 +36,7 @@ describe 'Active participant in a social arm signs in,',
       end
     end
 
-    expect(page).to have_content 'TFD Moderator nudged you!'
+    expect(page).to have_content "#{moderator} nudged you!"
   end
 
   it 'sees nudge on landing page' do

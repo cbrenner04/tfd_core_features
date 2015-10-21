@@ -13,6 +13,7 @@ describe 'SocialNetworking Landing Page, ',
     end
 
     it 'creates a profile' do
+      page.execute_script('window.scrollBy(0,500)')
       click_on 'Create a Profile'
       if page.has_css?('.modal-content')
         within('.modal-content') do
@@ -25,18 +26,17 @@ describe 'SocialNetworking Landing Page, ',
 
       question = ['What are your hobbies?', 'What is your favorite color?',
                   'Animal, vegetable or mineral?', 'Group 1 profile question']
-      id = ['781294868', '932760744', '10484799', '933797305']
       answer = ['Running', 'Blue', 'Mineral', 'Group 1']
 
-      question.zip(id, answer) do |x, y, z|
-        answer_profile_question(x, y, z)
+      question.zip(answer) do |q, a|
         page.execute_script('window.scrollBy(0,500)')
+        answer_profile_question(q, a)
       end
 
       expect(page).to_not have_content 'Fill out your profile so other ' \
                                        'group members can get to know you!'
 
-      within('.panel.panel-default.ng-scope',
+      within(".panel.panel-#{profile_class}.ng-scope",
              text: 'Group 1 profile question') do
         expect(page).to have_css '.fa.fa-pencil'
       end
@@ -56,31 +56,26 @@ describe 'SocialNetworking Landing Page, ',
       expect(page).to have_content 'Group 1 profile question'
     end
 
-    it "does not see 'Last seen:' for moderator" do
-      find('h1', text: 'HOME')
-      within('.col-xs-12.col-md-4.text-center.ng-scope', text: 'ThinkFeelDo') do
-        expect('.profile-border.profile-last-seen')
-          .to_not have_content 'Last seen:'
-      end
-    end
-
     it 'creates a whats on your mind post' do
+      page.execute_script('window.scrollBy(0,500)')
       click_on "What's on your mind?"
       fill_in 'new-on-your-mind-description', with: "I'm feeling happy!"
       click_on 'Save'
+      if ENV['sunnyside'] || ENV['marigold']
+        find('#feed-btn').click
+      end
       expect(page).to have_content "said I'm feeling happy!"
     end
 
     it 'selects link in TODO list' do
+      find('.panel-title', text: 'To Do')
+      page.execute_script('window.scrollBy(0,1500)')
       click_on 'THINK: Thought Distortions'
-      expect(page).to have_content 'Click a bubble for more info'
+      expect(page).to have_css('h1', text: 'Thought Distortions')
     end
 
     it 'views another participants profile' do
-      within('.profile-border.profile-icon-top',
-             text: 'ThinkFeelDo') do
-        click_on 'ThinkFeelDo'
-      end
+      find('a', text: 'participant5').click
 
       expect(page).to have_content 'What is your favorite color?'
     end
@@ -149,7 +144,7 @@ describe 'SocialNetworking Landing Page, ',
 
       visit ENV['Base_URL']
       page.driver.browser.manage.window.resize_to(400, 800)
-      visit ENV['Base_URL']
+      page.execute_script('window.location.reload()')
     end
 
     after do
@@ -170,7 +165,7 @@ describe 'SocialNetworking Landing Page, ',
 
     it 'returns to the home page and still sees the feed' do
       visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
-      expect(page).to have_content 'Add a New Thought'
+      expect(page).to have_content 'Add a New Harmful Thought'
 
       find('#hamburger_button').click
       find('a', text: 'Home').click
@@ -179,12 +174,9 @@ describe 'SocialNetworking Landing Page, ',
   end
 
   describe 'Active participant signs in,' do
-    before do
+    it 'complete last task in To Do, sees appropriate message' do
       sign_in_pt(ENV['Participant_4_Email'], 'participant1',
                  ENV['Participant_4_Password'])
-    end
-
-    it 'complete last task in To Do, sees appropriate message' do
       within('.panel.panel-default.ng-scope', text: 'To Do') do
         expect(page).to have_link 'Create a Profile'
         expect(page).to_not have_content 'You are all caught up! Great work!'
@@ -200,15 +192,51 @@ describe 'SocialNetworking Landing Page, ',
       expect(page).to have_content 'Fill out your profile so other group ' \
                                    'members can get to know you!'
 
-      answer_profile_question('What are your hobbies?', '225609157', 'Running')
+      page.execute_script('window.scrollBy(0,1000)')
+      answer_profile_question('What are your hobbies?', 'Running')
 
       visit ENV['Base_URL']
       within('.panel.panel-default.ng-scope', text: 'To Do') do
         expect(page).to_not have_link 'Create a Profile'
         expect(page).to have_content 'You are all caught up! Great work!'
       end
-
       sign_out('participant4')
     end
+  end
+end
+
+describe 'SocialNetworking Landing Page, ',
+         :tfdso, type: :feature, sauce: sauce_labs do
+  describe 'Active participant in social arm signs in,' do
+    if ENV['safari']
+      before(:all) do
+        sign_in_pt(ENV['Participant_Email'], 'participant1',
+                   ENV['Participant_Password'])
+      end
+    end
+
+    before do
+      unless ENV['safari']
+        sign_in_pt(ENV['Participant_Email'], 'participant1',
+                   ENV['Participant_Password'])
+      end
+
+      visit ENV['Base_URL']
+    end
+
+    it "does not see 'Last seen:' for moderator" do
+      find('h1', text: 'HOME')
+      within('.col-xs-12.col-md-4.text-center.ng-scope', text: 'ThinkFeelDo') do
+        expect('.profile-border.profile-last-seen')
+          .to_not have_content 'Last seen:'
+      end
+    end
+  end
+end
+
+def answer_profile_question(question, answer)
+  within(".panel.panel-#{profile_class}.ng-scope", text: question) do
+    find('input[type = text]').set(answer)
+    click_on 'Save'
   end
 end

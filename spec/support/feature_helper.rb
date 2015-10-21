@@ -112,6 +112,9 @@ def accept_social
 end
 
 def find_feed_item(item)
+  if ENV['sunnyside'] || ENV['marigold']
+    find('#feed-btn').click
+  end
   counter = 0
   while page.has_no_css?('.list-group-item.ng-scope',
                          text: item) && counter < 15
@@ -120,10 +123,11 @@ def find_feed_item(item)
   end
 end
 
-def answer_profile_question(question, id, answer)
-  within('.panel.panel-default.ng-scope', text: question) do
-    fill_in "new-answer-description-#{id}", with: answer
-    click_on 'Save'
+def profile_class
+  if ENV['tfd'] || ENV['tfdso']
+    'default'
+  elsif ENV['sunnyside'] || ENV['marigold']
+    'success'
   end
 end
 
@@ -139,4 +143,14 @@ def plan_activity(activity, x, y)
   choose_rating('accomplishment_0', y)
   accept_social
   expect(page).to have_content 'Activity saved'
+end
+
+def moderator
+  if ENV['tfd'] || ENV['tfdso']
+    'TFD Moderator'
+  elsif ENV['sunnyside']
+    'SunnySide'
+  elsif ENV['marigold']
+    'Marigold'
+  end
 end
