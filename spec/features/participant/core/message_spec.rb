@@ -47,6 +47,7 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
       fill_in 'message_body', with: 'Got it. Thanks!'
     end
 
+    page.execute_script('window.scrollBy(0,500)')
     click_on 'Send'
     expect(page).to have_content 'Message saved'
   end

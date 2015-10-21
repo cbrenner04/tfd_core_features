@@ -9,42 +9,42 @@ describe 'Active participant signs in, navigates to THINK tool,',
     end
 
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
-    expect(page).to have_content 'Add a New Thought'
+    expect(page).to have_content 'Add a New Harmful Thought'
+  end
+
+  after do
+    sign_out('participant1')
   end
 
   it 'completes Identifying module' do
     click_on '#1 Identifying'
     expect(page).to have_content 'You are what you think'
 
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Next'
-    expect(page).to have_content 'Helpful thoughts are...'
+    slide = ['Helpful thoughts are...', 'Harmful thoughts are:',
+             'Some quick examples...']
+    slide.each do |s|
+      page.execute_script('window.scrollTo(0,5000)')
+      click_on 'Next'
+      expect(page).to have_content s
+    end
 
     click_on 'Next'
-    expect(page).to have_content 'Harmful thoughts are:'
 
-    click_on 'Next'
-    expect(page).to have_content 'Some quick examples...'
+    heading = ['Now, your turn...', 'Now list another harmful thought...',
+               'Just one more']
+    response = ['Testing helpful thought', 'Testing negative thought',
+                'Forced negative thought']
+    heading.zip(response) do |h, r|
+      find('h2', text: h)
+      fill_in 'thought_content', with: r
+      accept_social
+      expect(page).to have_content 'Thought saved'
+    end
 
-    click_on 'Next'
-    fill_in 'thought_content', with: 'Testing helpful thought'
-    accept_social
-    expect(page).to have_content 'Thought saved'
-
-    expect(page).to have_content 'Now list another harmful thought...'
-
-    fill_in 'thought_content', with: 'Testing negative thought'
-    accept_social
-    expect(page).to have_content 'Thought saved'
-
-    expect(page).to have_content 'Just one more'
-
-    fill_in 'thought_content', with: 'Forced negative thought'
-    accept_social
     expect(page).to have_content 'Good work'
 
     click_on 'Next'
-    expect(page).to have_content 'Add a New Thought'
+    expect(page).to have_content 'Add a New Harmful Thought'
   end
 
   it 'completes Patterns module' do
@@ -61,6 +61,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
     compare_thought(thought_value)
     select 'Personalization', from: 'thought_pattern_id'
+    page.execute_script('window.scrollBy(0,500)')
     accept_social
     expect(page).to have_content 'Thought saved'
   end
@@ -75,7 +76,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Challenging a thought means'
 
     begin
-      tries ||= 5
+      tries ||= 3
       click_on 'Next'
     rescue Selenium::WebDriver::Error::UnknownError
       page.execute_script('window.scrollBy(0,1000)')
@@ -87,8 +88,8 @@ describe 'Active participant signs in, navigates to THINK tool,',
     end
   end
 
-  it 'completes Add a New Thought module' do
-    click_on 'Add a New Thought'
+  it 'completes Add a New Harmful Thought module' do
+    click_on 'Add a New Harmful Thought'
     fill_in 'thought_content', with: 'Testing add a new thought'
     select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
     fill_in 'thought_challenging_thought', with: 'Testing challenge thought'
@@ -99,11 +100,13 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
     page.execute_script('window.scrollTo(0,5000)')
     find('.btn.btn-primary.pull-right').click
-    expect(page).to have_content 'Add a New Thought'
+    expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  it 'cancels Add a New Thought' do
-    click_on 'Add a New Thought'
+  it 'cancels Add a New Harmful Thought' do
+    click_on 'Add a New Harmful Thought'
+    find('h2', text: 'Add a New Harmful Thought')
+    page.execute_script('window.scrollBy(0,500)')
     click_on 'Cancel'
     expect(page).to have_content '#1 Identifying'
   end
@@ -144,8 +147,8 @@ describe 'Active participant signs in, navigates to THINK tool,',
   it 'uses navbar functionality for all of THINK' do
     visit "#{ENV['Base_URL']}/navigator/modules/954850709"
 
-    tool = ['#2 Patterns', '#1 Identifying', '#3 Reshape', 'Add a New Thought',
-            'Thoughts']
+    tool = ['#2 Patterns', '#1 Identifying', '#3 Reshape',
+            'Add a New Harmful Thought', 'Thoughts']
     content = ['Like we said, you are what you think...',
                'You are what you think...', 'Challenging Harmful Thoughts',
                'Add a New Harmful Thought', 'Harmful Thoughts']
@@ -167,11 +170,9 @@ describe 'Active participant signs in, navigates to THINK tool,',
     within('.modal-dialog') do
       expect(page).to have_content 'Testing add a new thought'
 
-      click_on 'Close'
+      find('.close').click
     end
 
     expect(page).to have_content 'Click a bubble for more info'
-
-    sign_out('participant1')
   end
 end

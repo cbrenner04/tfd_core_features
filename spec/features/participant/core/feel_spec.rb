@@ -57,6 +57,7 @@ describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
     select 'anxious', from: 'emotional_rating_emotion_id'
     select 'negative', from: 'emotional_rating_is_positive'
     select '4', from: 'emotional_rating[rating]'
+    page.execute_script('window.scrollBy(0,500)')
     click_on 'Add Emotion'
     within '#subcontainer-1' do
       fill_in 'emotional_rating_name', with: 'crazy'
@@ -72,11 +73,11 @@ describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
     expect(page).to have_content "#{one_week_ago.strftime('%b %d %Y')} - " \
                                  "#{Date.today.strftime('%b %d %Y')}"
 
-    find('.btn.btn-default', text: '28 day').click
+    find('.btn.btn-default', text: '28').click
     expect(page).to have_content "#{one_month_ago.strftime('%b %d %Y')} - " \
                                  "#{Date.today.strftime('%b %d %Y')}"
 
-    find('.btn.btn-default', text: '7 Day').click
+    find('.btn.btn-default', text: '7').click
     click_on 'Previous Period'
     one_week_ago_1 = Date.today - 7
     two_weeks_ago = Date.today - 13

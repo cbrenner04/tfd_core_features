@@ -48,6 +48,7 @@ def choose_rating(element_id, value)
 end
 
 def compare_thought(thought)
+  page.execute_script('window.scrollBy(0,500)')
   accept_social
   expect(page).to have_content 'Thought saved'
   within('.panel-body.adjusted-list-group-item') do
@@ -60,6 +61,7 @@ def reshape(challenge, action)
   expect(page).to have_content 'You said that you thought...'
   click_on 'Next'
   fill_in 'thought[challenging_thought]', with: challenge
+  page.execute_script('window.scrollBy(0,500)')
   click_on 'Next'
   expect(page).to have_content 'Thought saved'
   expect(page).to have_content 'Because what you THINK, FEEL, Do'
@@ -75,8 +77,8 @@ end
 def pick_tomorrow
   tomorrow = Date.today + 1
   within('#ui-datepicker-div') do
-    if page.has_css?('.ui-datepicker-unselectable.ui-state-disabled',
-                     text: "#{tomorrow.strftime('%-e')}")
+    unless page.has_no_css?('.ui-datepicker-unselectable.ui-state-disabled',
+                            text: "#{tomorrow.strftime('%-e')}")
       find('.ui-datepicker-next.ui-corner-all').click
     end
     click_on tomorrow.strftime('%-e')

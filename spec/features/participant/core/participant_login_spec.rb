@@ -70,7 +70,7 @@ describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
 
   it 'views the intro slideshow' do
     visit ENV['Base_URL']
-    click_on 'Introduction to ThinkFeelDo'
+    click_on "Introduction to #{host_app}"
     click_on 'Done'
     expect(page).to have_content 'You need to sign in or sign up before ' \
                                  'continuing.'
@@ -99,5 +99,17 @@ describe 'A visitor to the site,', :tfd, type: :feature, sauce: sauce_labs do
     visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
     expect(page).to have_content 'Inbox'
     expect(page).to_not have_content 'Compose'
+  end
+end
+
+def host_app
+  if ENV['tfd']
+    'ThinkFeelDo'
+  elsif ENV['tfdso']
+    'ThinkFeelDo'
+  elsif ENV['sunnyside']
+    'Sunnyside'
+  elsif ENV['marigold']
+    'Marigold'
   end
 end

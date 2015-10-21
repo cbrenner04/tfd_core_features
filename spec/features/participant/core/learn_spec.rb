@@ -63,7 +63,7 @@ end
 def last_week
   if ENV['tfd']
     Date.today + 105
-  elsif ENV['tfdso']
+  elsif ENV['tfdso'] || ENV['sunnyside']
     Date.today + 49
   end
 end
@@ -71,7 +71,7 @@ end
 def after_study
   if ENV['tfd']
     Date.today + 112
-  elsif ENV['tfdso']
+  elsif ENV['tfdso'] || ENV['sunnyside']
     Date.today + 56
   end
 end
@@ -79,7 +79,7 @@ end
 def last_wk_num
   if ENV['tfd']
     16
-  elsif ENV['tfdso']
+  elsif ENV['tfdso'] || ENV['sunnyside']
     8
   end
 end
@@ -87,7 +87,7 @@ end
 def after_wk_num
   if ENV['tfd']
     17
-  elsif ENV['tfdso']
+  elsif ENV['tfdso'] || ENV['sunnyside']
     9
   end
 end
