@@ -1,4 +1,4 @@
-# filename: spec/features/participant/sunnyside/individual_incentives_spec.rb
+# filename: ./spec/features/participant/sunnyside/individual_incentives_spec.rb
 
 describe 'Individual incentives',
          :sunnyside, type: :feature, sauce: sauce_labs do

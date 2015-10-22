@@ -1,4 +1,4 @@
-# filename: spec/features/participant/sunnyside/communal_incentives_spec.rb
+# filename: ./spec/features/participant/sunnyside/communal_incentives_spec.rb
 
 describe 'Active participant signs in,',
          :sunnyside, type: :feature, sauce: sauce_labs do

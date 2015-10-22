@@ -41,6 +41,7 @@ describe 'Active participant in a social arm signs in,',
     visit ENV['Base_URL']
     find('h1', text: 'HOME')
     find_feed_item('nudged participant1')
+    page.execute_script('window.scrollBy(0,2000)')
     expect(page).to have_content 'nudged participant1'
   end
 end

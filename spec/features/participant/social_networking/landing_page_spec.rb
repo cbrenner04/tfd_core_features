@@ -82,6 +82,7 @@ describe 'SocialNetworking Landing Page, ',
     it 'likes a whats on your mind post written by another participant' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
+      page.execute_script('window.scrollBy(0,2000)')
       like("said it's always sunny in Philadelphia")
     end
 
@@ -110,6 +111,7 @@ describe 'SocialNetworking Landing Page, ',
     it 'checks for a goal that was due yesterday and is now incomplete' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
+      page.execute_script('window.scrollBy(0,2000)')
       expect(page).to have_content 'Did Not Complete a Goal: due yesterday'
     end
 

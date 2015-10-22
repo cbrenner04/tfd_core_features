@@ -1,4 +1,4 @@
-# filename: spec/features/participant/sunnyside/background_spec.rb
+# filename: ./spec/features/participant/sunnyside/background_spec.rb
 
 describe 'An active participant signs in,',
          :sunnyside, type: :feature, sauce: sauce_labs do
@@ -26,14 +26,14 @@ describe 'An active participant signs in,',
     expect(page).to_not have_css('.modal-content')
 
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
-    if driver == :firefox
-      find('.snap-content.footless:nth-child(1)')
-        .native.css_value('background-image')
-        .should eq('url("http://localhost:3000/assets/vine.jpg")')
-    else
+    if ENV['safari'] || ENV['chrome']
       find('.snap-content.footless:nth-child(1)')
         .native.css_value('background-image')
         .should eq('url(http://localhost:3000/assets/vine.jpg)')
+    else
+      find('.snap-content.footless:nth-child(1)')
+        .native.css_value('background-image')
+        .should eq('url("http://localhost:3000/assets/vine.jpg")')
     end
   end
 
@@ -51,14 +51,14 @@ describe 'An active participant signs in,',
     end
 
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
-    if driver == :firefox
-      find('.snap-content.footless:nth-child(1)')
-        .native.css_value('background-image')
-        .should eq('url("http://localhost:3000/assets/rainbow.jpg")')
-    else
+    if ENV['safari'] || ENV['chrome']
       find('.snap-content.footless:nth-child(1)')
         .native.css_value('background-image')
         .should eq('url(http://localhost:3000/assets/rainbow.jpg)')
+    else
+      find('.snap-content.footless:nth-child(1)')
+        .native.css_value('background-image')
+        .should eq('url("http://localhost:3000/assets/rainbow.jpg")')
     end
   end
 end
