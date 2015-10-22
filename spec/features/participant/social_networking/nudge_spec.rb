@@ -16,16 +16,14 @@ describe 'Active participant in a social arm signs in,',
 
   it 'nudges another participant' do
     visit ENV['Base_URL']
-    within('.profile-border.profile-icon-top', text: moderator) do
-      click_on moderator
-    end
-
+    find('a', text: 'participant5').click
+    page.execute_script('window.scrollBy(0,500)')
     click_on 'Nudge'
     expect(page).to have_content 'Nudge sent!'
 
     visit ENV['Base_URL']
-    find_feed_item("nudged #{moderator}")
-    expect(page).to have_content "nudged #{moderator}"
+    find_feed_item('nudged participant5')
+    expect(page).to have_content 'nudged participant5'
   end
 
   it 'receives a nudge alert on profile page' do

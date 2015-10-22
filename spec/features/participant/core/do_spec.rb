@@ -46,7 +46,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     click_on 'Next'
 
     table = ['recent', 'fun', 'accomplished']
-    row = ['17', '5', '5']
+    row = ['16', '5', '5']
 
     table.zip(row) do |x, y|
       within("##{x}_activities") do

@@ -76,34 +76,20 @@ describe 'SocialNetworking Landing Page, ',
 
     it 'views another participants profile' do
       find('a', text: 'participant5').click
-
       expect(page).to have_content 'What is your favorite color?'
     end
 
     it 'likes a whats on your mind post written by another participant' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
-      within first('.list-group-item.ng-scope',
-                   text: "said it's always sunny in Philadelphia") do
-        click_on 'Likes (0)'
-        find('p', text: 'Liked by')
-        click_on 'Like'
-        expect(page).to have_content 'Likes (1)'
-      end
+      like("said it's always sunny in Philadelphia")
     end
 
     it 'comments on a nudge post' do
       find('h1', text: 'HOME')
-      find_feed_item('nudged participant1')
-      within first('.list-group-item.ng-scope', text: 'nudged participant1') do
-        click_on 'Comments (0)'
-        page.execute_script('window.scrollTo(0,5000)')
-        click_on 'Add Comment'
-        expect(page).to have_content 'What do you think?'
-
-        fill_in 'comment-text', with: 'Sweet Dude!'
-        page.execute_script('window.scrollTo(0,5000)')
-        click_on 'Save'
+      comment('nudged participant1', 'Sweet Dude!')
+      within first('.list-group-item.ng-scope',
+                   text: 'nudged participant1') do
         expect(page).to have_content 'Comments (1)'
 
         expect(page).to have_content 'participant1: Sweet Dude!'
@@ -132,6 +118,7 @@ describe 'SocialNetworking Landing Page, ',
       find_feed_item('nudged participant1')
       expect(page).to_not have_content 'Did Not Complete a Goal: due two days' \
                                        ' ago'
+      expect(page).to have_content 'a Goal: due two days ago'
     end
   end
 
@@ -170,6 +157,14 @@ describe 'SocialNetworking Landing Page, ',
       find('#hamburger_button').click
       find('a', text: 'Home').click
       find('.panel-title', text: 'To Do')
+      counter = 0
+      while page.has_no_css?('.list-group-item.ng-scope',
+                             text: 'nudged participant1') && counter < 15
+        page.execute_script('window.scrollTo(0,100000)')
+        counter += 1
+      end
+
+      expect(page).to have_content 'nudged participant1'
     end
   end
 

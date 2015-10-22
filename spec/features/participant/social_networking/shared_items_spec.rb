@@ -33,9 +33,7 @@ describe 'Active participant in a social arm signs in,',
       expect(page).to have_content 'Public thought 1'
 
       within('.list-group-item.ng-scope', text: 'Public thought 1') do
-        shared_time = Time.now - 60
-        expect(page)
-          .to have_content "Today at #{shared_time.strftime('%l')}"
+        expect(page).to have_content "Today at #{Time.now.strftime('%l')}"
       end
     end
 
@@ -50,7 +48,7 @@ describe 'Active participant in a social arm signs in,',
       expect(page).to have_content 'Thought saved'
 
       page.execute_script('window.scrollTo(0,5000)')
-      find('.btn.btn-primary.pull-right', text: 'Next').click
+      find('.btn.btn-primary.pull-right').click
       expect(page).to have_content 'Add a New Harmful Thought'
 
       visit ENV['Base_URL']
@@ -74,7 +72,7 @@ describe 'Active participant in a social arm signs in,',
       expect(page).to have_content 'Thought saved'
 
       page.execute_script('window.scrollTo(0,5000)')
-      find('.btn.btn-primary.pull-right', text: 'Next').click
+      find('.btn.btn-primary.pull-right').click
       expect(page).to have_content 'Add a New Harmful Thought'
 
       visit ENV['Base_URL']
@@ -117,6 +115,7 @@ describe 'Active participant in a social arm signs in,',
       click_on 'Next'
       expect(page).to have_content 'Your Planned Activities'
 
+      page.execute_script('window.scrollBy(0,500)')
       click_on 'Next'
       expect(page).to have_content 'Upcoming Activities'
 
@@ -127,9 +126,7 @@ describe 'Active participant in a social arm signs in,',
       expect(page).to have_content 'New public activity'
 
       within('.list-group-item.ng-scope', text: 'New public activity') do
-        shared_time = Time.now - 60
-        expect(page)
-          .to have_content "Today at #{shared_time.strftime('%l')}"
+        expect(page).to have_content "Today at #{Time.now.strftime('%l')}"
       end
     end
 
@@ -148,6 +145,8 @@ describe 'Active participant in a social arm signs in,',
 
     it 'does not share Add a New Activity responses' do
       click_on 'Add a New Activity'
+      find('#new_activity_radio')
+      page.execute_script('window.scrollBy(0,500)')
       find('#new_activity_radio').click
       fill_in 'activity_activity_type_new_title', with: 'New private activity 2'
       page.execute_script('window.scrollTo(0,5000)')
@@ -211,7 +210,7 @@ describe 'Active participant in a non-social arm signs in,',
 
     it 'is not able to create a shared item in Add a New Harmful Thought' do
       click_on 'Add a New Harmful Thought'
-      expect(page).to have_content 'Add A New Thought'
+      expect(page).to have_content 'Add A New Harmful Thought'
 
       expect(page).to_not have_content 'Share the content of this thought?'
     end
@@ -287,6 +286,7 @@ describe 'Active participant in a social arm signs in,',
     find('.btn.btn-success').click
     select '7', from: 'activity[actual_pleasure_intensity]'
     select '5', from: 'activity[actual_accomplishment_intensity]'
+    page.execute_script('window.scrollBy(0,500)')
     accept_social
     expect(page).to have_content 'Activity saved'
 
@@ -303,6 +303,7 @@ describe 'Active participant in a social arm signs in,',
     find_feed_item('Reviewed & Completed an Activity: Parkour')
     within('.list-group-item.ng-scope',
            text: 'Reviewed & Completed an Activity: Parkour') do
+      page.execute_script('window.scrollBy(0,1000)')
       click_on 'More'
       time1 = Time.now - (60 * 60 * 24)
       time2 = Time.now - (60 * 60 * 23)
@@ -360,18 +361,19 @@ describe 'Active participant in a social arm signs in,',
     select 'Personalization', from: 'thought_pattern_id'
     compare_thought(thought_value)
     select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
+    page.execute_script('window.scrollBy(0,500)')
     accept_social
     expect(page).to have_content 'Thought saved'
 
     visit ENV['Base_URL']
-    find_feed_item('Assigned a pattern to a Thought: Testing helpful thought')
+    find_feed_item('Assigned a pattern to a Thought: ARG!')
     within first('.list-group-item.ng-scope', text: 'Assigned a ' \
-                 'pattern to a Thought: Testing helpful thought') do
+                 'pattern to a Thought: ARG!') do
+      page.execute_script('window.scrollBy(0,1000)')
       click_on 'More'
 
-      expect(page).to have_content 'this thought is: Testing helpful thought' \
-                                   "\nthought pattern: Magnification or " \
-                                   'Catastrophizing'
+      expect(page).to have_content "this thought is: ARG!\nthought pattern:" \
+                                   ' Magnification or Catastrophizing'
     end
   end
 
@@ -385,14 +387,21 @@ describe 'Active participant in a social arm signs in,',
     click_on 'Next'
     expect(page).to have_content 'Challenging a thought means'
 
-    page.execute_script('window.scrollTo(0,10000)')
-    click_on 'Next'
+    begin
+      tries ||= 3
+      click_on 'Next'
+    rescue Selenium::WebDriver::Error::UnknownError
+      page.execute_script('window.scrollBy(0,1000)')
+      retry unless (tries -= 1).zero?
+    end
+
     reshape('Example challenge', 'Example act-as-if')
 
     visit ENV['Base_URL']
     find_feed_item('Reshaped a Thought: I am useless')
     within('.list-group-item.ng-scope',
            text: 'Reshaped a Thought: I am useless') do
+      page.execute_script('window.scrollBy(0,1000)')
       click_on 'More'
 
       expect(page).to have_content 'this thought is: I am useless' \

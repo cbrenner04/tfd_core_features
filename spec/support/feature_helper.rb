@@ -154,3 +154,46 @@ def moderator
     'Marigold'
   end
 end
+
+def like(item_text)
+  within first('.list-group-item.ng-scope', text: item_text) do
+    unless page.has_text?('Likes (1)')
+      click_on 'Likes (0)'
+      find('p', text: 'Liked by')
+      click_on 'Like'
+      expect(page).to have_content 'Likes (1)'
+    end
+  end
+end
+
+def comment(feed_item, text)
+  find_feed_item(feed_item)
+  page.execute_script('window.scrollTo(0,10000)')
+  item = first('.list-group-item.ng-scope', text: feed_item)
+  within item do
+    click_on 'Comments (0)'
+    click_on 'Add Comment'
+    expect(page).to have_content 'What do you think?'
+    fill_in 'comment-text', with: text
+    page.execute_script('window.scrollBy(0,500)')
+    click_on 'Save'
+  end
+  expect(page).to have_css('.panel-heading', text: 'To Do')
+end
+
+def visit_profile
+  visit "#{ENV['Base_URL']}/social_networking/profile_page"
+  if page.has_css?('.modal-content')
+    within('.modal-content') do
+      page.all('img')[2].click
+    end
+  end
+end
+
+def check_completed_behavior(num, date)
+  behavior = page.all('.list-group-item.task-status')
+  within behavior[num] do
+    expect(page).to have_css('.fa.fa-check-circle')
+    expect(page).to have_content "Completed at: #{date}"
+  end
+end
