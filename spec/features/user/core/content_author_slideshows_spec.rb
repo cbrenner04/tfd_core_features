@@ -27,7 +27,7 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
     find('h1', text: 'Listing Slideshows')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Home Intro'
-    page.all('a', text: 'Edit')[0].click
+    page.all('.btn.btn-default')[5].click
     fill_in 'slideshow_title', with: 'Home Introduction 123'
     click_on 'Update'
     expect(page).to have_content 'Successfully updated slideshow'
@@ -35,7 +35,7 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
     find('h1', text: 'Listing Slideshows')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Home Introduction 123'
-    page.all('a', text: 'Edit')[0].click
+    page.all('.btn.btn-default')[5].click
     fill_in 'slideshow_title', with: 'Home Introduction'
     click_on 'Update'
     expect(page).to have_content 'Successfully updated slideshow'
@@ -53,13 +53,13 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
   end
 
   it 'uses breadcrumbs to return home' do
-    expect(page).to have_content 'New'
+    expect(page).to have_content 'Do - Awareness Introduction'
     click_on 'Arm'
     within('.breadcrumb') do
       click_on 'Arms'
     end
 
-    expect(page).to have_content 'Arm 2'
+    expect(page).to have_content 'Arm 3'
 
     within('.breadcrumb') do
       click_on 'Home'

@@ -34,13 +34,13 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'updates a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('a', text: 'Edit')[1].click
+      page.all('.btn.btn-default')[9].click
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
       expect(page).to have_content 'Successfully updated slide for lesson'
 
-      page.all('a', text: 'Edit')[1].click
+      page.all('.btn.btn-default')[9].click
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
@@ -58,7 +58,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
     it 'destroys a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger', text: 'Remove')[4].click
+      page.all('.btn.btn-danger')[4].click
       expect(page).to_not have_content 'Test slide 2'
     end
 
@@ -77,13 +77,13 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'updates a video slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('a', text: 'Edit')[5].click
+      page.all('.btn.btn-default')[9].click
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
       expect(page).to have_content 'Successfully updated slide for lesson'
 
-      page.all('a', text: 'Edit')[5].click
+      page.all('.btn.btn-default')[9].click
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
@@ -98,7 +98,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
     it 'destroys a video slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger', text: 'Remove')[4].click
+      page.all('.btn.btn-danger')[4].click
       expect(page).to_not have_content 'Test video slide 2'
     end
 
@@ -116,14 +116,14 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'updates an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('a', text: 'Edit')[5].click
+      page.all('.btn.btn-default')[9].click
       expect(page).to have_content 'Edit Slide'
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
       expect(page).to have_content 'Successfully updated slide for lesson'
 
-      page.all('a', text: 'Edit')[5].click
+      page.all('.btn.btn-default')[9].click
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
@@ -133,7 +133,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
     it 'deletes an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger', text: 'Remove')[4].click
+      page.all('.btn.btn-danger')[4].click
       expect(page).to_not have_content 'Test audio slide'
     end
   end
@@ -168,17 +168,17 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'updates a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('a', text: 'Edit')[1].click
+      page.all('.btn.btn-default')[9].click
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
-      expect(page).to have_content 'Add Video Slide'
+      expect(page).to have_content 'Slide 2'
 
-      page.all('a', text: 'Edit')[1].click
+      page.all('.btn.btn-default')[9].click
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
-      expect(page).to have_content 'Add Video Slide'
+      expect(page).to have_content 'Slide 2'
     end
 
     it 'views a slide' do
@@ -191,10 +191,8 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'destroys a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      within('li:nth-child(5)') do
-        page.driver.execute_script('window.confirm = function() {return true}')
-        click_on 'Remove'
-      end
+      page.driver.execute_script('window.confirm = function() {return true}')
+      page.all('.btn.btn-danger')[5].click
 
       expect(page).to_not have_content 'Test slide 2'
     end
@@ -212,17 +210,17 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'updates a video slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('a', text: 'Edit')[4].click
+      page.all('.btn.btn-default')[9].click
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
-      expect(page).to have_content 'Add Slide'
+      expect(page).to have_content 'Slide 2'
 
-      page.all('a', text: 'Edit')[4].click
+      page.all('.btn.btn-default')[9].click
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
-      expect(page).to have_content 'Add Slide'
+      expect(page).to have_content 'Slide 2'
     end
 
     it 'views a video slide' do
@@ -232,10 +230,8 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'destroys a video slideo' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      within('li:nth-child(5)') do
-        page.driver.execute_script('window.confirm = function() {return true}')
-        click_on 'Remove'
-      end
+      page.driver.execute_script('window.confirm = function() {return true}')
+      page.all('.btn.btn-danger')[5].click
 
       expect(page).to_not have_content 'Test video slide 2'
     end
@@ -252,14 +248,14 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'updates an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('a', text: 'Edit')[5].click
+      page.all('.btn.btn-default')[9].click
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
       expect(page).to have_content 'Testing adding/updating slides/lessons'
 
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('a', text: 'Edit')[5].click
+      page.all('.btn.btn-default')[9].click
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
@@ -268,10 +264,8 @@ describe 'Content Author signs in, navigates to Arm 1,',
 
     it 'deletes an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      within('li:nth-child(5)') do
-        page.driver.execute_script('window.confirm = function() {return true}')
-        click_on 'Remove'
-      end
+      page.driver.execute_script('window.confirm = function() {return true}')
+      page.all('.btn.btn-danger')[5].click
 
       expect(page).to_not have_content 'Test audio slide'
     end

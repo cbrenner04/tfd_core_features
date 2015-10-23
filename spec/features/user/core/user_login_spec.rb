@@ -31,9 +31,7 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
 
   it 'is not signed in, views the intro slideshow' do
     visit "#{ENV['Base_URL']}/users/sign_in"
-    click_on 'Introduction to ThinkFeelDo'
-    expect(page).to have_content 'Welcome to ThiFeDo'
-
+    click_on "Introduction to #{host_app}"
     click_on 'Done'
     expect(page).to have_content 'You need to sign in or sign up before ' \
                                  'continuing.'

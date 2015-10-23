@@ -1,4 +1,4 @@
-# filename: ./spec/features/user/social_networking/sn_bugs_spec.rb
+# filename: ./spec/features/user/social_networking/user_bugs_spec.rb
 
 describe 'User Dashboard Bugs,',
          :social_networkting, type: :feature, sauce: sauce_labs do
@@ -32,7 +32,7 @@ describe 'User Dashboard Bugs,',
       click_on 'Assign New Group'
       select 'Group 6', from: 'membership_group_id'
       fill_in 'membership_display_name', with: ''
-      unless driver == :chrome
+      unless ENV['chrome']
         fill_in 'membership_start_date',
                 with: Date.today.prev_day.strftime('%Y-%m-%d')
         next_year = Date.today + 365

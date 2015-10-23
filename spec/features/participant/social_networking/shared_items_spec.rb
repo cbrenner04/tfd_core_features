@@ -5,7 +5,7 @@ describe 'Active participant in a social arm signs in,',
   describe 'visits the THINK tool,' do
     before do
       unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'participant1',
+        sign_in_pt(ENV['Participant_Email'], 'mobilecompleter',
                    ENV['Participant_Password'])
       end
 
@@ -168,7 +168,7 @@ describe 'Active participant in a social arm signs in,',
 end
 
 describe 'Active participant in a non-social arm signs in,',
-         type: :feature, sauce: sauce_labs do
+         :social_networking, type: :feature, sauce: sauce_labs do
   describe 'visits the THINK tool,' do
     if ENV['safari']
       before(:all) do

@@ -101,15 +101,3 @@ describe 'A visitor to the site,', :tfd, type: :feature, sauce: sauce_labs do
     expect(page).to_not have_content 'Compose'
   end
 end
-
-def host_app
-  if ENV['tfd']
-    'ThinkFeelDo'
-  elsif ENV['tfdso']
-    'ThinkFeelDo'
-  elsif ENV['sunnyside']
-    'Sunnyside'
-  elsif ENV['marigold']
-    'Marigold'
-  end
-end

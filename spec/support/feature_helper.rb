@@ -155,6 +155,18 @@ def moderator
   end
 end
 
+def host_app
+  if ENV['tfd']
+    'ThinkFeelDo'
+  elsif ENV['tfdso']
+    'ThinkFeelDo'
+  elsif ENV['sunnyside']
+    'Sunnyside'
+  elsif ENV['marigold']
+    'Marigold'
+  end
+end
+
 def like(item_text)
   within first('.list-group-item.ng-scope', text: item_text) do
     unless page.has_text?('Likes (1)')

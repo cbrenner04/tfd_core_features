@@ -1,4 +1,4 @@
-# filename: ./spec/features/user/social_networking/sn_researcher_groups_spec.rb
+# filename: ./spec/features/user/social_networking/researcher_groups_spec.rb
 
 describe 'Researcher signs in, navigates to Groups,',
          :social_networking, type: :feature, sauce: sauce_labs do

@@ -1,4 +1,4 @@
-# filename: ./spec/features/user/social_networking/sn_researcher_reports_spec.rb
+# filename: ./spec/features/user/social_networking/researcher_reports_spec.rb
 
 require 'uuid'
 require 'fileutils'

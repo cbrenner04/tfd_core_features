@@ -35,7 +35,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
         fill_in 'membership_display_name', with: 'Tester'
       end
 
-      unless driver == :chrome
+      unless ENV['chrome']
         fill_in 'membership_start_date',
                 with: Date.today.prev_day.strftime('%Y-%m-%d')
         next_year = Date.today + 365
@@ -57,7 +57,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
       click_on 'Assign'
       expect(page).to have_content 'Group was successfully assigned'
 
-      unless driver == :chrome
+      unless ENV['chrome']
         expect(page).to have_content "Membership Status: Active\nCurrent " \
                                      'Group: Group 1'
       end
@@ -73,7 +73,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
     end
 
     before do
-      unless ENV['safair']
+      unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
                      ENV['Clinician_Password'])
       end
@@ -112,31 +112,31 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
                                      "treatment week: 0\nTotal Logins: 11"
       end
     end
-  end
 
-  it 'navigates to Patient Dashboard, views Tool Use table, sees correct ' \
-     'data for activities' do
-    click_on 'Arms'
-    find('h1', text: 'Arms')
-    click_on 'Arm 1'
-    click_on 'Group 1'
-    click_on 'Patient Dashboard'
-    select_patient('TFD-1111')
-    within('.table.table-hover', text: 'Tool Use') do
-      within('tr', text: 'Activities Monitored') do
-        expect(page).to have_content '18 18 18'
-      end
+    it 'navigates to Patient Dashboard, views Tool Use table, sees correct ' \
+       'data for activities' do
+      click_on 'Arms'
+      find('h1', text: 'Arms')
+      click_on 'Arm 1'
+      click_on 'Group 1'
+      click_on 'Patient Dashboard'
+      select_patient('TFD-1111')
+      within('.table.table-hover', text: 'Tool Use') do
+        within('tr', text: 'Activities Monitored') do
+          expect(page).to have_content '18 18 18'
+        end
 
-      within('tr', text: 'Activities Planned') do
-        expect(page).to have_content '14 16 16'
-      end
+        within('tr', text: 'Activities Planned') do
+          expect(page).to have_content '14 16 16'
+        end
 
-      within('tr', text: 'Activities Reviewed and Completed') do
-        expect(page).to have_content '1 2 2'
-      end
+        within('tr', text: 'Activities Reviewed and Completed') do
+          expect(page).to have_content '1 2 2'
+        end
 
-      within('tr', text: 'Activities Reviewed and Incomplete') do
-        expect(page).to have_content '1 1 1'
+        within('tr', text: 'Activities Reviewed and Incomplete') do
+          expect(page).to have_content '1 1 1'
+        end
       end
     end
   end

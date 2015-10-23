@@ -73,13 +73,13 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
   end
 
   it 'uses breadcrumbs to return home' do
-    expect(page).to have_content 'New'
+    expect(page).to have_content 'Home Introduction'
     click_on 'Arm'
     within('.breadcrumb') do
       click_on 'Arms'
     end
 
-    expect(page).to have_content 'Arm 2'
+    expect(page).to have_content 'Arm 3'
 
     within('.breadcrumb') do
       click_on 'Home'

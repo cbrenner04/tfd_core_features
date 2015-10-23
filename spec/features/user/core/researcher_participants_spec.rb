@@ -84,7 +84,7 @@ describe 'Researcher signs in, navigates to Participants,',
     expect(page).to have_content 'Memberships is invalid'
   end
 
-  unless driver == :chrome
+  unless ENV['chrome']
     it 'cannot assign a group membership with a blank end date' do
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Tests'
@@ -126,7 +126,7 @@ describe 'Researcher signs in, navigates to Participants,',
     click_on 'Tests'
     click_on 'Assign New Group'
     select 'Group 1', from: 'membership_group_id'
-    unless driver == :chrome
+    unless ENV['chrome']
       fill_in 'membership_start_date',
               with: Date.today.prev_day.strftime('%Y-%m-%d')
       next_year = Date.today + 365
@@ -149,7 +149,7 @@ describe 'Researcher signs in, navigates to Participants,',
     click_on 'Assign'
     expect(page).to have_content 'Group was successfully assigned'
 
-    unless driver == :chrome
+    unless ENV['chrome']
       expect(page).to have_content "Membership Status: Active\nCurrent " \
                                    'Group: Group 1'
     end
@@ -158,7 +158,14 @@ describe 'Researcher signs in, navigates to Participants,',
   it 'assigns a coach' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Tests'
-    click_on 'Assign Coach/Moderator'
+    begin
+      tries ||= 3
+      click_on 'Assign Coach/Moderator'
+    rescue Selenium::WebDriver::Error::UnknownError
+      page.execute_script('window.scrollBy(0,1000)')
+      retry unless (tries -= 1).zero?
+    end
+
     if ENV['tfd']
       select 'clinician1@example.com', from: 'coach_assignment_coach_id'
       click_on 'Assign'
@@ -189,7 +196,7 @@ describe 'Researcher signs in, navigates to Participants,',
       click_on 'Participants'
     end
 
-    expect(page).to have_content 'New'
+    expect(page).to have_content 'participant61'
 
     within('.breadcrumb') do
       click_on 'Home'
@@ -208,7 +215,7 @@ describe 'Researcher signs in, navigates to Participants,',
       click_on 'Groups'
     end
 
-    expect(page).to have_content 'New'
+    expect(page).to have_content 'Group 1'
 
     within('.breadcrumb') do
       click_on 'Home'

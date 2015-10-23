@@ -150,7 +150,7 @@ describe 'Research signs in, navigates to Users,',
       click_on 'Users'
     end
 
-    expect(page).to have_content 'New'
+    expect(page).to have_content 'admin1@example.com'
 
     within('.breadcrumb') do
       click_on 'Home'

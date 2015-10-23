@@ -47,7 +47,6 @@ describe 'Content Author signs in, visits Content Modules tool,',
 
   it 'destroys a module' do
     go_to_next_page('Test content module')
-
     click_on 'Test content module'
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
@@ -61,9 +60,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
     go_to_next_page('Home Introduction')
-
     click_on 'Home Introduction'
-
     click_on 'New Provider'
     within '#content_provider_bit_core_content_module_id' do
       expect(page).to have_content 'LEARN: Home Introduction'
@@ -73,6 +70,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
     select 'BitCore::Slideshow', from: 'content_provider_source_content_type'
     select 'Home Intro', from: 'content_provider_source_content_id'
     fill_in 'content_provider_position', with: '4'
+    page.execute_script('window.scrollBy(0,500)')
     check 'content_provider_show_next_nav'
     check 'content_provider_is_skippable_after_first_viewing'
     page.execute_script('window.scrollTo(0,5000)')
@@ -87,7 +85,6 @@ describe 'Content Author signs in, visits Content Modules tool,',
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
     go_to_next_page('Home Introduction')
-
     click_on 'Home Introduction'
     click_on '1 slideshow provider'
     expect(page).to have_content 'Is skippable after first viewing: false'
@@ -115,7 +112,6 @@ describe 'Content Author signs in, visits Content Modules tool,',
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
     go_to_next_page('Home Introduction')
-
     click_on 'Home Introduction'
     click_on '4 slideshow provider'
     expect(page).to have_content 'Slideshow: Home Intro'
@@ -132,7 +128,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
       click_on 'Arms'
     end
 
-    expect(page).to have_content 'Arm 2'
+    expect(page).to have_content 'Arm 3'
 
     within('.breadcrumb') do
       click_on 'Home'

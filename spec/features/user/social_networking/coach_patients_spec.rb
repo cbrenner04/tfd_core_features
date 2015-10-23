@@ -1,4 +1,4 @@
-# filename: ./spec/features/user/social_networking/sn_patients_spec.rb
+# filename: ./spec/features/user/social_networking/coach_patients_spec.rb
 
 describe 'Patient Dashboard - ',
          :social_networking, type: :feature, sauce: sauce_labs do
@@ -21,22 +21,19 @@ describe 'Patient Dashboard - ',
       select_patient('TFD-1111')
       within('.table.table-hover', text: 'Tool Use') do
         table_row = page.all('tr:nth-child(1)')
-        check_data(table_row[0], 'Tool Use  Today Last 7 Days Totals')
+        content = ['Tool Use  Today Last 7 Days Totals', 'Lessons Read 1 1 1']
+        (0..1).zip(content) do |i, c|
+          check_data(table_row[i], c)
+        end
 
-        check_data(table_row[1], 'Lessons Read 1 1 1')
-
-        check_data('tr:nth-child(2)', 'Moods 1 1 3')
-
-        check_data('tr:nth-child(3)', 'Thoughts 12 12 12')
-
-        check_data('tr:nth-child(4)', 'Activities Monitored 18 18 18')
-
-        check_data('tr:nth-child(5)', 'Activities Planned 14 16 16')
-
-        check_data('tr:nth-child(6)', 'Activities Reviewed and Completed 1 2 2')
-
-        check_data('tr:nth-child(7)',
-                   'Activities Reviewed and Incomplete 1 1 1')
+        content = ['Moods 1 1 3', 'Thoughts 12 12 12',
+                   'Activities Monitored 18 18 18',
+                   'Activities Planned 14 16 16',
+                   'Activities Reviewed and Completed 1 2 2',
+                   'Activities Reviewed and Incomplete 1 1 1']
+        (2..7).zip(content) do |i, c|
+          check_data("tr:nth-child(#{i})", c)
+        end
       end
     end
 
@@ -60,13 +57,17 @@ describe 'Patient Dashboard - ',
 
         check_data(table_row[1], 'Likes 1 1 1')
 
-        check_data('tr:nth-child(2)', 'Nudges 2 3 3')
+        if ENV['tfd'] || ENV['tfdso']
+          num = ['Nudges 2 3 3', 'Comments 1 1 1', 'Goals 5 6 8',
+                 '"On My Mind" Statements 2 2 2']
+        elsif ENV['sunnyside'] || ENV['marigold']
+          num = ['Nudges 2 3 3', 'Comments 4 4 4', 'Goals 5 6 8',
+                 '"On My Mind" Statements 2 2 2']
+        end
 
-        check_data('tr:nth-child(3)', 'Comments 1 1 1')
-
-        check_data('tr:nth-child(4)', 'Goals 5 6 8')
-
-        check_data('tr:nth-child(5)', '"On My Mind" Statements 2 2 2')
+        (2..5).zip(num) do |i, n|
+          check_data("tr:nth-child(#{i})", "#{n}")
+        end
       end
     end
 
@@ -223,7 +224,7 @@ describe 'Patient Dashboard - ',
       click_on 'Patient Dashboard'
       within('#patients', text: 'participant65') do
         within('table#patients tr', text: 'participant65') do
-          unless driver == :firefox
+          if ENV['safari'] || ENV['chrome']
             page.driver
               .execute_script('window.confirm = function() {return true}')
           end
@@ -232,7 +233,7 @@ describe 'Patient Dashboard - ',
         end
       end
 
-      if driver == :firefox
+      unless ENV['safari'] || ENV['chrome']
         page.accept_alert 'Are you sure you would like to terminate access to' \
                           ' this membership? This option should also be used ' \
                           'before changing membership of the patient to a ' \
