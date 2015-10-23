@@ -5,8 +5,8 @@ describe 'Individual incentives',
   describe 'Active participant signs in,' do
     before do
       unless ENV['safari']
-        sign_in_pt(ENV['Participant_3_Email'], 'participant3',
-                   ENV['Participant_3_Password'])
+        sign_in_pt(ENV['Alt_Participant_Email'], 'participant3',
+                   ENV['Alt_Participant_Password'])
       end
 
       visit ENV['Base_URL']

@@ -4,15 +4,15 @@ describe 'Active participant signs in,',
          :sunnyside, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_pt(ENV['Participant_3_Email'], 'participant_background',
-                 ENV['Participant_3_Password'])
+      sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',
+                 ENV['Alt_Participant_Password'])
     end
   end
 
   before do
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_3_Email'], 'participant_background',
-                 ENV['Participant_3_Password'])
+      sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',
+                 ENV['Alt_Participant_Password'])
     end
 
     visit ENV['Base_URL']

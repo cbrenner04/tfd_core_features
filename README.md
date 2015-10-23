@@ -25,8 +25,11 @@ You will need to set up the following participants and users in the host app:
 * Mobile_Comp_Pt - a participant who is an arm that does not allow messaging
   functionality after completion and is flagged as complete
 * PT61 - an active participant in a social arm
+* Participant_4 - an active participant with access to most tools (see tests
+  for granular detail)
 * Participant_5 - an active participant with access to most tools (see tests
   for granular detail)
+* PTBackground - an active participant specifically for sunnyside tests
 * User - user given a super user role
 * Clinician - user with a clinician role
 * Researcher - user with a researcher role
@@ -49,10 +52,11 @@ variable is a URL specific to the host app.
     Old_Participant_Password; Alt_Participant_Email; Alt_Participant_Password;
     NS_Participant_Email; NS_Participant_Password; Completed_Pt_Email;
     Completed_Pt_Password; Mobile_Comp_Pt_Email; Mobile_Comp_Pt_Password;
-    PT61_Email; PT61_Password; Participant_5_Email; Participant_5_Password;
-    User_Email; User_Password; Clinician_Email; Clinician_Password;
-    Researcher_Email; Researcher_Password; Content_Author_Email;
-    Content_Author_Password; Participant_Phone_Number;
+    PT61_Email; PT61_Password; Participant_4_Email; Participant_4_Password;
+    Participant_5_Email; Participant_5_Password; PTBackground_Email;
+    PTBackground_Password; User_Email; User_Password; Clinician_Email;
+    Clinician_Password; Researcher_Email; Researcher_Password;
+    Content_Author_Email; Content_Author_Password; Participant_Phone_Number;
     Participant_Phone_Number_1; Audio_File
 
 To run on Sauce Labs you will need to set the following environment variables,
