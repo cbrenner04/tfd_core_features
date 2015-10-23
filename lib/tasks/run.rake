@@ -58,6 +58,6 @@ namespace :run do
 
   desc 'Run the test suite for the Marigold host application on Firefox'
   task :marigold_suite_firefox do
-    system('marigold=true rspec --tag core --tag social_networking --tag sunnyside --tag ~tfd')
+    system('marigold=true rspec --tag core --tag social_networking --tag sunnyside')
   end
 end
