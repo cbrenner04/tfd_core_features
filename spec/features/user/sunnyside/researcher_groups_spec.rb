@@ -26,9 +26,9 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content 'Group 1 Incentives'
 
     click_on 'New'
-    fill_in 'sunnyside_incentive[description]', with: 'complete a goal'
+    fill_in "#{app}_incentive[description]", with: 'complete a goal'
     within('.col-md-2:nth-child(11)') do
-      choose('sunnyside_incentive[image_url]')
+      choose("#{app}_incentive[image_url]")
     end
 
     click_on 'Create'
@@ -45,7 +45,7 @@ describe 'Researcher signs in, navigates to Groups,',
       click_on 'New'
     end
 
-    select 'Complete', from: 'sunnyside_behavior[condition]'
+    select 'Complete', from: "#{app}_behavior[condition]"
     click_on 'Create'
     expect(page).to have_content 'Behavior was successfully created.'
 
@@ -69,10 +69,10 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content 'Group 1 Incentives'
 
     click_on 'New'
-    fill_in 'sunnyside_incentive[description]', with: 'comment on a post'
-    check 'sunnyside_incentive[is_repeatable]'
+    fill_in "#{app}_incentive[description]", with: 'comment on a post'
+    check "#{app}_incentive[is_repeatable]"
     within('.col-md-2:nth-child(10)') do
-      choose('sunnyside_incentive[image_url]')
+      choose("#{app}_incentive[image_url]")
     end
 
     click_on 'Create'
@@ -90,7 +90,7 @@ describe 'Researcher signs in, navigates to Groups,',
       click_on 'New'
     end
 
-    select 'Comment', from: 'sunnyside_behavior[action_type]'
+    select 'Comment', from: "#{app}_behavior[action_type]"
     click_on 'Create'
     expect(page).to have_content 'Behavior was successfully created.'
 
@@ -115,10 +115,10 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content 'Group 1 Incentives'
 
     click_on 'New'
-    fill_in 'sunnyside_incentive[description]', with: 'read a lesson'
-    select 'Group', from: 'sunnyside_incentive[scope]'
+    fill_in "#{app}_incentive[description]", with: 'read a lesson'
+    select 'Group', from: "#{app}_incentive[scope]"
     within('.col-md-2:nth-child(9)') do
-      choose('sunnyside_incentive[image_url]')
+      choose("#{app}_incentive[image_url]")
     end
 
     click_on 'Create'
@@ -136,8 +136,8 @@ describe 'Researcher signs in, navigates to Groups,',
       click_on 'New'
     end
 
-    select 'Lesson', from: 'sunnyside_behavior[action_type]'
-    select 'Complete', from: 'sunnyside_behavior[condition]'
+    select 'Lesson', from: "#{app}_behavior[action_type]"
+    select 'Complete', from: "#{app}_behavior[condition]"
     click_on 'Create'
     expect(page).to have_content 'Behavior was successfully created.'
 
@@ -208,5 +208,13 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content 'Incentive was successfully removed.'
     expect(page).to_not have_css('.list-group-item',
                                  text: 'Individual, like 3 feed items')
+  end
+end
+
+def app
+  if ENV['sunnyside']
+    'sunnyside'
+  elsif ENV['marigold']
+    'marigold'
   end
 end

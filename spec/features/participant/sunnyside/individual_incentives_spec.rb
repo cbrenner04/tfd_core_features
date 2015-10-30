@@ -113,12 +113,12 @@ describe 'Individual incentives',
     end
 
     it 'checks completed behaviors and incentives of another participant' do
-      within('.col-xs-12.col-md-4.text-center', text: 'SunnySide') do
+      within('.col-xs-12.col-md-4.text-center', text: "#{host_app}") do
         within('.garden.small-garden') do
           expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
         end
 
-        click_on 'SunnySide'
+        click_on "#{host_app}"
       end
 
       expect(page).to have_css('.panel.panel-default.panel-info',

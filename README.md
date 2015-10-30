@@ -9,39 +9,30 @@ This is a test suite that can be pointed at any of the ThinkFeelDo host apps:
 
 ## Information for running this test suite
 
-You will need to set up the following participants and users in the host app:
+You will need to set up the following participants and users in the host app.
+You can use the fixtures in the host app to seed this data. See the
+corresponding rake file (under `./lib/tasks/`) for the tasks that make sense
+to the environment in which you are testing.
 
-* Participant - an active participant with access to most tools (see tests
-  for granular detail)
-* Participant_2 - an active participant with access to FEEL > Tracking Your
-  Mood & Emotions
-* Old_Participant - an inactive participant
-* Alt_Participant - an active participant with access to many tools (see tests
-  for granular detail)
-* NS_Participant - an active participant with access to many tools (see tests
-  for granular detail)
-* Completed_Pt - a participant who is an arm that does not allow messaging
-  functionality after completion and is flagged as complete
-* Mobile_Comp_Pt - a participant who is an arm that does not allow messaging
-  functionality after completion and is flagged as complete
-* PT61 - an active participant in a social arm
-* Participant_4 - an active participant with access to most tools (see tests
-  for granular detail)
-* Participant_5 - an active participant with access to most tools (see tests
-  for granular detail)
-* PTBackground - an active participant specifically for sunnyside tests
-* User - user given a super user role
-* Clinician - user with a clinician role
-* Researcher - user with a researcher role
-* Content_Author - user with a content author role
+* Participants: `participant1` - `participant5`, `participant_grp1_moderator`,
+`participant_background`, `inactive_participant`, `active_participant`,
+`participant_for_withdraw_test`, `participant_for_group5`,
+`participant_is_complete`, `participant_mobile_complete`, `participant_phq`,
+`participant61` - `participant65`
+* Users: `admin1`, `clinician1`, `user2`, `content_author1`, `researcher1`
 
-You will need to set the following environment variables that correspond to
-the participants and users above as well as a couple of pieces of data for
-specific tests. These are set as environment variables to protect sensitive
-data as well as access to the application. 
+See selenium fixtures in the host app for more details on the data that these
+participants and users need. Not every host app needs every participant and
+user:
 
-I have set up a variables file that has each of these environment
-variables defined which the test suite will reference.
+* [ThinkFeelDo](https://github.com/cbitstech/think_feel_do/tree/master/spec/selenium_fixtures)
+* [ThinkFeelDoSo](https://github.com/cbitstech/think_feel_do_so/tree/master/spec/selenium_fixtures)
+* [SunnySide](https://github.com/cbitstech/sunnyside/tree/master/spec/selenium_fixtures)
+* [Marigold](https://github.com/NU-CBITS/marigold/tree/master/spec/selenium_fixtures)
+
+You will need a file called `env_variables.rb`, which is required in the
+`.rspec` file, that houses the following environment variable. These correspond
+with the data for the above participant and users seeded in the host app.
 
 The  `Participant_Phone_Number` variable is formatted 18885559999 while the
 `Participant_Phone_Number_1` is formatted 1(888) 555-9999. The `Audio_File`
@@ -64,6 +55,6 @@ otherwise you can run it locally on your machine:
 
     SAUCE_USERNAME; SAUCE_ACCESS_KEY
 
-To run the suite simply run:
-
-    rpsec
+Once you have the data seeded in the app and the env_variables.rb file
+configured, checkout the `./lib/tasks/run.rake` file to find the specific task
+for running the suite.
