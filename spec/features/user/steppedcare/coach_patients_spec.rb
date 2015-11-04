@@ -77,25 +77,18 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
         end
       end
 
-      startdate = Date.today - 28
+      startdate = Date.today - 25
       within('.modal-content') do
-        expect(page).to have_content 'Week 5 - Started on ' \
+        expect(page).to have_content 'Week 4 - Started on ' \
                                      "#{startdate.strftime('%m/%d/%Y')}\n" \
                                      'Suggestion: Step to t-CBT'
-        date1 = Date.today - 7
-        date2 = Date.today - 1
+        date1 = Date.today - 4
+        date2 = Date.today + 2
         expect(page)
           .to have_css('.danger.suffix_row',
                        text: "4 (#{date1.strftime('%m/%d/%Y')} - " \
                              "#{date2.strftime('%m/%d/%Y')}) " \
                              "#{date1.strftime('%m/%d/%Y')} 17")
-
-        date3 = Date.today + 6
-        within('.danger.suffix_row.copied_row',
-               text: "5 (#{Date.today.strftime('%m/%d/%Y')} - " \
-                     "#{date3.strftime('%m/%d/%Y')})") do
-          expect(page).to have_css('.fa.fa-copy')
-        end
 
         within('tr', text: 'PHQ-9 Score >= 17 for two consecutive weeks') do
           expect(page)

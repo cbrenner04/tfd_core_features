@@ -45,7 +45,7 @@ describe 'Individual incentives',
       expect(page).to have_content "Like a person's shared content."
 
       page.execute_script('window.scrollBy(0,500)')
-      check_completed_behavior(0, "#{Date.today.strftime('%b %e')}")
+      check_completed_behavior(0, "#{Time.now.strftime('%b %e %Y %I')}")
     end
 
     it 'completes all behaviors for an incentive, ' \
@@ -79,7 +79,7 @@ describe 'Individual incentives',
       expect(page).to have_content "Like a person's shared content."
 
       (0..2).each do |i|
-        check_completed_behavior(i, "#{Date.today.strftime('%b %e')}")
+        check_completed_behavior(i, "#{Time.now.strftime('%b %e %Y %I')}")
       end
     end
 
@@ -135,7 +135,7 @@ describe 'Individual incentives',
       expect(page).to have_content "Like a person's shared content."
 
       (0..2).each do |i|
-        check_completed_behavior(i, "#{Date.today.strftime('%b %e')}")
+        check_completed_behavior(i, "#{Time.now.strftime('%b %e %Y %I')}")
       end
     end
   end

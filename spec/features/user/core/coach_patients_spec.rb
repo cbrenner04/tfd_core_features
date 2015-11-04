@@ -402,7 +402,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
                                      "#{Time.now.strftime('%A, %b %d %Y %I')}"
 
         expect(page).to have_content 'Duration of Last Session: ' \
-                                     'less than 20 seconds'
+                                     'less than 10 seconds'
       end
     end
   end

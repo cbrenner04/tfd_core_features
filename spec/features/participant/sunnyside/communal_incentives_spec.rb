@@ -33,8 +33,8 @@ describe 'Active participant signs in,',
          text: 'comment on 3 feed items').click
     expect(page).to have_css('.list-group-item.task-status', count: '7')
 
-    check_completed_behavior(0, "#{Date.today.strftime('%b %e')}")
-    check_completed_behavior(1, "#{Date.today.strftime('%b %e')}")
+    check_completed_behavior(0, "#{Time.now.strftime('%b %e %Y %I')}")
+    check_completed_behavior(1, "#{Time.now.strftime('%b %e %Y %I')}")
     pt_incentive = page.all('.list-group-item.task-status')
     within pt_incentive[2] do
       expect(page).to_not have_css('.fa.fa-check-circle')
@@ -74,7 +74,7 @@ describe 'Active participant signs in,',
     end
 
     (0..2).each do |i|
-      check_completed_behavior(i, "#{Date.today.strftime('%b %e')}")
+      check_completed_behavior(i, "#{Time.now.strftime('%b %e %Y %I')}")
     end
   end
 end
