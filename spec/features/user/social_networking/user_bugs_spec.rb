@@ -48,4 +48,49 @@ describe 'User Dashboard Bugs,',
       end
     end
   end
+
+  describe 'Clinician signs in,' do
+    if ENV['safari']
+      before(:all) do
+        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+                     ENV['Clinician_Password'])
+      end
+    end
+
+    before do
+      unless ENV['safari']
+        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+                     ENV['Clinician_Password'])
+      end
+
+      visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
+    end
+
+    it 'navigates to Patient Dashboard, views Tool Use table, sees correct ' \
+       'data for activities' do
+      click_on 'Arms'
+      find('h1', text: 'Arms')
+      click_on 'Arm 1'
+      click_on 'Group 1'
+      click_on 'Patient Dashboard'
+      select_patient('TFD-1111')
+      within('.table.table-hover', text: 'Tool Use') do
+        within('tr', text: 'Activities Monitored') do
+          expect(page).to have_content '18 18 18'
+        end
+
+        within('tr', text: 'Activities Planned') do
+          expect(page).to have_content '14 16 16'
+        end
+
+        within('tr', text: 'Activities Reviewed and Completed') do
+          expect(page).to have_content '1 2 2'
+        end
+
+        within('tr', text: 'Activities Reviewed and Incomplete') do
+          expect(page).to have_content '1 1 1'
+        end
+      end
+    end
+  end
 end

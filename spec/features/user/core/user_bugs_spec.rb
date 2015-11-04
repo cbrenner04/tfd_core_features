@@ -112,33 +112,6 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
                                      "treatment week: 0\nTotal Logins: 11"
       end
     end
-
-    it 'navigates to Patient Dashboard, views Tool Use table, sees correct ' \
-       'data for activities' do
-      click_on 'Arms'
-      find('h1', text: 'Arms')
-      click_on 'Arm 1'
-      click_on 'Group 1'
-      click_on 'Patient Dashboard'
-      select_patient('TFD-1111')
-      within('.table.table-hover', text: 'Tool Use') do
-        within('tr', text: 'Activities Monitored') do
-          expect(page).to have_content '18 18 18'
-        end
-
-        within('tr', text: 'Activities Planned') do
-          expect(page).to have_content '14 16 16'
-        end
-
-        within('tr', text: 'Activities Reviewed and Completed') do
-          expect(page).to have_content '1 2 2'
-        end
-
-        within('tr', text: 'Activities Reviewed and Incomplete') do
-          expect(page).to have_content '1 1 1'
-        end
-      end
-    end
   end
 
   describe 'Participant reads lesson' do

@@ -91,6 +91,7 @@ describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   end
 end
 
+# need to update arm to not allow for this
 describe 'A visitor to the site,', :tfd, type: :feature, sauce: sauce_labs do
   it 'was an active participant who has completed' do
     sign_in_pt(ENV['Completed_Pt_Email'], 'participant1',
