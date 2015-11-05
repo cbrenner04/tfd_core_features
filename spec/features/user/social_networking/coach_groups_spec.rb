@@ -71,22 +71,16 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
       incomp_pt = ['Second Third Fourth Fifth', 'First Fourth Fifth',
                    'First Third Fourth Fifth', 'Fourth Fifth']
 
-      row.zip(lesson, comp_pt, incomp_pt) do |r, l, c, i|
+      row.zip(lesson, comp_pt, incomp_pt, pass) do |r, l, c, i|
         within(r) do
           expect(page).to have_content l
 
           page.execute_script('window.scrollBy(0,1000)')
           click_on 'View Complete Participants'
-          within('.well') do
-            expect(page).to have_content c
-          end
+          expect(page).to have_content c
 
           click_on 'View Incomplete Participants'
-          find('.collapse.in')
-          well = page.all('.well')
-          within well[1] do
-            expect(page).to have_content i
-          end
+          expect(page).to have_content i
         end
       end
     end

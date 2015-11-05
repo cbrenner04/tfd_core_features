@@ -175,5 +175,6 @@ describe 'Active participant signs in, navigates to THINK tool,',
     end
 
     expect(page).to have_content 'Click a bubble for more info'
+    find('.btn.btn-default', text: 'Close').click
   end
 end

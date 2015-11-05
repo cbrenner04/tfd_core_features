@@ -1,8 +1,8 @@
 # filename: ./spec/features/user/core/user_login_spec.rb
 
-require_relative '../../../lib/clinician_dash_buttons.rb'
-require_relative '../../../lib/researcher_dash_buttons.rb'
-require_relative '../../../lib/super_user_dash_buttons.rb'
+require_relative '../../../../lib/clinician_dash_buttons.rb'
+require_relative '../../../../lib/researcher_dash_buttons.rb'
+require_relative '../../../../lib/super_user_dash_buttons.rb'
 
 describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   it 'is an authorized user, signs in' do
