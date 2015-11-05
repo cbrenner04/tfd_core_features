@@ -22,6 +22,7 @@ describe 'Individual incentives',
         expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
       end
 
+      page.execute_script('window.scrollBy(0,500)')
       find('.panel-title.panel-unreleased', text: 'like 3 feed items').click
       expect(page).to have_css('.list-group-item.task-status', count: '3')
     end
@@ -41,11 +42,12 @@ describe 'Individual incentives',
       expect(page).to have_css('.panel-title.panel-unreleased',
                                text: 'like 3 feed items 1/3 complete')
 
+      page.execute_script('window.scrollBy(0,500)')
       find('.panel-title.panel-unreleased', text: 'like 3 feed items').click
       expect(page).to have_content "Like a person's shared content."
 
       page.execute_script('window.scrollBy(0,500)')
-      check_completed_behavior(0, "#{Time.now.strftime('%b %e %Y %I')}")
+      check_completed_behavior(0, "#{Time.now.strftime('%b %d %Y %I')}")
     end
 
     it 'completes all behaviors for an incentive, ' \
@@ -72,6 +74,7 @@ describe 'Individual incentives',
         expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
       end
 
+      page.execute_script('window.scrollBy(0,500)')
       within('.panel.panel-default.panel-info', text: 'like 3 feed items') do
         find('.panel-title').click
       end
@@ -79,7 +82,7 @@ describe 'Individual incentives',
       expect(page).to have_content "Like a person's shared content."
 
       (0..2).each do |i|
-        check_completed_behavior(i, "#{Time.now.strftime('%b %e %Y %I')}")
+        check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
       end
     end
 
@@ -128,6 +131,7 @@ describe 'Individual incentives',
         expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
       end
 
+      page.execute_script('window.scrollBy(0,500)')
       within('.panel.panel-default.panel-info', text: 'like 3 feed items') do
         find('.panel-title').click
       end
@@ -135,7 +139,7 @@ describe 'Individual incentives',
       expect(page).to have_content "Like a person's shared content."
 
       (0..2).each do |i|
-        check_completed_behavior(i, "#{Time.now.strftime('%b %e %Y %I')}")
+        check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
       end
     end
   end

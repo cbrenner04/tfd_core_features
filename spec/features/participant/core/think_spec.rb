@@ -161,6 +161,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
   end
 
   it 'uses the visualization' do
+    page.execute_script('window.scrollBy(0,1000)')
     find('.thoughtviz_text.viz-clickable',
          text: 'Magnification or Catastro...').click
     expect(page).to have_content 'Thought Distortions'

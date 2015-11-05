@@ -1,5 +1,9 @@
 # filename: ./spec/features/user/core/user_login_spec.rb
 
+require_relative '../../../lib/clinician_dash_buttons.rb'
+require_relative '../../../lib/researcher_dash_buttons.rb'
+require_relative '../../../lib/super_user_dash_buttons.rb'
+
 describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   it 'is an authorized user, signs in' do
     sign_in_user(ENV['User_Email'], 'TFD Moderator', ENV['User_Password'])
@@ -67,20 +71,29 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
 
     click_on 'Arms'
     click_on 'Arm 1'
-    expect(page).to_not have_content 'Manage Content'
-
-    click_on 'Group 1'
-    expect(page).to have_content 'Patient Dashboard'
-
-    expect(page).to have_content 'Messaging'
-
-    unless ENV['tfd']
-      expect(page).to have_content 'Group Dashboard'
-
-      expect(page).to have_content 'Moderate  Manage Profile Questions'
+    find('p', text: 'Title: Arm 1')
+    if ENV['tfd'] || ENV['tfdso']
+      expect(page).to_not have_content 'Manage Content'
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(page).to_not have_content 'MANAGE CONTENT'
     end
 
-    expect(page).to_not have_content 'Manage Tasks'
+    click_on 'Group 1'
+    find('p', text: 'Title: Group 1')
+    button_names = all('.btn').map(&:text)
+    if ENV['tfd']
+      expect(button_names).to match_array(ClinicianDashButtons::TFDGROUP)
+    elsif ENV['tfdso']
+      expect(button_names).to match_array(ClinicianDashButtons::TFDSOGROUP)
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(button_names).to match_array(ClinicianDashButtons::SSGROUP)
+    end
+
+    if ENV['tfd'] || ENV['tfdso']
+      expect(button_names).to_not match_array(ClinicianDashButtons::NOGROUP)
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(button_names).to_not match_array(ClinicianDashButtons::SSNOGROUP)
+    end
   end
 
   it "is an authorized researcher, only sees what they're authorized to see" do
@@ -89,7 +102,7 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
       sign_out('TFD Moderator')
     end
 
-    sign_in_user(ENV['Researcher_Email'], 'TFD Modrator',
+    sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
                  ENV['Researcher_Password'])
     expect(page).to have_content "Arms\nNavigate to groups and participants " \
                                  "through arms.\nGroups\nCreate, update, " \
@@ -103,21 +116,30 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
 
     click_on 'Arms'
     click_on 'Arm 1'
-    expect(page).to_not have_content 'Manage Content'
-
-    click_on 'Group 1'
-    expect(page).to have_content 'Title: Group 1'
-
-    expect(page).to_not have_content 'Patient Dashboard  Messaging'
-
-    unless ENV['tfd']
-      expect(page).to_not have_content 'Group Dashboard'
+    find('p', text: 'Title: Arm 1')
+    if ENV['tfd'] || ENV['tfdso']
+      expect(page).to_not have_content 'Manage Content'
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(page).to_not have_content 'MANAGE CONTENT'
     end
 
-    expect(page).to have_content 'Manage Tasks  Edit  Destroy'
+    click_on 'Group 1'
+    find('p', text: 'Title: Group 1')
+    button_names = all('.btn').map(&:text)
+    if ENV['tfd']
+      expect(button_names).to_not match_array(ResearcherDashButtons::TFDGROUP)
+    elsif ENV['tfdso']
+      expect(button_names).to_not match_array(ResearcherDashButtons::TFDSOGROUP)
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(button_names).to_not match_array(ResearcherDashButtons::SSGROUP)
+    end
 
-    unless ENV['tfd']
-      expect(page).to have_content 'Moderate  Manage Profile Questions'
+    if ENV['tfd']
+      expect(button_names).to match_array(ResearcherDashButtons::TFDGROUP2)
+    elsif ENV['tfdso']
+      expect(button_names).to match_array(ResearcherDashButtons::TFDSOGROUP2)
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(button_names).to match_array(ResearcherDashButtons::SSGROUP2)
     end
   end
 
@@ -142,7 +164,12 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
 
     click_on 'Arms'
     click_on 'Arm 1'
-    expect(page).to have_content 'Manage Content'
+    find('p', text: 'Title: Arm 1')
+    if ENV['tfd'] || ENV['tfdso']
+      expect(page).to have_content 'Manage Content'
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(page).to have_content 'MANAGE CONTENT'
+    end
 
     expect(page).to_not have_content 'Group 1'
   end
@@ -166,23 +193,32 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
                                  "Reports\nDownload data via csv."
 
     click_on 'Arms'
-    expect(page).to have_content 'New'
+    find('.list-group-item', text: 'Arm 1')
+    if ENV['tfd'] || ENV['tfdso']
+      expect(page).to have_css('.btn.btn-primary', text: 'New')
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(page).to have_css('.btn.btn-primary', text: 'NEW')
+    end
 
     click_on 'Arm 1'
-    expect(page).to have_content 'Edit  Manage Content  Destroy'
+    find('p', text: 'Arm 1')
+    button_names = all('.btn').map(&:text)
+    if ENV['tfd'] || ENV['tfdso']
+      expect(button_names).to match_array(SuperUserDashButtons::ARM)
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(button_names).to match_array(SuperUserDashButtons::SSARM)
+    end
 
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Group 1'
-    expect(page).to have_content 'Patient Dashboard'
-
-    expect(page).to have_content 'Messaging'
-
-    expect(page).to have_content 'Manage Tasks  Edit  Destroy'
-
-    unless ENV['tfd']
-      expect(page).to have_content 'Group Dashboard'
-
-      expect(page).to have_content 'Moderate  Manage Profile Questions'
+    find('p', text: 'Title: Group 1')
+    button_names =  all('.btn').map(&:text)
+    if ENV['tfd']
+      expect(button_names).to match_array(SuperUserDashButtons::TFDGROUP)
+    elsif ENV['tfdso']
+      expect(button_names).to match_array(SuperUserDashButtons::TFDSOGROUP)
+    elsif ENV['sunnyside'] || ENV['marigold']
+      expect(button_names).to match_array(SuperUserDashButtons::SSGROUP)
     end
   end
 

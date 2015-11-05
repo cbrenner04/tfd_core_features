@@ -401,8 +401,13 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
         expect(page).to have_content 'Last Activity Detected At: ' \
                                      "#{Time.now.strftime('%A, %b %d %Y %I')}"
 
-        expect(page).to have_content 'Duration of Last Session: ' \
-                                     'less than 10 seconds'
+        if page.has_text?('Session: half')
+          expect(page).to have_content 'Duration of Last Session: ' \
+                                       'half a minute'
+        else
+          expect(page).to have_content 'Duration of Last Session: ' \
+                                       'less than'
+        end
       end
     end
   end
