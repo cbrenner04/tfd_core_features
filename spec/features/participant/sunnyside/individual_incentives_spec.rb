@@ -113,12 +113,12 @@ describe 'Individual incentives',
     end
 
     it 'checks completed behaviors and incentives of another participant' do
-      within('.col-xs-12.col-md-4.text-center', text: "#{host_app}") do
+      within('.col-xs-12.col-md-4.text-center', text: "#{host}") do
         within('.garden.small-garden') do
           expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
         end
 
-        click_on "#{host_app}"
+        click_on "#{host}"
       end
 
       expect(page).to have_css('.panel.panel-default.panel-info',
@@ -138,5 +138,15 @@ describe 'Individual incentives',
         check_completed_behavior(i, "#{Time.now.strftime('%b %e %Y %I')}")
       end
     end
+  end
+end
+
+def host
+  if ENV['tfdso']
+    'ThinkFeelDo'
+  elsif ENV['sunnyside']
+    'SunnySide'
+  elsif ENV['marigold']
+    'Marigold'
   end
 end

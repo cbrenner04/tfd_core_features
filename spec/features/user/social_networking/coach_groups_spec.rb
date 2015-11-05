@@ -60,7 +60,8 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
   it 'views Lesson View Summary' do
     within('.panel.panel-default', text: 'Lesson View Summary') do
       table_row_0 = page.all('tr:nth-child(1)')
-      row = [table_row_0[0], 'tr:nth-child(2)', 'tr:nth-child(3)',
+      table_row_2 = page.all('tr:nth-child(2)')
+      row = [table_row_0[0], table_row_2[0], 'tr:nth-child(3)',
              table_row_0[4]]
       lesson = ['Testing adding/updating slides/lessons 1 of 5 COMPLETE',
                 'Do - Awareness Introduction 2 of 5 COMPLETE',

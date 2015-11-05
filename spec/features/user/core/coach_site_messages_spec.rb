@@ -64,7 +64,7 @@ def app_email
   if ENV['tfd']
     'localhost'
   elsif ENV['tfdso']
-    'moodtech-no-reply'
+    'localhost'
   elsif ENV['sunnyside']
     'sunnyside.northwestern.edu'
   elsif ENV['marigold']
