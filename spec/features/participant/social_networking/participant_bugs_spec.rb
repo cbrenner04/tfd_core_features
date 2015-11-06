@@ -1,4 +1,4 @@
-# filename: ./spec/features/participant/social_networking/participant_bugs_spec.rb
+# file: ./spec/features/participant/social_networking/participant_bugs_spec.rb
 
 describe 'Social Networking Bugs', :social_networking,
          type: :feature, sauce: sauce_labs do

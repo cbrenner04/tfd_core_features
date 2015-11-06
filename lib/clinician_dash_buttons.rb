@@ -1,5 +1,5 @@
-# filename: ./spec/lib/clinician_dash_buttons.rb
-
+# Expected buttons on clinician dashboard. Compared to actual in
+# core/user_login_spec.rb
 module ClinicianDashButtons
   TFDGROUPCLINIC = ['Patient Dashboard', 'Messaging']
   TFDGROUP = ['Patient Dashboard', 'Messaging']

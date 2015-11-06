@@ -1,4 +1,4 @@
-# filename: ./spec/features/participant/social_networking/participant_login_spec.rb
+# file: ./spec/features/participant/social_networking/participant_login_spec.rb
 
 describe 'A visitor to the site,', :social_networking,
          type: :feature, sauce: sauce_labs do

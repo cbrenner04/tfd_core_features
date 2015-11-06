@@ -15,10 +15,10 @@ corresponding rake file (under `./lib/tasks/`) for the tasks that make sense
 to the environment in which you are testing.
 
 * Participants: `participant1` - `participant5`, `participant_grp1_moderator`,
-`participant_background`, `inactive_participant`, `active_participant`,
-`participant_for_withdraw_test`, `participant_for_group5`,
-`participant_is_complete`, `participant_mobile_complete`, `participant_phq`,
-`participant61` - `participant65`
+  `participant_background`, `inactive_participant`, `active_participant`,
+  `participant_for_withdraw_test`, `participant_for_group5`,
+  `participant_is_complete`, `participant_mobile_complete`, `participant_phq`,
+  `participant61` - `participant65`
 * Users: `admin1`, `clinician1`, `user2`, `content_author1`, `researcher1`
 
 See selenium fixtures in the host app for more details on the data that these

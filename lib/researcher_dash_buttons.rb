@@ -1,5 +1,5 @@
-# filename: ./spec/lib/researcher_dash_buttons.rb
-
+# Expected buttons in researcher dashboard. Compared to actual in
+# core/user_login_spec.rb
 module ResearcherDashButtons
   TFDGROUP = ['Patient Dashboard', 'Messaging']
   TFDSOGROUP = ['Patient Dashboard', 'Messaging', 'Group Dashboard']

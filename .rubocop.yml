@@ -11,7 +11,7 @@ ClassLength:
   Enabled: false
 
 Documentation:
-  Enabled: false
+  Enabled: true
 
 DotPosition:
   Enabled: false
