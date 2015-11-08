@@ -47,10 +47,6 @@ describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
 
   it 'was an active participant who has withdrawn' do
     visit "#{ENV['Base_URL']}/participants/sign_in"
-    if ENV['safari']
-      sign_out('completer')
-    end
-
     within('#new_participant') do
       fill_in 'participant_email', with: ENV['Old_Participant_Email']
       fill_in 'participant_password', with: ENV['Old_Participant_Password']

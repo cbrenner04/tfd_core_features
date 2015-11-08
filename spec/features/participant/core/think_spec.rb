@@ -12,7 +12,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  after do
+  after(:all) do
     sign_out('participant1')
   end
 
