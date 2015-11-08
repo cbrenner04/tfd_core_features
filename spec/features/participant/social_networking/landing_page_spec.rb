@@ -197,6 +197,7 @@ describe 'SocialNetworking Landing Page, ',
         expect(page).to_not have_link 'Create a Profile'
         expect(page).to have_content 'You are all caught up! Great work!'
       end
+
       sign_out('participant4')
     end
   end
@@ -207,14 +208,14 @@ describe 'SocialNetworking Landing Page, ',
   describe 'Active participant in social arm signs in,' do
     if ENV['safari']
       before(:all) do
-        sign_in_pt(ENV['Participant_Email'], 'participant1',
+        sign_in_pt(ENV['Participant_Email'], 'participant4',
                    ENV['Participant_Password'])
       end
     end
 
     before do
       unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'participant1',
+        sign_in_pt(ENV['Participant_Email'], 'participant4',
                    ENV['Participant_Password'])
       end
 

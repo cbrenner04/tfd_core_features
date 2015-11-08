@@ -12,10 +12,6 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  after(:all) do
-    sign_out('participant1')
-  end
-
   it 'completes Identifying module' do
     click_on '#1 Identifying'
     expect(page).to have_content 'You are what you think'
@@ -175,6 +171,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     end
 
     expect(page).to have_content 'Click a bubble for more info'
-    find('.btn.btn-default', text: 'Close').click
+
+    sign_out('participant1')
   end
 end

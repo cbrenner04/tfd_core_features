@@ -11,7 +11,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
 
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+      sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
 
@@ -71,7 +71,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
       incomp_pt = ['Second Third Fourth Fifth', 'First Fourth Fifth',
                    'First Third Fourth Fifth', 'Fourth Fifth']
 
-      row.zip(lesson, comp_pt, incomp_pt, pass) do |r, l, c, i|
+      row.zip(lesson, comp_pt, incomp_pt) do |r, l, c, i|
         within(r) do
           expect(page).to have_content l
 

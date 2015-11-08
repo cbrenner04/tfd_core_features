@@ -3,7 +3,7 @@
 describe 'Super User signs in,', :core, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_user(ENV['User_Email'], 'TFD Moderator',
+      sign_in_user(ENV['User_Email'], "#{moderator}",
                    ENV['User_Password'])
     end
 
@@ -13,7 +13,7 @@ describe 'Super User signs in,', :core, type: :feature, sauce: sauce_labs do
 
   else
     before do
-      sign_in_user(ENV['User_Email'], 'TFD Moderator',
+      sign_in_user(ENV['User_Email'], "#{moderator}",
                    ENV['User_Password'])
     end
   end

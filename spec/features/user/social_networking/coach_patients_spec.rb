@@ -6,7 +6,7 @@ describe 'Patient Dashboard - ',
            'active patient in Group 1,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -89,7 +89,7 @@ describe 'Patient Dashboard - ',
            'of active patient in Group 6,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -214,7 +214,7 @@ describe 'Patient Dashboard - ',
        'selects Terminate Access to end active status of participant,' \
        ' checks to make sure profile is removed' do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -248,7 +248,7 @@ describe 'Patient Dashboard - ',
 
       unless ENV['safari']
         visit "#{ENV['Base_URL']}/participants/sign_in"
-        sign_in_pt(ENV['PT61_Email'], 'TFD Moderator',
+        sign_in_pt(ENV['PT61_Email'], "#{moderator}",
                    ENV['PT61_Password'])
         expect(page).to have_content 'HOME'
 

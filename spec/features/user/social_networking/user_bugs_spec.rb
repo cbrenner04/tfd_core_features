@@ -5,14 +5,14 @@ describe 'User Dashboard Bugs,',
   describe 'Researcher signs in,' do
     if ENV['safari']
       before(:all) do
-        sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
       end
     end
 
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
       end
 
@@ -52,14 +52,14 @@ describe 'User Dashboard Bugs,',
   describe 'Clinician signs in,' do
     if ENV['safari']
       before(:all) do
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
     end
 
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 

@@ -13,6 +13,8 @@ describe 'Social Networking Bugs', :social_networking,
         click_on 'nonsocialpt'
         expect { click_on 'My Profile' }.to raise_error
       end
+
+      sign_out('nonsocialpt')
     end
   end
 end

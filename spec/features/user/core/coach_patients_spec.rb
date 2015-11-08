@@ -4,7 +4,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
   describe 'navigates to Patient Dashboard of active patient in Group 1,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -383,7 +383,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
   unless ENV['safari']
     describe 'Patient signs in, reads a lesson, signs out,' do
       before do
-        sign_in_pt(ENV['Participant_Email'], 'TFD Moderator',
+        sign_in_pt(ENV['Participant_Email'], "#{moderator}",
                    ENV['Participant_Password'])
         expect(page).to have_content 'HOME'
         sign_out('participant1')

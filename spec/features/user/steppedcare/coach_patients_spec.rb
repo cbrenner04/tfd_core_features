@@ -4,7 +4,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
   describe 'navigates to Patient Dashboard of active patient in Group 1,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -54,7 +54,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
   describe 'navigates to Patient Dashboard of active patient in Group 1,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 

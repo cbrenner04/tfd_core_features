@@ -3,6 +3,13 @@
 describe 'Active participant in a social arm signs in,',
          :social_networking, type: :feature, sauce: sauce_labs do
   describe 'visits the THINK tool,' do
+    if ENV['safari']
+      before(:all) do
+        sign_in_pt(ENV['Participant_Email'], 'mobilecompleter',
+                   ENV['Participant_Password'])
+      end
+    end
+
     before do
       unless ENV['safari']
         sign_in_pt(ENV['Participant_Email'], 'mobilecompleter',
@@ -217,13 +224,6 @@ describe 'Active participant in a non-social arm signs in,',
   end
 
   describe 'visits the DO tool,' do
-    if ENV['safari']
-      before(:all) do
-        sign_in_pt(ENV['NS_Participant_Email'], 'nonsocialpt',
-                   ENV['NS_Participant_Password'])
-      end
-    end
-
     before do
       unless ENV['safari']
         sign_in_pt(ENV['NS_Participant_Email'], 'nonsocialpt',
@@ -410,5 +410,6 @@ describe 'Active participant in a social arm signs in,',
                                    ' Example challenge' \
                                    " \nas if action: Example act-as-if"
     end
+    sign_out('participant5')
   end
 end

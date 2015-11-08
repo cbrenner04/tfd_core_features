@@ -4,7 +4,7 @@ describe 'Research signs in, navigates to Users,',
          :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+      sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
     end
 
@@ -158,6 +158,6 @@ describe 'Research signs in, navigates to Users,',
 
     expect(page).to have_content 'Arms'
 
-    sign_out('TFD Moderator')
+    sign_out("#{moderator}")
   end
 end

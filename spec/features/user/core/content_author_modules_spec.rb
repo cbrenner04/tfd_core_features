@@ -4,7 +4,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
          :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+      sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                    ENV['Content_Author_Password'])
     end
 

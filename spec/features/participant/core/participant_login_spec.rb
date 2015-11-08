@@ -2,14 +2,14 @@
 
 describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   it 'is an active participant, signs in' do
-    sign_in_pt(ENV['Participant_Email'], 'nonsocialpt',
+    sign_in_pt(ENV['Participant_Email'], "#{moderator}",
                ENV['Participant_Password'])
     expect(page).to have_content 'Signed in successfully.'
   end
 
   it 'is an active participant, signs in, visits another page, uses ' \
      'brand link to get to home page' do
-    unless ENV['Safari']
+    unless ENV['safari']
       sign_in_pt(ENV['Participant_Email'], 'participant1',
                  ENV['Participant_Password'])
     end

@@ -4,7 +4,7 @@ describe 'Coach signs in, navigates to Site Messages tool,',
          :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+      sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
 
@@ -57,6 +57,8 @@ describe 'Coach signs in, navigates to Site Messages tool,',
     end
 
     expect(page).to have_content 'Arms'
+
+    sign_out("#{moderator}")
   end
 end
 

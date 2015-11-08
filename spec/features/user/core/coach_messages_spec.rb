@@ -47,7 +47,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     expect(page).to have_content 'Message saved'
 
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], 'TFD Moderator',
+      sign_in_pt(ENV['Participant_Email'], "#{moderator}",
                  ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Reply: I like this app'
@@ -65,7 +65,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     expect(page).to have_content 'Message saved'
 
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], 'TFD Moderator',
+      sign_in_pt(ENV['Participant_Email'], "#{moderator}",
                  ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Testing compose functionality'

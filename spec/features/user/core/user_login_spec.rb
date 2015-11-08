@@ -6,7 +6,7 @@ require_relative '../../../../lib/super_user_dash_buttons.rb'
 
 describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   it 'is an authorized user, signs in' do
-    sign_in_user(ENV['User_Email'], 'TFD Moderator', ENV['User_Password'])
+    sign_in_user(ENV['User_Email'], "#{moderator}", ENV['User_Password'])
     expect(page).to have_content 'Signed in successfully'
   end
 
@@ -14,7 +14,7 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
     visit "#{ENV['Base_URL']}/users/sign_in"
 
     if ENV['safari']
-      sign_out('TFD Moderator')
+      sign_out("#{moderator}")
     end
 
     within('#new_user') do
@@ -57,7 +57,7 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   end
 
   it "is an authorized clinician, only sees what they're authorized to see" do
-    sign_in_user(ENV['Clinician_Email'], 'TFD Moderator',
+    sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                  ENV['Clinician_Password'])
     expect(page).to_not have_content "Groups\nCreate, update, delete, and " \
                                      'associate groups with arms along with ' \
@@ -99,10 +99,10 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   it "is an authorized researcher, only sees what they're authorized to see" do
     visit "#{ENV['Base_URL']}/users/sign_in"
     if ENV['safari']
-      sign_out('TFD Moderator')
+      sign_out("#{moderator}")
     end
 
-    sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+    sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                  ENV['Researcher_Password'])
     expect(page).to have_content "Arms\nNavigate to groups and participants " \
                                  "through arms.\nGroups\nCreate, update, " \
@@ -147,10 +147,10 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
      'to see' do
     visit "#{ENV['Base_URL']}/users/sign_in"
     if ENV['safari']
-      sign_out('TFD Moderator')
+      sign_out("#{moderator}")
     end
 
-    sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+    sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                  ENV['Content_Author_Password'])
     expect(page).to_not have_content "Groups\nCreate, update, delete, and " \
                                      'associate groups with arms along with ' \
@@ -177,10 +177,10 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   it 'is an authorized super user' do
     visit "#{ENV['Base_URL']}/users/sign_in"
     if ENV['safari']
-      sign_out('TFD Moderator')
+      sign_out("#{moderator}")
     end
 
-    sign_in_user(ENV['User_Email'], 'TFD Moderator',
+    sign_in_user(ENV['User_Email'], "#{moderator}",
                  ENV['User_Password'])
     expect(page).to have_content "Arms\nNavigate to groups and participants " \
                                  "through arms.\nGroups\nCreate, update, " \
@@ -226,7 +226,7 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
     if ENV['safari']
       visit "#{ENV['Base_URL']}/users/sign_in"
     else
-      sign_in_user(ENV['User_Email'], 'TFD Moderator',
+      sign_in_user(ENV['User_Email'], "#{moderator}",
                    ENV['User_Password'])
     end
 

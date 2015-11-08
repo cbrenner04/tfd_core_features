@@ -138,6 +138,8 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       within('.dropdown-toggle', text: 'FEEL') do
         expect(page).to_not have_content 'New!'
       end
+
+      sign_out("#{moderator}")
     end
   end
 end

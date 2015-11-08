@@ -5,7 +5,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
   describe 'navigates to Lesson Modules, selects a lesson,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                      ENV['Content_Author_Password'])
       end
 
@@ -141,7 +141,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
   describe 'navigates to Slideshows, selects a slideshow,' do
     before do
       unless ENV['safari']
-        sign_in_user(ENV['Content_Author_Email'], 'TFD Moderator',
+        sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                      ENV['Content_Author_Password'])
       end
 

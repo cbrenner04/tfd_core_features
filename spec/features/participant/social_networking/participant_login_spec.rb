@@ -21,6 +21,7 @@ describe 'A visitor to the site,', :social_networking,
 
     click_on 'Send'
     expect(page).to have_content 'Message saved'
+    sign_out('completer')
 
     unless ENV['safari']
       visit "#{ENV['Base_URL']}/users/sign_in"
@@ -37,7 +38,7 @@ describe 'A visitor to the site,', :social_networking,
 
       expect(page).to have_content 'Test'
 
-      sign_out('TFD Moderator')
+      sign_out("#{moderator}")
     end
   end
 
@@ -49,5 +50,7 @@ describe 'A visitor to the site,', :social_networking,
     expect(page).to have_content 'Inbox'
 
     expect(page).to_not have_content 'Compose'
+
+    sign_out('mobilecompleter')
   end
 end

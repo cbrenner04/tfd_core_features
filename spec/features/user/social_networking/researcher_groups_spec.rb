@@ -4,14 +4,14 @@ describe 'Researcher signs in, navigates to Groups,',
          :social_networking, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+      sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
     end
   end
 
   before do
     unless ENV['safari']
-      sign_in_user(ENV['Researcher_Email'], 'TFD Moderator',
+      sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
     end
 

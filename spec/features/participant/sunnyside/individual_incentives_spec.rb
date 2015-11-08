@@ -141,6 +141,8 @@ describe 'Individual incentives',
       (0..2).each do |i|
         check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
       end
+
+      sign_out('participant3')
     end
   end
 end

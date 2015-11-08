@@ -3,9 +3,11 @@
 describe 'Active participant in a social arm signs in,',
          :social_networking, type: :feature, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
-      sign_in_pt(ENV['Participant_Email'], 'participant1',
-                 ENV['Participant_Password'])
+    if ENV['sunnyside'] || ENV['marigold']
+      before(:all) do
+        sign_in_pt(ENV['Participant_Email'], 'participant4',
+                   ENV['Participant_Password'])
+      end
     end
   else
     before do
