@@ -30,6 +30,7 @@ end
 def test_driver
   puts "Sauce Labs is set to #{sauce_labs}"
   puts "Auto screenshots is set to #{!sauce_labs}"
+  puts "The time is #{Time.now.strftime('%H:%M:%S')}"
   if sauce_labs == false
     :selenium
   else
@@ -48,7 +49,7 @@ end
 
 # Capybara configuration options
 Capybara.configure do |config|
-  config.default_wait_time = 15
+  config.default_wait_time = 5
   config.default_driver = test_driver
   config.register_driver :selenium do |app|
     Capybara::Selenium::Driver.new(app, browser: driver)

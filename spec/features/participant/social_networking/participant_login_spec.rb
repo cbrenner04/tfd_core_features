@@ -34,7 +34,7 @@ describe 'A visitor to the site,', :social_networking,
       click_on 'Messaging'
       click_on 'Messages'
       click_on 'Test message from completer'
-      expect(page).to have_content 'From You'
+      expect(page).to have_content 'From Completer'
 
       expect(page).to have_content 'Test'
 

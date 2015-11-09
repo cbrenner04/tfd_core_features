@@ -1,6 +1,7 @@
 # filename: ./spec/features/user/core/super_user_spec.rb
 
-describe 'Super User signs in,', :core, type: :feature, sauce: sauce_labs do
+describe 'Super User signs in,',
+         :skip, :core, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
       sign_in_user(ENV['User_Email'], "#{moderator}",

@@ -60,4 +60,24 @@ namespace :run do
   task :marigold_suite_firefox do
     system('marigold=true rspec --tag core --tag social_networking --tag sunnyside')
   end
+
+  desc 'Run the test suite for TeleHealth on Chrome without certain example groups to increase speed'
+  task :tfd_suite_fast do
+    system('tfd=true chrome=true rspec --tag core --tag tfd --tag ~skip')
+  end
+
+  desc 'Run the test suite for MoodTech on Chrome without certain example groups to increase speed'
+  task :tfdso_suite_fast do
+    system('tfdso=true chrome=true rspec --tag core --tag social_networking --tag tfdso --tag ~skip')
+  end
+
+  desc 'Run the test suite for SunnySide on Chrome without certain example groups to increase speed'
+  task :sunnyside_suite_fast do
+    system('sunnyside=true chrome=true rspec --tag core --tag social_networking --tag sunnyside --tag ~skip')
+  end
+
+  desc 'Run the test suite for Marigold on Chrome without certain example groups to increase speed'
+  task :marigold_suite_fast do
+    system('marigold=true chrome=true rspec --tag core --tag social_networking --tag sunnyside --tag ~skip')
+  end
 end

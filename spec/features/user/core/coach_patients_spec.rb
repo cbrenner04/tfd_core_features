@@ -381,7 +381,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
   end
 
   unless ENV['safari']
-    describe 'Patient signs in, reads a lesson, signs out,' do
+    describe 'Patient signs in, signs out,' do
       before do
         sign_in_pt(ENV['Participant_Email'], "#{moderator}",
                    ENV['Participant_Password'])

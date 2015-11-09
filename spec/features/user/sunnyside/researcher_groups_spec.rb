@@ -1,7 +1,7 @@
 # filename: ./spec/features/user/sunnyside/researcher_groups_spec.rb
 
 describe 'Researcher signs in, navigates to Groups,',
-         :sunnyside, type: :feature, sauce: sauce_labs do
+         :skip, :sunnyside, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",

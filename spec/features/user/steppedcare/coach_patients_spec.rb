@@ -296,7 +296,14 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'manages an existing PHQ9 assessment' do
+    it 'manages an existing PHQ9 assessment, Most Recent stays the same' do
+      within('#patients') do
+        within first('tr', text: 'PHQ-1') do
+          date1 = Date.today - 4
+          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
+        end
+      end
+
       select_patient('PHQ-1')
 
       within('.list-group') do
@@ -321,6 +328,15 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
         expect(page).to have_content '1 2 2 1 2 1 1 1 2 Edit Delete'
 
         expect(page).to have_css('.fa.fa-flag', count: '2')
+      end
+
+      click_on 'Patient dashboard'
+      click_on 'Patients'
+      within('#patients') do
+        within first('tr', text: 'PHQ-1') do
+          date1 = Date.today - 4
+          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
+        end
       end
     end
 
