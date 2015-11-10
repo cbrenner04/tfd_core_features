@@ -11,7 +11,7 @@ describe 'Social Networking Bugs', :social_networking,
     it 'cannot select My Profile from navbar dropdown' do
       within '.navbar-collapse' do
         click_on 'nonsocialpt'
-        expect { click_on 'My Profile' }.to raise_error
+        expect(page).to_not have_content 'My Profile'
       end
 
       sign_out('nonsocialpt')

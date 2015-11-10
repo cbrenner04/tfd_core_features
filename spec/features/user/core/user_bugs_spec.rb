@@ -177,11 +177,10 @@ describe 'Researcher signs in,', :core, type: :feature do
 
   it 'navigates to CSV reports, downloads CSVs, does not receive exception' do
     @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
-    download_link = @driver.find_elements(class: 'list-group-item')[12]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[13]
-    download_link.click
+    (12..13).each do |i|
+      download_link = @driver.find_elements(class: 'list-group-item')[i]
+      download_link.click
+    end
 
     files = Dir.glob("#{@download_dir}/**")
     files.count.should be == 2

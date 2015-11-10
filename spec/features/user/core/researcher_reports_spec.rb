@@ -29,47 +29,10 @@ describe 'Researcher signs in,', :core, type: :feature do
 
   it 'navigates to CSV reports, downloads all reports' do
     @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
-    download_link = @driver.find_elements(class: 'list-group-item')[0]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[1]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[2]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[3]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[4]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[5]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[6]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[7]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[8]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[9]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[10]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[11]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[12]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[13]
-    download_link.click
+    (0..13).each do |i|
+      download_link = @driver.find_elements(class: 'list-group-item')[i]
+      download_link.click
+    end
 
     files = Dir.glob("#{@download_dir}/**")
     files.count.should be == 14

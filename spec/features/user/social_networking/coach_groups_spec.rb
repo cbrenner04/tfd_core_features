@@ -38,9 +38,8 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
 
   it 'uses the links within Group Summary' do
     within('.panel.panel-default', text: 'Group Summary') do
-      items = ['logins', 'thoughts', 'activities past', 'activities future',
-               'on the mind statements', 'comments', 'goals', 'likes']
-      items.each do |tool|
+      %w(logins thoughts activities\ past activities\ future
+         on\ the\ mind\ statements comments goals likes).each do |tool|
         click_on tool
       end
     end
@@ -204,8 +203,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
                  "#{date_2.strftime('%b %d %Y')}", 'Fifth That sounds like ' \
                  'fun! Activity: participant63, Go to movie, ' \
                  "#{date_3.strftime('%b %d %Y')}"]
-      num = ['1', '3', '5']
-      row.zip(content, num) do |r, c, n|
+      row.zip(content, %w(1 3 5)) do |r, c, n|
         within(r) do
           expect(page).to have_content c
           expect(page).to have_content n
@@ -281,8 +279,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
                  "#{date_3.strftime('%b %d %Y')}", 'Fifth  ' \
                  'SocialNetworking::SharedItem  Activity: Go to movie ' \
                  "#{date_4.strftime('%b %d %Y')}"]
-      num = ['1', '2', '2', '3', '5']
-      row.zip(content, num) do |r, c, n|
+      row.zip(content, %w(1 2 2 3 5)) do |r, c, n|
         within(r) do
           expect(page).to have_content c
           expect(page).to have_content n

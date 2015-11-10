@@ -2,7 +2,6 @@
 
 namespace :tfd do
   # load development version of think_feel_do locally
-
   desc 'Set and start think_feel_do for full suite testing locally'
   task :load_app_local do
     Dir.chdir('/Users/Chris/Work/think_feel_do') do
@@ -14,33 +13,23 @@ namespace :tfd do
   end
 
   # dump database
-
   desc 'Dump think_feel_do_development database'
   task :dump_db do
-    system '/Applications/Postgres.app/Contents/Versions/9.3/bin/pg_dump ' \
-           '-c -C -o -U Chris think_feel_do_development -f ' \
-           '/Users/Chris/Work/dbs/tfd_db.sql'
+    system '/Applications/Postgres.app/Contents/Versions/9.3/bin/pg_dump -c -C -o -U Chris think_feel_do_development -f /Users/Chris/Work/dbs/tfd_db.sql'
   end
 
   # load database with data from database dump
-
   desc 'Restore think_feel_do_development database'
   task :restore_db do
-    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb ' \
-           'think_feel_do_development')
-    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb ' \
-           'think_feel_do_development')
-    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U ' \
-           'Chris -d think_feel_do_development -f ' \
-           '/Users/Chris/Work/dbs/tfd_db.sql')
+    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb think_feel_do_development')
+    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb think_feel_do_development')
+    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d think_feel_do_development -f /Users/Chris/Work/dbs/tfd_db.sql')
     Dir.chdir('/Users/Chris/Work/think_feel_do') do
       system('rails s')
     end
   end
 
-  # load development version of think_feel_do on staging, keeping selenium
-  # as driver
-
+  # load development version of think_feel_do on staging, keeping selenium as driver
   desc 'Set test database for testing think_feel_do on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
@@ -66,9 +55,7 @@ namespace :tfd do
 
   # run cap commands from clean_db
 
-  # load development version of think_feel_do on staging and switch driver
-  # to sauce
-
+  # load development version of think_feel_do on staging and switch driver to sauce
   desc 'Set test database for testing think_feel_do on staging, switch driver'
   task :load_app_sauce do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
@@ -82,11 +69,38 @@ namespace :tfd do
   end
 
   # load staging version of think_feel_do on staging
-
   desc 'Returning think_feel_do staging database on staging'
   task :return_staging do
     Dir.chdir('/Users/Chris/Work/think_feel_do') do
       system('cap staging deploy:use_staging_db')
     end
+  end
+end
+
+namespace :run_tfd do
+  desc 'Run the test suite for the TeleHealth host application on Chrome'
+  task :chrome do
+    system('tfd=true chrome=true rspec --tag core --tag tfd')
+  end
+
+  desc 'Run the test suite for the TeleHealth host application on Safari'
+  task :safari do
+    system('tfd=true safari=true rspec --tag core --tag tfd')
+  end
+
+  desc 'Run the test suite for the TeleHealth host application on Firefox'
+  task :firefox do
+    system('tfd=true rspec --tag core --tag tfd')
+  end
+
+  desc 'Run the test suite for TeleHealth on Chrome without certain example groups to increase speed'
+  task :fast do
+    system('tfd=true rspec --tag core --tag tfd --tag ~skip')
+  end
+
+  # this requires switching databases on staging
+  desc 'Run the test suite for the TeleHealth host application on SauceLabs'
+  task :sauce do
+    system('tfd=true sauce=true rspec --tag core --tag tfd')
   end
 end

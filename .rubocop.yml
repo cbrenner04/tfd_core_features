@@ -1,9 +1,5 @@
 # filename: .rubocop.yml
 
-AllCops:
-  Exclude:
-    - Rakefile
-
 AbcSize:
   Enabled: false
 
@@ -42,4 +38,4 @@ Style/GuardClause:
   Enabled: false
 
 WordArray:
-  Enabled: false
+  Enabled: true

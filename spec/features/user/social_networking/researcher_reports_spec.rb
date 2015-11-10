@@ -29,27 +29,10 @@ describe 'Researcher signs in,', :social_networking, type: :feature do
 
   it 'navigates to CSV reports, downloads all reports' do
     @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
-
-    download_link = @driver.find_elements(class: 'list-group-item')[14]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[15]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[16]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[17]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[18]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[19]
-    download_link.click
-
-    download_link = @driver.find_elements(class: 'list-group-item')[20]
-    download_link.click
+    (14..20).each do |i|
+      download_link = @driver.find_elements(class: 'list-group-item')[i]
+      download_link.click
+    end
 
     files = Dir.glob("#{@download_dir}/**")
     files.count.should be == 7

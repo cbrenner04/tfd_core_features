@@ -40,10 +40,9 @@ describe 'Patient Dashboard - ',
     it 'uses the links within Tool Use table' do
       select_patient('TFD-1111')
       within('.table.table-hover', text: 'Tool Use') do
-        item = ['Lessons Read', 'Moods', 'Thoughts', 'Activities Planned',
-                'Activities Monitored', 'Activities Reviewed and Completed',
-                'Activities Reviewed and Incomplete']
-        item.each do |tool|
+        ['Lessons Read', 'Moods', 'Thoughts', 'Activities Planned',
+         'Activities Monitored', 'Activities Reviewed and Completed',
+         'Activities Reviewed and Incomplete'].each do |tool|
           click_on tool
         end
       end
@@ -77,9 +76,8 @@ describe 'Patient Dashboard - ',
 
       page.execute_script('window.scrollTo(0,5000)')
       within('.table.table-hover', text: 'Social Activity') do
-        item = ['Nudges', 'Comments', 'Goals', '"On My Mind" Statements']
-        item.each do |data|
-          click_on data
+        ['Nudges', 'Comments', 'Goals', '"On My Mind" Statements'].each do |x|
+          click_on x
         end
       end
     end

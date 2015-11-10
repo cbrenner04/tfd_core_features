@@ -2,7 +2,6 @@
 
 namespace :sunnyside do
   # load development version of sunnyside locally
-
   desc 'Set and start sunnyside for full suite testing locally'
   task :load_app_local do
     Dir.chdir('/Users/Chris/Work/sunnyside') do
@@ -15,33 +14,23 @@ namespace :sunnyside do
   end
 
   # dump database
-
   desc 'Dump database'
   task :dump_db do
-    system '/Applications/Postgres.app/Contents/Versions/9.3/bin/pg_dump ' \
-           '-c -C -o -U Chris sunnyside_development -f ' \
-           '/Users/Chris/Work/dbs/sunnyside_db.sql'
+    system '/Applications/Postgres.app/Contents/Versions/9.3/bin/pg_dump -c -C -o -U Chris sunnyside_development -f /Users/Chris/Work/dbs/sunnyside_db.sql'
   end
 
   # load database with data from database dump
-
   desc 'Restore database'
   task :restore_db do
-    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb ' \
-           'sunnyside_development')
-    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb ' \
-           'sunnyside_development')
-    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U ' \
-           'Chris -d sunnyside_development -f ' \
-           '/Users/Chris/Work/dbs/sunnyside_db.sql')
+    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb sunnyside_development')
+    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb sunnyside_development')
+    system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d sunnyside_development -f /Users/Chris/Work/dbs/sunnyside_db.sql')
     Dir.chdir('/Users/Chris/Work/sunnyside') do
       system('rails s')
     end
   end
 
-  # load development version of sunnyside on staging, keeping selenium
-  # as driver
-
+  # load development version of sunnyside on staging, keeping selenium as driver
   desc 'Set test database for testing on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://sunnyside-staging.cbits.northwestern.edu')
@@ -79,9 +68,7 @@ namespace :sunnyside do
   #
   # run cap commands from clean_db
 
-  # load development version of sunnyside on staging and switch driver
-  # to sauce
-
+  # load development version of sunnyside on staging and switch driver to sauce
   desc 'Set test database for testing on staging and switch driver'
   task :load_app_sauce do
     system('export Base_URL=https://sunnyside-staging.cbits.northwestern.edu')
@@ -96,11 +83,38 @@ namespace :sunnyside do
   end
 
   # load staging version of sunnyside on staging
-
   desc 'Returning staging database on staging'
   task :return_staging do
     Dir.chdir('/Users/Chris/Work/sunnyside') do
       system('cap staging deploy:use_staging_db')
     end
+  end
+end
+
+namespace :run_sunnyside do
+  desc 'Run the test suite for the SunnySide host application on Chrome'
+  task :chrome do
+    system('sunnyside=true chrome=true rspec --tag core --tag social_networking --tag sunnyside')
+  end
+
+  desc 'Run the test suite for the SunnySide host application on Safari'
+  task :safari do
+    system('sunnyside=true safari=true rspec --tag core --tag social_networking --tag sunnyside')
+  end
+
+  desc 'Run the test suite for the SunnySide host application on Firefox'
+  task :firefox do
+    system('sunnyside=true rspec --tag core --tag social_networking --tag sunnyside')
+  end
+
+  desc 'Run the test suite for SunnySide on Chrome without certain example groups to increase speed'
+  task :fast do
+    system('sunnyside=true rspec --tag core --tag social_networking --tag sunnyside --tag ~skip')
+  end
+
+  # this requires switching databases on staging
+  desc 'Run the test suite for the SunnySide host application on SauceLabs'
+  task :sauce do
+    system('sunnyside=true sauce=true rspec --tag core --tag social_networking --tag sunnyside')
   end
 end

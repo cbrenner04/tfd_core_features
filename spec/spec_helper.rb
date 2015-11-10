@@ -11,7 +11,7 @@ require 'sauce_whisk'
 
 # define methods for setting the driver
 def sauce_labs
-  ENV['Sauce'] || false
+  ENV['sauce'] || false
 end
 
 def driver

@@ -59,7 +59,7 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       page.execute_script('window.scrollBy(0,500)')
       accept_social
 
-      ['recent', 'fun', 'accomplished'].each do |x|
+      %w(recent fun accomplished).each do |x|
         find("##{x}_activities")
         click_on 'Next'
       end

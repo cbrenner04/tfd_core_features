@@ -94,10 +94,9 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
 
       page.execute_script('window.scrollTo(0,5000)')
       within('.list-group') do
-        item = ['Mood and Emotions Visualizations', 'Feelings', 'Logins',
-                'Lessons', 'Audio Access', 'Activities - Future',
-                'Activities - Past', 'Messages', 'Tasks']
-        item.each do |tool|
+        ['Mood and Emotions Visualizations', 'Feelings', 'Logins',
+         'Lessons', 'Audio Access', 'Activities - Future',
+         'Activities - Past', 'Messages', 'Tasks'].each do |tool|
           find('a', text: tool).click
         end
         page.all('a', text: 'Mood')[1].click
@@ -292,15 +291,9 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
         find('.sorting', text: 'Status').click
         find('.sorting_asc', text: 'Status').click
         within('tr', text: 'Parkour') do
-          if page.has_text? 'Planned'
-            expect(page)
-              .to have_content '9 4 Not Rated Not Rated  Scheduled for ' \
-                              "#{Date.today.prev_day.strftime('%b %d %Y')}"
-          else
-            expect(page)
-              .to have_content 'Reviewed & Completed 9 4 7 5 Scheduled for ' \
-                              "#{Date.today.prev_day.strftime('%b %d %Y')}"
-          end
+          expect(page).to have_content '9 4'
+          prev_day = Date.today - 1
+          expect(page).to have_content "#{prev_day.strftime('%b %d %Y')}"
         end
 
         if page.all('tr:nth-child(1)')[1]
@@ -401,13 +394,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
         expect(page).to have_content 'Last Activity Detected At: ' \
                                      "#{Time.now.strftime('%A, %b %d %Y %I')}"
 
-        if page.has_text?('Session: half')
-          expect(page).to have_content 'Duration of Last Session: ' \
-                                       'half a minute'
-        else
-          expect(page).to have_content 'Duration of Last Session: ' \
-                                       'less than'
-        end
+        expect(page).to have_content 'Duration of Last Session: less than'
       end
     end
   end

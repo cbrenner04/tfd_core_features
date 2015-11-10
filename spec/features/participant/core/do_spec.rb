@@ -45,10 +45,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
 
     click_on 'Next'
 
-    table = ['recent', 'fun', 'accomplished']
-    row = ['17', '5', '5']
-
-    table.zip(row) do |x, y|
+    %w(recent fun accomplished).zip([17, 5, 5]) do |x, y|
       within("##{x}_activities") do
         expect(page).to have_css('tr', count: y)
       end
@@ -95,7 +92,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Next'
 
-    ['recent', 'fun', 'accomplished'].each do |x|
+    %w(recent fun accomplished).each do |x|
       find("##{x}_activities")
       click_on 'Next'
     end
@@ -270,10 +267,8 @@ describe 'Active participant in group 3 signs in, navigates to DO tool,',
     click_on 'Complete'
 
     activity = ['Get ready for work', 'Travel to work', 'Work']
-    pleasure = [6, 2, 8]
-    accomplishment = [7, 3, 9]
 
-    (0..2).zip(activity, pleasure, accomplishment) do |a, b, c, d|
+    (0..2).zip(activity, [6, 2, 8], [7, 3, 9]) do |a, b, c, d|
       fill_in "activity_type_#{a}", with: b
       choose_rating("pleasure_#{a}", c)
       choose_rating("accomplishment_#{a}", d)
@@ -282,7 +277,7 @@ describe 'Active participant in group 3 signs in, navigates to DO tool,',
 
     click_on 'Next'
 
-    ['recent', 'fun', 'accomplished'].each do |x|
+    %w(recent fun accomplished).each do |x|
       find("##{x}_activities")
       click_on 'Next'
     end

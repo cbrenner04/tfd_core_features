@@ -16,9 +16,8 @@ describe 'Active participant signs in, navigates to THINK tool,',
     click_on '#1 Identifying'
     expect(page).to have_content 'You are what you think'
 
-    slide = ['Helpful thoughts are...', 'Harmful thoughts are:',
-             'Some quick examples...']
-    slide.each do |s|
+    ['Helpful thoughts are...', 'Harmful thoughts are:',
+     'Some quick examples...'].each do |s|
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Next'
       expect(page).to have_content s

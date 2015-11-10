@@ -9,6 +9,12 @@ This is a test suite that can be pointed at any of the ThinkFeelDo host apps:
 
 ## Information for running this test suite
 
+This test suite is written using Capybara with RSpec. It uses Selenium
+WebDriver to drive the tests. It is set up to be configured to use Safari,
+Chrome, or Firefox as the browser. It can also be pointed at Sauce Labs for
+even more environment possibilities. For general information on this set up,
+see this [guide](https://github.com/cbitstech/guides/tree/master/testing/selenium/selenium_webdriver).
+
 You will need to set up the following participants and users in the host app.
 You can use the fixtures in the host app to seed this data. See the
 corresponding rake file (under `./lib/tasks/`) for the tasks that make sense
@@ -31,8 +37,9 @@ user:
 * [Marigold](https://github.com/NU-CBITS/marigold/tree/master/spec/selenium_fixtures)
 
 You will need a file called `env_variables.rb`, which is required in the
-`.rspec` file, that houses the following environment variable. These correspond
-with the data for the above participant and users seeded in the host app.
+`.rspec` file, that houses the following environment variables. These
+correspond with the data for the above participant and users seeded in the host
+app.
 
 The  `Participant_Phone_Number` variable is formatted 18885559999 while the
 `Participant_Phone_Number_1` is formatted 1(888) 555-9999. The `Audio_File`
@@ -56,5 +63,7 @@ otherwise you can run it locally on your machine:
     SAUCE_USERNAME; SAUCE_ACCESS_KEY
 
 Once you have the data seeded in the app and the env_variables.rb file
-configured, checkout the `./lib/tasks/run.rake` file to find the specific task
-for running the suite.
+configured, run the following to see what rake tasks apply to particular sweet
+you are looking to run:
+
+    rake -T
