@@ -109,7 +109,7 @@ namespace :run_marigold do
 
   desc 'Run the test suite for Marigold on Chrome without certain example groups to increase speed'
   task :fast do
-    system('marigold=true rspec --tag core --tag social_networking --tag sunnyside --tag ~skip')
+    system('marigold=true rspec --tag core --tag social_networking --tag sunnyside --tag ~superfluous')
   end
 
   # this requires switching databases on staging

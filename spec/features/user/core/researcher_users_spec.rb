@@ -1,7 +1,7 @@
 # filename: ./spec/features/user/core/researcher_users_spec.rb
 
 describe 'Research signs in, navigates to Users,',
-         :skip, :core, type: :feature, sauce: sauce_labs do
+         :superfluous, :core, type: :feature, sauce: sauce_labs do
   before do
     unless ENV['safari']
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",

@@ -109,7 +109,7 @@ namespace :run_sunnyside do
 
   desc 'Run the test suite for SunnySide on Chrome without certain example groups to increase speed'
   task :fast do
-    system('sunnyside=true rspec --tag core --tag social_networking --tag sunnyside --tag ~skip')
+    system('sunnyside=true rspec --tag core --tag social_networking --tag sunnyside --tag ~superfluous')
   end
 
   # this requires switching databases on staging

@@ -35,7 +35,7 @@ end
 def sign_out(display_name)
   within('.navbar-collapse') do
     unless page.has_text?('Sign Out')
-      click_on display_name
+      find('a', text: display_name).click
     end
     click_on 'Sign Out'
   end

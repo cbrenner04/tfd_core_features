@@ -95,7 +95,7 @@ namespace :run_tfd do
 
   desc 'Run the test suite for TeleHealth on Chrome without certain example groups to increase speed'
   task :fast do
-    system('tfd=true rspec --tag core --tag tfd --tag ~skip')
+    system('tfd=true rspec --tag core --tag tfd --tag ~superfluous')
   end
 
   # this requires switching databases on staging

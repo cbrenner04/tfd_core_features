@@ -30,14 +30,6 @@ describe 'Individual incentives',
     it 'completes a behavior for an incentive, sees incentive list update' do
       find_feed_item('Did Not Complete a Goal: p2 alpha')
       like('Did Not Complete a Goal: p2 alpha')
-
-      # toast expectation commented out due to issues w/ its functionality
-      # and WebDriver
-
-      # expect(page).to have_css('.alert.alert-success.alert-dismissible',
-      #                          text: 'Congratulations: you completed the ' \
-      #                          "behavior: Like a person's shared content")
-
       visit_profile
       expect(page).to have_css('.panel-title.panel-unreleased',
                                text: 'like 3 feed items 1/3 complete')
@@ -58,14 +50,6 @@ describe 'Individual incentives',
       like('Did Not Complete a Goal: p2 gamma')
       page.execute_script('window.scrollBy(0,1000)')
       like('said what about Bob?')
-
-      # toast expectation commented out due to issues w/ its functionality
-      # and WebDriver
-
-      # expect(page).to have_css('.alert.alert-success.alert-dismissible',
-      #                          text: 'Congratulations: you completed the ' \
-      #                          'incentive: like 3 feed items')
-
       visit_profile
       expect(page).to have_css('.panel.panel-default.panel-info',
                                text: 'like 3 feed items 3/3 complete')
@@ -140,6 +124,10 @@ describe 'Individual incentives',
 
       (0..2).each do |i|
         check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
+      end
+
+      while page.has_css?('.alert', text: 'Congratulations')
+        first('.close').click
       end
 
       sign_out('participant3')

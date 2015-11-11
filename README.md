@@ -38,8 +38,8 @@ user:
 
 You will need a file called `env_variables.rb`, which is required in the
 `.rspec` file, that houses the following environment variables. These
-correspond with the data for the above participant and users seeded in the host
-app.
+correspond with the data for the above participants and users seeded in the
+host app.
 
 The  `Participant_Phone_Number` variable is formatted 18885559999 while the
 `Participant_Phone_Number_1` is formatted 1(888) 555-9999. The `Audio_File`
@@ -63,7 +63,7 @@ otherwise you can run it locally on your machine:
     SAUCE_USERNAME; SAUCE_ACCESS_KEY
 
 Once you have the data seeded in the app and the env_variables.rb file
-configured, run the following to see what rake tasks apply to particular sweet
+configured, run the following to see what rake tasks apply to particular suite
 you are looking to run:
 
     rake -T

@@ -1,7 +1,7 @@
 # filename: ./spec/features/user/core/content_author_slides_spec.rb
 
 describe 'Content Author signs in, navigates to Arm 1,',
-         :skip, :core, type: :feature, sauce: sauce_labs do
+         :superfluous, :core, type: :feature, sauce: sauce_labs do
   describe 'navigates to Lesson Modules, selects a lesson,' do
     before do
       unless ENV['safari']

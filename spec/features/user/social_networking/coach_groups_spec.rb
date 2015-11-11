@@ -58,20 +58,16 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
 
   it 'views Lesson View Summary' do
     within('.panel.panel-default', text: 'Lesson View Summary') do
-      table_row_0 = page.all('tr:nth-child(1)')
-      table_row_2 = page.all('tr:nth-child(2)')
-      row = [table_row_0[0], table_row_2[0], 'tr:nth-child(3)',
-             table_row_0[4]]
-      lesson = ['Testing adding/updating slides/lessons 1 of 5 COMPLETE',
-                'Do - Awareness Introduction 2 of 5 COMPLETE',
-                'Do - Planning Introduction 1 of 5 COMPLETE',
-                'Think - Identifying Conclusion 3 of 5 COMPLETE']
-      comp_pt = ['First', 'Second Third', 'Second', 'First Second Third']
-      incomp_pt = ['Second Third Fourth Fifth', 'First Fourth Fifth',
-                   'First Third Fourth Fifth', 'Fourth Fifth']
+      row = ['Do - Awareness Introduction', 'Do - Planning Introduction',
+             'Think - Identifying Conclusion']
+      lesson = ['2 of 5 COMPLETE', '1 of 5 COMPLETE',
+                '3 of 5 COMPLETE']
+      comp_pt = ['Second Third', 'Second', 'First Second Third']
+      incomp_pt = ['First Fourth Fifth', 'First Third Fourth Fifth',
+                   'Fourth Fifth']
 
       row.zip(lesson, comp_pt, incomp_pt) do |r, l, c, i|
-        within(r) do
+        within('tr', text: r) do
           expect(page).to have_content l
 
           page.execute_script('window.scrollBy(0,1000)')

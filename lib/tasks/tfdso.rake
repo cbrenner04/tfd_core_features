@@ -98,7 +98,7 @@ namespace :run_tfdso do
 
   desc 'Run the test suite for MoodTech on Chrome without certain example groups to increase speed'
   task :fast do
-    system('tfdso=true rspec --tag core --tag social_networking --tag tfdso --tag ~skip')
+    system('tfdso=true rspec --tag core --tag social_networking --tag tfdso --tag ~superfluous')
   end
 
   # this requires switching databases on staging

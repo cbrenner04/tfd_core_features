@@ -1,7 +1,7 @@
 # filename: ./spec/features/user/core/content_author_lessons_spec.rb
 
 describe 'Content Author signs in , navigates to Lesson Modules tool,',
-         :skip, :core, type: :feature, sauce: sauce_labs do
+         :superfluous, :core, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
       sign_in_user(ENV['Content_Author_Email'], "#{moderator}",

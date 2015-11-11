@@ -193,6 +193,7 @@ describe 'SocialNetworking Landing Page, ',
       answer_profile_question('What are your hobbies?', 'Running')
 
       visit ENV['Base_URL']
+      page.evaluate_script('window.confirm = function() { return true; }')
       within('.panel.panel-default.ng-scope', text: 'To Do') do
         expect(page).to_not have_link 'Create a Profile'
         expect(page).to have_content 'You are all caught up! Great work!'
@@ -235,6 +236,7 @@ end
 def answer_profile_question(question, answer)
   within(".panel.panel-#{profile_class}.ng-scope", text: question) do
     find('input[type = text]').set(answer)
+    page.evaluate_script('window.confirm = function() { return true; }')
     click_on 'Save'
   end
 end

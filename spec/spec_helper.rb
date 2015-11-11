@@ -74,16 +74,15 @@ Sauce.config do |config|
   config[:start_tunnel] = false
   config[:browsers] = [
     ['Windows XP', 'Firefox', '32'],
-    ['Windows XP', 'Chrome', '37'],
+    ['Windows XP', 'Chrome', nil],
     ['Windows 7', 'Firefox', '32'],
-    ['Windows 7', 'Chrome', '37'],
+    ['Windows 7', 'Chrome', nil],
     ['OS X 10.6', 'Firefox', '32'],
-    ['OS X 10.6', 'Chrome', '37'],
-    ['OS X 10.6', 'Chrome', '37'],
+    ['OS X 10.6', 'Chrome', nil],
     ['OS X 10.9', 'Firefox', '32'],
-    ['OS X 10.9', 'Chrome', '37'],
+    ['OS X 10.9', 'Chrome', nil],
     ['OS X 10.10', 'Firefox', '32'],
-    ['OS X 10.10', 'Chrome', '37']
+    ['OS X 10.10', 'Chrome', nil]
   ].sample
 
   config.after do |example|
