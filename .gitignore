@@ -40,3 +40,4 @@ build/
 spec/env_variables.rb
 screenshots/
 output/
+spec/features/experiments/
