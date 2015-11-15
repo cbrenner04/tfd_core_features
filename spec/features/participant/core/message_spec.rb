@@ -2,9 +2,16 @@
 
 describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
          :core, type: :feature, sauce: sauce_labs do
+  if ENV['safari']
+    before(:all) do
+      sign_in_pt(ENV['Participant_Email'], 'participant5',
+                 ENV['Participant_Password'])
+    end
+  end
+
   before do
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], 'participant1',
+      sign_in_pt(ENV['Participant_Email'], 'participant5',
                  ENV['Participant_Password'])
     end
 
