@@ -20,8 +20,7 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
 
   it 'composes a new message' do
     click_on 'Compose'
-    expect(page).to have_content 'To Coach'
-
+    find('.control-label', text: 'To Coach')
     within('#new_message') do
       fill_in 'message_subject', with: 'New message'
       fill_in 'message_body',
@@ -35,21 +34,21 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
 
   it 'reads a sent message' do
     click_on 'Sent'
-    expect(page).to have_content 'To: Coach'
-
     click_on 'I like this app'
-    expect(page).to have_content 'From You'
-
+    find('.well', text: 'From You')
     expect(page).to have_content 'This app is really helpful!'
   end
 
-  it 'reads and replies to a received message' do
+  it 'reads a received message' do
     click_on 'Try out the LEARN tool'
     expect(page).to have_content 'I think you will find it helpful.'
+  end
 
+  it 'replies to a received message' do
+    click_on 'Try out the LEARN tool'
+    find('p', text: 'I think you will find it helpful.')
     click_on 'Reply'
-    expect(page).to have_content 'To Coach'
-
+    find('.control-label', text: 'To Coach')
     within('#new_message') do
       fill_in 'message_body', with: 'Got it. Thanks!'
     end
@@ -61,8 +60,7 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
 
   it 'composes a message from reading a message' do
     click_on 'Try out the LEARN tool'
-    expect(page).to have_content 'I think you will find it helpful.'
-
+    find('p', text: 'I think you will find it helpful.')
     click_on 'Compose'
     expect(page).to have_content 'To Coach'
   end
@@ -90,12 +88,8 @@ describe 'Active participant in group 3 signs in, navigates to MESSAGES',
 
   it 'accesses a link from a message in inbox' do
     click_on 'Check out the Introduction slideshow'
-    expect(page).to have_content "Here's a link to the introduction slideshow:"
-
+    find('p', text: "Here's a link to the introduction slideshow:")
     click_on 'Introduction to ThinkFeelDo'
     expect(page).to have_content 'Welcome to ThiFeDo'
-
-    click_on 'Done'
-    expect(page).to have_content 'HOME'
   end
 end
