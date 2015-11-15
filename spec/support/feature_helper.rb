@@ -22,7 +22,7 @@ def sign_in_user(user, old_user, password)
   unless page.has_css?('#new_user')
     sign_out(old_user)
   end
-  if page.has_css?('#new_user')
+  unless page.has_no_css?('#new_user')
     within('#new_user') do
       fill_in 'user_email', with: user
       fill_in 'user_password', with: password
@@ -112,7 +112,7 @@ def accept_social
 end
 
 def find_feed_item(item)
-  if ENV['sunnyside'] || ENV['marigold']
+  unless ENV['tfd'] || ENV['tfdso']
     find('#feed-btn').click
   end
   counter = 0
@@ -142,7 +142,7 @@ def plan_activity(activity, x, y)
   choose_rating('pleasure_0', x)
   choose_rating('accomplishment_0', y)
   accept_social
-  expect(page).to have_content 'Activity saved'
+  find('.alert-success', text: 'Activity saved')
 end
 
 def moderator
@@ -195,7 +195,7 @@ end
 
 def visit_profile
   visit "#{ENV['Base_URL']}/social_networking/profile_page"
-  if page.has_css?('.modal-content')
+  unless page.has_no_css?('.modal-content')
     within('.modal-content') do
       page.all('img')[2].click
     end

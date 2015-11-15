@@ -20,7 +20,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
      'Some quick examples...'].each do |s|
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Next'
-      expect(page).to have_content s
+      find('h1', text: s)
     end
 
     click_on 'Next'

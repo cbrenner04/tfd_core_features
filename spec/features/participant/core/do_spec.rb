@@ -28,7 +28,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     select "#{Date.today.prev_day.strftime('%a')} 10 PM",
            from: 'awake_period_end_time'
     click_on 'Create'
-    expect(page).to have_content 'Awake Period saved'
+    find('.alert-success', text: 'Awake Period saved')
 
     activity = ['Get ready for work', 'Travel to work', 'Work', 'Work', 'Work',
                 'Work', 'Work', 'Work', 'Work', 'Work', 'Travel from work',
@@ -82,7 +82,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
            from: 'awake_period_start_time'
     select "#{Date.today.strftime('%a')} 1 AM", from: 'awake_period_end_time'
     click_on 'Create'
-    expect(page).to have_content 'Awake Period saved'
+    find('.alert-success', text: 'Awake Period saved')
 
     fill_in 'activity_type_0', with: 'Sleep'
     choose_rating('pleasure_0', 6)
@@ -92,8 +92,11 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Next'
 
-    %w(recent fun accomplished).each do |x|
-      find("##{x}_activities")
+    %w(recent fun accomplished).zip([3, 2, 1]) do |x, y|
+      within("##{x}_activities") do
+        expect(page).to have_css('tr', count: y)
+      end
+
       click_on 'Next'
     end
 
@@ -119,7 +122,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
   it 'completes Reviewing' do
     click_on '#3 Doing'
     click_on 'Next'
-    expect(page).to have_content "Let's do this..."
+    find('h1', text: "Let's do this...")
 
     click_on 'Next'
     find('.btn.btn-success').click
@@ -129,7 +132,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     accept_social
     expect(page).to have_content 'Activity saved'
 
-    if page.has_text?('You said you were going to')
+    unless page.has_no_text?('You said you were going to')
       find('.btn.btn-danger').click
       fill_in 'activity[noncompliance_reason]', with: "I didn't have time"
       accept_social
@@ -140,23 +143,39 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
   it 'completes Plan a New Activity' do
     click_on 'Add a New Activity'
     plan_activity('New planned activity', 4, 3)
+    expect(page).to have_content 'New planned activity'
   end
 
-  it 'uses Your Activities viz' do
+  it 'navigates to Your Activities viz' do
     click_on 'Your Activities'
-    expect(page).to have_content 'Daily Averages for ' \
-                                 "#{Date.today.strftime('%b %d %Y')}"
+    expect(page)
+      .to have_content "Daily Averages for #{Date.today.strftime('%b %d %Y')}"
+  end
 
-    expect(page).to have_content 'Average Accomplishment Discrepancy'
-
+  it 'collapses Daily Summaries in Your Activities viz' do
+    click_on 'Your Activities'
+    find('p', text: 'Average Accomplishment Discrepancy')
     click_on 'Daily Summaries'
     expect(page).to_not have_content 'Average Accomplishment Discrepancy'
+  end
 
+  it 'navigates to previous day in Your Activities viz' do
+    click_on 'Your Activities'
+    find('h3', text: 'Daily Averages')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Previous Day'
-    expect(page).to have_content 'Daily Averages for ' \
-                                 "#{Date.today.prev_day.strftime('%b %d %Y')}"
+    prev_day = Date.today - 1
+    expect(page)
+      .to have_content "Daily Averages for #{prev_day.strftime('%b %d %Y')}"
+  end
 
+  it 'views ratings of an activity in Your Activities viz' do
+    click_on 'Your Activities'
+    find('h3', text: 'Daily Averages')
+    page.execute_script('window.scrollTo(0,5000)')
+    prev_day = Date.today - 1
+    click_on 'Previous Day'
+    find('h3', text: "Daily Averages for #{prev_day.strftime('%b %d %Y')}")
     page.execute_script('window.scrollTo(0,5000)')
     endtime = Time.now + (60 * 60)
     within('.panel.panel-default',
@@ -164,20 +183,39 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
            "#{endtime.strftime('%-l %P')}: Parkour") do
       click_on "#{Time.now.strftime('%-l %P')} - " \
                "#{endtime.strftime('%-l %P')}: Parkour"
-      expect(page).to have_content 'Predicted  Average Importance: 4 Really ' \
-                                   'fun: 9'
+      expect(page)
+        .to have_content 'Predicted  Average Importance: 4 Really fun: 9'
+    end
+  end
 
+  it 'edits ratings of an activity in Your Activities viz' do
+    click_on 'Your Activities'
+    find('h3', text: 'Daily Averages')
+    page.execute_script('window.scrollTo(0,5000)')
+    prev_day = Date.today - 1
+    click_on 'Previous Day'
+    find('h3', text: "Daily Averages for #{prev_day.strftime('%b %d %Y')}")
+    page.execute_script('window.scrollTo(0,5000)')
+    endtime = Time.now + (60 * 60)
+    within('.panel.panel-default',
+           text: "#{Time.now.strftime('%-l %P')} - " \
+           "#{endtime.strftime('%-l %P')}: Parkour") do
+      click_on "#{Time.now.strftime('%-l %P')} - " \
+               "#{endtime.strftime('%-l %P')}: Parkour"
       within('.collapse.in') do
         click_on 'Edit'
-        expect(page).to have_css('#activity_actual_accomplishment_intensity')
+        select '6', from: 'activity[actual_pleasure_intensity]'
+        select '7', from: 'activity[actual_accomplishment_intensity]'
+        click_on 'Update'
       end
+      expect(page)
+        .to have_content 'Accomplishment: 7 · Pleasure: 6'
     end
+  end
 
-    page.execute_script('window.scrollTo(0,100000)')
-    click_on 'Next Day'
-    expect(page).to have_content 'Daily Averages for ' \
-                                 "#{Date.today.strftime('%b %d %Y')}"
-
+  it 'uses the visualization in Your Activities viz' do
+    click_on 'Your Activities'
+    find('h3', text: 'Daily Averages')
     click_on 'Visualize'
     click_on 'Last 3 Days'
     date1 = Date.today - 2
@@ -195,7 +233,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
 
   it 'uses navbar functionality for all of DO' do
     visit "#{ENV['Base_URL']}/navigator/modules/339588004"
-    expect(page).to have_content 'This is just the beginning...'
+    find('h1', text: 'This is just the beginning...')
 
     tool = ['#2 Planning', '#1 Awareness', '#3 Doing', 'Add a New Activity',
             'Your Activities', 'View Planned Activities', 'DO Home']
@@ -211,24 +249,25 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     end
   end
 
-  it 'uses skip functionality in all of DO slideshows' do
+  it 'uses skip functionality in Awareness' do
     click_on '#1 Awareness'
-    expect(page).to have_content 'This is just the beginning...'
-
+    find('h1', text: 'This is just the beginning...')
     click_on 'Skip'
     expect(page).to have_content "OK, let's talk about yesterday."
+  end
 
+  it 'uses skip functionality in Planning' do
     click_on 'DO'
-    click_on '#2 Planning'
-    expect(page).to have_content 'The last few times you were here...'
-
+    first('a', text: '#2 Planning').click
+    find('h1', text: 'The last few times you were here...')
     click_on 'Skip'
     expect(page).to have_content 'We want you to plan one fun thing'
+  end
 
+  it 'uses skip functionality in Doing' do
     click_on 'DO'
-    click_on '#3 Doing'
-    expect(page).to have_content 'Welcome back!'
-
+    first('a', text: '#3 Doing').click
+    find('h1', text: 'Welcome back!')
     click_on 'Skip'
     unless page.has_text?('You said you were going to')
       expect(page).to have_content "It doesn't look like there are any " \
@@ -277,17 +316,17 @@ describe 'Active participant in group 3 signs in, navigates to DO tool,',
 
     click_on 'Next'
 
-    %w(recent fun accomplished).each do |x|
+    %w(recent fun accomplished).zip([4, 3, 3]) do |x, y|
       find("##{x}_activities")
       click_on 'Next'
+      expect(page).to have_css('tr', count: y)
     end
 
     find('h1', text: 'Do Landing')
   end
 
   it 'visits Reviewing from viz at bottom of DO > Landing' do
-    expect(page).to have_content 'Recent Past Activities'
-
+    find('.Recent_Past_Activities')
     click_on 'Edit'
     expect(page).to have_content 'You said you were going to'
   end
