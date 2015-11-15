@@ -15,8 +15,7 @@ describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
     end
 
     visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
-    expect(page).to have_content 'Lessons'
-
+    find('h1', text: 'Lessons')
     find(:css, '.navbar-brand').click
     expect(page).to have_content 'HOME'
   end

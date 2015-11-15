@@ -50,7 +50,7 @@ end
 def compare_thought(thought)
   page.execute_script('window.scrollBy(0,500)')
   accept_social
-  expect(page).to have_content 'Thought saved'
+  find('.alert-success', text: 'Thought saved')
   within('.panel-body.adjusted-list-group-item') do
     expect(page).to_not have_content thought
   end
@@ -58,20 +58,19 @@ def compare_thought(thought)
 end
 
 def reshape(challenge, action)
-  expect(page).to have_content 'You said that you thought...'
+  find('h3', text: 'You said that you thought...')
   click_on 'Next'
   fill_in 'thought[challenging_thought]', with: challenge
   page.execute_script('window.scrollBy(0,500)')
   click_on 'Next'
-  expect(page).to have_content 'Thought saved'
-  expect(page).to have_content 'Because what you THINK, FEEL, Do'
+  find('.alert-success', text: 'Thought saved')
+  find('p', text: 'Because what you THINK, FEEL, Do')
   page.execute_script('window.scrollTo(0,5000)')
   click_on 'Next'
-  expect(page).to have_content 'What could you do to ACT AS IF you believe ' \
-                               'this?'
+  find('label', text: 'What could you do to ACT AS IF you believe this?')
   fill_in 'thought_act_as_if', with: action
   click_on 'Next'
-  expect(page).to have_content 'Thought saved'
+  find('.alert-success', text: 'Thought saved')
 end
 
 def pick_tomorrow

@@ -14,8 +14,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
   it 'completes Identifying module' do
     click_on '#1 Identifying'
-    expect(page).to have_content 'You are what you think'
-
+    find('h1', text: 'You are what you think')
     ['Helpful thoughts are...', 'Harmful thoughts are:',
      'Some quick examples...'].each do |s|
       page.execute_script('window.scrollTo(0,5000)')
@@ -33,11 +32,10 @@ describe 'Active participant signs in, navigates to THINK tool,',
       find('h2', text: h)
       fill_in 'thought_content', with: r
       accept_social
-      expect(page).to have_content 'Thought saved'
+      find('.alert-success', text: 'Thought saved')
     end
 
-    expect(page).to have_content 'Good work'
-
+    find('h1', text: 'Good work')
     click_on 'Next'
     expect(page).to have_content 'Add a New Harmful Thought'
   end
@@ -45,8 +43,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
   it 'completes Patterns module' do
     click_on '#2 Patterns'
     click_on 'Next'
-    expect(page).to have_content "Let's start by"
-
+    find('p', text: "Let's start by")
     thought_value = find('.panel-body.adjusted-list-group-item').text
     select 'Personalization', from: 'thought_pattern_id'
     3.times do
@@ -58,17 +55,16 @@ describe 'Active participant signs in, navigates to THINK tool,',
     select 'Personalization', from: 'thought_pattern_id'
     page.execute_script('window.scrollBy(0,500)')
     accept_social
-    expect(page).to have_content 'Thought saved'
+    find('.alert-success', text: 'Thought saved')
+    expect(page).to have_content 'Add a New Harmful Thought'
   end
 
   it 'completes Reshape module' do
     click_on '#3 Reshape'
     click_on 'Next'
-    expect(page).to have_content 'You said you had the following unhelpful ' \
-                                 'thoughts:'
-
+    find('h2', text: 'You said you had the following unhelpful thoughts:')
     click_on 'Next'
-    expect(page).to have_content 'Challenging a thought means'
+    find('p', text: 'Challenging a thought means')
 
     begin
       tries ||= 3
@@ -81,6 +77,8 @@ describe 'Active participant signs in, navigates to THINK tool,',
     3.times do
       reshape('Example challenge', 'Example act-as-if')
     end
+
+    expect(page).to have_content 'Add a New Harmful Thought'
   end
 
   it 'completes Add a New Harmful Thought module' do
@@ -91,8 +89,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     fill_in 'thought_act_as_if', with: 'Testing act-as-if action'
     page.execute_script('window.scrollTo(0,5000)')
     accept_social
-    expect(page).to have_content 'Thought saved'
-
+    find('.alert-success', text: 'Thought saved')
     page.execute_script('window.scrollTo(0,5000)')
     find('.btn.btn-primary.pull-right').click
     expect(page).to have_content 'Add a New Harmful Thought'
@@ -108,31 +105,29 @@ describe 'Active participant signs in, navigates to THINK tool,',
 
   it 'visits Thoughts and sort by column Pattern' do
     click_on 'Thoughts'
-    expect(page).to have_content 'I am insignificant'
-
+    find('tr', text: 'I am insignificant')
     find('.sorting', text: 'Pattern').click
     expect(page.all('tr:nth-child(1)')[1])
       .to have_content 'Labeling and Mislabeling'
   end
 
-  it 'uses the skip functionality in all the slideshows in THINK' do
+  it 'uses the skip functionality in Identifying' do
     click_on '#1 Identifying'
-    expect(page).to have_content 'You are what you think...'
-
+    find('h1', text: 'You are what you think...')
     click_on 'Skip'
     expect(page).to have_content 'Now, your turn...'
+  end
 
-    click_on 'THINK'
+  it 'uses the skip functionality in Patterns' do
     click_on '#2 Patterns'
-    expect(page).to have_content 'Like we said, you are what you think... '
-
+    find('h1', text: 'Like we said, you are what you think...')
     click_on 'Skip'
     expect(page).to have_content "Let's start by"
+  end
 
-    click_on 'THINK'
+  it 'uses the skip functionality in Reshape' do
     click_on '#3 Reshape'
-    expect(page).to have_content 'Challenging Harmful Thoughts'
-
+    find('h1', text: 'Challenging Harmful Thoughts')
     click_on 'Skip'
     unless page.has_text?("You don't have")
       expect(page).to have_content "In case you've forgotten"
@@ -159,7 +154,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     page.execute_script('window.scrollBy(0,1000)')
     find('.thoughtviz_text.viz-clickable',
          text: 'Magnification or Catastro...').click
-    expect(page).to have_content 'Thought Distortions'
+    find('h1', text: 'Thought Distortions')
 
     find('.thoughtviz_text.viz-clickable',
          text: 'Magnification or Catastro...').click
@@ -169,8 +164,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
       find('.close').click
     end
 
-    expect(page).to have_content 'Click a bubble for more info'
-
+    find('text', text: 'Click a bubble for more info')
     sign_out('participant1')
   end
 end
