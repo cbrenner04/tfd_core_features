@@ -149,6 +149,25 @@ describe 'Active participant signs in, navigates to THINK tool,',
       expect(page).to have_content c
     end
   end
+end
+
+describe 'Active participant in group 1 signs in, navigates to THINK,',
+         :core, type: :feature, sauce: sauce_labs do
+  if ENV['safari']
+    before(:all) do
+      sign_in_pt(ENV['Participant__5_Email'], 'participant1',
+                 ENV['Participant__5_Password'])
+    end
+  end
+
+  before do
+    unless ENV['safari']
+      sign_in_pt(ENV['Participant_5_Email'], 'participant1',
+                 ENV['Participant_5_Password'])
+    end
+
+    visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
+  end
 
   it 'uses the visualization' do
     page.execute_script('window.scrollBy(0,1000)')
@@ -159,12 +178,12 @@ describe 'Active participant signs in, navigates to THINK tool,',
     find('.thoughtviz_text.viz-clickable',
          text: 'Magnification or Catastro...').click
     within('.modal-dialog') do
-      expect(page).to have_content 'Testing add a new thought'
+      expect(page).to have_content 'No one likes me'
 
       find('.close').click
     end
 
     find('text', text: 'Click a bubble for more info')
-    sign_out('participant1')
+    sign_out('participant5')
   end
 end
