@@ -23,11 +23,9 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       plan_activity('New planned activity', 6, 3)
       page.execute_script('window.scrollTo(0,5000)')
       plan_activity('Another planned activity', 4, 8)
-
       find('h1', text: 'OK...')
       click_on 'Next'
-      expect(page).to have_content 'Your Planned Activities'
-
+      find('h2', text: 'Your Planned Activities')
       page.execute_script('window.scrollBy(0,500)')
       click_on 'Next'
       expect(page).to have_content 'Do Landing'
@@ -38,6 +36,7 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       click_on 'Add a New Activity'
       plan_activity('New planned activity', 4, 3)
+      expect(page).to have_content 'New planned activity'
     end
 
     it 'navigates to the DO tool, visits Your Activities, selects Previous ' \
@@ -51,8 +50,7 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
              from: 'awake_period_start_time'
       select "#{Date.today.strftime('%a')} 3 AM", from: 'awake_period_end_time'
       click_on 'Create'
-      expect(page).to have_content 'Awake Period saved'
-
+      find('.alert-success', text: 'Awake Period saved')
       fill_in 'activity_type_0', with: 'Sleep'
       choose_rating('pleasure_0', 9)
       choose_rating('accomplishment_0', 3)
@@ -65,11 +63,9 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       end
 
       click_on 'Next'
-      expect(page).to have_content 'Add a New Activity'
-
+      find('h1', text: 'Do Landing')
       click_on 'Your Activities'
-      expect(page).to have_content 'Average Accomplishment Discrepancy'
-
+      find('p', text: 'Average Accomplishment Discrepancy')
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Previous Day'
       expect(page)
@@ -83,13 +79,11 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       click_on 'Your Recent Moods & Emotions'
       one_week_ago = Date.today - 6
       one_month_ago = Date.today - 27
-      expect(page).to have_content "#{one_week_ago.strftime('%b %d %Y')} - " \
-                                   "#{Date.today.strftime('%b %d %Y')}"
-
+      find('#date-range', text: "#{one_week_ago.strftime('%b %d %Y')} - " \
+           "#{Date.today.strftime('%b %d %Y')}")
       find('.btn.btn-default', text: '28').click
-      expect(page).to have_content "#{one_month_ago.strftime('%b %d %Y')} - " \
-                                   "#{Date.today.strftime('%b %d %Y')}"
-
+      find('#date-range', text: "#{one_month_ago.strftime('%b %d %Y')} - " \
+           "#{Date.today.strftime('%b %d %Y')}")
       find('.btn.btn-default', text: '7').click
       click_on 'Previous Period'
       one_week_ago_1 = Date.today - 7
@@ -111,30 +105,25 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       end
 
       visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"
-      expect(page)
-        .to have_css('.task-status.list-group-item.list-group-item-unread',
-                     text: 'Tracking Your Mood & Emotions')
-
+      find('.task-status.list-group-item.list-group-item-unread',
+           text: 'Tracking Your Mood & Emotions')
       click_on 'Tracking Your Mood & Emotions'
       select '6', from: 'mood[rating]'
       click_on 'Next'
-      expect(page).to have_content 'You just rated your mood as a 6 (Good)'
-
+      find('.alert-info', text: 'You just rated your mood as a 6 (Good)')
       select 'anxious', from: 'emotional_rating_emotion_id'
       select 'negative', from: 'emotional_rating_is_positive'
       select '4', from: 'emotional_rating[rating]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Next'
-      expect(page).to have_content 'Emotional Rating saved'
-
+      find('.alert-success', text: 'Emotional Rating saved')
       visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"
       expect(page)
         .to have_css('.task-status.list-group-item.list-group-item-read',
                      text: 'Tracking Your Mood & Emotions')
 
       click_on 'Your Recent Moods & Emotions'
-      expect(page).to have_content 'Positive and Negative Emotions'
-
+      find('.title', text: 'Mood*')
       within('.dropdown-toggle', text: 'FEEL') do
         expect(page).to_not have_content 'New!'
       end
