@@ -38,7 +38,7 @@ describe 'An active participant signs in,',
   end
 
   it 'updates the background image from profile page' do
-    if page.has_css?('.modal-content')
+    unless page.has_no_css?('.modal-content')
       within('.modal-content') do
         find('#vine-image').click
       end

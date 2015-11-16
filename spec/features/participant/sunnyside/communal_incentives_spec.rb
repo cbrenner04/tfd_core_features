@@ -20,9 +20,6 @@ describe 'Active participant signs in,',
 
   it 'views communal incentives list' do
     find('#communal-plot-btn').click
-    expect(page).to have_css('.panel-title.panel-unreleased',
-                             text: 'comment on 3 feed items 6/7 complete')
-
     within('.panel-title.panel-unreleased',
            text: 'comment on 3 feed items 6/7 complete') do
       expect(page).to have_xpath("//img[@src='/assets/flower2.png']")
@@ -45,17 +42,15 @@ describe 'Active participant signs in,',
 
   it 'completes communal incentive, sees communal incentive list update' do
     find('#communal-plot-btn').click
-    expect(page).to have_css('.panel-title.panel-unreleased',
-                             text: 'comment on 3 feed items 6/7 complete')
+    find('.panel-title.panel-unreleased',
+         text: 'comment on 3 feed items 6/7 complete')
 
     within('#garden-communal') do
       expect(page).to_not have_css('#communal-plot-flower-1')
     end
 
     comment('Did Not Complete a Goal: p2 alpha', 'great')
-
     comment('said what about Bob?', 'cool')
-
     comment('Did Not Complete a Goal: p2 gamma', 'wow')
 
     visit ENV['Base_URL']

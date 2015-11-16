@@ -6,12 +6,9 @@ describe 'A visitor to the site,', :social_networking,
     sign_in_pt(ENV['Completed_Pt_Email'], 'nonsocialpt',
                ENV['Completed_Pt_Password'])
     find('h1', text: 'HOME')
-    find_feed_item('nudged participant1')
-    expect(page).to have_content 'nudged participant1'
-
     visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
     click_on 'Compose'
-    expect(page).to have_content 'To Coach'
+    find('.control-label', text: 'To Coach')
 
     within('#new_message') do
       fill_in 'message_subject', with: 'Test message from completer'

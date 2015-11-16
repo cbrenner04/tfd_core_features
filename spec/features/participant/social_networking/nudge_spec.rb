@@ -30,7 +30,7 @@ describe 'Active participant in a social arm signs in,',
 
   it 'receives a nudge alert on profile page' do
     visit "#{ENV['Base_URL']}/social_networking/profile_page"
-    if page.has_css?('.modal-content')
+    unless page.has_no_css?('.modal-content')
       within('.modal-content') do
         page.all('img')[2].click
       end

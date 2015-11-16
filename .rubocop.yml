@@ -21,6 +21,7 @@ IfUnlessModifier:
 LineLength:
   Exclude:
     - '**/*.rake'
+    - '**/experiments/*.rb'
 
 MethodLength:
   Max: 25

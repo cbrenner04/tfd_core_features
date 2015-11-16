@@ -14,9 +14,6 @@ describe 'Individual incentives',
 
     it 'visits profile page to see a list of incentives & related behaviors' do
       visit_profile
-      expect(page).to have_css('.panel-title.panel-unreleased',
-                               text: 'like 3 feed items 0/3 complete')
-
       within('.panel-title.panel-unreleased',
              text: 'like 3 feed items 0/3 complete') do
         expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
@@ -31,19 +28,17 @@ describe 'Individual incentives',
       find_feed_item('Did Not Complete a Goal: p2 alpha')
       like('Did Not Complete a Goal: p2 alpha')
       visit_profile
-      expect(page).to have_css('.panel-title.panel-unreleased',
-                               text: 'like 3 feed items 1/3 complete')
+      find('.panel-title.panel-unreleased',
+           text: 'like 3 feed items 1/3 complete')
 
       page.execute_script('window.scrollBy(0,500)')
       find('.panel-title.panel-unreleased', text: 'like 3 feed items').click
-      expect(page).to have_content "Like a person's shared content."
-
+      first('.list-group-item', text: "Like a person's shared content.")
       page.execute_script('window.scrollBy(0,500)')
       check_completed_behavior(0, "#{Time.now.strftime('%b %d %Y %I')}")
     end
 
-    it 'completes all behaviors for an incentive, ' \
-       'sees the incentive list update' do
+    it 'completes all behaviors for incentive, sees incentive list update' do
       find_feed_item('said what about Bob?')
       page.execute_script('window.scrollTo(0,10000)')
       like('Did Not Complete a Goal: p2 alpha')
@@ -63,8 +58,7 @@ describe 'Individual incentives',
         find('.panel-title').click
       end
 
-      expect(page).to have_content "Like a person's shared content."
-
+      first('.list-group-item', text: "Like a person's shared content.")
       (0..2).each do |i|
         check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
       end
@@ -76,17 +70,15 @@ describe 'Individual incentives',
         expect(page).to have_xpath("//img[@src='/assets/flower3.png']")
       end
 
-      expect(page)
-        .to have_css('.panel.panel-default.panel-info',
-                     text: 'create a goal # of times complete: 1')
+      find('.panel.panel-default.panel-info',
+           text: 'create a goal # of times complete: 1')
 
       visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
       click_on '+ add a goal'
       fill_in 'new-goal-description', with: 'do something fun'
       choose '8 weeks (end of study)'
       click_on 'Save'
-      page.should have_css('.list-group-item.ng-scope',
-                           text: 'do something fun')
+      find('.list-group-item.ng-scope', text: 'do something fun')
       visit ENV['Base_URL']
       visit_profile
       within('#garden-individual') do
@@ -108,8 +100,8 @@ describe 'Individual incentives',
         click_on "#{host}"
       end
 
-      expect(page).to have_css('.panel.panel-default.panel-info',
-                               text: 'like 3 feed items 3/3 complete')
+      find('.panel.panel-default.panel-info',
+           text: 'like 3 feed items 3/3 complete')
 
       within('.large-garden') do
         expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
@@ -120,8 +112,7 @@ describe 'Individual incentives',
         find('.panel-title').click
       end
 
-      expect(page).to have_content "Like a person's shared content."
-
+      first('.list-group-item', text: "Like a person's shared content.")
       (0..2).each do |i|
         check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
       end

@@ -1,5 +1,6 @@
 # filename: ./spec/support/feature_helper.rb
 
+# Helpers related to core functionality
 def sign_in_pt(participant, old_participant, password)
   visit "#{ENV['Base_URL']}/participants/sign_in"
   unless page.has_css?('#new_participant')
@@ -22,7 +23,7 @@ def sign_in_user(user, old_user, password)
   unless page.has_css?('#new_user')
     sign_out(old_user)
   end
-  unless page.has_no_css?('#new_user')
+  if page.has_css?('#new_user')
     within('#new_user') do
       fill_in 'user_email', with: user
       fill_in 'user_password', with: password
@@ -73,6 +74,20 @@ def reshape(challenge, action)
   find('.alert-success', text: 'Thought saved')
 end
 
+def plan_activity(activity, x, y)
+  find('#new_activity_radio')
+  page.execute_script('window.scrollBy(0,500)')
+  find('#new_activity_radio').click
+  fill_in 'activity_activity_type_new_title', with: activity
+  page.execute_script('window.scrollBy(0,500)')
+  find('.fa.fa-calendar').click
+  pick_tomorrow
+  choose_rating('pleasure_0', x)
+  choose_rating('accomplishment_0', y)
+  accept_social
+  find('.alert-success', text: 'Activity saved')
+end
+
 def pick_tomorrow
   tomorrow = Date.today + 1
   within('#ui-datepicker-div') do
@@ -105,45 +120,6 @@ def go_to_next_page(module_text)
   end
 end
 
-def accept_social
-  page.driver.execute_script('window.confirm = function() {return true}')
-  click_on 'Next'
-end
-
-def find_feed_item(item)
-  unless ENV['tfd'] || ENV['tfdso']
-    find('#feed-btn').click
-  end
-  counter = 0
-  while page.has_no_css?('.list-group-item.ng-scope',
-                         text: item) && counter < 15
-    page.execute_script('window.scrollTo(0,100000)')
-    counter += 1
-  end
-end
-
-def profile_class
-  if ENV['tfd'] || ENV['tfdso']
-    'default'
-  elsif ENV['sunnyside'] || ENV['marigold']
-    'success'
-  end
-end
-
-def plan_activity(activity, x, y)
-  find('#new_activity_radio')
-  page.execute_script('window.scrollBy(0,500)')
-  find('#new_activity_radio').click
-  fill_in 'activity_activity_type_new_title', with: activity
-  page.execute_script('window.scrollBy(0,500)')
-  find('.fa.fa-calendar').click
-  pick_tomorrow
-  choose_rating('pleasure_0', x)
-  choose_rating('accomplishment_0', y)
-  accept_social
-  find('.alert-success', text: 'Activity saved')
-end
-
 def moderator
   if ENV['tfd'] || ENV['tfdso']
     'TFD Moderator'
@@ -163,6 +139,24 @@ def host_app
     'Sunnyside'
   elsif ENV['marigold']
     'Marigold'
+  end
+end
+
+# Helpers related to social_networking functionality
+def accept_social
+  page.driver.execute_script('window.confirm = function() {return true}')
+  click_on 'Next'
+end
+
+def find_feed_item(item)
+  unless ENV['tfd'] || ENV['tfdso']
+    find('#feed-btn').click
+  end
+  counter = 0
+  while page.has_no_css?('.list-group-item.ng-scope',
+                         text: item) && counter < 15
+    page.execute_script('window.scrollTo(0,100000)')
+    counter += 1
   end
 end
 
@@ -201,6 +195,7 @@ def visit_profile
   end
 end
 
+# Helpers related to sunnyside functionality
 def check_completed_behavior(num, date)
   behavior = page.all('.list-group-item.task-status')
   within behavior[num] do

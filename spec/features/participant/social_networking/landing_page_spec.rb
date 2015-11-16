@@ -15,7 +15,7 @@ describe 'SocialNetworking Landing Page, ',
     it 'creates a profile' do
       page.execute_script('window.scrollBy(0,500)')
       click_on 'Create a Profile'
-      if page.has_css?('.modal-content')
+      unless page.has_no_css?('.modal-content')
         within('.modal-content') do
           page.all('img')[2].click
         end
@@ -180,7 +180,7 @@ describe 'SocialNetworking Landing Page, ',
       end
 
       click_on 'Create a Profile'
-      if page.has_css?('.modal-content')
+      unless page.has_no_css?('.modal-content')
         within('.modal-content') do
           page.all('img')[2].click
         end
@@ -238,5 +238,13 @@ def answer_profile_question(question, answer)
     find('input[type = text]').set(answer)
     page.evaluate_script('window.confirm = function() { return true; }')
     click_on 'Save'
+  end
+end
+
+def profile_class
+  if ENV['tfd'] || ENV['tfdso']
+    'default'
+  elsif ENV['sunnyside'] || ENV['marigold']
+    'success'
   end
 end
