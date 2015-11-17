@@ -180,7 +180,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     endtime = Time.now + (60 * 60)
     within('.panel.panel-default',
            text: "#{Time.now.strftime('%-l %P')} - " \
-           "#{endtime.strftime('%-l %P')}: Parkour") do
+                 "#{endtime.strftime('%-l %P')}: Parkour") do
       click_on "#{Time.now.strftime('%-l %P')} - " \
                "#{endtime.strftime('%-l %P')}: Parkour"
       expect(page)

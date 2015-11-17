@@ -24,8 +24,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
 
   it 'reads a received message' do
     click_on 'I like this app'
-    expect(page).to have_content 'From TFD-1111'
-
+    find('strong', text: 'From TFD-1111')
     expect(page).to have_content 'This app is really helpful!'
   end
 
@@ -38,8 +37,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
   it 'replies to a message' do
     click_on 'I like this app'
     click_on 'Reply to this message'
-    expect(page).to have_content 'Add a link'
-
+    find('#coach-message-link-selection')
     fill_in 'message[body]',
             with: 'This message is to test the reply functionality'
     page.execute_script('window.scrollTo(0,5000)')
@@ -75,8 +73,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
   it 'searches for a specific participants messages' do
     select 'TFD-1111', from: 'search'
     click_on 'Search'
-    expect(page).to have_content 'I like this app'
-
+    find('.list-group-item', text: 'I like this app')
     click_on 'Sent'
     expect(page).to have_content 'Try out the LEARN tool'
 

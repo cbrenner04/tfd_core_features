@@ -18,7 +18,7 @@ describe 'Patient Dashboard - ',
     end
 
     it 'views Tool Use table' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
         table_row = page.all('tr:nth-child(1)')
         content = ['Tool Use  Today Last 7 Days Totals', 'Lessons Read 1 1 1']
@@ -26,11 +26,10 @@ describe 'Patient Dashboard - ',
           check_data(table_row[i], c)
         end
 
-        content = ['Moods 1 1 3', 'Thoughts 12 12 12',
-                   'Activities Monitored 18 18 18',
-                   'Activities Planned 14 16 16',
-                   'Activities Reviewed and Completed 1 2 2',
-                   'Activities Reviewed and Incomplete 1 1 1']
+        content = ['Moods 1 1 1', 'Thoughts 3 3 3',
+                   'Activities Monitored 0 0 0', 'Activities Planned 1 4 4',
+                   'Activities Reviewed and Completed 0 1 1',
+                   'Activities Reviewed and Incomplete 0 1 1']
         (2..7).zip(content) do |i, c|
           check_data("tr:nth-child(#{i})", c)
         end
@@ -38,7 +37,7 @@ describe 'Patient Dashboard - ',
     end
 
     it 'uses the links within Tool Use table' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
         ['Lessons Read', 'Moods', 'Thoughts', 'Activities Planned',
          'Activities Monitored', 'Activities Reviewed and Completed',
@@ -48,32 +47,9 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Social Activity' do
-      select_patient('TFD-1111')
-      within('.table.table-hover', text: 'Social Activity') do
-        table_row = page.all('tr:nth-child(1)')
-        check_data(table_row[0], 'Social Activity Today Last 7 Days Totals')
-
-        check_data(table_row[1], 'Likes 1 1 1')
-
-        if ENV['tfd'] || ENV['tfdso']
-          num = ['Nudges 2 3 3', 'Comments 1 1 1', 'Goals 5 6 8',
-                 '"On My Mind" Statements 2 2 2']
-        elsif ENV['sunnyside'] || ENV['marigold']
-          num = ['Nudges 2 3 3', 'Comments 4 4 4', 'Goals 5 6 8',
-                 '"On My Mind" Statements 2 2 2']
-        end
-
-        (2..5).zip(num) do |i, n|
-          check_data("tr:nth-child(#{i})", "#{n}")
-        end
-      end
-    end
-
     it 'uses the links within Social Activity table' do
-      select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
-
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('.table.table-hover', text: 'Social Activity') do
         ['Nudges', 'Comments', 'Goals', '"On My Mind" Statements'].each do |x|
@@ -107,15 +83,18 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Login Info' do
+    it 'views Social Activity' do
       select_patient('participant61')
-      within('.panel.panel-default', text: 'Login Info') do
-        date1 = Date.today - 4
-        expect(page).to have_content 'Last Logged In: ' \
-                                     "#{date1.strftime('%A, %b %d %Y')}"
+      within('.table.table-hover', text: 'Social Activity') do
+        table_row = page.all('tr:nth-child(1)')
+        check_data(table_row[0], 'Social Activity Today Last 7 Days Totals')
+        check_data(table_row[1], 'Likes 0 0 1')
+        num = ['Nudges 1 1 1', 'Comments 0 0 1', 'Goals 0 0 1',
+               '"On My Mind" Statements 0 0 1']
 
-        expect(page).to have_content "Logins Today: 0\nLogins during this " \
-                                     "treatment week: 0\nTotal Logins: 11"
+        (2..5).zip(num) do |i, n|
+          check_data("tr:nth-child(#{i})", "#{n}")
+        end
       end
     end
 

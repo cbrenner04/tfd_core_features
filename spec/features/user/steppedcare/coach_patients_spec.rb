@@ -28,7 +28,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
 
     it 'uses the table of contents in the patient report' do
       select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
+      find('h3', text: 'General Patient Info')
 
       page.execute_script('window.scrollTo(0,5000)')
       within('.list-group') do

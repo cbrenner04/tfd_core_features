@@ -29,9 +29,8 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
       expect(page).to have_content 'Completer'
     end
 
-    it 'selects Terminate Access to end active status of participant and is' \
-       ' still able to see patient specific data' do
-      within('table#patients tr', text: 'TFD-Withdraw') do
+    it 'selects Terminate Access to end active status of participant' do
+      within('tr', text: 'TFD-Withdraw') do
         if ENV['safari'] || ENV['chrome']
           page.driver
             .execute_script('window.confirm = function() {return true}')
@@ -52,20 +51,16 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
       expect(page).to_not have_content 'TFD-Withdraw'
 
       click_on 'Inactive Patients'
-      expect(page).to have_content 'TFD-Withdraw'
-
-      within('table#patients tr', text: 'TFD-Withdraw') do
+      find('.inactive', text: 'TFD-Withdraw')
+      within('.inactive', text: 'TFD-Withdraw') do
+        prev_day = Date.today - 1
         expect(page)
-          .to have_content 'Withdrawn ' \
-                           "#{Date.today.prev_day.strftime('%m/%d/%Y')}"
-        click_on 'TFD-Withdraw'
+          .to have_content "Withdrawn #{prev_day.strftime('%m/%d/%Y')}"
       end
-
-      expect(page).to have_css('h1', text: 'Participant TFD-Withdraw')
     end
 
     it 'views General Patient Info' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('.panel.panel-default', text: 'General Patient Info') do
         if ENV['tfd']
           weeks_later = Date.today + 20 * 7
@@ -80,18 +75,27 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
                            "#{Date.today.strftime('%A, %m/%d/%Y')}" \
                            "\n#{week_num} weeks from the start date is: " \
                            "#{weeks_later.strftime('%A, %m/%d/%Y')}" \
-                           "\nStatus: Active Currently in week 1"
+                           "\nStatus: Active Currently in week 1" \
+                           "\nLessons read this week: 1"
+      end
+    end
 
-        unless page.has_text? 'week: 0'
-          expect(page).to have_content 'Lessons read this week: 1'
-        end
+    it 'views Login Info' do
+      select_patient('TFD-data')
+      within('.panel.panel-default', text: 'Login Info') do
+        expect(page).to have_content 'Last Logged In: ' \
+                                     "#{Date.today.strftime('%A, %b %d %Y')}"
+        expect(page).to have_content "Logins Today: 1\nLogins during this " \
+                                     "treatment week: 1\nTotal Logins: 1"
+        expect(page).to have_content 'Last Activity Detected At: ' \
+                                     "#{Date.today.strftime('%A, %b %d %Y')}"
+        expect(page).to have_content 'Duration of Last Session: 10 minutes'
       end
     end
 
     it 'uses the table of contents in the patient report' do
-      select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
-
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('.list-group') do
         ['Mood and Emotions Visualizations', 'Feelings', 'Logins',
@@ -110,8 +114,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
       expect(page).to have_content 'Daily Averages'
 
       click_on 'Patient Dashboard'
-      expect(page).to have_content 'General Patient Info'
-
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('.list-group') do
         find('a', text: 'Thoughts visualization').click
@@ -120,21 +123,26 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
       expect(page).to have_css('#ThoughtVizContainer')
 
       click_on 'Patient Dashboard'
-      expect(page).to have_content 'General Patient Info'
+      find('h3', text: 'General Patient Info')
     end
 
-    it 'views Mood/Emotions viz' do
-      select_patient('TFD-1111')
+    it 'views Mood and Emotions viz' do
+      select_patient('TFD-data')
       within('#viz-container') do
-        expect(page).to have_content 'Mood'
+        find('.title', text: 'Mood')
+        find('.title', text: 'Positive and Negative Emotions')
+        expect(page).to have_css('.bar', count: 2)
+      end
+    end
 
-        expect(page).to have_content 'Positive and Negative Emotions'
-
+    it 'navigates to 28 day view in Mood and Emotions viz' do
+      select_patient('TFD-data')
+      within('#viz-container') do
+        find('.title', text: 'Mood')
         one_week_ago = Date.today - 6
         one_month_ago = Date.today - 27
-        expect(page).to have_content "#{one_week_ago.strftime('%b %d %Y')} " \
-                                     "- #{Date.today.strftime('%b %d %Y')}"
-
+        find('#date-range', text: "#{one_week_ago.strftime('%b %d %Y')} " \
+             "- #{Date.today.strftime('%b %d %Y')}")
         page.execute_script('window.scrollTo(0,5000)')
         within('.btn-group') do
           find('.btn.btn-default', text: '28').click
@@ -142,11 +150,13 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
 
         expect(page).to have_content "#{one_month_ago.strftime('%b %d %Y')} " \
                                      "- #{Date.today.strftime('%b %d %Y')}"
+      end
+    end
 
-        within('.btn-group') do
-          find('.btn.btn-default', text: '7').click
-        end
-
+    it 'navigates to Previous Period in Mood and Emotions viz' do
+      select_patient('TFD-data')
+      within('#viz-container') do
+        find('.title', text: 'Mood')
         page.execute_script('window.scrollTo(0,5000)')
         click_on 'Previous Period'
         one_week_ago_1 = Date.today - 7
@@ -157,20 +167,17 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     end
 
     it 'views Mood' do
-      select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
-
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('#mood-container') do
-        find('.sorting_desc').click
-        four_wks_ago = Date.today - 28
         expect(page.all('tr:nth-child(1)')[1])
-          .to have_content "9 #{four_wks_ago.strftime('%b %d %Y')}"
+          .to have_content "9 #{Date.today.strftime('%b %d %Y')}"
       end
     end
 
     it 'views Feelings' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('#feelings-container') do
         expect(page.all('tr:nth-child(1)')[1])
           .to have_content "longing 2 #{Date.today.strftime('%b %d %Y')}"
@@ -178,47 +185,38 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     end
 
     it 'views Logins' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('#logins-container') do
-        unless page.has_text?('No data available in table')
-          expect(page.all('tr:nth-child(1)')[1])
-            .to have_content Date.today.strftime('%b %d %Y')
-        end
+        expect(page.all('tr:nth-child(1)')[1])
+          .to have_content Date.today.strftime('%b %d %Y')
       end
     end
 
     it 'views Lessons' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('#lessons-container') do
-        unless page.has_text?('No data available in table')
-          expect(page.all('tr:nth-child(1)')[1])
-            .to have_content 'Do - Awareness Introduction This is just the ' \
-                             'beginning... ' \
-                             "#{Time.now.strftime('%b %d %Y %I')}"
+        expect(page.all('tr:nth-child(1)')[1])
+          .to have_content 'Do - Awareness Introduction This is just the ' \
+                           "beginning... #{Date.today.strftime('%b %d %Y')}"
 
-          expect(page.all('tr:nth-child(1)')[1])
-            .to have_content 'less than 5 seconds'
-        end
+        expect(page.all('tr:nth-child(1)')[1]).to have_content '10 minutes'
       end
     end
 
     it 'views Audio Access' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('#media-access-container') do
         expect(page.all('tr:nth-child(1)')[1]).to have_content 'Audio! ' \
                                      "#{Date.today.strftime('%m/%d/%Y')}" \
                                      " #{Date.today.strftime('%b %d %Y')}"
 
-        unless page.has_text?('Not Completed')
-          expect(page.all('tr:nth-child(1)')[1]).to have_content '2 minutes'
-        end
+        expect(page.all('tr:nth-child(1)')[1]).to have_content '2 minutes'
       end
     end
 
     it 'views Activities viz' do
-      select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
-
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('h3', text: 'Activities visualization') do
         click_on 'Activities visualization'
@@ -226,19 +224,53 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
 
       expect(page).to have_content 'Daily Averages for ' \
                                    "#{Date.today.strftime('%b %d %Y')}"
+    end
 
-      expect(page).to have_content 'Average Accomplishment Discrepancy'
+    it 'collapses Daily Summaries in Activities viz' do
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
+      page.execute_script('window.scrollTo(0,5000)')
+      within('h3', text: 'Activities visualization') do
+        click_on 'Activities visualization'
+      end
 
-      click_on 'Daily Summaries'
-      expect(page).to_not have_content 'Average Accomplishment Discrepancy'
-
+      find('h3', text: 'Daily Averages')
       page.execute_script('window.scrollBy(0,500)')
       click_on 'Previous Day'
-      expect(page)
-        .to have_content 'Daily Averages for ' \
-                         "#{Date.today.prev_day.strftime('%b %d %Y')}"
+      find('p', text: 'Average Accomplishment Discrepancy')
+      click_on 'Daily Summaries'
+      expect(page).to_not have_content 'Average Accomplishment Discrepancy'
+    end
 
+    it 'navigates to previous day in Activities viz' do
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
+      within('h3', text: 'Activities visualization') do
+        click_on 'Activities visualization'
+      end
+
+      find('h3', text: 'Daily Averages')
+      page.execute_script('window.scrollBy(0,500)')
+      click_on 'Previous Day'
+      prev_day = Date.today - 1
+      expect(page)
+        .to have_content "Daily Averages for #{prev_day.strftime('%b %d %Y')}"
+    end
+
+    it 'views ratings of an activity in Activity Viz' do
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
+      page.execute_script('window.scrollTo(0,5000)')
+      within('h3', text: 'Activities visualization') do
+        click_on 'Activities visualization'
+      end
+
+      find('h3', text: 'Daily Averages')
+      page.execute_script('window.scrollTo(0,5000)')
+      prev_day = Date.today - 1
+      click_on 'Previous Day'
+      find('h3', text: "Daily Averages for #{prev_day.strftime('%b %d %Y')}")
       endtime = Time.now + (60 * 60)
       within('.panel.panel-default',
              text: "#{Time.now.strftime('%-l %P')} - " \
@@ -247,20 +279,22 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
                  "#{endtime.strftime('%-l %P')}: Parkour"
         within('.collapse.in') do
           expect(page).to have_content 'Predicted'
-
-          click_on 'Edit'
-          expect(page).to have_css('#activity_actual_accomplishment_intensity')
         end
       end
+    end
 
+    it 'uses the visualization in Activities viz' do
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Next Day'
-      expect(page).to have_content 'Daily Averages for ' \
-                                   "#{Date.today.strftime('%b %d %Y')}"
+      within('h3', text: 'Activities visualization') do
+        click_on 'Activities visualization'
+      end
 
+      find('h3', text: 'Daily Averages')
       click_on 'Visualize'
       click_on 'Last 3 Days'
-      date1 = Date.today - 2
+      date1 = Date.today - 1
       expect(page).to have_content date1.strftime('%A, %m/%d')
 
       click_on 'Day'
@@ -268,12 +302,10 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     end
 
     it 'views Activities - Future' do
-      select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
-
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('#activities-future-container') do
-        find('.sorting', text: 'Activity').click
         within('tr', text: 'Going to school') do
           two_days = Date.today + 2
           expect(page).to have_content 'Going to school  2 6 Scheduled for ' \
@@ -283,21 +315,24 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     end
 
     it 'views Activities - Past' do
-      select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
-
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollBy(0,5500)')
       within('#activities-past-container') do
-        find('.sorting', text: 'Status').click
-        find('.sorting_asc', text: 'Status').click
         within('tr', text: 'Parkour') do
           expect(page).to have_content '9 4'
           prev_day = Date.today - 1
           expect(page).to have_content "#{prev_day.strftime('%b %d %Y')}"
         end
+      end
+    end
 
-        if page.all('tr:nth-child(1)')[1]
-           .has_text? 'Reviewed and did not complete'
+    it 'views noncompliance reason in Activities - Past' do
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
+      page.execute_script('window.scrollBy(0,5500)')
+      within('#activities-past-container') do
+        within('tr', text: 'Jogging') do
           click_on 'Noncompliance'
           within('.popover.fade.right.in') do
             expect(page).to have_content "Why was this not completed?\nI " \
@@ -308,27 +343,25 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     end
 
     it 'views Thoughts viz' do
-      select_patient('TFD-1111')
-      expect(page).to have_content 'General Patient Info'
-
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,10000)')
       within('h3', text: 'Thoughts visualization') do
         click_on 'Thoughts visualization'
       end
 
       find('#ThoughtVizContainer')
-      if page.has_text? 'Click a bubble for more info'
-        find('.thoughtviz_text.viz-clickable',
-             text: 'Magnification or Catastro...').click
-        expect(page).to have_content 'Testing add a new thought'
+      find('.thoughtviz_text.viz-clickable',
+           text: 'Magnification or Catastro...').click
+      expect(page).to have_content 'Testing add a new thought'
 
-        click_on 'Close'
-        expect(page).to have_content 'Click a bubble for more info'
-      end
+      click_on 'Close'
+      expect(page).to have_content 'Click a bubble for more info'
     end
 
     it 'views Thoughts' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       within('#thoughts-container') do
         within('tr', text: 'Testing negative thought') do
           expect(page).to have_content 'Testing negative thought ' \
@@ -341,22 +374,23 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     end
 
     it 'views Messages' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       within('#messages-container') do
-        within('tr', text: 'I like') do
-          expect(page).to have_content 'I like this app ' \
-                                       "#{Date.today.strftime('%b %d %Y')}"
+        within('tr', text: 'Test') do
+          expect(page)
+            .to have_content "Test message #{Date.today.strftime('%b %d %Y')}"
         end
       end
     end
 
     it 'views Tasks' do
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
+      find('h3', text: 'General Patient Info')
       within('#tasks-container') do
         within('tr', text: 'Do - Planning Introduction') do
-          tomorrow = Date.today + 1
-          expect(page).to have_content "#{tomorrow.strftime('%m/%d/%Y')}" \
-                             ' Incomplete'
+          tom = Date.today + 1
+          expect(page).to have_content "#{tom.strftime('%m/%d/%Y')} Incomplete"
         end
       end
     end
@@ -373,28 +407,31 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
     end
   end
 
-  unless ENV['safari']
-    describe 'Patient signs in, signs out,' do
-      before do
-        sign_in_pt(ENV['Participant_Email'], "#{moderator}",
-                   ENV['Participant_Password'])
-        expect(page).to have_content 'HOME'
-        sign_out('participant1')
+  describe 'navigates to Patient Dashboard of Group 2,' do
+    before do
+      unless ENV['safari']
+        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+                     ENV['Clinician_Password'])
       end
 
-      it 'Coach signs in, navigates to Patient Dashboard, views ' \
-         "'Last Activity Detected At' and 'Duration of Last Session'" do
-        sign_in_user(ENV['Clinician_Email'], 'participant1',
-                     ENV['Clinician_Password'])
-        visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-        click_on 'Arm 1'
-        click_on 'Group 1'
-        click_on 'Patient Dashboard'
-        select_patient('TFD-1111')
-        expect(page).to have_content 'Last Activity Detected At: ' \
-                                     "#{Time.now.strftime('%A, %b %d %Y %I')}"
+      visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
+      click_on 'Arm 1'
+      click_on 'Group 2'
+      click_on 'Patient Dashboard'
+      find('h1', text: 'Patient Dashboard')
+    end
 
-        expect(page).to have_content 'Duration of Last Session: less than'
+    it 'sees data for a patient who has been withdrawn' do
+      click_on 'Inactive Patients'
+      within('.inactive', text: 'TFD-inactive') do
+        click_on 'TFD-inactive'
+      end
+
+      find('h1', text: 'Participant TFD-inactive')
+      find('.label-warning', text: 'Inactive')
+      page.execute_script('window.scrollTo(0,5000)')
+      within('#activities-future-container') do
+        expect(page).to have_content 'Knitting'
       end
     end
   end
