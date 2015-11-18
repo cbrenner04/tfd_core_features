@@ -1,4 +1,4 @@
-# filename: ./spec/support/feature_helper.rb
+# filename: ./spec/support/feature_helpers.rb
 
 # Helpers related to core functionality
 def sign_in_pt(participant, old_participant, password)
