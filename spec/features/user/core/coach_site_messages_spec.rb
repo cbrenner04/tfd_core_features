@@ -17,8 +17,7 @@ describe 'Coach signs in, navigates to Site Messages tool,',
 
   it 'creates and sends a new site message' do
     click_on 'New'
-    expect(page).to have_content "#{app_email}"
-
+    find('p', text: "#{app_email}")
     select 'TFD-1111', from: 'site_message_participant_id'
     fill_in 'site_message_subject', with: 'Testing site messaging'
     fill_in 'site_message_body',

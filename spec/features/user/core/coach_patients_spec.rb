@@ -335,8 +335,8 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
         within('tr', text: 'Jogging') do
           click_on 'Noncompliance'
           within('.popover.fade.right.in') do
-            expect(page).to have_content "Why was this not completed?\nI " \
-                                         "didn't have time"
+            expect(page).to have_content 'Why was this not completed?' \
+                                         "\nI didn't have time"
           end
         end
       end
@@ -356,7 +356,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
       expect(page).to have_content 'Testing add a new thought'
 
       click_on 'Close'
-      expect(page).to have_content 'Click a bubble for more info'
+      find('text', text: 'Click a bubble for more info')
     end
 
     it 'views Thoughts' do

@@ -115,7 +115,7 @@ def go_to_next_page(module_text)
   unless page.has_text? module_text
     page.execute_script('window.scrollTo(0,5000)')
     within('.pagination') do
-      click_on '2'
+      click_on 'Next'
     end
   end
 end

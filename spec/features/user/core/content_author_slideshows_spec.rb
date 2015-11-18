@@ -18,49 +18,39 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
     click_on 'New'
     fill_in 'slideshow_title', with: 'Test slideshow'
     click_on 'Create'
-    expect(page).to have_content 'Successfully created slideshow'
-
+    find('.alert-success', text: 'Successfully created slideshow')
     expect(page).to have_content 'Test slideshow'
   end
 
   it 'updates slideshow' do
     find('h1', text: 'Listing Slideshows')
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Home Intro'
+    click_on 'Another testing slideshow'
     page.all('.btn.btn-default')[5].click
-    fill_in 'slideshow_title', with: 'Home Introduction 123'
+    fill_in 'slideshow_title', with: 'Holy cow!'
     click_on 'Update'
-    expect(page).to have_content 'Successfully updated slideshow'
-
-    find('h1', text: 'Listing Slideshows')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Home Introduction 123'
-    page.all('.btn.btn-default')[5].click
-    fill_in 'slideshow_title', with: 'Home Introduction'
-    click_on 'Update'
-    expect(page).to have_content 'Successfully updated slideshow'
-
-    expect(page).to have_content 'Home Introduction'
+    find('.alert-success', text: 'Successfully updated slideshow')
+    expect(page).to have_css('a', text: 'Holy cow!')
   end
 
   it 'destroys slideshow' do
     find('h1', text: 'Listing Slideshows')
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Test slideshow'
+    click_on 'Is this overkill?'
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Delete'
-    expect(page).to_not have_content 'Test slideshow'
+    find('.alert-success', text: 'Slideshow deleted')
+    expect(page).to_not have_content 'Is this overkill?'
   end
 
   it 'uses breadcrumbs to return home' do
-    expect(page).to have_content 'Do - Awareness Introduction'
+    find('h1', text: 'Listing Slideshows')
     click_on 'Arm'
     within('.breadcrumb') do
       click_on 'Arms'
     end
 
-    expect(page).to have_content 'Arm 3'
-
+    find('.list-group-item', text: 'Arm 3')
     within('.breadcrumb') do
       click_on 'Home'
     end

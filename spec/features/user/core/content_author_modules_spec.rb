@@ -24,36 +24,28 @@ describe 'Content Author signs in, visits Content Modules tool,',
   end
 
   it 'edits a module' do
-    expect(page).to have_content 'Listing Content Modules'
-
+    find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    click_on '#1 Awareness'
+    go_to_next_page('Testing content module')
+    click_on 'Testing content module'
+    find('p', text: 'DO')
     click_on 'Edit'
     select 'THINK', from: 'content_module_bit_core_tool_id'
     fill_in 'content_module_position', with: '9'
     click_on 'Update'
-    expect(page).to have_content 'Content module was successfully updated.'
-
+    find('.alert-success', text: 'Content module was successfully updated.')
     expect(page).to have_content 'Tool: THINK'
-
-    click_on 'Edit'
-    select 'DO', from: 'content_module_bit_core_tool_id'
-    fill_in 'content_module_position', with: '2'
-    click_on 'Update'
-    expect(page).to have_content 'Content module was successfully updated.'
-
-    expect(page).to have_content 'Tool: DO'
   end
 
   it 'destroys a module' do
-    go_to_next_page('Test content module')
-    click_on 'Test content module'
+    go_to_next_page('Content module for Testing')
+    click_on 'Content module for Testing'
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
-    expect(page).to have_content 'Content module along with any associated ' \
-                                 'tasks were successfully destroyed.'
+    find('.alert-success', text: 'Content module along with any associated ' \
+         'tasks were successfully destroyed.')
 
-    expect(page).to_not have_content 'Test content module'
+    expect(page).to_not have_content 'Content module for Testing'
   end
 
   it 'creates a provider' do
@@ -62,10 +54,8 @@ describe 'Content Author signs in, visits Content Modules tool,',
     go_to_next_page('Home Introduction')
     click_on 'Home Introduction'
     click_on 'New Provider'
-    within '#content_provider_bit_core_content_module_id' do
-      expect(page).to have_content 'LEARN: Home Introduction'
-    end
-
+    find('#content_provider_bit_core_content_module_id',
+         text: 'LEARN: Home Introduction')
     select 'slideshow provider', from: 'content_provider_type'
     select 'BitCore::Slideshow', from: 'content_provider_source_content_type'
     select 'Home Intro', from: 'content_provider_source_content_id'
@@ -87,49 +77,37 @@ describe 'Content Author signs in, visits Content Modules tool,',
     go_to_next_page('Home Introduction')
     click_on 'Home Introduction'
     click_on '1 slideshow provider'
-    expect(page).to have_content 'Is skippable after first viewing: false'
-
+    find('p', text: 'Is skippable after first viewing: false')
     click_on 'Edit'
     fill_in 'content_provider[position]', with: '10'
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Update'
-    expect(page).to have_content 'ContentProvider was successfully updated.'
-
+    find('.alert-success', text: 'ContentProvider was successfully updated.')
     expect(page).to have_content 'Position: 10 / 10'
-
-    click_on 'Edit'
-    fill_in 'content_provider[position]', with: '1'
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Update'
-    expect(page).to have_content 'ContentProvider was successfully updated.'
-
-    unless page.has_text? 'Position: 1 / 4'
-      expect(page).to have_content 'Position: 1 / 1'
-    end
   end
 
   it 'destroys a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    go_to_next_page('Home Introduction')
-    click_on 'Home Introduction'
-    click_on '4 slideshow provider'
-    expect(page).to have_content 'Slideshow: Home Intro'
-
+    go_to_next_page('Second test module')
+    click_on 'Second test module'
+    click_on '1 slideshow provider'
+    find('p', text: 'Slideshow: Slideshow for tests')
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
-    expect(page).to have_content 'Content Providers'
+    expect(page)
+      .to have_css('.alert-success',
+                   text: 'Content provider was successfully destroyed')
   end
 
   it 'uses breadcrumbs to return home' do
-    expect(page).to have_content 'New'
+    find('h1', text: 'Listing Content Modules')
     click_on 'Arm'
     within('.breadcrumb') do
       click_on 'Arms'
     end
 
-    expect(page).to have_content 'Arm 3'
-
+    find('.list-group-item', text: 'Arm 3')
     within('.breadcrumb') do
       click_on 'Home'
     end

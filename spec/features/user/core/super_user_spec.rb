@@ -29,27 +29,18 @@ describe 'Super User signs in,',
 
   it 'updates an arm' do
     click_on 'Arms'
-    click_on 'Arm 1'
+    click_on 'Testing Arm'
     click_on 'Edit'
-    fill_in 'arm_title', with: 'Updated Arm 1'
+    fill_in 'arm_title', with: 'Updated Testing Arm'
     click_on 'Update'
-    expect(page).to have_content 'Arm was successfully updated.'
-
-    expect(page).to have_content 'Title: Updated Arm 1'
-
-    click_on 'Edit'
-    fill_in 'arm_title', with: 'Arm 1'
-    click_on 'Update'
-    expect(page).to have_content 'Arm was successfully updated.'
-
-    expect(page).to have_content 'Title: Arm 1'
+    find('.alert-success', text: 'Arm was successfully updated.')
+    expect(page).to have_content 'Title: Updated Testing Arm'
   end
 
   it 'sees appropriate alert when trying to destroy an arm' do
     click_on 'Arms'
-    click_on 'Test Arm'
-    expect(page).to have_content 'Title: Test Arm'
-
+    click_on 'Testing Arm 2'
+    find('p', text: 'Title: Testing Arm 2')
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
     expect(page).to have_content 'You do not have privileges to delete an ' \
@@ -63,40 +54,29 @@ describe 'Super User signs in,',
     fill_in 'user_email', with: 'superuser@test.com'
     check 'user_is_admin'
     click_on 'Create'
-    expect(page).to have_content 'User was successfully created.'
-
+    find('.alert-success', text: 'User was successfully created.')
     expect(page).to have_content "Super User: Yes\nEmail: superuser@test.com"
   end
 
   it 'updates a super user' do
     click_on 'Users'
-    click_on 'superuser@test.com'
+    click_on 'test_7@example.com'
     click_on 'Edit'
     check 'user_user_roles_clinician'
     click_on 'Update'
-    expect(page).to have_content 'User was successfully updated.'
-
-    expect(page).to have_content "Super User: Yes\nEmail: superuser@test.com" \
+    find('.alert-success', text: 'User was successfully updated.')
+    expect(page).to have_content "Super User: Yes\nEmail: test_7@example.com" \
                                  "\nRoles: Clinician"
-
-    click_on 'Edit'
-    uncheck 'user_user_roles_clinician'
-    click_on 'Update'
-    expect(page).to have_content 'User was successfully updated.'
-
-    expect(page).to_not have_content 'Roles: Clinician'
   end
 
   it 'destroys a super user' do
     click_on 'Users'
-    click_on 'superuser@test.com'
-    expect(page).to have_content 'Email: superuser@test.com'
-
+    click_on 'test_8@example.com'
+    find('p', text: 'Email: test_8@example.com')
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
-    expect(page).to have_content 'User was successfully destroyed.'
-
-    expect(page).to_not have_content 'superuser@test.com'
+    find('.alert-success', text: 'User was successfully destroyed.')
+    expect(page).to_not have_content 'test_8@example.com'
 
     sign_out('admin1')
   end

@@ -27,20 +27,15 @@ describe 'Content Author signs in, navigates to Arm 1,',
                             'tincidunt enim. Nulla vitae enim. Suspendisse.'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Create'
-      expect(page).to have_content 'Successfully created slide for lesson'
-
+      find('.alert-success', text: 'Successfully created slide for lesson')
       expect(page).to have_content 'Test slide 2'
     end
 
     it 'updates a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('.btn.btn-default')[9].click
-      uncheck 'slide[is_title_visible]'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Update'
-      expect(page).to have_content 'Successfully updated slide for lesson'
-
-      page.all('.btn.btn-default')[9].click
+      within('li', text: 'Slide 3') do
+        find('.btn.btn-default').click
+      end
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
@@ -50,16 +45,17 @@ describe 'Content Author signs in, navigates to Arm 1,',
     it 'views a slide' do
       click_on 'Slide 2'
       expect(page).to have_content 'Log in once a day'
-
-      click_on 'Done'
-      expect(page).to have_content "It's simple."
     end
 
     it 'destroys a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger')[4].click
-      expect(page).to_not have_content 'Test slide 2'
+      within('li', text: 'Slide 5') do
+        find('.btn.btn-danger').click
+      end
+
+      find('.alert-success', text: 'Slide deleted')
+      expect(page).to_not have_content 'Slide 5'
     end
 
     it 'adds a video slide' do
@@ -70,36 +66,36 @@ describe 'Content Author signs in, navigates to Arm 1,',
       find('.md-input').set 'This is a video slide'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Create'
-      expect(page).to have_content 'Successfully created slide for lesson'
-
+      find('.alert-success', text: 'Successfully created slide for lesson')
       expect(page).to have_content 'Test video slide 2'
     end
 
     it 'updates a video slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('.btn.btn-default')[9].click
-      uncheck 'slide[is_title_visible]'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Update'
-      expect(page).to have_content 'Successfully updated slide for lesson'
+      within('li', text: 'Slide 4') do
+        find('.btn.btn-default').click
+      end
 
-      page.all('.btn.btn-default')[9].click
-      check 'slide[is_title_visible]'
+      uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
       expect(page).to have_content 'Successfully updated slide for lesson'
     end
 
     it 'views a video slide' do
-      click_on 'Test video slide 2'
-      expect(page).to have_content 'This is a video slide'
+      click_on 'Slide 4'
+      expect(page).to have_css('.responsive-video')
     end
 
     it 'destroys a video slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger')[4].click
-      expect(page).to_not have_content 'Test video slide 2'
+      within('li', text: 'Slide 6') do
+        find('.btn.btn-danger').click
+      end
+
+      find('.alert-success', text: 'Slide deleted')
+      expect(page).to_not have_content 'Slide 6'
     end
 
     it 'adds an audio slide' do
@@ -109,32 +105,37 @@ describe 'Content Author signs in, navigates to Arm 1,',
       find('.md-input').set 'This is an audio slide'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Create'
-      expect(page).to have_content 'Successfully created slide for lesson'
-
+      find('.alert-success', text: 'Successfully created slide for lesson')
       expect(page).to have_content 'Test audio slide'
     end
 
     it 'updates an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('.btn.btn-default')[9].click
-      expect(page).to have_content 'Edit Slide'
-      uncheck 'slide[is_title_visible]'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Update'
-      expect(page).to have_content 'Successfully updated slide for lesson'
+      within('li', text: 'Slide 7') do
+        find('.btn.btn-default').click
+      end
 
-      page.all('.btn.btn-default')[9].click
-      check 'slide[is_title_visible]'
+      find('h1', text: 'Edit Slide')
+      uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
       expect(page).to have_content 'Successfully updated slide for lesson'
     end
 
+    it 'views an audio slide' do
+      click_on 'Slide 7'
+      expect(page).to have_css('.responsive-audio')
+    end
+
     it 'deletes an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger')[4].click
-      expect(page).to_not have_content 'Test audio slide'
+      within('li', text: 'Slide 8') do
+        find('.btn.btn-danger').click
+      end
+
+      find('.alert-success', text: 'Slide deleted')
+      expect(page).to_not have_content 'Slide 8'
     end
   end
 
@@ -151,10 +152,10 @@ describe 'Content Author signs in, navigates to Arm 1,',
       click_on 'Slideshows'
       find('h1', text: 'Listing Slideshows')
       page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Testing adding/updating slides/lessons'
+      click_on 'Brand new slideshow for testing'
     end
 
-    it 'adds a slide' do
+    it 'creates a slide' do
       click_on 'Add Slide'
       fill_in 'slide_title', with: 'Test slide 2'
       uncheck 'slide[is_title_visible]'
@@ -167,40 +168,35 @@ describe 'Content Author signs in, navigates to Arm 1,',
     end
 
     it 'updates a slide' do
-      find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('.btn.btn-default')[9].click
-      uncheck 'slide[is_title_visible]'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Update'
-      expect(page).to have_content 'Slide 2'
-
-      page.all('.btn.btn-default')[9].click
+      find('small', text: 'Brand new slideshow for testing')
+      within('li', text: 'Slide 3') do
+        find('.btn.btn-default').click
+      end
       check 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
-      expect(page).to have_content 'Slide 2'
+      expect(page).to have_css('small', text: 'Brand new slideshow for testing')
     end
 
     it 'views a slide' do
       click_on 'Slide 2'
-      expect(page).to have_content "Log in once a day and tell us you're doing."
-
-      click_on 'Done'
-      expect(page).to have_content "It's simple"
+      expect(page).to have_content 'Log in once a day'
     end
 
     it 'destroys a slide' do
-      find('small', text: 'Testing adding/updating slides/lessons')
+      find('small', text: 'Brand new slideshow for testing')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger')[5].click
+      within('li', text: 'Slide 5') do
+        find('.btn.btn-danger').click
+      end
 
-      expect(page).to_not have_content 'Test slide 2'
+      expect(page).to_not have_content 'Slide 5'
     end
 
     it 'adds a video slide' do
       click_on 'Add Video Slide'
       fill_in 'slide_title', with: 'Test video slide 2'
-      fill_in 'slide_options_vimeo_id', with: '107231188'
+      fill_in 'slide_options_vimeo_id', with: '111087687'
       uncheck 'slide[is_title_visible]'
       find('.md-input').set 'This is a video slide'
       page.execute_script('window.scrollTo(0,5000)')
@@ -209,31 +205,30 @@ describe 'Content Author signs in, navigates to Arm 1,',
     end
 
     it 'updates a video slide' do
-      find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('.btn.btn-default')[9].click
+      find('small', text: 'Brand new slideshow for testing')
+      within('li', text: 'Slide 4') do
+        find('.btn.btn-default').click
+      end
+
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
-      expect(page).to have_content 'Slide 2'
-
-      page.all('.btn.btn-default')[9].click
-      check 'slide[is_title_visible]'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Update'
-      expect(page).to have_content 'Slide 2'
+      expect(page).to have_css('small', text: 'Brand new slideshow for testing')
     end
 
     it 'views a video slide' do
-      click_on 'Test video slide 2'
-      expect(page).to have_content 'This is a video slide'
+      click_on 'Slide 4'
+      expect(page).to have_css('.responsive-video')
     end
 
-    it 'destroys a video slideo' do
-      find('small', text: 'Testing adding/updating slides/lessons')
+    it 'destroys a video slide' do
+      find('small', text: 'Brand new slideshow for testing')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger')[5].click
+      within('li', text: 'Slide 6') do
+        find('.btn.btn-danger').click
+      end
 
-      expect(page).to_not have_content 'Test video slide 2'
+      expect(page).to_not have_content 'Slide 6'
     end
 
     it 'adds an audio slide' do
@@ -247,37 +242,39 @@ describe 'Content Author signs in, navigates to Arm 1,',
     end
 
     it 'updates an audio slide' do
-      find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('.btn.btn-default')[9].click
+      find('small', text: 'Brand new slideshow for testing')
+      within('li', text: 'Slide 7') do
+        find('.btn.btn-default').click
+      end
+
+      find('h2', text: 'Edit Slide')
       uncheck 'slide[is_title_visible]'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update'
-      expect(page).to have_content 'Testing adding/updating slides/lessons'
+      expect(page).to have_css('small', text: 'Brand new slideshow for testing')
+    end
 
-      find('small', text: 'Testing adding/updating slides/lessons')
-      page.all('.btn.btn-default')[9].click
-      check 'slide[is_title_visible]'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Update'
-      expect(page).to have_content 'Test audio slide'
+    it 'views an audio slide' do
+      click_on 'Slide 7'
+      expect(page).to have_css('.responsive-audio')
     end
 
     it 'deletes an audio slide' do
-      find('small', text: 'Testing adding/updating slides/lessons')
+      find('small', text: 'Brand new slideshow for testing')
       page.driver.execute_script('window.confirm = function() {return true}')
-      page.all('.btn.btn-danger')[5].click
+      within('li', text: 'Slide 8') do
+        find('.btn.btn-danger').click
+      end
 
       expect(page).to_not have_content 'Test audio slide'
     end
 
-    it 'adds table of contents' do
+    it 'adds and removes table of contents' do
       click_on 'Add Table of Contents'
       within '.ui-sortable' do
         expect(page).to have_content 'Table of Contents'
       end
-    end
 
-    it 'removes table of contents' do
       click_on 'Destroy Table of Contents'
       within '.ui-sortable' do
         expect(page).to_not have_content 'Table of Contents'

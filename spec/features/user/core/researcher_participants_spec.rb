@@ -25,8 +25,7 @@ describe 'Researcher signs in, navigates to Participants,',
     fill_in 'participant_phone_number', with: ENV['Participant_Phone_Number']
     select 'Email', from: 'participant_contact_preference'
     click_on 'Create'
-    expect(page).to have_content 'Participant was successfully created.'
-
+    find('.alert-success', text: 'Participant was successfully created.')
     expect(page).to have_content "Study Id: Tests\nEmail: test@test.com" \
                                  "\nPhone Number: " \
                                  "#{ENV['Participant_Phone_Number_1']}" \
@@ -36,29 +35,15 @@ describe 'Researcher signs in, navigates to Participants,',
   it 'updates a participant' do
     find('h1', text: 'Participants')
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'TFD-1111'
+    click_on 'test_1'
     click_on 'Edit'
-    fill_in 'participant_study_id', with: 'Updated TFD-1111'
-    fill_in 'participant_email', with: 'updatedfake@test.com'
+    fill_in 'participant_study_id', with: 'Updated test_1'
+    fill_in 'participant_email', with: 'updated_test_1@test.com'
     fill_in 'participant_phone_number', with: ENV['Participant_Phone_Number']
     click_on 'Update'
-    expect(page).to have_content 'Participant was successfully updated.'
-
-    expect(page).to have_content 'Study Id: Updated TFD-1111' \
-                                 "\nEmail: updatedfake@test.com" \
-                                 "\nPhone Number: " \
-                                 "#{ENV['Participant_Phone_Number_1']}" \
-                                 "\nContact Preference: Email"
-
-    click_on 'Edit'
-    fill_in 'participant_study_id', with: 'TFD-1111'
-    fill_in 'participant_email', with: ENV['Participant_Email']
-    fill_in 'participant_phone_number', with: ENV['Participant_Phone_Number']
-    click_on 'Update'
-    expect(page).to have_content 'Participant was successfully updated.'
-
-    expect(page).to have_content 'Study Id: TFD-1111' \
-                                 "\nEmail: #{ENV['Participant_Email']}" \
+    find('.alert-success', text: 'Participant was successfully updated.')
+    expect(page).to have_content 'Study Id: Updated test_1' \
+                                 "\nEmail: updated_test_1@test.com" \
                                  "\nPhone Number: " \
                                  "#{ENV['Participant_Phone_Number_1']}" \
                                  "\nContact Preference: Email"
@@ -66,7 +51,7 @@ describe 'Researcher signs in, navigates to Participants,',
 
   it 'cannot assign a coach without a group membership' do
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Tests'
+    click_on 'test_2'
     expect(page).to have_content 'Current Coach/Moderator: None'
 
     expect { click_on 'Assign Coach/Moderator' }.to raise_error
@@ -76,7 +61,7 @@ describe 'Researcher signs in, navigates to Participants,',
 
   it 'cannot assign a group membership with invalid start date' do
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Tests'
+    click_on 'test_3'
     click_on 'Assign New Group'
     select 'Group 1', from: 'membership_group_id'
     unless ENV['tfd']
@@ -94,7 +79,7 @@ describe 'Researcher signs in, navigates to Participants,',
   unless ENV['chrome']
     it 'cannot assign a group membership with a blank end date' do
       page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Tests'
+      click_on 'test_3'
       click_on 'Assign New Group'
       select 'Group 1', from: 'membership_group_id'
       unless ENV['tfd']
@@ -111,7 +96,7 @@ describe 'Researcher signs in, navigates to Participants,',
 
     it 'cannot assign a group membership with invalid start date' do
       page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Tests'
+      click_on 'test_3'
       click_on 'Assign New Group'
       select 'Group 1', from: 'membership_group_id'
       unless ENV['tfd']
@@ -130,7 +115,7 @@ describe 'Researcher signs in, navigates to Participants,',
 
   it 'assigns a group membership' do
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Tests'
+    click_on 'test_4'
     click_on 'Assign New Group'
     select 'Group 1', from: 'membership_group_id'
     unless ENV['chrome']
@@ -164,7 +149,7 @@ describe 'Researcher signs in, navigates to Participants,',
 
   it 'assigns a coach' do
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Tests'
+    click_on 'test_5'
     begin
       tries ||= 3
       click_on 'Assign Coach/Moderator'
@@ -178,33 +163,29 @@ describe 'Researcher signs in, navigates to Participants,',
       click_on 'Assign'
     end
 
-    expect(page).to have_content 'Coach/Moderator was successfully assigned'
-
+    find('.alert-success', text: 'Coach/Moderator was successfully assigned')
     expect(page).to have_content 'Current Coach/Moderator: ' \
                                  "#{ENV['Clinician_Email']}"
   end
 
   it 'destroys a participant' do
     page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Tests'
+    click_on 'test_6'
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
-    expect(page).to have_content 'Participant was successfully destroyed.'
-
-    expect(page).to_not have_content 'Tests'
+    find('.alert-success', text: 'Participant was successfully destroyed.')
+    expect(page).to_not have_content 'test_6'
   end
 
   it 'uses breadcrumbs to return to home through Participants' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'TFD-1111'
-    expect(page).to have_content 'Contact Preference'
-
+    find('p', text: 'Contact Preference')
     within('.breadcrumb') do
       click_on 'Participants'
     end
 
-    expect(page).to have_content 'participant61'
-
+    find('.list-group-item', text: 'participant61')
     within('.breadcrumb') do
       click_on 'Home'
     end
@@ -215,15 +196,13 @@ describe 'Researcher signs in, navigates to Participants,',
   it 'uses breadcrumbs to return to home through Groups' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'TFD-1111'
-    expect(page).to have_content 'Contact Preference'
-
+    find('p', text: 'Contact Preference')
     click_on 'Group'
     within('.breadcrumb') do
       click_on 'Groups'
     end
 
-    expect(page).to have_content 'Group 1'
-
+    find('.list-group-item', text: 'Group 1')
     within('.breadcrumb') do
       click_on 'Home'
     end

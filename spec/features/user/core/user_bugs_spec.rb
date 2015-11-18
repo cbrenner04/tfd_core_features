@@ -22,17 +22,16 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
        'calculation of end date' do
       click_on 'Participants'
       click_on 'New'
-      fill_in 'participant_study_id', with: 'Tests'
-      fill_in 'participant_email', with: 'test@test.com'
+      fill_in 'participant_study_id', with: 'bug_test_pt'
+      fill_in 'participant_email', with: 'bug_test_pt@example.com'
       fill_in 'participant_phone_number', with: ENV['Participant_Phone_Number']
       select 'Email', from: 'participant_contact_preference'
       click_on 'Create'
-      expect(page).to have_content 'Participant was successfully created.'
-
+      find('.alert-success', text: 'Participant was successfully created.')
       click_on 'Assign New Group'
       select 'Group 1', from: 'membership_group_id'
       unless ENV['tfd']
-        fill_in 'membership_display_name', with: 'Tester'
+        fill_in 'membership_display_name', with: 'Bug Tester'
       end
 
       unless ENV['chrome']
@@ -55,8 +54,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
                                    "#{weeks_later.strftime('%m/%d/%Y')}"
 
       click_on 'Assign'
-      expect(page).to have_content 'Group was successfully assigned'
-
+      find('.alert-success', text: 'Group was successfully assigned')
       unless ENV['chrome']
         expect(page).to have_content "Membership Status: Active\nCurrent " \
                                      'Group: Group 1'
@@ -108,8 +106,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
         expect(page).to have_content 'Last Logged In: ' \
                                      "#{date1.strftime('%A, %b %d %Y')}"
 
-        expect(page).to have_content "Logins Today: 0\nLogins during this " \
-                                     "treatment week: 0\nTotal Logins: 11"
+        expect(page).to have_content 'Total Logins: 11'
       end
     end
   end

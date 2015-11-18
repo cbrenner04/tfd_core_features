@@ -67,3 +67,6 @@ configured, run the following to see what rake tasks apply to particular suite
 you are looking to run:
 
     rake -T
+
+Note: it is probably best to run this suite near midday. I like to set my
+system time to 2 pm.

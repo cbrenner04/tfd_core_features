@@ -30,22 +30,13 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
   end
 
   it 'updates title of a lesson' do
-    click_on 'Do - Awareness Introduction'
-    expect(page).to have_content 'This is just the beginning...'
-
-    page.all(:link, 'Edit')[0].click
-    fill_in 'lesson_title', with: 'Do - Awareness Introduction 123'
+    click_on 'Do - Doing Introduction'
+    find('a', text: 'Welcome back!')
+    page.all('.btn.btn-default')[1].click
+    fill_in 'lesson_title', with: 'Do - Doing Introduction 123'
     click_on 'Update'
-    expect(page).to have_content 'Successfully updated lesson'
-
-    expect(page).to have_content 'Do - Awareness Introduction 123'
-
-    page.all(:link, 'Edit')[0].click
-    fill_in 'lesson_title', with: 'Do - Awareness Introduction'
-    click_on 'Update'
-    expect(page).to have_content 'Successfully updated lesson'
-
-    expect(page).to have_content 'Do - Awareness Introduction'
+    find('.alert-success', text: 'Successfully updated lesson')
+    expect(page).to have_content 'Do - Doing Introduction 123'
   end
 
   # this example is commented out as it fails most runs
@@ -64,28 +55,28 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
   it 'destroys lesson' do
     find('h1', text: 'Listing Lesson Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    within('tr', text: 'Test lesson') do
+    within('tr', text: 'Lesson for tests') do
       page.driver.execute_script('window.confirm = function() {return true}')
       find('.btn.btn-danger').click
     end
 
-    expect(page).to_not have_content 'Test lesson'
+    find('.alert-success', text: 'Lesson deleted.')
+    expect(page).to_not have_content 'Lessons for tests'
   end
 
   it 'uses breadcrumbs to return home' do
-    expect(page).to have_content 'Home Introduction'
+    find('h1', text: 'Listing Lesson Modules')
     click_on 'Arm'
     within('.breadcrumb') do
       click_on 'Arms'
     end
 
-    expect(page).to have_content 'Arm 3'
-
+    find('.list-group-item', text: 'Arm 3')
     within('.breadcrumb') do
       click_on 'Home'
     end
 
-    expect(page).to have_content "Arms\nNavigate to groups and participants " \
-                                 'through arms.'
+    expect(page)
+      .to have_content "Arms\nNavigate to groups and participants through arms."
   end
 end
