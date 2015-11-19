@@ -4,7 +4,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
          :social_networking, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
-      sign_in_user(ENV['Clinician_Email'], 'participant1',
+      sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
   end
@@ -286,8 +286,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
 
   it 'uses breadcrumbs to return to home' do
     click_on 'Group'
-    expect(page).to have_content 'Title: Group 6'
-
+    find('p', text: 'Title: Group 6')
     within('.breadcrumb') do
       click_on 'Home'
     end

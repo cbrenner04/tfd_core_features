@@ -68,11 +68,6 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
     it 'checks details for stepping' do
       within('#patients') do
         within first('tr', text: 'PHQ-1') do
-          date1 = Date.today - 4
-          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-danger', text: 'YES')
-
           click_on 'Details'
         end
       end
@@ -270,16 +265,24 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'creates a new PHQ9 assessment' do
+    it 'views PHQ9 management tool' do
       select_patient('PHQ-4')
-
       within('.list-group') do
         find('a', text: 'PHQ9').click
       end
 
       click_on 'Manage'
       expect(page).to have_css('h2', text: 'PHQ assessments for PHQ-4')
+    end
 
+    it 'creates a new PHQ9 assessment' do
+      select_patient('PHQ-4')
+      within('.list-group') do
+        find('a', text: 'PHQ9').click
+      end
+
+      click_on 'Manage'
+      find('h2', text: 'PHQ assessments for PHQ-4')
       click_on 'New Phq assessment'
       (1..9).each do |i|
         fill_in "phq_assessment_q#{i}", with: '2'
@@ -287,8 +290,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
 
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Create Phq assessment'
-      expect(page).to have_content 'Phq assessment was successfully created.'
-
+      find('.alert-success', text: 'Phq assessment was successfully created.')
       within('tr', text: "#{Date.today.strftime('%Y-%m-%d')}") do
         expect(page).to have_content '2 2 2 2 2 2 2 2 2 Edit Delete'
 
@@ -305,14 +307,12 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
 
       select_patient('PHQ-1')
-
       within('.list-group') do
         find('a', text: 'PHQ9').click
       end
 
       click_on 'Manage'
-      expect(page).to have_css('h2', text: 'PHQ assessments for PHQ-1')
-
+      find('h2', text: 'PHQ assessments for PHQ-1')
       three_weeks_ago = Date.today - 18
       within('tr', text: "#{three_weeks_ago.strftime('%Y-%m-%d')}") do
         click_on 'Edit'
@@ -322,8 +322,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       fill_in 'phq_assessment_q9', with: '2'
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update Phq assessment'
-      expect(page).to have_content 'Phq assessment was successfully updated.'
-
+      find('.alert-success', text: 'Phq assessment was successfully updated.')
       within('tr', text: "#{three_weeks_ago.strftime('%Y-%m-%d')}") do
         expect(page).to have_content '1 2 2 1 2 1 1 1 2 Edit Delete'
 

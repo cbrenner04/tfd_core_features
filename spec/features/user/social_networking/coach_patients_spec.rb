@@ -227,8 +227,7 @@ describe 'Patient Dashboard - ',
         visit "#{ENV['Base_URL']}/participants/sign_in"
         sign_in_pt(ENV['PT61_Email'], "#{moderator}",
                    ENV['PT61_Password'])
-        expect(page).to have_content 'HOME'
-
+        find('h1', text: 'HOME')
         expect(page).to_not have_content 'Fifth'
       end
     end

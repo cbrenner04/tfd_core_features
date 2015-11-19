@@ -27,8 +27,7 @@ describe 'User Dashboard Bugs,',
       fill_in 'participant_email', with: 'fake@test.com'
       select 'Email', from: 'participant_contact_preference'
       click_on 'Create'
-      expect(page).to have_content 'Participant was successfully created.'
-
+      find('.alert-success', text: 'Participant was successfully created.')
       click_on 'Assign New Group'
       select 'Group 6', from: 'membership_group_id'
       fill_in 'membership_display_name', with: ''
@@ -73,22 +72,16 @@ describe 'User Dashboard Bugs,',
       click_on 'Arm 1'
       click_on 'Group 1'
       click_on 'Patient Dashboard'
-      select_patient('TFD-1111')
+      select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
-        within('tr', text: 'Activities Monitored') do
-          expect(page).to have_content '18 18 18'
-        end
-
-        within('tr', text: 'Activities Planned') do
-          expect(page).to have_content '14 16 16'
-        end
-
-        within('tr', text: 'Activities Reviewed and Completed') do
-          expect(page).to have_content '1 2 2'
-        end
-
-        within('tr', text: 'Activities Reviewed and Incomplete') do
-          expect(page).to have_content '1 1 1'
+        tool = ['Activities Monitored', 'Activities Planned',
+                'Activities Reviewed and Completed',
+                'Activities Reviewed and Incomplete']
+        data = ['0 0 0', '1 4 4', '0 1 1', '0 1 1']
+        tool.zip(data) do |t, d|
+          within('tr', text: t) do
+            expect(page).to have_content d
+          end
         end
       end
     end

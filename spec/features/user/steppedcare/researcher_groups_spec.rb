@@ -27,50 +27,44 @@ describe 'Researcher signs in, navigates to Groups,',
   end
 
   it 'updates a group' do
-    click_on 'Group 1'
+    click_on 'Group 8'
     click_on 'Edit'
-    fill_in 'group_title', with: 'Updated Group 1'
+    fill_in 'group_title', with: 'Updated Group 8'
     click_on 'Update'
-    expect(page).to have_content 'Group was successfully updated.'
-
-    expect(page).to have_content 'Title: Updated Group 1'
-
-    click_on 'Edit'
-    fill_in 'group_title', with: 'Group 1'
-    click_on 'Update'
-    expect(page).to have_content 'Group was successfully updated.'
-
-    expect(page).to have_content 'Title: Group 1'
+    find('.alert-success', text: 'Group was successfully updated.')
+    expect(page).to have_content 'Title: Updated Group 8'
   end
 
   it 'destroys a group' do
-    click_on 'Testing Group'
-    expect(page).to have_content 'Title: Testing Group'
-
+    click_on 'Group 9'
+    find('p', text: 'Title: Testing Group')
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
-    expect(page).to have_content 'Group was successfully destroyed.'
-
+    find('.alert-success', text: 'Group was successfully destroyed.')
     expect(page).to_not have_content 'Testing Group'
   end
 
-  it 'manages tasks within a group' do
-    click_on 'Group 1'
+  it 'assigns a task within a group' do
+    click_on 'Group 11'
     click_on 'Manage Tasks'
     select 'LEARN: Do - Planning Slideshow 3 of 4',
            from: 'task_bit_core_content_module_id'
     fill_in 'task_release_day', with: '1'
     click_on 'Assign'
     expect(page).to have_content 'Task assigned.'
+  end
 
+  it 'unassigns a task within a group' do
+    click_on 'Group 11'
+    click_on 'Manage Tasks'
     page.execute_script('window.scrollTo(0,5000)')
-    within('tr', text: 'LEARN: Do - Planning Slideshow 3 of 4') do
+    within('tr', text: 'Testing adding/updating slides/lessons') do
       page.driver.execute_script('window.confirm = function() {return true}')
       click_on 'Unassign'
     end
 
     within '#tasks' do
-      expect(page).to_not have_content 'LEARN: Do - Planning Slideshow 3 of 4'
+      expect(page).to_not have_content 'Testing adding/updating slides/lessons'
     end
   end
 

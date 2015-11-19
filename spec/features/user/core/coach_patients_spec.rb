@@ -397,8 +397,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
 
     it 'uses breadcrumbs to return to home' do
       click_on 'Group'
-      expect(page).to have_content 'Title: Group 1'
-
+      find('p', text: 'Title: Group 1')
       within('.breadcrumb') do
         click_on 'Home'
       end

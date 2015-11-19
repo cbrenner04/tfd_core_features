@@ -21,10 +21,9 @@ describe 'Researcher signs in, navigates to Groups,',
   it 'adds an individual incentive' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollBy(0,500)')
-    click_on 'Group 1'
+    click_on 'Group 9'
     click_on 'Manage Incentives'
-    expect(page).to have_content 'Group 1 Incentives'
-
+    find('h1', text: 'Group 9 Incentives')
     click_on 'New'
     fill_in "#{app}_incentive[description]", with: 'complete a goal'
     within('.col-md-2:nth-child(11)') do
@@ -32,42 +31,40 @@ describe 'Researcher signs in, navigates to Groups,',
     end
 
     click_on 'Create'
-    expect(page).to have_content 'Incentive was successfully created.'
-
-    expect(page).to have_css('h1', text: 'Group 1 Incentive - complete a goal')
+    find('.alert-success', text: 'Incentive was successfully created.')
+    expect(page).to have_css('h1', text: 'Group 9 Incentive - complete a goal')
 
     expect(page).to have_xpath("//img[@src='/assets/flower11.png']")
 
     expect(page).to have_content "Description: complete a goal\nScope: " \
                                  "Individual\nRepeatable: No"
+  end
 
+  it 'adds a behavior to an incentive' do
+    find('h1', text: 'Groups')
+    page.execute_script('window.scrollBy(0,500)')
+    click_on 'Group 9'
+    click_on 'Manage Incentives'
+    find('h1', text: 'Group 9 Incentives')
+    find('.list-group-item', text: 'Individual, like 3 feed items').click
     within('.well') do
       click_on 'New'
     end
 
+    select 'Like', from: "#{app}_behavior[action_type]"
     select 'Complete', from: "#{app}_behavior[condition]"
     click_on 'Create'
-    expect(page).to have_content 'Behavior was successfully created.'
-
-    click_on 'Incentives - complete a goal'
-    within('.well') do
-      expect(page).to have_css('.list-group-item', text: 'Complete a goal')
-    end
-
-    click_on 'Group 1 Incentives'
-    expect(page).to have_css('.list-group-item',
-                             text: 'Individual, complete a goal')
-
-    expect(page).to have_xpath("//img[@src='/assets/flower11.png']")
+    find('.alert-success', text: 'Behavior was successfully created.')
+    expect(page).to have_content 'Action: SocialNetworking::Like' \
+                                 "\nCondition: complete"
   end
 
   it 'adds a repeatable individual incentive' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollBy(0,500)')
-    click_on 'Group 1'
+    click_on 'Group 9'
     click_on 'Manage Incentives'
-    expect(page).to have_content 'Group 1 Incentives'
-
+    find('h1', text: 'Group 9 Incentives')
     click_on 'New'
     fill_in "#{app}_incentive[description]", with: 'comment on a post'
     check "#{app}_incentive[is_repeatable]"
@@ -76,62 +73,65 @@ describe 'Researcher signs in, navigates to Groups,',
     end
 
     click_on 'Create'
-    expect(page).to have_content 'Incentive was successfully created.'
-
+    find('.alert-success', text: 'Incentive was successfully created.')
     expect(page).to have_css('h1',
-                             text: 'Group 1 Incentive - comment on a post')
+                             text: 'Group 9 Incentive - comment on a post')
 
     expect(page).to have_xpath("//img[@src='/assets/flower10.png']")
 
     expect(page).to have_content "Description: comment on a post\nScope: " \
                                  "Individual\nRepeatable: Yes"
+  end
 
+  it 'adds a behavior to a repeatable incentive' do
+    find('h1', text: 'Groups')
+    page.execute_script('window.scrollBy(0,500)')
+    click_on 'Group 9'
+    click_on 'Manage Incentives'
+    find('h1', text: 'Group 9 Incentives')
+    find('.list-group-item', text: 'Individual, comment on 3 feed items').click
     within('.well') do
       click_on 'New'
     end
 
     select 'Comment', from: "#{app}_behavior[action_type]"
     click_on 'Create'
-    expect(page).to have_content 'Behavior was successfully created.'
-
-    click_on 'Incentives - comment on a post'
-    within('.well') do
-      expect(page).to have_css('.list-group-item',
-                               text: "Comment on a person's shared content")
-    end
-
-    click_on 'Group 1 Incentives'
-    expect(page).to have_css('.list-group-item',
-                             text: 'Repeatable Individual, comment on a post')
-
-    expect(page).to have_xpath("//img[@src='/assets/flower10.png']")
+    find('.alert-success', text: 'Behavior was successfully created.')
+    expect(page).to have_content 'Action: SocialNetworking::Comment' \
+                                 "\nCondition: create"
   end
 
   it 'adds a group incentive' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollBy(0,500)')
-    click_on 'Group 1'
+    click_on 'Group 9'
     click_on 'Manage Incentives'
-    expect(page).to have_content 'Group 1 Incentives'
-
+    find('h1', text: 'Group 9 Incentives')
     click_on 'New'
-    fill_in "#{app}_incentive[description]", with: 'read a lesson'
+    fill_in "#{app}_incentive[description]", with: 'read something'
     select 'Group', from: "#{app}_incentive[scope]"
     within('.col-md-2:nth-child(9)') do
       choose("#{app}_incentive[image_url]")
     end
 
     click_on 'Create'
-    expect(page).to have_content 'Incentive was successfully created.'
-
-    expect(page).to have_css('h1',
-                             text: 'Group 1 Incentive - read a lesson')
+    find('.alert-success', text: 'Incentive was successfully created.')
+    expect(page)
+      .to have_css('h1', text: 'Group 9 Incentive - read something')
 
     expect(page).to have_xpath("//img[@src='/assets/flower9.png']")
 
-    expect(page).to have_content "Description: read a lesson\nScope: " \
+    expect(page).to have_content "Description: read something\nScope: " \
                                  "Group\nRepeatable: No"
+  end
 
+  it 'adds a behavior to a group incentive' do
+    find('h1', text: 'Groups')
+    page.execute_script('window.scrollBy(0,500)')
+    click_on 'Group 9'
+    click_on 'Manage Incentives'
+    find('h1', text: 'Group 9 Incentives')
+    find('.list-group-item', text: 'Group, read a lesson').click
     within('.well') do
       click_on 'New'
     end
@@ -139,27 +139,17 @@ describe 'Researcher signs in, navigates to Groups,',
     select 'Lesson', from: "#{app}_behavior[action_type]"
     select 'Complete', from: "#{app}_behavior[condition]"
     click_on 'Create'
-    expect(page).to have_content 'Behavior was successfully created.'
-
-    click_on 'Incentives - read a lesson'
-    within('.well') do
-      expect(page).to have_css('.list-group-item', text: 'Complete a lesson')
-    end
-
-    click_on 'Group 1 Incentives'
-    expect(page).to have_css('.list-group-item', text: 'Group, read a lesson')
-
-    expect(page).to have_xpath("//img[@src='/assets/flower9.png']")
+    find('.alert-success', text: 'Behavior was successfully created.')
+    expect(page).to have_content "Action: TaskStatus\nCondition: complete"
   end
 
   it 'is unable to destroy incentive w/o first destroying related behaviors' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollBy(0,500)')
-    click_on 'Group 1'
+    click_on 'Group 9'
     click_on 'Manage Incentives'
-    expect(page).to have_content 'Group 1 Incentives'
-
-    find('.list-group-item', text: 'Individual, like 3 feed items').click
+    find('h1', text: 'Group 9 Incentives')
+    find('.list-group-item', text: 'Individual, create a goal').click
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
     expect(page)
@@ -170,15 +160,13 @@ describe 'Researcher signs in, navigates to Groups,',
   it 'is unable to destroy behaviors that already have data' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollBy(0,500)')
-    click_on 'Group 1'
+    click_on 'Group 9'
     click_on 'Manage Incentives'
-    expect(page).to have_content 'Group 1 Incentives'
-
-    find('.list-group-item', text: 'Individual, like 3 feed items').click
-    find('h1', text: 'Group 1 Incentive - like 3 feed items')
+    find('h1', text: 'Group 9 Incentives')
+    find('.list-group-item', text: 'Individual, create a goal').click
+    find('h1', text: 'Group 9 Incentive - create a goal')
     first('.list-group-item').click
-    expect(page).to have_content 'Action: SocialNetworking::Like'
-
+    find('p', text: 'Action: SocialNetworking::Goal')
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
     expect(page)
