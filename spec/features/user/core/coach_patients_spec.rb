@@ -272,6 +272,7 @@ describe 'Coach signs in,', :core, type: :feature, sauce: sauce_labs do
       click_on 'Previous Day'
       find('h3', text: "Daily Averages for #{prev_day.strftime('%b %d %Y')}")
       endtime = Time.now + (60 * 60)
+      page.execute_script('window.scrollBy(0,500)')
       within('.panel.panel-default',
              text: "#{Time.now.strftime('%-l %P')} - " \
                    "#{endtime.strftime('%-l %P')}: Parkour") do

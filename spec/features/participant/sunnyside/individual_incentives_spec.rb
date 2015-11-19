@@ -121,6 +121,7 @@ describe 'Individual incentives',
         first('.close').click
       end
 
+      visit ENV['Base_URL']
       sign_out('participant3')
     end
   end

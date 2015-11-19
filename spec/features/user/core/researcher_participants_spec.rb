@@ -202,7 +202,7 @@ describe 'Researcher signs in, navigates to Participants,',
       click_on 'Groups'
     end
 
-    find('.list-group-item', text: 'Group 1')
+    find('.list-group-item', text: 'Group 3')
     within('.breadcrumb') do
       click_on 'Home'
     end

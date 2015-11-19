@@ -28,6 +28,7 @@ describe 'Researcher signs in, navigates to Groups,',
   end
 
   it 'updates a group' do
+    page.execute_script('.window.scrollBy(0,500)')
     click_on 'Group 8'
     click_on 'Edit'
     fill_in 'group_title', with: 'Updated Group 8'
@@ -75,6 +76,7 @@ describe 'Researcher signs in, navigates to Groups,',
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Group 11'
     click_on 'Manage Tasks'
+    find('h1', text: 'Manage Task')
     page.execute_script('window.scrollTo(0,5000)')
     within('tr', text: 'Testing adding/updating slides/lessons') do
       page.driver.execute_script('window.confirm = function() {return true}')

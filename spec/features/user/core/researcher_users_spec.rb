@@ -102,7 +102,7 @@ describe 'Research signs in, navigates to Users,',
   end
 
   it 'uses breadcrumbs to return to home' do
-    click_on ENV['Content_Author_Email']
+    first('.list-group-item').click
     find('p', text: 'Super User:')
     click_on 'Users'
     within('.breadcrumb') do
