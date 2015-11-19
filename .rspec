@@ -1,6 +1,6 @@
 --require spec_helper
 --require env_variables.rb
---require support/feature_helper.rb
+--require support/feature_helpers.rb
 --format documentation
 --format progress
 --out 'output/rspec <%= Time.now.strftime('%m.%d.%y %H.%M.%S') %>.txt'
