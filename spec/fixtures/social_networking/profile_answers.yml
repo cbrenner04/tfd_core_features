@@ -1,0 +1,9 @@
+profile_answer1:
+  social_networking_profile_id: <%= ActiveRecord::FixtureSet.identify(:profile2) %>
+  social_networking_profile_question_id: <%= ActiveRecord::FixtureSet.identify(:profile_question1) %>
+  answer_text: running
+
+profile_answer2:
+  social_networking_profile_id: <%= ActiveRecord::FixtureSet.identify(:profile2) %>
+  social_networking_profile_question_id: <%= ActiveRecord::FixtureSet.identify(:profile_question2) %>
+  answer_text: green

@@ -1,0 +1,58 @@
+incentive_gp1_likes:
+  group: group1
+  scope: <%= Sunnyside::Incentive::SCOPE_INDIVIDUAL %>
+  description: like 3 feed items
+  image_url: flower1.png
+  created_at: <%= Time.zone.now %>
+
+incentive_gp1_comments:
+  group: group1
+  scope: <%= Sunnyside::Incentive::SCOPE_GROUP %>
+  description: comment on 3 feed items
+  image_url: flower2.png
+  created_at: <%= Time.zone.now %>
+
+incentive_gp1_goals:
+  group: group1
+  scope: <%= Sunnyside::Incentive::SCOPE_INDIVIDUAL %>
+  description: create a goal
+  image_url: flower3.png
+  is_repeatable: true
+  created_at: <%= Time.zone.now %>
+
+incentive_gp6_likes:
+  group: group6
+  scope: <%= Sunnyside::Incentive::SCOPE_INDIVIDUAL %>
+  description: like 3 feed items
+  image_url: flower1.png
+  created_at: <%= Time.zone.now %>
+
+incentive_pg9_likes:
+  group: group9
+  scope: <%= Sunnyside::Incentive::SCOPE_INDIVIDUAL %>
+  description: like 3 feed items
+  image_url: flower1.png
+  created_at: <%= Time.zone.now %>
+
+incentive_pg9_comments:
+  group: group9
+  scope: <%= Sunnyside::Incentive::SCOPE_INDIVIDUAL %>
+  description: comment on 3 feed items
+  image_url: flower1.png
+  created_at: <%= Time.zone.now %>
+  is_repeatable: true
+
+incentive_gp9_lessons:
+  group: group9
+  scope: <%= Sunnyside::Incentive::SCOPE_GROUP %>
+  description: read a lesson
+  image_url: flower2.png
+  created_at: <%= Time.zone.now %>
+
+incentive_gp9_goals:
+  group: group9
+  scope: <%= Sunnyside::Incentive::SCOPE_INDIVIDUAL %>
+  description: create a goal
+  image_url: flower3.png
+  is_repeatable: true
+  created_at: <%= Time.zone.now %>

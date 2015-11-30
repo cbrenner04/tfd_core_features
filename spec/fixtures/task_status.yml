@@ -1,0 +1,1628 @@
+task_status1:
+  membership: membership1
+  task: task1
+  start_day: 1
+  completed_at:  <%= Time.zone.now - 10.minutes %>
+
+task_status2:
+  membership: membership1
+  task: task2
+  start_day: 1
+  completed_at: <%= Time.zone.now - 9.minutes %>
+
+task_status3:
+  membership: membership1
+  task: task16
+  start_day: 1
+
+task_status4:
+  membership: membership1
+  task: task17
+  start_day: 2
+
+task_status5:
+  membership: membership2
+  task: task1
+  start_day: 1
+
+task_status6:
+  membership: membership2
+  task: task2
+  start_day: 1
+
+task_status7:
+  membership: membership2
+  task: task16
+  start_day: 1
+
+task_status8:
+  membership: membership2
+  task: task17
+  start_day: 2
+
+task_status9:
+  membership: membership2
+  task: task5_day1
+  start_day: 1
+
+task_status10:
+  membership: membership2
+  task: task5_day2
+  start_day: 2
+
+task_status11:
+  membership: membership2
+  task: task10
+  start_day: 1
+
+task_status12:
+  membership: membership2
+  task: task11
+  start_day: 2
+
+task_status13:
+  membership: membership1
+  task: task5_day1
+  start_day: 1
+  completed_at: <%= Time.zone.now - 10.minutes %>
+
+task_status14:
+  membership: membership1
+  task: task6
+  start_day: 1
+  completed_at: <%= Time.zone.now - 9.minutes %>
+
+task_status15:
+  membership: membership1
+  task: task7
+  start_day: 1
+  completed_at: <%= Time.zone.now - 8.minutes %>
+
+task_status16:
+  membership: membership1
+  task: task8
+  start_day: 1
+
+task_status17:
+  membership: membership1
+  task: task10
+  start_day: 1
+
+task_status18:
+  membership: membership1
+  task: task11
+  start_day: 2
+
+task_status19_11:
+  membership: membership1
+  task: task13_1
+  start_day: 1
+
+task_status19_12:
+  membership: membership1
+  task: task13_2
+  start_day: 2
+
+task_status19_21:
+  membership: membership2
+  task: task14_1
+  start_day: 1
+
+task_status19_22:
+  membership: membership2
+  task: task14_2
+  start_day: 2
+
+task_status20:
+  membership: membership1
+  task: task_doing
+  start_day: 1
+  completed_at: <%= Time.zone.now - 8.minutes %>
+
+task_status21_11:
+  membership: membership1
+  task: think_module_thoughts_table
+  start_day: 1
+
+task_status21_12:
+  membership: membership1
+  task: think_module_thoughts_table
+  start_day: 2
+
+task_status21_21:
+  membership: membership2
+  task: think_module_thoughts_table
+  start_day: 1
+
+task_status21_22:
+  membership: membership2
+  task: think_module_thoughts_table
+  start_day: 2
+
+task_status22:
+  membership: membership1
+  task: think_module_distortion_viz
+  start_day: 1
+
+task_status_do_past_due_activities1:
+  membership: membership1
+  task: do_past_due_activities
+  start_day: 1
+
+task_status_your_activities_viz1:
+  membership: membership1
+  task: do_your_activities_viz
+  start_day: 1
+
+task_status_do_past_due_activities2:
+  membership: membership2
+  task: do_past_due_activities
+  start_day: 1
+
+task_status_your_activities_viz2:
+  membership: membership2
+  task: do_your_activities_viz
+  start_day: 1
+
+task_status_create_activity:
+  membership: membership1
+  task: task_create_activity
+  start_day: 1
+
+task_status_pt3:
+  membership: membership3
+  task: task11
+  start_day: 2
+
+task_status_do_awareness_group3:
+  membership: membership3
+  task: task_awareness_for_group3
+  start_day: 1
+
+task_status_do_past_due_activities3:
+  membership: membership3
+  task: do_past_due_activities
+  start_day: 1
+
+task_status_your_activities_viz3:
+  membership: membership3
+  task: do_your_activities_viz
+  start_day: 1
+
+task_status_feel_emotions_g3:
+  membership: membership3
+  task: feel_emotions_g3
+  start_day: 1
+
+status_for_awareness_group5:
+  membership: membership_for_group5
+  task: group5_task_awareness
+  start_day: 1
+
+status_for_planning_group5:
+  membership: membership_for_group5
+  task: group5_task_planning
+  start_day: 1
+
+status_for_create_activity_group5:
+  membership: membership_for_group5
+  task: group5_create_activity
+  start_day: 1
+
+status_identifying_group5:
+  membership: membership_for_group5
+  task: group5_task_identifying
+  start_day: 1 
+
+status_for_think5_group5:
+  membership: membership_for_group5
+  task: group5_task_think5
+  start_day: 1
+
+status_view_planned_activities_group1:
+  membership: membership1
+  task: view_activities_for_group1
+  start_day: 1
+
+status_relax_autogenic_group1:
+  membership: membership1
+  task: relax_autogenic_group1
+  start_day: 1
+
+status_g6_pt61_t1:
+  membership: membership61
+  task: group6_task_1
+  start_day: 1
+  completed_at: <%= Time.zone.now - 34.days %>
+
+status_g6_pt61_t2:
+  membership: membership61
+  task: group6_task_2
+  start_day: 1
+
+status_g6_pt61_t3:
+  membership: membership61
+  task: group6_task_3
+  start_day: 1
+
+status_g6_pt61_t4:
+  membership: membership61
+  task: group6_task_4
+  start_day: 8
+  completed_at: <%= Time.zone.now - 27.days %>
+
+status_g6_pt61_t5:
+  membership: membership61
+  task: group6_task_5
+  start_day: 15
+
+status_g6_pt61_t6:
+  membership: membership61
+  task: group6_task_6
+  start_day: 15
+
+status_g6_pt61_t7:
+  membership: membership61
+  task: group6_task_7
+  start_day: 22
+  completed_at: <%= Time.zone.now - 8.days %>
+
+status_g6_pt61_t8:
+  membership: membership61
+  task: group6_task_8
+  start_day: 29
+  completed_at: <%= Time.zone.now - 1.days %>
+
+status_g6_pt61_t9:
+  membership: membership61
+  task: group6_task_9
+  start_day: 36
+
+status_g6_pt61_t10:
+  membership: membership61
+  task: group6_task_10
+  start_day: 43
+
+status_g6_pt61_t11:
+  membership: membership61
+  task: group6_task_11
+  start_day: 43
+
+status_g6_pt61_t12:
+  membership: membership61
+  task: group6_task_12
+  start_day: 50
+
+status_g6_pt62_t1:
+  membership: membership62
+  task: group6_task_1
+  start_day: 1
+
+status_g6_pt62_t2:
+  membership: membership62
+  task: group6_task_2
+  start_day: 1
+  completed_at: <%= Time.zone.now - 34.days %>
+
+status_g6_pt62_t3:
+  membership: membership62
+  task: group6_task_3
+  start_day: 1
+  completed_at: <%= Time.zone.now - 34.days %>
+
+status_g6_pt62_t4:
+  membership: membership62
+  task: group6_task_4
+  start_day: 8
+  completed_at: <%= Time.zone.now - 27.days %>
+
+status_g6_pt62_t5:
+  membership: membership62
+  task: group6_task_5
+  start_day: 15
+  completed_at: <%= Time.zone.now - 20.days %>
+
+status_g6_pt62_t6:
+  membership: membership62
+  task: group6_task_6
+  start_day: 15
+
+status_g6_pt62_t7:
+  membership: membership62
+  task: group6_task_7
+  start_day: 22
+
+status_g6_pt62_t8:
+  membership: membership62
+  task: group6_task_8
+  start_day: 29
+  completed_at: <%= Time.zone.now - 1.days %>
+
+status_g6_pt62_t9:
+  membership: membership62
+  task: group6_task_9
+  start_day: 36
+
+status_g6_pt62_t10:
+  membership: membership62
+  task: group6_task_10
+  start_day: 43
+
+status_g6_pt62_t11:
+  membership: membership62
+  task: group6_task_11
+  start_day: 43
+
+status_g6_pt62_t12:
+  membership: membership62
+  task: group6_task_12
+  start_day: 50
+
+status_g6_pt63_t1:
+  membership: membership63
+  task: group6_task_1
+  start_day: 1
+
+status_g6_pt63_t2:
+  membership: membership63
+  task: group6_task_2
+  start_day: 1
+  completed_at: <%= Time.zone.now - 34.days %>
+
+status_g6_pt63_t3:
+  membership: membership63
+  task: group6_task_3
+  start_day: 1
+
+status_g6_pt63_t4:
+  membership: membership63
+  task: group6_task_4
+  start_day: 8
+
+status_g6_pt63_t5:
+  membership: membership63
+  task: group6_task_5
+  start_day: 15
+  completed_at: <%= Time.zone.now - 20.days %>
+
+status_g6_pt63_t6:
+  membership: membership63
+  task: group6_task_6
+  start_day: 15
+
+status_g6_pt63_t7:
+  membership: membership63
+  task: group6_task_7
+  start_day: 22
+
+status_g6_pt63_t8:
+  membership: membership63
+  task: group6_task_8
+  start_day: 29
+  completed_at: <%= Time.zone.now - 1.days %>
+
+status_g6_pt63_t9:
+  membership: membership63
+  task: group6_task_9
+  start_day: 36
+
+status_g6_pt63_t10:
+  membership: membership63
+  task: group6_task_10
+  start_day: 43
+
+status_g6_pt63_t11:
+  membership: membership63
+  task: group6_task_11
+  start_day: 43
+
+status_g6_pt63_t12:
+  membership: membership63
+  task: group6_task_12
+  start_day: 50
+
+status_g6_pt64_t1:
+  membership: membership64
+  task: group6_task_1
+  start_day: 1
+
+status_g6_pt64_t2:
+  membership: membership64
+  task: group6_task_2
+  start_day: 1
+
+status_g6_pt64_t3:
+  membership: membership64
+  task: group6_task_3
+  start_day: 1
+
+status_g6_pt64_t4:
+  membership: membership64
+  task: group6_task_4
+  start_day: 8
+  completed_at: <%= Time.zone.now - 27.days %>
+
+status_g6_pt64_t5:
+  membership: membership64
+  task: group6_task_5
+  start_day: 15
+
+status_g6_pt64_t6:
+  membership: membership64
+  task: group6_task_6
+  start_day: 15
+  completed_at: <%= Time.zone.now - 20.days %>
+
+status_g6_pt64_t7:
+  membership: membership64
+  task: group6_task_7
+  start_day: 22
+
+status_g6_pt64_t8:
+  membership: membership64
+  task: group6_task_8
+  start_day: 29
+
+status_g6_pt64_t9:
+  membership: membership64
+  task: group6_task_9
+  start_day: 36
+
+status_g6_pt64_t10:
+  membership: membership64
+  task: group6_task_10
+  start_day: 43
+
+status_g6_pt64_t11:
+  membership: membership64
+  task: group6_task_11
+  start_day: 43
+
+status_g6_pt64_t12:
+  membership: membership64
+  task: group6_task_12
+  start_day: 50
+
+status_g6_pt65_t1:
+  membership: membership65
+  task: group6_task_1
+  start_day: 1
+
+status_g6_pt65_t2:
+  membership: membership65
+  task: group6_task_2
+  start_day: 1
+
+status_g6_pt65_t3:
+  membership: membership65
+  task: group6_task_3
+  start_day: 1
+
+status_g6_pt65_t4:
+  membership: membership65
+  task: group6_task_4
+  start_day: 8
+
+status_g6_pt65_t5:
+  membership: membership65
+  task: group6_task_5
+  start_day: 15
+
+status_g6_pt65_t6:
+  membership: membership65
+  task: group6_task_6
+  start_day: 15
+  completed_at: <%= Time.zone.now - 20.days %>
+
+status_g6_pt65_t7:
+  membership: membership65
+  task: group6_task_7
+  start_day: 22
+
+status_g6_pt65_t8:
+  membership: membership65
+  task: group6_task_8
+  start_day: 29
+
+status_g6_pt65_t9:
+  membership: membership65
+  task: group6_task_9
+  start_day: 36
+
+status_g6_pt65_t10:
+  membership: membership65
+  task: group6_task_10
+  start_day: 43
+
+status_g6_pt65_t11:
+  membership: membership65
+  task: group6_task_11
+  start_day: 43
+
+status_g6_pt65_t12:
+  membership: membership65
+  task: group6_task_12
+  start_day: 50
+
+status_g6_pt61_t13:
+  membership: membership61
+  task: group6_task_awareness
+  start_day: 1
+
+status_g6_pt61_t14:
+  membership: membership61
+  task: group6_task_doing
+  start_day: 1
+
+status_g6_pt61_t15:
+  membership: membership61
+  task: group6_task_planning
+  start_day: 1
+
+status_g6_pt61_t16:
+  membership: membership61
+  task: group6_do_past_due_activities
+  start_day: 1
+
+status_g6_pt61_t17:
+  membership: membership61
+  task: group6_do_your_activities_viz
+  start_day: 1
+
+status_g6_pt61_t18:
+  membership: membership61
+  task: group6_task_identifying
+  start_day: 1
+
+status_g6_pt61_t19:
+  membership: membership61
+  task: group6_task_patterns
+  start_day: 1
+
+status_g6_pt61_t20:
+  membership: membership61
+  task: group6_task_reshape
+  start_day: 1
+
+status_g6_pt61_t21:
+  membership: membership61
+  task: group6_task_think5
+  start_day: 1
+
+status_g6_pt61_t22:
+  membership: membership61
+  task: group6_think_module_thoughts_table
+  start_day: 1
+
+status_g6_pt61_t23:
+  membership: membership61
+  task: group6_think_module_distortion_viz
+  start_day: 1
+
+status_g6_pt61_t24:
+  membership: membership61
+  task: group6_task_mood
+  start_day: 1
+
+status_g6_pt61_t25:
+  membership: membership61
+  task: group6_task_mood_emo
+  start_day: 2
+
+status_g6_pt61_t26:
+  membership: membership61
+  task: group6_task_view_mood
+  start_day: 1
+
+status_g6_pt61_t27:
+  membership: membership61
+  task: group6_task_emo
+  start_day: 1
+
+status_g6_pt62_t13:
+  membership: membership62
+  task: group6_task_awareness
+  start_day: 1
+
+status_g6_pt62_t14:
+  membership: membership62
+  task: group6_task_doing
+  start_day: 1
+
+status_g6_pt62_t15:
+  membership: membership62
+  task: group6_task_planning
+  start_day: 1
+
+status_g6_pt62_t16:
+  membership: membership62
+  task: group6_do_past_due_activities
+  start_day: 1
+
+status_g6_pt62_t17:
+  membership: membership62
+  task: group6_do_your_activities_viz
+  start_day: 1
+
+status_g6_pt62_t18:
+  membership: membership62
+  task: group6_task_identifying
+  start_day: 1
+
+status_g6_pt62_t19:
+  membership: membership62
+  task: group6_task_patterns
+  start_day: 1
+
+status_g6_pt62_t20:
+  membership: membership62
+  task: group6_task_reshape
+  start_day: 1
+
+status_g6_pt62_t21:
+  membership: membership62
+  task: group6_task_think5
+  start_day: 1
+
+status_g6_pt62_t22:
+  membership: membership62
+  task: group6_think_module_thoughts_table
+  start_day: 1
+
+status_g6_pt62_t23:
+  membership: membership62
+  task: group6_think_module_distortion_viz
+  start_day: 1
+
+status_g6_pt62_t24:
+  membership: membership62
+  task: group6_task_mood
+  start_day: 1
+
+status_g6_pt62_t25:
+  membership: membership62
+  task: group6_task_mood_emo
+  start_day: 2
+
+status_g6_pt62_t26:
+  membership: membership62
+  task: group6_task_view_mood
+  start_day: 1
+
+status_g6_pt62_t27:
+  membership: membership62
+  task: group6_task_emo
+  start_day: 1
+
+status_g6_pt63_t13:
+  membership: membership63
+  task: group6_task_awareness
+  start_day: 1
+
+status_g6_pt63_t14:
+  membership: membership63
+  task: group6_task_doing
+  start_day: 1
+
+status_g6_pt63_t15:
+  membership: membership63
+  task: group6_task_planning
+  start_day: 1
+
+status_g6_pt63_t16:
+  membership: membership63
+  task: group6_do_past_due_activities
+  start_day: 1
+
+status_g6_pt63_t17:
+  membership: membership63
+  task: group6_do_your_activities_viz
+  start_day: 1
+
+status_g6_pt63_t18:
+  membership: membership63
+  task: group6_task_identifying
+  start_day: 1
+
+status_g6_pt63_t19:
+  membership: membership63
+  task: group6_task_patterns
+  start_day: 1
+
+status_g6_pt63_t20:
+  membership: membership63
+  task: group6_task_reshape
+  start_day: 1
+
+status_g6_pt63_t21:
+  membership: membership63
+  task: group6_task_think5
+  start_day: 1
+
+status_g6_pt63_t22:
+  membership: membership63
+  task: group6_think_module_thoughts_table
+  start_day: 1
+
+status_g6_pt63_t23:
+  membership: membership63
+  task: group6_think_module_distortion_viz
+  start_day: 1
+
+status_g6_pt63_t24:
+  membership: membership63
+  task: group6_task_mood
+  start_day: 1
+
+status_g6_pt63_t25:
+  membership: membership63
+  task: group6_task_mood_emo
+  start_day: 2
+
+status_g6_pt63_t26:
+  membership: membership63
+  task: group6_task_view_mood
+  start_day: 1
+
+status_g6_pt63_t27:
+  membership: membership63
+  task: group6_task_emo
+  start_day: 1
+
+status_g6_pt63_t13:
+  membership: membership63
+  task: group6_task_awareness
+  start_day: 1
+
+status_g6_pt63_t14:
+  membership: membership63
+  task: group6_task_doing
+  start_day: 1
+
+status_g6_pt63_t15:
+  membership: membership63
+  task: group6_task_planning
+  start_day: 1
+
+status_g6_pt63_t16:
+  membership: membership63
+  task: group6_do_past_due_activities
+  start_day: 1
+
+status_g6_pt63_t17:
+  membership: membership63
+  task: group6_do_your_activities_viz
+  start_day: 1
+
+status_g6_pt63_t18:
+  membership: membership63
+  task: group6_task_identifying
+  start_day: 1
+
+status_g6_pt63_t19:
+  membership: membership63
+  task: group6_task_patterns
+  start_day: 1
+
+status_g6_pt63_t20:
+  membership: membership63
+  task: group6_task_reshape
+  start_day: 1
+
+status_g6_pt63_t21:
+  membership: membership63
+  task: group6_task_think5
+  start_day: 1
+
+status_g6_pt63_t22:
+  membership: membership63
+  task: group6_think_module_thoughts_table
+  start_day: 1
+
+status_g6_pt63_t23:
+  membership: membership63
+  task: group6_think_module_distortion_viz
+  start_day: 1
+
+status_g6_pt63_t24:
+  membership: membership63
+  task: group6_task_mood
+  start_day: 1
+
+status_g6_pt63_t25:
+  membership: membership63
+  task: group6_task_mood_emo
+  start_day: 2
+
+status_g6_pt63_t26:
+  membership: membership63
+  task: group6_task_view_mood
+  start_day: 1
+
+status_g6_pt63_t27:
+  membership: membership63
+  task: group6_task_emo
+  start_day: 1
+
+status_g6_pt64_t13:
+  membership: membership64
+  task: group6_task_awareness
+  start_day: 1
+
+status_g6_pt64_t14:
+  membership: membership64
+  task: group6_task_doing
+  start_day: 1
+
+status_g6_pt64_t15:
+  membership: membership64
+  task: group6_task_planning
+  start_day: 1
+
+status_g6_pt64_t16:
+  membership: membership64
+  task: group6_do_past_due_activities
+  start_day: 1
+
+status_g6_pt64_t17:
+  membership: membership64
+  task: group6_do_your_activities_viz
+  start_day: 1
+
+status_g6_pt64_t18:
+  membership: membership64
+  task: group6_task_identifying
+  start_day: 1
+
+status_g6_pt64_t19:
+  membership: membership64
+  task: group6_task_patterns
+  start_day: 1
+
+status_g6_pt64_t20:
+  membership: membership64
+  task: group6_task_reshape
+  start_day: 1
+
+status_g6_pt64_t21:
+  membership: membership64
+  task: group6_task_think5
+  start_day: 1
+
+status_g6_pt64_t22:
+  membership: membership64
+  task: group6_think_module_thoughts_table
+  start_day: 1
+
+status_g6_pt64_t23:
+  membership: membership64
+  task: group6_think_module_distortion_viz
+  start_day: 1
+
+status_g6_pt64_t24:
+  membership: membership64
+  task: group6_task_mood
+  start_day: 1
+
+status_g6_pt64_t25:
+  membership: membership64
+  task: group6_task_mood_emo
+  start_day: 2
+
+status_g6_pt64_t26:
+  membership: membership64
+  task: group6_task_view_mood
+  start_day: 1
+
+status_g6_pt64_t27:
+  membership: membership64
+  task: group6_task_emo
+  start_day: 1
+
+status_g6_pt65_t13:
+  membership: membership65
+  task: group6_task_awareness
+  start_day: 1
+
+status_g6_pt65_t14:
+  membership: membership65
+  task: group6_task_doing
+  start_day: 1
+
+status_g6_pt65_t15:
+  membership: membership65
+  task: group6_task_planning
+  start_day: 1
+
+status_g6_pt65_t16:
+  membership: membership65
+  task: group6_do_past_due_activities
+  start_day: 1
+
+status_g6_pt65_t17:
+  membership: membership65
+  task: group6_do_your_activities_viz
+  start_day: 1
+
+status_g6_pt65_t18:
+  membership: membership65
+  task: group6_task_identifying
+  start_day: 1
+
+status_g6_pt65_t19:
+  membership: membership65
+  task: group6_task_patterns
+  start_day: 1
+
+status_g6_pt65_t20:
+  membership: membership65
+  task: group6_task_reshape
+  start_day: 1
+
+status_g6_pt65_t21:
+  membership: membership65
+  task: group6_task_think5
+  start_day: 1
+
+status_g6_pt65_t22:
+  membership: membership65
+  task: group6_think_module_thoughts_table
+  start_day: 1
+
+status_g6_pt65_t23:
+  membership: membership65
+  task: group6_think_module_distortion_viz
+  start_day: 1
+
+status_g6_pt65_t24:
+  membership: membership65
+  task: group6_task_mood
+  start_day: 1
+
+status_g6_pt65_t25:
+  membership: membership65
+  task: group6_task_mood_emo
+  start_day: 2
+
+status_g6_pt65_t26:
+  membership: membership65
+  task: group6_task_view_mood
+  start_day: 1
+
+status_g6_pt65_t27:
+  membership: membership65
+  task: group6_task_emo
+  start_day: 1
+
+status_g7_t1:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_1
+  start_day: 1
+  completed_at: <%= Time.zone.now - 34.days %>
+
+status_g7_t2:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_2
+  start_day: 1
+
+status_g7_t3:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_3
+  start_day: 1
+
+status_g7_t4:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_4
+  start_day: 8
+  completed_at: <%= Time.zone.now - 27.days %>
+
+status_g7_t5:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_5
+  start_day: 15
+
+status_g7_t6:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_6
+  start_day: 15
+
+status_g7_t7:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_7
+  start_day: 22
+  completed_at: <%= Time.zone.now - 8.days %>
+
+status_g7_t8:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_8
+  start_day: 29
+  completed_at: <%= Time.zone.now - 1.days %>
+
+status_g7_t9:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_9
+  start_day: 36
+
+status_g7_t10:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_10
+  start_day: 43
+
+status_g7_t11:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_11
+  start_day: 43
+
+status_g7_t12:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_12
+  start_day: 50
+
+status_g7_t13:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_awareness
+  start_day: 1
+
+status_g7_t14:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_doing
+  start_day: 1
+
+status_g7_t15:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_planning
+  start_day: 1
+
+status_g7_t16:
+  membership: membership_for_participant_mobile_complete
+  task: group7_do_past_due_activities
+  start_day: 1
+
+status_g7_t17:
+  membership: membership_for_participant_mobile_complete
+  task: group7_do_your_activities_viz
+  start_day: 1
+
+status_g7_t18:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_identifying
+  start_day: 1
+
+status_g7_t19:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_patterns
+  start_day: 1
+
+status_g7_t20:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_reshape
+  start_day: 1
+
+status_g7_t21:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_think5
+  start_day: 1
+
+status_g7_t22:
+  membership: membership_for_participant_mobile_complete
+  task: group7_think_module_thoughts_table
+  start_day: 1
+
+status_g7_t23:
+  membership: membership_for_participant_mobile_complete
+  task: group7_think_module_distortion_viz
+  start_day: 1
+
+status_g7_t24:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_mood
+  start_day: 1
+
+status_g7_t25:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_mood_emo
+  start_day: 2
+
+status_g7_t26:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_view_mood
+  start_day: 1
+
+status_g7_t27:
+  membership: membership_for_participant_mobile_complete
+  task: group7_task_emo
+  start_day: 1
+
+task_status1_5:
+  membership: membership5
+  task: task1
+  start_day: 1
+  completed_at:  <%= Time.zone.now - 10.minutes %>
+
+task_status2_5:
+  membership: membership5
+  task: task2
+  start_day: 1
+  completed_at: <%= Time.zone.now - 9.minutes %>
+
+task_status3_5:
+  membership: membership5
+  task: task16
+  start_day: 1
+  completed_at: <%= Time.zone.now %>
+
+task_status4_5:
+  membership: membership5
+  task: task17
+  start_day: 2
+
+task_status13_5:
+  membership: membership5
+  task: task5_day1
+  start_day: 1
+  completed_at: <%= Time.zone.now - 10.minutes %>
+
+task_status14_5:
+  membership: membership5
+  task: task6
+  start_day: 1
+  completed_at: <%= Time.zone.now - 9.minutes %>
+
+task_status15_5:
+  membership: membership5
+  task: task7
+  start_day: 1
+  completed_at: <%= Time.zone.now - 8.minutes %>
+
+task_status16_5:
+  membership: membership5
+  task: task8
+  start_day: 1
+
+task_status17_5:
+  membership: membership5
+  task: task10
+  start_day: 1
+
+task_status18_5:
+  membership: membership5
+  task: task11
+  start_day: 2
+
+task_status19_11_5:
+  membership: membership5
+  task: task13_1
+  start_day: 1
+
+task_status19_12_5:
+  membership: membership5
+  task: task13_2
+  start_day: 2
+
+task_status20_5:
+  membership: membership5
+  task: task_doing
+  start_day: 1
+  completed_at: <%= Time.zone.now - 8.minutes %>
+
+task_status21_11_5:
+  membership: membership5
+  task: think_module_thoughts_table
+  start_day: 1
+
+task_status21_12_5:
+  membership: membership5
+  task: think_module_thoughts_table
+  start_day: 2
+
+task_status_14_5:
+  membership: membership5
+  task: think_module_distortion_viz
+  start_day: 1
+
+task_status_create_activity_5:
+  membership: membership5
+  task: task_create_activity
+  start_day: 1
+
+status_view_planned_activities_group1_5:
+  membership: membership5
+  task: view_activities_for_group1
+  start_day: 1
+
+status_relax_autogenic_group1_5:
+  membership: membership5
+  task: relax_autogenic_group1
+  start_day: 1
+
+task_status_withdraw_1:
+  membership: membership_for_withdrawal_test
+  task: task1
+  start_day: 1
+
+task_status_withdraw_2:
+  membership: membership_for_withdrawal_test
+  task: task_doing
+  start_day: 1
+
+task_status_withdraw_3:
+  membership: membership_for_withdrawal_test
+  task: task2
+  start_day: 1
+
+task_status_withdraw_4:
+  membership: membership_for_withdrawal_test
+  task: do_past_due_activities
+  start_day: 1
+
+task_status_withdraw_5:
+  membership: membership_for_withdrawal_test
+  task: do_your_activities_viz
+  start_day: 1
+
+task_status_withdraw_6:
+  membership: membership_for_withdrawal_test
+  task: task5_day1
+  start_day: 1
+
+task_status_withdraw_7:
+  membership: membership_for_withdrawal_test
+  task: task5_day2
+  start_day: 1
+
+task_status_withdraw_8:
+  membership: membership_for_withdrawal_test
+  task: task6
+  start_day: 1
+
+task_status_withdraw_9:
+  membership: membership_for_withdrawal_test
+  task: task7
+  start_day: 1
+
+task_status_withdraw_10:
+  membership: membership_for_withdrawal_test
+  task: task8
+  start_day: 1
+
+task_status_withdraw_11:
+  membership: membership_for_withdrawal_test
+  task: think_module_thoughts_table
+  start_day: 1
+
+task_status_withdraw_12:
+  membership: membership_for_withdrawal_test
+  task: think_module_distortion_viz
+  start_day: 1
+
+task_status_withdraw_13:
+  membership: membership_for_withdrawal_test
+  task: task10
+  start_day: 1
+
+task_status_withdraw_14:
+  membership: membership_for_withdrawal_test
+  task: task11
+  start_day: 1
+
+task_status_withdraw_15:
+  membership: membership_for_withdrawal_test
+  task: task12
+  start_day: 1
+
+task_status_withdraw_16:
+  membership: membership_for_withdrawal_test
+  task: task13_1
+  start_day: 1
+
+task_status_withdraw_17:
+  membership: membership_for_withdrawal_test
+  task: task13_2
+  start_day: 1
+
+task_status_withdraw_18:
+  membership: membership_for_withdrawal_test
+  task: task14_1
+  start_day: 1
+
+task_status_withdraw_19:
+  membership: membership_for_withdrawal_test
+  task: task14_2
+  start_day: 1
+
+task_status_withdraw_20:
+  membership: membership_for_withdrawal_test
+  task: task16
+  start_day: 1
+
+task_status_withdraw_21:
+  membership: membership_for_withdrawal_test
+  task: task17
+  start_day: 1
+
+task_status_withdraw_22:
+  membership: membership_for_withdrawal_test
+  task: task_create_activity
+  start_day: 1
+
+task_status_withdraw_23:
+  membership: membership_for_withdrawal_test
+  task: view_activities_for_group1
+  start_day: 1
+
+task_status_withdraw_24:
+  membership: membership_for_withdrawal_test
+  task: relax_autogenic_group1
+  start_day: 1
+
+task_status_background_1:
+  membership: membership_background
+  task: task1
+  start_day: 1
+
+task_status_background_2:
+  membership: membership_background
+  task: task_doing
+  start_day: 1
+
+task_status_background_3:
+  membership: membership_background
+  task: task2
+  start_day: 1
+
+task_status_background_4:
+  membership: membership_background
+  task: do_past_due_activities
+  start_day: 1
+
+task_status_background_5:
+  membership: membership_background
+  task: do_your_activities_viz
+  start_day: 1
+
+task_status_background_6:
+  membership: membership_background
+  task: task5_day1
+  start_day: 1
+
+task_status_background_7:
+  membership: membership_background
+  task: task5_day2
+  start_day: 1
+
+task_status_background_8:
+  membership: membership_background
+  task: task6
+  start_day: 1
+
+task_status_background_9:
+  membership: membership_background
+  task: task7
+  start_day: 1
+
+task_status_background_10:
+  membership: membership_background
+  task: task8
+  start_day: 1
+
+task_status_background_11:
+  membership: membership_background
+  task: think_module_thoughts_table
+  start_day: 1
+
+task_status_background_12:
+  membership: membership_background
+  task: think_module_distortion_viz
+  start_day: 1
+
+task_status_background_13:
+  membership: membership_background
+  task: task10
+  start_day: 1
+
+task_status_background_14:
+  membership: membership_background
+  task: task11
+  start_day: 1
+
+task_status_background_15:
+  membership: membership_background
+  task: task12
+  start_day: 1
+
+task_status_background_16:
+  membership: membership_background
+  task: task13_1
+  start_day: 1
+
+task_status_background_17:
+  membership: membership_background
+  task: task13_2
+  start_day: 1
+
+task_status_background_18:
+  membership: membership_background
+  task: task14_1
+  start_day: 1
+
+task_status_background_19:
+  membership: membership_background
+  task: task14_2
+  start_day: 1
+
+task_status_background_20:
+  membership: membership_background
+  task: task16
+  start_day: 1
+
+task_status_background_21:
+  membership: membership_background
+  task: task17
+  start_day: 1
+
+task_status_background_22:
+  membership: membership_background
+  task: task_create_activity
+  start_day: 1
+
+task_status_background_23:
+  membership: membership_background
+  task: view_activities_for_group1
+  start_day: 1
+
+task_status_background_24:
+  membership: membership_background
+  task: relax_autogenic_group1
+  start_day: 1
+
+task_status_moderator_1:
+  membership: membership_moderator
+  task: task1
+  start_day: 1
+
+task_status_moderator_2:
+  membership: membership_moderator
+  task: task_doing
+  start_day: 1
+
+task_status_moderator_3:
+  membership: membership_moderator
+  task: task2
+  start_day: 1
+
+task_status_moderator_4:
+  membership: membership_moderator
+  task: do_past_due_activities
+  start_day: 1
+
+task_status_moderator_5:
+  membership: membership_moderator
+  task: do_your_activities_viz
+  start_day: 1
+
+task_status_moderator_6:
+  membership: membership_moderator
+  task: task5_day1
+  start_day: 1
+
+task_status_moderator_7:
+  membership: membership_moderator
+  task: task5_day2
+  start_day: 1
+
+task_status_moderator_8:
+  membership: membership_moderator
+  task: task6
+  start_day: 1
+
+task_status_moderator_9:
+  membership: membership_moderator
+  task: task7
+  start_day: 1
+
+task_status_moderator_10:
+  membership: membership_moderator
+  task: task8
+  start_day: 1
+
+task_status_moderator_11:
+  membership: membership_moderator
+  task: think_module_thoughts_table
+  start_day: 1
+
+task_status_moderator_12:
+  membership: membership_moderator
+  task: think_module_distortion_viz
+  start_day: 1
+
+task_status_moderator_13:
+  membership: membership_moderator
+  task: task10
+  start_day: 1
+
+task_status_moderator_14:
+  membership: membership_moderator
+  task: task11
+  start_day: 1
+
+task_status_moderator_15:
+  membership: membership_moderator
+  task: task12
+  start_day: 1
+
+task_status_moderator_16:
+  membership: membership_moderator
+  task: task13_1
+  start_day: 1
+
+task_status_moderator_17:
+  membership: membership_moderator
+  task: task13_2
+  start_day: 1
+
+task_status_moderator_18:
+  membership: membership_moderator
+  task: task14_1
+  start_day: 1
+
+task_status_moderator_19:
+  membership: membership_moderator
+  task: task14_2
+  start_day: 1
+
+task_status_moderator_20:
+  membership: membership_moderator
+  task: task16
+  start_day: 1
+
+task_status_moderator_21:
+  membership: membership_moderator
+  task: task17
+  start_day: 1
+
+task_status_moderator_22:
+  membership: membership_moderator
+  task: task_create_activity
+  start_day: 1
+
+task_status_moderator_23:
+  membership: membership_moderator
+  task: view_activities_for_group1
+  start_day: 1
+
+task_status_moderator_24:
+  membership: membership_moderator
+  task: relax_autogenic_group1
+  start_day: 1
+
+task_status_pt_data_task_16:
+  membership: membership_data
+  task: task16
+  start_day: 1
+  completed_at: <%= Time.zone.now %>
+
+task_status_pt_data_task_17:
+  membership: membership_data
+  task: task17
+  start_day: 2
+
+task_status_pt_data_task_11:
+  membership: membership_data
+  task: task11
+  start_day: 1
+
+task_status_pt_data_task_relax:
+  membership: membership_data
+  task: relax_autogenic_group1
+  start_day: 1
+
+task_status_pt_data_task_activity:
+  membership: membership_data
+  task: task_create_activity
+  start_day: 1
+  completed_at: <%= Time.zone.now %>
+
+task_status_pt_data_task_8:
+  membership: membership_data
+  task: task8
+  start_day: 1

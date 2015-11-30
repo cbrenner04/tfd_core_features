@@ -1,0 +1,39 @@
+like_1:
+  participant: participant62
+  item: shared_thought_1 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 33.days %>
+
+like_2:
+  participant: participant63
+  item: shared_activity_1 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 19.days %>
+
+like_3:
+  participant: participant65
+  item: shared_activity_2 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 1.days %>
+
+like_4:
+  participant: participant61
+  item: shared_goal_1 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 24.days %>
+
+like_5:
+  participant: participant62
+  item: shared_goal_2 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 24.days %>
+
+like_6:
+  participant: participant2
+  item: participant1_goal_alpha (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+like_7:
+  participant: participant2
+  item: p1_goal_yesterday (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+like_8:
+  participant: participant2
+  item: pt1_goal_due_two_days_ago (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>

@@ -1,0 +1,159 @@
+home_splash:
+  title: Home Intro
+  arm: arm1
+
+home_splash_arm2:
+  title: HOME Intro ARM2
+  arm: arm2
+
+home_intro:
+  title: Home Introduction
+  arm: arm1
+
+home_intro_arm2:
+  title: Home Introduction
+  arm: arm2
+
+do_awareness_intro:
+  title: Do - Awareness Introduction
+  arm: arm1
+
+do_awareness_intro_arm2:
+  title: Do - Awareness Introduction
+  arm: arm2
+
+do_planning_intro:
+  title: Do - Planning Introduction
+  arm: arm1
+
+do_planning_intro_arm2:
+  title: Do - Planning Introduction
+  arm: arm2
+
+do_planning_transition:
+  title: Do - Planning Slideshow 3 of 4
+  arm: arm1
+
+do_planning_transition_arm2:
+  title: Do - Planning Slideshow 3 of 4
+  arm: arm2
+
+do_doing_intro:
+  title: Do - Doing Introduction
+  arm: arm1
+
+do_doing_intro_arm2:
+  title: Do - Doing Introduction
+  arm: arm2
+
+do_congrats:
+  title: Do - Congratulations
+  arm: arm1
+
+do_congrats_arm2:
+  title: Do - Congratulations
+  arm: arm2
+
+think_identifying_intro:
+  title: Think - Identifying Introduction
+  arm: arm1
+
+think_identifying_intro_arm2:
+  title: Think - Identifying Introduction
+  arm: arm2
+
+think_identifying_conclusion:
+  title: Think - Identifying Conclusion
+  arm: arm1
+
+think_identifying_conclusion_arm2:
+  title: Think - Identifying Conclusion
+  arm: arm2
+
+think_patterns_intro:
+  title: Think - Patterns Introduction
+  arm: arm1
+
+think_patterns_intro_arm2:
+  title: Think - Patterns Introduction
+  arm: arm2
+
+think_patterns_conclusion:
+  title: Think - Patterns Conclusion
+  arm: arm1
+
+think_patterns_conclusion_arm2:
+  title: Think - Patterns Conclusion
+  arm: arm2
+
+think_reshape_intro:
+  title: Think - Reshape Introduction
+  arm: arm1
+
+think_reshape_intro_arm2:
+  title: Think - Reshape Introduction
+  arm: arm2
+
+feel_mood_intro:
+  title: Feel - Mood Introduction
+  arm: arm1
+
+feel_mood_intro_arm2:
+  title: Feel - Mood Introduction
+  arm: arm2
+
+feel_emotions_intro:
+  title: Feel - Emotions Introduction
+  arm: arm1
+
+feel_emotions_intro_arm2:
+  title: Feel - Emotions Introduction
+  arm: arm2
+
+feel_changes_intro:
+  title: Feel - Changes Introduction
+  arm: arm1
+
+feel_changes_intro_arm2:
+  title: Feel - Changes Introduction
+  arm: arm2
+
+feel_identify_intro:
+  title: Feel - Identify Introduction
+  arm: arm1
+
+feel_identify_intro_arm2:
+  title: Feel - Identify Introduction
+  arm: arm2
+
+learn_thoughts_intro:
+  title: Learn - Thoughts Introduction
+  arm: arm1
+
+learn_thoughts_intro_arm2:
+  title: Learn - Thoughts Introduction
+  arm: arm2
+
+audio_slideshow:
+  title: Audio Slideshow
+  arm: arm1
+
+audio_slideshow_arm2:
+  title: Audio Slideshow
+  arm: arm2
+
+test_slideshow:
+  title: Slideshow for tests
+  arm: arm1
+
+brand_new:
+  title: Brand new slideshow for testing
+  arm: arm1
+
+test_slideshow_1:
+  title: Another testing slideshow
+  arm: arm1
+
+test_slideshow_2:
+  title: Is this overkill?
+  arm: arm1

@@ -1,0 +1,94 @@
+participant1_goal_alpha:
+  participant: participant1
+  description: p1 alpha
+  due_on: <%= Date.today %>
+  created_at: <%= Time.zone.now - 7.days %>
+
+participant1_goal_beta:
+  participant: participant1
+  description: p1 beta
+  completed_at: <%= Time.zone.now %>
+  due_on: <%= Date.today %>
+
+participant1_goal_gamma:
+  participant: participant1
+  description: p1 gamma
+  due_on: <%= Date.today %>
+
+participant1_goal_delta:
+  participant: participant1
+  description: p1 delta
+  deleted_at: <% Time.zone.now %>
+  due_on: <%= Date.yesterday %>
+
+participant1_goal_epsilon:
+  participant: participant1
+  description: p1 epsilon
+  completed_at: <% Time.zone.now %>
+  due_on: <%= Date.today %>
+
+pt1_goal_due_yesterday:
+  participant: participant1
+  description: due yesterday
+  due_on: <%= Date.today - 1.days %>
+  created_at: <%= Time.zone.now - 8.days %>
+
+pt1_goal_due_two_days_ago:
+  participant: participant1
+  description: due two days ago
+  due_on: <%= Date.today - 2.days %>
+  created_at: <%= Time.zone.now - 9.days %>
+
+participant2_goal_alpha:
+  participant: participant2
+  description: p2 alpha
+  due_on: <%= Date.yesterday %>
+
+participant2_goal_beta:
+  participant: participant2
+  description: p2 beta
+  completed_at: <%= Time.zone.now %>
+  due_on: <%= Date.today %>
+
+participant2_goal_gamma:
+  participant: participant2
+  description: p2 gamma
+  due_on: <%= Date.yesterday %>
+
+participant2_goal_delta:
+  participant: participant2
+  description: p2 delta
+  deleted_at: <% Time.zone.now %>
+  due_on: <%= Date.today %>
+
+participant3_goal:
+  participant: participant3
+  description: doing something
+  due_on: <%= Date.today + 7.days %>
+  created_at: <%= Time.zone.now %>
+
+goal_g6_pt61_1:
+  participant: participant61
+  description: do something
+  due_on: <%= Date.today - 26.days %>
+  created_at: <%= Time.zone.now - 34.days %>
+  deleted_at: <%= Time.zone.now - 30.days %>
+
+goal_g6_pt63_1:
+  participant: participant63
+  description: Get crazy
+  due_on: <%= Date.today + 3.days %>
+  created_at: <%= Time.zone.now - 26.days %>
+
+goal_g6_pt65_1:
+  participant: participant65
+  description: go to work
+  due_on: <%= Date.today - 14.days %>
+  created_at: <%= Time.zone.now - 24.days %>
+  completed_at: <%= Time.zone.now - 12.days %>
+
+participant_test_7_goal:
+  participant: participant_test_7
+  description: doing something
+  due_on: <%= Date.today + 7.days %>
+  created_at: <%= Time.zone.now %>

@@ -1,0 +1,125 @@
+comment_1: 
+  participant: participant62
+  text: Nice job on identifying the pattern!
+  item: shared_thought_1 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 20.days %>
+
+comment_2: 
+  participant: participant61
+  text: Great activity!
+  item: shared_activity_1 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 18.days %>
+
+comment_3:
+  participant: participant65
+  text: That sounds like fun!
+  item: shared_activity_2 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now - 1.days %>
+
+comment_pt1_1:
+  participant: participant1
+  text: nice
+  item: pt1_goal_due_two_days_ago (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt1_2:
+  participant: participant1
+  text: ok
+  item: audio_access1 (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt1_3:
+  participant: participant1
+  text: right on
+  item: participant1_goal_alpha (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt2_1:
+  participant: participant2
+  text: This is great!
+  item: p1_goal_yesterday (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt2_2:
+  participant: participant2
+  text: So cool!
+  item: participant1_goal_alpha (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt2_3:
+  participant: participant2
+  text: Good work!
+  item: p1_goal_yesterday (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_moderator_1:
+  participant: participant_grp1_moderator
+  text: sweet
+  item: pt1_goal_due_two_days_ago (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_moderator_2:
+  participant: participant_grp1_moderator
+  text: right on
+  item: audio_access_shared (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_moderator_3:
+  participant: participant_grp1_moderator
+  text: yes
+  item: participant1_goal_alpha (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_background_1:
+  participant: participant_background
+  text: sweet
+  item: pt1_goal_due_two_days_ago (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_background_2:
+  participant: participant_background
+  text: right on
+  item: audio_access_shared (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_background_3:
+  participant: participant_background
+  text: yes
+  item: participant1_goal_alpha (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_withdraw_test_1:
+  participant: participant_for_withdraw_test
+  text: awesome
+  item: p1_goal_yesterday (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_withdraw_test_2:
+  participant: participant_for_withdraw_test
+  text: really great
+  item: pt1_goal_due_two_days_ago (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_withdraw_test_3:
+  participant: participant_for_withdraw_test
+  text: so cool
+  item: audio_access_shared (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_completed_1:
+  participant: participant_is_complete
+  text: wow
+  item: p1_goal_yesterday (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_completed_2:
+  participant: participant_is_complete
+  text: amazing
+  item: pt1_goal_due_two_days_ago (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>
+
+comment_pt_completed_3:
+  participant: participant_is_complete
+  text: fun
+  item: audio_access_shared (SocialNetworking::SharedItem)
+  created_at: <%= Time.zone.now %>

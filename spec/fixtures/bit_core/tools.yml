@@ -1,0 +1,87 @@
+home:
+  position: 0
+  title: home
+  arm: arm1
+  type: Tools::Home
+
+thought_tracker:
+  position: 1
+  title: THINK
+  arm: arm1
+
+feeling_tracker:
+  position: 2
+  title: FEEL
+  arm: arm1
+
+activity_tracker:
+  position: 3
+  title: DO
+  arm: arm1
+
+library:
+  position: 4
+  title: LEARN
+  arm: arm1
+  type: Tools::Learn
+
+messages:
+  position: 5
+  title: MESSAGES
+  arm: arm1
+  type: Tools::Messages
+
+goals:
+  position: 6
+  title: ACHIEVE
+  arm: arm1
+  type: Tools::Goals
+
+relax:
+  position: 7
+  title: RELAX
+  arm: arm1  
+
+home2:
+  position: 0
+  title: home
+  arm: arm2
+  type: Tools::Home
+
+thought_tracker2:
+  position: 1
+  title: THINK
+  arm: arm2
+
+feeling_tracker2:
+  position: 2
+  title: FEEL
+  arm: arm2
+
+activity_tracker2:
+  position: 3
+  title: DO
+  arm: arm2
+
+library2:
+  position: 4
+  title: LEARN
+  arm: arm2
+  type: Tools::Learn
+
+messages2:
+  position: 5
+  title: MESSAGES
+  arm: arm2
+  type: Tools::Messages
+
+goals2:
+  position: 6
+  title: ACHIEVE
+  arm: arm2
+  type: Tools::Goals
+
+relax2:
+  position: 7
+  title: RELAX
+  arm: arm2

@@ -1,0 +1,27 @@
+participant_to_moderator1:
+  sender: participant1 (Participant)
+  recipient: clinician1 (User)
+  subject: I like this app
+  body: This app is really helpful!
+  sent_at: <%= Time.zone.now %>
+
+moderator_to_participant1:
+  sender: clinician1 (User)
+  recipient: participant1 (Participant)
+  subject: Try out the LEARN tool
+  body: "I think you will find it helpful. here's a link: [#1 Foo](/bar)\n\nyes I do."
+  sent_at: <%= Time.zone.now %>
+
+moderator_to_participant3:
+  sender: clinician1 (User)
+  recipient: participant3 (Participant)
+  subject: Check out the Introduction slideshow
+  body: "Here's a link to the introduction slideshow: [Introduction to ThinkFeelDo](/participants/public_slideshows/171736398/slides/201060073) I do."
+  sent_at: <%= Time.zone.now - 2.hours %>
+
+pt_data_to_coach:
+  sender: participant_data (Participant)
+  recipient: clinician1 (User)
+  subject: Test message
+  body: Testing messaging
+  sent_at: <%= Time.zone.now %>

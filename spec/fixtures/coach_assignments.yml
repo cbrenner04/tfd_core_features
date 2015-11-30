@@ -1,0 +1,75 @@
+assignment1:
+  participant: participant1
+  coach: clinician1
+
+assignment2:
+  participant: participant2
+  coach: user2
+
+assignment3:
+  participant: inactive_participant
+  coach: clinician1
+
+assignment_in_group_3:
+  participant: participant3
+  coach: clinician1
+
+assignment4:
+  participant: participant4
+  coach: clinician1
+
+assignment5:
+  participant: participant5
+  coach: clinician1
+
+assignment_moderator:
+  participant: participant_grp1_moderator
+  coach: clinician1
+
+assignment_background:
+  participant: participant_background
+  coach: clinician1
+
+assignment_for_withdrawal_test:
+  participant: participant_for_withdraw_test
+  coach: clinician1
+
+assignment_for_non_social:
+  participant: participant_for_group5
+  coach: clinician1  
+
+assignment_for_completor:
+  participant: participant_is_complete
+  coach: clinician1
+
+assignment_for_mobile_completer:
+  participant: participant_mobile_complete
+  coach: clinician1
+
+assignment61:
+  participant: participant61
+  coach: clinician1
+
+assignment62:
+  participant: participant62
+  coach: clinician1
+
+assignment63:
+  participant: participant63
+  coach: clinician1
+
+assignment64:
+  participant: participant64
+  coach: clinician1
+
+assignment65:
+  participant: participant65
+  coach: clinician1
+
+assignment_data:
+  participant: participant_data
+  coach: clinician1
+
+assignment_test_7:
+  participant: participant_test_7
+  coach: clinician1

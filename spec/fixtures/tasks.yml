@@ -1,0 +1,596 @@
+task1:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: do_awareness
+  release_day: 1
+
+task_doing:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: do_doing
+  release_day: 1
+
+task2:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: do_planning
+  release_day: 1
+
+do_past_due_activities:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: do_past_due_activities
+  release_day: 1
+  has_didactic_content: false
+
+do_your_activities_viz:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: do_your_activities_viz
+  release_day: 1
+  has_didactic_content: false
+
+task5_day1:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: think_identifying
+  release_day: 1
+
+task5_day2:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: think_identifying
+  release_day: 2
+
+task6:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: think_patterns
+  release_day: 1
+
+task7:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: think_reshape
+  release_day: 1
+
+task8:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: think_module5
+  release_day: 1
+  has_didactic_content: false
+
+think_module_thoughts_table:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: think_module_thoughts_table
+  release_day: 1
+  has_didactic_content: false
+
+think_module_distortion_viz:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: think_module_distortion_viz
+  release_day: 1
+
+task10:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: feeling_tracker_module2
+  release_day: 1
+  termination_day: 1
+  has_didactic_content: false
+
+task11:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: feeling_tracker_module3
+  release_day: 2
+  has_didactic_content: false
+
+task12:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: feeling_tracker_module4
+  release_day: 1
+  has_didactic_content: false
+
+task13_1:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: feeling_tracker_emotions_list
+  release_day: 1
+  has_didactic_content: false
+
+task13_2:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: feeling_tracker_emotions_list
+  release_day: 2
+  has_didactic_content: false
+
+task14_1:
+  creator: user
+  group: group1
+  bit_core_content_module: feeling_tracker_emotions_list
+  release_day: 1
+  has_didactic_content: false
+
+task14_2:
+  creator: user
+  group: group1
+  bit_core_content_module: feeling_tracker_emotions_list
+  release_day: 2
+  has_didactic_content: false
+
+task16:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: slideshow_content_module_2
+  release_day: 1
+
+task17:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: slideshow_content_module_3
+  release_day: 2
+
+task_create_activity:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: create_activity
+  release_day: 1
+  has_didactic_content: false
+
+view_activities_for_group1:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: do_view_planned_activities
+  release_day: 1
+  has_didactic_content: false
+
+relax_autogenic_group1:
+  creator: clinician1
+  group: group1
+  bit_core_content_module: relax_autogenic_exercises
+  release_day: 1
+  has_didactic_content: true
+
+task_awareness_for_group3:
+  creator: clinician1
+  group: group3
+  bit_core_content_module: do_awareness
+  release_day: 1
+
+do_past_due_activities2:
+  creator: clinician1
+  group: group3
+  bit_core_content_module: do_past_due_activities
+  release_day: 1
+  has_didactic_content: false
+
+do_your_activities_viz2:
+  creator: clinician1
+  group: group3
+  bit_core_content_module: do_your_activities_viz
+  release_day: 1
+  has_didactic_content: false
+
+feel_mood_emotion_g3:
+  creator: clinician1
+  group: group3
+  bit_core_content_module: feeling_tracker_module3
+  release_day: 1
+  has_didactic_content: true
+
+feel_emotions_g3:
+  creator: clinician1
+  group: group3
+  bit_core_content_module: feeling_tracker_emotions_list
+  release_day: 1
+  has_didactic_content: false
+
+group5_task_awareness:
+  creator: clinician1
+  group: group5
+  bit_core_content_module: do_awareness2
+  release_day: 1
+
+group5_task_planning:
+  creator: clinician1
+  group: group5
+  bit_core_content_module: do_planning2
+  release_day: 1
+
+group5_create_activity:
+  creator: clinician1
+  group: group5
+  bit_core_content_module: create_activity2
+  release_day: 1
+
+group5_task_identifying:
+  creator: clinician1
+  group: group5
+  bit_core_content_module: think_identifying2
+  release_day: 1
+
+group5_task_think5:
+  creator: clinician1
+  group: group5
+  bit_core_content_module: think_module5_2
+  release_day: 1
+  has_didactic_content: false
+
+group6_task_1:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_1
+  release_day: 1
+  has_didactic_content: true
+
+group6_task_2:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_2
+  release_day: 1
+  has_didactic_content: true
+
+group6_task_3:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_3
+  release_day: 1
+  has_didactic_content: true 
+
+group6_task_4:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_4
+  release_day: 8
+  has_didactic_content: true 
+
+group6_task_5:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_5
+  release_day: 15
+  has_didactic_content: true
+
+group6_task_6:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_6
+  release_day: 15
+  has_didactic_content: true
+
+group6_task_7:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_7
+  release_day: 22
+  has_didactic_content: true
+
+group6_task_8:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_8
+  release_day: 29
+  has_didactic_content: true 
+
+group6_task_9:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_9
+  release_day: 36
+  has_didactic_content: true 
+
+group6_task_10:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_10
+  release_day: 43
+  has_didactic_content: true
+
+group6_task_11:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_11
+  release_day: 43
+  has_didactic_content: true
+
+group6_task_12:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: slideshow_content_module_12
+  release_day: 50
+  has_didactic_content: true 
+
+group6_task_awareness:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: do_awareness
+  release_day: 1
+
+group6_task_doing:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: do_doing
+  release_day: 1
+
+group6_task_planning:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: do_planning
+  release_day: 1
+
+group6_do_past_due_activities:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: do_past_due_activities
+  release_day: 1
+  has_didactic_content: false
+
+group6_do_your_activities_viz:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: do_your_activities_viz
+  release_day: 1
+  has_didactic_content: false
+
+group6_task_identifying:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: think_identifying
+  release_day: 1
+
+group6_task_patterns:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: think_patterns
+  release_day: 1
+
+group6_task_reshape:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: think_reshape
+  release_day: 1
+
+group6_task_think5:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: think_module5
+  release_day: 1
+  has_didactic_content: false
+
+group6_think_module_thoughts_table:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: think_module_thoughts_table
+  release_day: 1
+  has_didactic_content: false
+
+group6_think_module_distortion_viz:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: think_module_distortion_viz
+  release_day: 1
+
+group6_task_mood:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: feeling_tracker_module2
+  release_day: 1
+  termination_day: 1
+  has_didactic_content: true
+
+group6_task_mood_emo:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: feeling_tracker_module3
+  release_day: 2
+  has_didactic_content: true
+
+group6_task_view_mood:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: feeling_tracker_module4
+  release_day: 1
+  has_didactic_content: false
+
+group6_task_emo:
+  creator: clinician1
+  group: group6
+  bit_core_content_module: feeling_tracker_emotions_list
+  release_day: 1
+  has_didactic_content: false
+
+group7_task_1:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_1_2
+  release_day: 1
+  has_didactic_content: true
+
+group7_task_2:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_2_2
+  release_day: 1
+  has_didactic_content: true
+
+group7_task_3:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_3_2
+  release_day: 1
+  has_didactic_content: true 
+
+group7_task_4:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_4_2
+  release_day: 8
+  has_didactic_content: true 
+
+group7_task_5:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_5_2
+  release_day: 15
+  has_didactic_content: true
+
+group7_task_6:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_6_2
+  release_day: 15
+  has_didactic_content: true
+
+group7_task_7:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_7_2
+  release_day: 22
+  has_didactic_content: true
+
+group7_task_8:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_8_2
+  release_day: 29
+  has_didactic_content: true 
+
+group7_task_9:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_9_2
+  release_day: 36
+  has_didactic_content: true 
+
+group7_task_10:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_10_2
+  release_day: 43
+  has_didactic_content: true
+
+group7_task_11:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_11_2
+  release_day: 43
+  has_didactic_content: true
+
+group7_task_12:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: slideshow_content_module_12_2
+  release_day: 50
+  has_didactic_content: true 
+
+group7_task_awareness:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: do_awareness2
+  release_day: 1
+
+group7_task_doing:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: do_doing2
+  release_day: 1
+
+group7_task_planning:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: do_planning2
+  release_day: 1
+
+group7_do_past_due_activities:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: do_past_due_activities2
+  release_day: 1
+  has_didactic_content: false
+
+group7_do_your_activities_viz:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: do_your_activities_viz2
+  release_day: 1
+  has_didactic_content: false
+
+group7_task_identifying:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: think_identifying2
+  release_day: 1
+
+group7_task_patterns:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: think_patterns2
+  release_day: 1
+
+group7_task_reshape:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: think_reshape2
+  release_day: 1
+
+group7_task_think5:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: think_module5_2
+  release_day: 1
+  has_didactic_content: false
+
+group7_think_module_thoughts_table:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: think_module_thoughts_table2
+  release_day: 1
+  has_didactic_content: false
+
+group7_think_module_distortion_viz:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: think_module_distortion_viz2
+  release_day: 1
+
+group7_task_mood:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: feeling_tracker_module2_2
+  release_day: 1
+  termination_day: 1
+  has_didactic_content: true
+
+group7_task_mood_emo:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: feeling_tracker_module3_2
+  release_day: 2
+  has_didactic_content: true
+
+group7_task_view_mood:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: feeling_tracker_module4_2
+  release_day: 1
+  has_didactic_content: false
+
+group7_task_emo:
+  creator: clinician1
+  group: group7
+  bit_core_content_module: feeling_tracker_emotions_list_2
+  release_day: 1
+  has_didactic_content: false
+
+group11_task_1:
+  creator: user1
+  group: group11
+  bit_core_content_module: slideshow_content_module_17
+  release_day: 1
+  has_didactic_content: true

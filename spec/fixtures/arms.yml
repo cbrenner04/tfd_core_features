@@ -1,0 +1,14 @@
+arm1:
+  title: Arm 1
+  is_social: true
+
+arm2:
+  title: Arm 3
+  is_social: false
+  can_message_after_membership_complete: false
+
+arm3: 
+  title: Testing Arm
+
+arm4: 
+  title: Testing Arm 2

@@ -1,0 +1,37 @@
+profile1:
+  participant: participant1
+  active: true
+
+profile2:
+  participant: participant2
+  active: true
+
+profile3:
+  participant: participant3
+  active: true
+  icon_name: bolt
+
+profile5:
+  participant: participant5
+  active: true
+
+profile61:
+  participant: participant61
+  active: true
+
+profile62:
+  participant: participant62
+  active: true
+
+profile63:
+  participant: participant63
+  active: true
+
+profile64:
+  participant: participant64
+  active: true
+
+profile65:
+  participant: participant65
+  icon_name: bolt
+  active: true

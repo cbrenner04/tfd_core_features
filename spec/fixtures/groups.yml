@@ -1,0 +1,49 @@
+group1:
+  creator: clinician1
+  title: Group 1
+  arm: arm1
+  moderator: clinician1
+
+group2:
+  creator: clinician1
+  title: Group 2
+  arm: arm1
+  moderator: clinician1
+
+group3:
+  creator: clinician1
+  title: Group 3
+  arm: arm1
+  moderator: clinician1
+
+group5:
+  creator: clinician1
+  title: Group 5
+  arm: arm2
+
+group6:
+  creator: clinician1
+  title: Group 6
+  arm: arm1
+  moderator: clinician1
+
+group7:
+  title: Group for Arm 3
+  arm: arm2
+
+group8:
+  title: Group 8
+  arm: arm1
+  moderator: clinician1
+
+group9:
+  title: Group 9
+  arm: arm1
+
+group10:
+  title: Group 10
+  arm: arm1
+
+group11:
+  title: Group 11
+  arm: arm1

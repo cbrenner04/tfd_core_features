@@ -1,0 +1,19 @@
+participant1_good:
+  participant: participant1
+  rating: 9
+  created_at: <%= Time.zone.now - 28.days %>
+
+participant1_average:
+  participant: participant1
+  rating: 5
+  created_at: <%= Time.zone.now - 21.days %>
+
+participant_5_good:
+  participant: participant5
+  rating: 7
+  created_at: <%= Time.zone.now %>
+
+participant_data_good:
+  participant: participant_data
+  rating: 9
+  created_at: <%= Time.zone.now %>

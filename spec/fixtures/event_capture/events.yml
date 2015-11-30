@@ -1,0 +1,121 @@
+event_capture_events_005:
+  emitted_at: <%= DateTime.now - 600.seconds %>
+  recorded_at: <%= DateTime.now - 600.seconds %>
+  payload: |
+    --- !ruby/hash:ActionController::Parameters
+    currentUrl: http://localhost:3000/navigator/contexts/LEARN
+    headers:
+    - LEARN
+    - Lessons
+    - Lessons
+    - Week
+    - '1'
+    ua: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/46.0.2490.86 Safari/537.36
+    remote_ip: 127.0.0.1
+  kind: render
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>
+
+event_capture_events_063:
+  emitted_at: <%= DateTime.now - 600.seconds %>
+  recorded_at: <%= DateTime.now - 600.seconds %>
+  payload: |
+    --- !ruby/hash:ActionController::Parameters
+    currentUrl: http://localhost:3000/navigator/contexts/LEARN
+    buttonHtml: "<p>Do - Awareness Introduction</p>"
+    parentHtml: |-
+      <span class="lesson read"><p>Do - Awareness Introduction</p>
+      </span>
+    headers:
+    - LEARN
+    - Lessons
+    - Lessons
+    - Week
+    - '1'
+    remote_ip: 127.0.0.1
+  kind: click
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>
+
+event_capture_events_007:
+  emitted_at: <%= DateTime.now - 600.seconds %>
+  recorded_at: <%= DateTime.now - 600.seconds %>
+  payload: |
+    --- !ruby/hash:ActionController::Parameters
+    currentUrl: http://localhost:3000/navigator/modules/233274310/providers/318915229/1
+    headers:
+    - LEARN
+    - Do - Awareness Introduction
+    - This is just the beginning...
+    ua: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/46.0.2490.86 Safari/537.36
+    remote_ip: 127.0.0.1
+  kind: render
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>
+
+event_capture_events_008:
+  emitted_at: <%= DateTime.now - 1.seconds %>
+  recorded_at: <%= DateTime.now - 1.seconds %>
+  payload: |
+    --- !ruby/hash:ActionController::Parameters
+    currentUrl: http://localhost:3000/navigator/modules/233274310/providers/318915229/1
+    buttonHtml: <a class="btn btn-primary pull-right" href="/navigator/next_content" type="submit">Next</a>
+    parentHtml: "<div class=\"btn-toolbar\">\n  \t\n      <a class=\"btn btn-primary pull-right\"
+      href=\"/navigator/next_content\" type=\"submit\">Next</a>\n  </div>"
+    headers:
+    - LEARN
+    - Do - Awareness Introduction
+    - This is just the beginning...
+    remote_ip: 127.0.0.1
+  kind: click
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>
+
+event_capture_events_009:
+  emitted_at: <%= DateTime.now - 1.seconds %>
+  recorded_at: <%= DateTime.now - 1.seconds %>
+  payload: |
+    --- !ruby/hash:ActionController::Parameters
+    currentUrl: http://localhost:3000/navigator/modules/233274310/providers/318915229/2
+    headers:
+    - LEARN
+    - Do - Awareness Introduction
+    - Just a slide
+    ua: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/46.0.2490.86 Safari/537.36
+    remote_ip: 127.0.0.1
+  kind: render
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>
+
+event_capture_events_065:
+  emitted_at: <%= DateTime.now - 1.seconds %>
+  recorded_at: <%= DateTime.now - 1.seconds %>
+  payload: |
+    --- !ruby/hash:ActionController::Parameters
+    currentUrl: http://localhost:3000/navigator/modules/233274310/providers/318915229/1
+    buttonHtml: <a class="btn btn-primary pull-right" href="/navigator/next_content" type="submit">Finish</a>
+    parentHtml: "<div class=\"btn-toolbar\">\n  \t\n      <a class=\"btn btn-primary pull-right\"
+      href=\"/navigator/next_content\" type=\"submit\">Finish</a>\n  </div>"
+    headers:
+    - LEARN
+    - Do - Awareness Introduction
+    - Just a slide
+    remote_ip: 127.0.0.1
+  kind: click
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>
+
+event_capture_events_011:
+  emitted_at: <%= DateTime.now - 1.seconds %>
+  recorded_at: <%= DateTime.now - 1.seconds %>
+  payload: |
+    --- !ruby/hash:ActionController::Parameters
+    currentUrl: http://localhost:3000/navigator/modules/368801319/providers/92512490/1
+    headers:
+    - LEARN
+    - Lessons
+    - Lessons
+    - Week
+    - '1'
+    ua: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/46.0.2490.86 Safari/537.36
+    remote_ip: 127.0.0.1
+  kind: render
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>

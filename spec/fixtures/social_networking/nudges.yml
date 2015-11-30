@@ -1,0 +1,29 @@
+participant1_to_participant2_yesterday:
+  initiator: participant1
+  recipient: participant2
+  created_at: <%= Time.zone.now - 1.days %>
+
+participant1_to_participant2_today:
+  initiator: participant1
+  recipient: participant2
+  created_at: <%= Time.zone.now %>
+
+participant2_to_participant1_yesterday:
+  initiator: participant2
+  recipient: participant1
+  created_at: <%= Time.zone.now - 1.days %>
+
+participant2_to_participant1_today:
+  initiator: participant2
+  recipient: participant1
+  created_at: <%= Time.zone.now %>
+
+participant61_to_participant62_today:
+  initiator: participant61
+  recipient: participant62
+  created_at: <%= Time.zone.now %>
+
+participant65_to_participant61_today:
+  initiator: participant65
+  recipient: participant61
+  created_at: <%= Time.zone.now %>

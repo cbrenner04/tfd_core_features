@@ -1,0 +1,123 @@
+membership1:
+  participant: participant1
+  group: group1
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 365.days %>
+
+membership2:
+  participant: participant2
+  group: group1
+  start_date: <%= Date.yesterday %>
+  end_date: <%= Date.today + 3.days %>
+
+membership3:
+  participant: participant3
+  group: group1
+  start_date: <%= Date.yesterday %>
+  end_date: <%= Date.today + 3.days %>
+
+membership4:
+  participant: participant4
+  group: group3
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 4.days %>
+
+membership5:
+  participant: participant5
+  group: group1
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 365.days %>
+
+membership_moderator:
+  participant: participant_grp1_moderator
+  group: group1
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 4.days %>
+
+membership_background:
+  participant: participant_background
+  group: group1
+  start_date: <%= Date.yesterday %>
+  end_date: <%= Date.today + 3.days %>
+
+inactive_membership:
+  participant: inactive_participant
+  group: group2
+  start_date: <%= Date.today - 5.days %>
+  end_date: <%= Date.today - 4.days %>
+  is_complete: false
+
+membership_for_withdrawal_test:
+  participant: participant_for_withdraw_test
+  group: group1
+  start_date: <%= Date.today - 3.days %>
+  end_date: <%= Date.today + 3.days %>
+  is_complete: false
+
+membership_for_group5:
+  participant: participant_for_group5
+  group: group5
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 4.days %>  
+
+membership_for_completed_pt:
+  participant: participant_is_complete
+  group: group1
+  start_date: <%= Date.today - 14.days %>
+  end_date: <%= Date.today - 2.days %>
+  is_complete: true
+
+membership_for_participant_mobile_complete:
+  participant: participant_mobile_complete
+  group: group7
+  start_date: <%= Date.today - 54.days %>
+  end_date: <%= Date.today - 2.days %>
+  is_complete: true
+
+membership61:
+  participant: participant61
+  group: group6
+  start_date: <%= Date.today - 35.days %>
+  end_date: <%= Date.today + 21.days %>
+
+membership62:
+  participant: participant62
+  group: group6
+  start_date: <%= Date.today - 35.days %>
+  end_date: <%= Date.today + 21.days %>
+
+membership63:
+  participant: participant63
+  group: group6
+  start_date: <%= Date.today - 35.days %>
+  end_date: <%= Date.today + 21.days %>
+
+membership64:
+  participant: participant64
+  group: group6
+  start_date: <%= Date.today - 35.days %>
+  end_date: <%= Date.today + 21.days %>
+
+membership65:
+  participant: participant65
+  group: group6
+  start_date: <%= Date.today - 35.days %>
+  end_date: <%= Date.today + 21.days %>
+
+membership_data:
+  participant: participant_data
+  group: group1
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 56.days %>
+
+membership_test_5:
+  participant: participant_test_5
+  group: group1
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 7.days %>
+
+membership_test_7:
+  participant: participant_test_7
+  group: group9
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 7.days %>

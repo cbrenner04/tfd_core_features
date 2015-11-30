@@ -1,0 +1,121 @@
+participant1_harmful:
+  participant: participant1
+  content: I am useless
+  effect: harmful
+  pattern: labeling
+
+participant1_harmful2:
+  participant: participant1
+  act_as_if: Birds have no idea what they are doing
+  challenging_thought: It was nature
+  content: I am a magnet for birds
+  effect: harmful
+  pattern: labeling
+
+participant1_harmful3:
+  participant: participant1
+  content: ARG!
+  effect: harmful
+
+participant1_harmful4:
+  participant: participant1
+  content: I am insignificant
+  effect: harmful
+
+thought_g6_pt61_1:
+  participant: participant61
+  content: I am no good
+  effect: harmful
+  pattern: labeling
+  challenging_thought: I did good at work today
+  act_as_if: I am good
+  created_at: <%= Time.zone.now - 34.days %>
+
+thought_g6_pt61_2:
+  participant: participant61
+  content: This is stupid
+  effect: harmful
+  pattern: jumping
+  challenging_thought: It could be useful
+  act_as_if: I should try it out
+  created_at: <%= Time.zone.now - 20.days %>
+
+thought_g6_pt61_3:
+  participant: participant61
+  content: That person hates me
+  effect: harmful
+  pattern: jumping
+  challenging_thought: They don't even know me
+  act_as_if: Strangers don't have you
+  created_at: <%= Time.zone.now - 13.days %>
+
+thought_g6_pt61_4:
+  participant: participant61
+  content: WAAAAHHH!!!!
+  effect: harmful
+  pattern: magnification
+  challenging_thought: Whatever
+  act_as_if: Blah
+  created_at: <%= Time.zone.now - 6.days %>
+
+participant1_harmful_5:
+  participant: participant5
+  content: I am useless
+  effect: harmful
+  pattern: labeling
+
+participant1_harmful2_5:
+  participant: participant5
+  act_as_if: Birds have no idea what they are doing
+  challenging_thought: It was nature
+  content: I am a magnet for birds
+  effect: harmful
+  pattern: labeling
+
+participant5_harmful1:
+  participant: participant5
+  content: ARG!
+  effect: harmful
+  pattern: magnification
+  challenging_thought: no way
+  act_as_if: jump around
+
+participant5_harmful2:
+  participant: participant5
+  content: I am insignificant
+  effect: harmful
+  pattern: magnification
+  challenging_thought: probably not
+  act_as_if: do nothing
+
+participant5_harmful3:
+  participant: participant5
+  content: No one likes me
+  effect: harmful
+  pattern: magnification
+  challenging_thought: no true
+  act_as_if: whatever
+
+participant_data_harmful_1:
+  participant: participant_data
+  content: Testing add a new thought
+  effect: harmful
+  pattern: magnification
+  challenging_thought: Example challenge
+  act_as_if: Example act-as-if
+
+participant_data_harmful_2:
+  participant: participant_data
+  content: Testing negative thought
+  effect: harmful
+  pattern: magnification
+  challenging_thought: Example challenge
+  act_as_if: Example act-as-if
+
+participant_data_harmful_3:
+  participant: participant_data
+  content: Testing thoughts
+  effect: harmful
+  pattern: magnification
+  challenging_thought: Example challenge
+  act_as_if: Example act-as-if

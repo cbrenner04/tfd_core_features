@@ -1,0 +1,240 @@
+pt1_planned_activity1:
+  participant: participant1
+  activity_type: going_to_school
+  predicted_pleasure_intensity: 2
+  predicted_accomplishment_intensity: 6
+  start_time: <%= Time.zone.now + 2.days %>
+  end_time: <%= Time.zone.now + 2.days + 1.hour %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+pt1_planned_activity2:
+  participant: participant1
+  activity_type: jogging
+  predicted_pleasure_intensity: 7
+  predicted_accomplishment_intensity: 7
+  start_time: <%= Time.zone.now + 2.hours %>
+  end_time: <%= Time.zone.now + 3.hours %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+pt1_planned_activity3:
+  participant: participant1
+  activity_type: parkour
+  predicted_pleasure_intensity: 9
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now - 1.days %>
+  end_time: <%= Time.zone.now - 1.days + 1.hour %>
+  created_at: <%= Time.zone.now - 1.days %>
+  updated_at: <%= Time.zone.now - 1.days %>
+
+pt1_reviewed_activity1:
+  participant: participant1
+  activity_type: loving_1
+  start_time: <%= Time.zone.now - 2.days %>
+  end_time: <%= Time.zone.now - 2.days + 1.hour %>
+  actual_pleasure_intensity: 3
+  actual_accomplishment_intensity: 4
+  predicted_pleasure_intensity: 7
+  predicted_accomplishment_intensity: 7
+  created_at: <%= Time.zone.now - 2.days %>
+  updated_at: <%= Time.zone.now - 1.days %>
+  is_reviewed: true
+
+pt1_planned_activity4:
+  participant: participant1
+  activity_type: loving_1
+  predicted_pleasure_intensity: 6
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now - 1.hours %>
+  end_time: <%= Time.zone.now %>
+  created_at: <%= Time.zone.now - 2.hours %>
+  updated_at: <%= Time.zone.now - 2.hours %>
+
+pt1_planned_activity5:
+  participant: participant1
+  activity_type: speech_2
+  predicted_pleasure_intensity: 8
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now + 1.hours %>
+  end_time: <%= Time.zone.now + 2.hours %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+pt3_planned_activity1:
+  participant: participant3
+  activity_type: speech_1
+  predicted_pleasure_intensity: 2
+  predicted_accomplishment_intensity: 7
+  start_time: <%= Time.zone.now - 2.days %>
+  end_time: <%= Time.zone.now - 2.days + 1.hour %>
+
+pt3_planned_activity2:
+  participant: participant3
+  activity_type: speech_3
+  predicted_pleasure_intensity: 8
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now - 2.hours %>
+  end_time: <%= Time.zone.now - 1.hours %>
+
+pt3_planned_activity3:
+  participant: participant3
+  activity_type: loving_2
+  predicted_pleasure_intensity: 8
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now - 3.hours %>
+  end_time: <%= Time.zone.now - 2.hours %>
+
+pt5_planned_activity1:
+  participant: participant5
+  activity_type: going_to_school
+  predicted_pleasure_intensity: 2
+  predicted_accomplishment_intensity: 6
+  start_time: <%= Time.zone.now + 2.days %>
+  end_time: <%= Time.zone.now + 2.days + 1.hour %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+pt5_planned_activity2:
+  participant: participant5
+  activity_type: jogging
+  predicted_pleasure_intensity: 7
+  predicted_accomplishment_intensity: 7
+  start_time: <%= Time.zone.now + 2.hours %>
+  end_time: <%= Time.zone.now + 3.hours %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+pt5_planned_activity3:
+  participant: participant5
+  activity_type: parkour
+  predicted_pleasure_intensity: 9
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now - 1.days %>
+  end_time: <%= Time.zone.now - 1.days + 1.hour %>
+  created_at: <%= Time.zone.now - 1.days %>
+  updated_at: <%= Time.zone.now - 1.days %>
+
+pt5_reviewed_activity1:
+  participant: participant5
+  activity_type: loving_1
+  start_time: <%= Time.zone.now - 2.days %>
+  end_time: <%= Time.zone.now - 2.days + 1.hour %>
+  actual_pleasure_intensity: 3
+  actual_accomplishment_intensity: 4
+  predicted_pleasure_intensity: 7
+  predicted_accomplishment_intensity: 7
+  created_at: <%= Time.zone.now - 2.days %>
+  updated_at: <%= Time.zone.now - 1.days %>
+  is_reviewed: true
+
+pt5_planned_activity4:
+  participant: participant5
+  activity_type: loving_1
+  predicted_pleasure_intensity: 6
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now - 1.hours %>
+  end_time: <%= Time.zone.now %>
+  created_at: <%= Time.zone.now - 2.hours %>
+  updated_at: <%= Time.zone.now - 2.hours %>
+
+pt5_planned_activity5:
+  participant: participant5
+  activity_type: speech_2
+  predicted_pleasure_intensity: 8
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now + 1.hours %>
+  end_time: <%= Time.zone.now + 2.hours %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+inactive_participant_activity1:
+  participant: inactive_participant
+  activity_type: knitting
+
+activity_g6_pt61_1:
+  participant: participant61
+  activity_type: type_g6_pt61_1
+  predicted_pleasure_intensity: 8
+  predicted_accomplishment_intensity: 6
+  start_time: <%= Time.zone.now - 33.days %>
+  end_time: <%= Time.zone.now - 33.days + 1.hours %>
+  created_at: <%= Time.zone.now - 34.days %>
+  actual_pleasure_intensity: 5
+  actual_accomplishment_intensity: 6
+  is_reviewed: true
+
+activity_g6_pt62_1:
+  participant: participant62
+  activity_type: type_g6_pt62_1
+  predicted_pleasure_intensity: 3
+  predicted_accomplishment_intensity: 9
+  start_time: <%= Time.zone.now - 20.days %>
+  end_time: <%= Time.zone.now - 20.days + 1.hours %>
+  created_at: <%= Time.zone.now - 21.days %>
+  actual_pleasure_intensity: 9
+  actual_accomplishment_intensity: 6
+  is_reviewed: true
+
+activity_g6_pt63_1:
+  participant: participant63
+  activity_type: type_g6_pt63_1
+  predicted_pleasure_intensity: 7
+  predicted_accomplishment_intensity: 9
+  start_time: <%= Time.zone.now + 4.days %>
+  end_time: <%= Time.zone.now + 4.days + 1.hours %>
+  created_at: <%= Time.zone.now - 1.days %>
+
+activity_g6_pt64_1:
+  participant: participant64
+  activity_type: type_g6_pt64_1
+  predicted_pleasure_intensity: 2
+  predicted_accomplishment_intensity: 0
+  start_time: <%= Time.zone.now + 7.days %>
+  end_time: <%= Time.zone.now + 7.days + 1.hours %>
+  created_at: <%= Time.zone.now - 1.days %>
+
+planned_activity_data_1:
+  participant: participant_data
+  activity_type: going_to_school
+  predicted_pleasure_intensity: 2
+  predicted_accomplishment_intensity: 6
+  start_time: <%= Time.zone.now + 2.days %>
+  end_time: <%= Time.zone.now + 2.days + 1.hour %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+
+planned_activity_data_2:
+  participant: participant_data
+  activity_type: jogging
+  predicted_pleasure_intensity: 7
+  predicted_accomplishment_intensity: 7
+  start_time: <%= Time.zone.now - 1.days %>
+  end_time: <%= Time.zone.now - 1.days + 1.hour %>
+  noncompliance_reason: I didn't have time
+  created_at: <%= Time.zone.now - 1.days %>
+  updated_at: <%= Time.zone.now - 1.days %>
+  is_reviewed: true
+
+planned_activity_data_3:
+  participant: participant_data
+  activity_type: parkour
+  predicted_pleasure_intensity: 9
+  predicted_accomplishment_intensity: 4
+  start_time: <%= Time.zone.now - 1.days %>
+  end_time: <%= Time.zone.now - 1.days + 1.hour %>
+  created_at: <%= Time.zone.now - 1.days %>
+  updated_at: <%= Time.zone.now - 1.days %>
+
+planned_activity_data_4:
+  participant: participant_data
+  activity_type: speech_2
+  predicted_pleasure_intensity: 5
+  predicted_accomplishment_intensity: 5
+  actual_accomplishment_intensity: 6
+  actual_pleasure_intensity: 6
+  start_time: <%= Time.zone.now - 1.days %>
+  end_time: <%= Time.zone.now - 1.days + 1.hour %>
+  created_at: <%= Time.zone.now - 1.days %>
+  updated_at: <%= Time.zone.now - 1.days %>
+  is_reviewed: true

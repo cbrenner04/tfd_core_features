@@ -1,0 +1,209 @@
+participant_behavior_grp1_likes_pt2_1:
+  participant: participant2
+  behavior: behavior_gp1_like1
+  participant_incentive: participant_incentive_gp1_likes_pt2
+  is_complete: true
+  action: like_6 (SocialNetworking::Like)
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_likes_pt2_2:
+  participant: participant2
+  behavior: behavior_gp1_like2
+  participant_incentive: participant_incentive_gp1_likes_pt2
+  is_complete: true
+  action: like_7 (SocialNetworking::Like)
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_likes_pt2_3:
+  participant: participant2
+  behavior: behavior_gp1_like3
+  participant_incentive: participant_incentive_gp1_likes_pt2
+  is_complete: true
+  action: like_8 (SocialNetworking::Like)
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt1_1:
+  participant: participant1
+  behavior: behavior_gp1_comment1
+  participant_incentive: participant_incentive_pg1_comments_pt1
+  is_complete: true
+  action:  comment_pt1_1 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt1_2:
+  participant: participant1
+  behavior: behavior_gp1_comment2
+  participant_incentive: participant_incentive_pg1_comments_pt1
+  is_complete: true
+  action: comment_pt1_2 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt1_3:
+  participant: participant1
+  behavior: behavior_gp1_comment3
+  participant_incentive: participant_incentive_pg1_comments_pt1
+  is_complete: true
+  action: comment_pt1_3 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt2_1:
+  participant: participant2
+  behavior: behavior_gp1_comment1
+  participant_incentive: participant_incentive_pg1_comments_pt2
+  is_complete: true
+  action: comment_pt2_1 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt2_2:
+  participant: participant2
+  behavior: behavior_gp1_comment2
+  participant_incentive: participant_incentive_pg1_comments_pt2
+  is_complete: true
+  action: comment_pt2_2 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt2_3:
+  participant: participant2
+  behavior: behavior_gp1_comment3
+  participant_incentive: participant_incentive_pg1_comments_pt2
+  is_complete: true
+  action: comment_pt2_3 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_moderator_1:
+  participant: participant_grp1_moderator
+  behavior: behavior_gp1_comment1
+  participant_incentive: participant_incentive_pg1_comments_pt_moderator
+  is_complete: true
+  action: comment_pt_moderator_1 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_moderator_2:
+  participant: participant_grp1_moderator
+  behavior: behavior_gp1_comment2
+  participant_incentive: participant_incentive_pg1_comments_pt_moderator
+  is_complete: true
+  action: comment_pt_moderator_2 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_moderator_3:
+  participant: participant_grp1_moderator
+  behavior: behavior_gp1_comment3
+  participant_incentive: participant_incentive_pg1_comments_pt_moderator
+  is_complete: true
+  action: comment_pt_moderator_3 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_background_1:
+  participant: participant_background
+  behavior: behavior_gp1_comment1
+  participant_incentive: participant_incentive_pg1_comments_pt_background
+  is_complete: true
+  action: comment_pt_background_1 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_background_2:
+  participant: participant_background
+  behavior: behavior_gp1_comment2
+  participant_incentive: participant_incentive_pg1_comments_pt_background
+  is_complete: true
+  action: comment_pt_background_2 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_background_3:
+  participant: participant_background
+  behavior: behavior_gp1_comment3
+  participant_incentive: participant_incentive_pg1_comments_pt_background
+  is_complete: true
+  action: comment_pt_background_3 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_withdraw_test_1:
+  participant: participant_for_withdraw_test
+  behavior: behavior_gp1_comment1
+  participant_incentive: participant_incentive_pg1_comments_pt_withdraw_test
+  is_complete: true
+  action: comment_pt_withdraw_test_1 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_withdraw_test_2:
+  participant: participant_for_withdraw_test
+  behavior: behavior_gp1_comment2
+  participant_incentive: participant_incentive_pg1_comments_pt_withdraw_test
+  is_complete: true
+  action: comment_pt_withdraw_test_2 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_withdraw_test_3:
+  participant: participant_for_withdraw_test
+  behavior: behavior_gp1_comment3
+  participant_incentive: participant_incentive_pg1_comments_pt_withdraw_test
+  is_complete: true
+  action: comment_pt_withdraw_test_3 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_completed_1:
+  participant: participant_is_complete
+  behavior: behavior_gp1_comment1
+  participant_incentive: participant_incentive_pg1_comments_pt_completed
+  is_complete: true
+  action: comment_pt_completed_1 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_completed_2:
+  participant: participant_is_complete
+  behavior: behavior_gp1_comment2
+  participant_incentive: participant_incentive_pg1_comments_pt_completed
+  is_complete: true
+  action: comment_pt_completed_2 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_comments_pt_completed_3:
+  participant: participant_is_complete
+  behavior: behavior_gp1_comment3
+  participant_incentive: participant_incentive_pg1_comments_pt_completed
+  is_complete: true
+  action: comment_pt_completed_3 (SocialNetworking::Comment)
+  created_at: <%= Time.zone.now %>
+  is_notification_sent: true
+
+participant_behavior_grp1_goals_pt3:
+  participant: participant3
+  behavior: behavior_gp1_goal1
+  participant_incentive: participant_incentive_gp1_goal_pt3_1
+  is_complete: true
+  is_notification_sent: true
+  action: participant3_goal (SocialNetworking::Goal)
+  created_at: <%= Time.zone.now %>
+
+participant_behavior_grp9_goals_pt_test_7:
+  participant: participant_test_7
+  behavior: behavior_gp9_goal1
+  participant_incentive: participant_incentive_gp9_goal_pt_test_7
+  is_complete: true
+  is_notification_sent: true
+  action: participant_test_7_goal (SocialNetworking::Goal)
+  created_at: <%= Time.zone.now %>

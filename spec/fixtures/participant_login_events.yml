@@ -1,0 +1,178 @@
+login_participant61_1:
+  participant: participant61
+  created_at: <%= Time.zone.now - 34.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 34.days %>
+
+login_participant61_2:
+  participant: participant61
+  created_at: <%= Time.zone.now - 32.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 32.days %>
+
+login_participant61_3:
+  participant: participant61
+  created_at: <%= Time.zone.now - 31.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 31.days %>
+
+login_participant61_4:
+  participant: participant61
+  created_at: <%= Time.zone.now - 30.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 30.days %>
+
+login_participant61_5:
+  participant: participant61
+  created_at: <%= Time.zone.now - 27.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 27.days %>
+
+login_participant61_6:
+  participant: participant61
+  created_at: <%= Time.zone.now - 25.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 25.days %>
+
+login_participant61_7:
+  participant: participant61
+  created_at: <%= Time.zone.now - 24.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 24.days %>
+
+login_participant61_8:
+  participant: participant61
+  created_at: <%= Time.zone.now - 13.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 13.days %>
+
+login_participant61_9:
+  participant: participant61
+  created_at: <%= Time.zone.now - 11.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 11.days %>
+
+login_participant61_10:
+  participant: participant61
+  created_at: <%= Time.zone.now - 6.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 6.days %>
+
+login_participant61_11:
+  participant: participant61
+  created_at: <%= Time.zone.now - 4.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 4.days %>
+
+login_participant62_1:
+  participant: participant62
+  created_at: <%= Time.zone.now - 34.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 34.days %>
+
+login_participant62_2:
+  participant: participant62
+  created_at: <%= Time.zone.now - 32.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 32.days %>
+
+login_participant62_3:
+  participant: participant62
+  created_at: <%= Time.zone.now - 27.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 27.days %>
+
+login_participant62_4:
+  participant: participant62
+  created_at: <%= Time.zone.now - 20.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 20.days %>
+
+login_participant62_5:
+  participant: participant62
+  created_at: <%= Time.zone.now - 13.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 13.days %>
+
+login_participant62_6:
+  participant: participant62
+  created_at: <%= Time.zone.now - 6.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 6.days %>
+
+login_participant62_7:
+  participant: participant62
+  created_at: <%= Time.zone.now - 1.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 1.days %>
+
+login_participant63_1:
+  participant: participant63
+  created_at: <%= Time.zone.now - 34.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 34.days %>
+
+login_participant63_2:
+  participant: participant63
+  created_at: <%= Time.zone.now - 20.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 20.days %>
+
+login_participant63_3:
+  participant: participant63
+  created_at: <%= Time.zone.now - 6.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 6.days %>
+login_participant64_1:
+  participant: participant64
+  created_at: <%= Time.zone.now - 27.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 27.days %>
+
+login_participant64_2:
+  participant: participant64
+  created_at: <%= Time.zone.now - 26.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 26.days %>
+
+login_participant64_3:
+  participant: participant64
+  created_at: <%= Time.zone.now - 25.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 25.days %>
+
+login_participant64_4:
+  participant: participant64
+  created_at: <%= Time.zone.now - 24.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 24.days %>
+
+login_participant64_5:
+  participant: participant64
+  created_at: <%= Time.zone.now - 23.days %>
+  inactive_log_out: true
+  signed_out_at: <%= Time.zone.now - 23.days %>
+
+login_participant64_6:
+  participant: participant64
+  created_at: <%= Time.zone.now - 22.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 22.days %>
+
+login_participant64_7:
+  participant: participant64
+  created_at: <%= Time.zone.now - 21.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 21.days %>
+
+login_participant65_1:
+  participant: participant65
+  created_at: <%= Time.zone.now - 20.days %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now - 20.days %>
+
+login_participant_data_1:
+  participant: participant_data
+  created_at: <%= Time.zone.now - 1.minutes %>
+  inactive_log_out: false
+  signed_out_at: <%= Time.zone.now %>

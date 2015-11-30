@@ -1,0 +1,65 @@
+behavior_gp1_like1:
+  incentive: incentive_gp1_likes
+  action_type: SocialNetworking::Like
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp1_like2:
+  incentive: incentive_gp1_likes
+  action_type: SocialNetworking::Like
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp1_like3:
+  incentive: incentive_gp1_likes
+  action_type: SocialNetworking::Like
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp1_comment1:
+  incentive: incentive_gp1_comments
+  action_type: SocialNetworking::Comment
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp1_comment2:
+  incentive: incentive_gp1_comments
+  action_type: SocialNetworking::Comment
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp1_comment3:
+  incentive: incentive_gp1_comments
+  action_type: SocialNetworking::Comment
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp1_goal1:
+  incentive: incentive_gp1_goals
+  action_type: SocialNetworking::Goal
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp6_like1:
+  incentive: incentive_gp6_likes
+  action_type: SocialNetworking::Like
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp6_like2:
+  incentive: incentive_gp6_likes
+  action_type: SocialNetworking::Like
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp6_like3:
+  incentive: incentive_gp6_likes
+  action_type: SocialNetworking::Like
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>
+
+behavior_gp9_goal1:
+  incentive: incentive_gp9_goals
+  action_type: SocialNetworking::Goal
+  condition: <%= Sunnyside::Behavior::CONDITION_CREATE %>
+  created_at: <%= Time.zone.now %>

@@ -1,0 +1,8 @@
+bit_player_participant_statuses_data:
+  context: LEARN
+  module_position: '1'
+  provider_position: '1'
+  content_position: '1'
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant_data) %>
+  created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>

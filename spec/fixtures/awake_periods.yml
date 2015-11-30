@@ -1,0 +1,9 @@
+participant2_period1:
+  participant: participant2
+  start_time: <%= Time.zone.now - 12.days %>
+  end_time: <%= Time.zone.now - 12.days + 3.hour %>
+
+participant3_period1:
+  participant: participant3
+  start_time: <%= Time.zone.now - 7.days %>
+  end_time: <%= Time.zone.now - 7.days + 3.hour %>

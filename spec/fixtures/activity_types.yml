@@ -1,0 +1,107 @@
+going_to_school:
+  participant: participant1
+  title: Going to school
+
+jogging:
+  participant: participant1
+  title: Jogging
+
+parkour:
+  participant: participant1
+  title: Parkour
+
+loving_1:
+  participant: participant1
+  title: Loving
+
+hanging_with_friends:
+  participant: participant1
+  title: Hanging with friends
+
+going_for_a_walk:
+  participant: participant1
+  title: Going for a walk
+
+arguing_with_my_boss:
+  participant: participant1
+  title: Arguing with my boss
+
+speech_2:
+  participant: participant1
+  title: Speech
+
+knitting:
+  participant: inactive_participant
+  title: Knitting
+
+speech_1:
+  participant: participant3
+  title: Speech
+
+loving_2:
+  participant: participant3
+  title: Loving
+
+speech_3:
+  participant: participant3
+  title: Speech
+
+going_to_school_5:
+  participant: participant5
+  title: Going to school
+
+jogging_5:
+  participant: participant5
+  title: Jogging
+
+parkour_5:
+  participant: participant5
+  title: Parkour
+
+loving_5:
+  participant: participant5
+  title: Loving
+
+hanging_with_friends_5:
+  participant: participant5
+  title: Hanging with friends
+
+going_for_a_walk_5:
+  participant: participant5
+  title: Going for a walk
+
+arguing_with_my_boss_5:
+  participant: participant5
+  title: Arguing with my boss
+
+speech_2_5:
+  participant: participant5
+  title: Speech
+
+type_g6_pt61_1:
+  participant: participant61
+  title: Running
+
+type_g6_pt62_1:
+  participant: participant62
+  title: Jumping
+
+type_g6_pt63_1:
+  participant: participant63
+  title: Go to movie
+
+type_g6_pt64_1:
+  participant: participant64
+  title: Yelling
+
+going_to_school_data:
+  participant: participant_data
+  title: Going to school
+
+jogging_data:
+  participant: participant_data
+  title: Jogging
+
+parkour_data:
+  participant: participant_data
+  title: Parkour

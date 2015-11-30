@@ -1,0 +1,23 @@
+content_provider_policy1:
+  is_skippable_after_first_viewing: true
+  content_provider: slideshow_provider
+
+content_provider_policy2:
+  is_skippable_after_first_viewing: true
+  content_provider: do_planning_intro_slideshow
+
+content_provider_policy3:
+  is_skippable_after_first_viewing: true
+  content_provider: do_doing_intro_slideshow
+
+content_provider_policy4:
+  is_skippable_after_first_viewing: true
+  content_provider: think_identify_index
+
+content_provider_policy5:
+  is_skippable_after_first_viewing: true
+  content_provider: think_patterns_index
+
+content_provider_policy6:
+  is_skippable_after_first_viewing: true
+  content_provider: think_reshape_index

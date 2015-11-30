@@ -1,0 +1,493 @@
+home_landing:
+  title: Landing 
+  tool: home
+  position: 1
+
+do_landing:
+  title: Do landing
+  tool: activity_tracker
+  position: 1
+
+do_awareness:
+  title: '#1 Awareness'
+  tool: activity_tracker
+  position: 2
+
+do_planning:
+  title: '#2 Planning'
+  tool: activity_tracker
+  position: 3
+
+do_doing:
+  title: '#3 Doing'
+  tool: activity_tracker
+  position: 4
+
+create_activity:
+  title: 'Add a New Activity'
+  tool: activity_tracker
+  position: 5
+
+do_your_activities_viz: 
+  title: 'Your Activities'
+  tool: activity_tracker
+  position: 6
+
+do_view_planned_activities:
+  title: 'View Planned Activities'
+  tool: activity_tracker
+  position: 7
+
+do_past_due_activities: 
+  title: 'Activities'
+  tool: activity_tracker
+  position: 8
+  is_viz: true
+
+think_landing:
+  title: Think landing
+  tool: thought_tracker
+  position: 1
+
+think_identifying:
+  title: '#1 Identifying'
+  tool: thought_tracker
+  position: 2
+
+think_patterns:
+  title: '#2 Patterns'
+  tool: thought_tracker
+  position: 3
+
+think_reshape:
+  title: '#3 Reshape'
+  tool: thought_tracker
+  position: 4  
+
+think_module5:
+  title: Add a New Harmful Thought
+  tool: thought_tracker
+  position: 5  
+
+think_module_thoughts_table:
+  title: Thoughts
+  tool: thought_tracker
+  position: 6
+
+think_module_distortion_viz:
+  title: Thought Distortions
+  tool: thought_tracker
+  position: 7
+  is_viz: true
+
+feeling_tracker_landing:
+  title: Feeling tracker landing
+  tool: feeling_tracker
+  position: 1
+
+feeling_tracker_module2:
+  title: Tracking Your Mood
+  tool: feeling_tracker
+  position: 2
+
+feeling_tracker_module3:
+  title: 'Tracking Your Mood & Emotions'
+  tool: feeling_tracker
+  position: 3
+
+feeling_tracker_module4:
+  title: '#3 Making Changes'
+  tool: feeling_tracker
+  position: 4
+
+feeling_tracker_emotions_list:
+  title: "Your Recent Moods & Emotions"
+  tool: feeling_tracker
+  position: 5
+
+messages_landing:
+  title: Messages
+  tool: messages
+  position: 1
+
+library_landing:
+  title: Lessons
+  tool: library
+  position: 1
+
+relax_landing:
+  title: RELAX Home
+  tool: relax
+  position: 1
+
+relax_autogenic_exercises:
+  title: Autogenic Exercises
+  tool: relax
+  position: 2
+
+slideshow_content_module_1:
+  title: Home Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 2
+
+slideshow_content_module_2:
+  title: Do - Awareness Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 3
+
+slideshow_content_module_3:
+  title: Do - Planning Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 4
+
+slideshow_content_module_4:
+  title: Do - Planning Slideshow 3 of 4
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 5
+
+slideshow_content_module_5:
+  title: Do - Doing Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 6
+
+slideshow_content_module_6:
+  title: Do - Congrats
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 7
+
+slideshow_content_module_7:
+  title: Think - Identifying Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 8
+
+slideshow_content_module_8:
+  title: Think - Identifying Conclusion
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 9
+
+slideshow_content_module_9:
+  title: Think - Patterns Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 10
+
+slideshow_content_module_10:
+  title: Think - Patterns Conclusion
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 11
+
+slideshow_content_module_11:
+  title: Think - Reshape Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 12
+
+slideshow_content_module_12:
+  title: Feel - Mood Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 13
+
+slideshow_content_module_13:
+  title: Feel - Emotions Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 14
+
+slideshow_content_module_14:
+  title: Feel - Changes Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 15
+
+slideshow_content_module_15:
+  title: Feel - Identify Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 16
+
+slideshow_content_module_16:
+  title: Learn - Thoughts Introduction
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 17
+
+slideshow_content_module_17:
+  title: Testing adding/updating slides/lessons
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 18
+
+goals:
+  title: Goals
+  tool: goals
+  position: 1
+
+slideshow_content_module_18:
+  title: Hi 
+  tool: library
+  position: 19
+
+slideshow_content_module_19:
+  title: Lesson for tests
+  tool: library
+  type: "ContentModules::LessonModule"
+  position: 20
+
+slideshow_content_module_20:
+  title: Testing content module
+  tool: activity_tracker
+  position: 9
+
+slideshow_content_module_21:
+  title: Content module for Testing
+  tool: library
+  position: 21
+
+slideshow_content_module_22:
+  title: Second test module
+  tool: library
+  position: 22
+
+slideshow_content_module_23:
+  title: Brand new slideshow for testing
+  tool: library
+  position: 23
+
+slideshow_content_module_24:
+  title: Another testing slideshow
+  tool: library
+  position: 24
+
+slideshow_content_module_25:
+  title: Is this over kill?
+  tool: library
+  position: 25
+
+home2_landing:
+  title: Landing 
+  tool: home2
+  position: 1
+
+do_landing2:
+  title: Do landing
+  tool: activity_tracker2
+  position: 1
+
+do_awareness2:
+  title: '#1 Awareness'
+  tool: activity_tracker2
+  position: 2
+
+do_planning2:
+  title: '#2 Planning'
+  tool: activity_tracker2
+  position: 3
+
+do_doing2:
+  title: '#3 Doing'
+  tool: activity_tracker2
+  position: 4
+
+create_activity2:
+  title: 'Add a New Activity'
+  tool: activity_tracker2
+  position: 5
+
+do_your_activities_viz2: 
+  title: 'Your Activities'
+  tool: activity_tracker2
+  position: 6
+
+do_view_planned_activities2:
+  title: 'View Planned Activities'
+  tool: activity_tracker2
+  position: 7
+
+do_past_due_activities2: 
+  title: 'Activities'
+  tool: activity_tracker2
+  position: 8
+  is_viz: true
+
+think_landing2:
+  title: Think landing
+  tool: thought_tracker2
+  position: 1
+
+think_identifying2:
+  title: '#1 Identifying'
+  tool: thought_tracker2
+  position: 2
+
+think_patterns2:
+  title: '#2 Patterns'
+  tool: thought_tracker2
+  position: 3
+
+think_reshape2:
+  title: '#3 Reshape'
+  tool: thought_tracker2
+  position: 4  
+
+think_module5_2:
+  title: Add a New Harmful Thought
+  tool: thought_tracker2
+  position: 5  
+
+think_module_thoughts_table2:
+  title: Thoughts
+  tool: thought_tracker2
+  position: 6
+
+think_module_distortion_viz2:
+  title: Thought Distortions
+  tool: thought_tracker2
+  position: 7
+  is_viz: true
+
+feeling_tracker_landing2:
+  title: Feeling tracker landing
+  tool: feeling_tracker2
+  position: 1
+
+feeling_tracker_module2_2:
+  title: Tracking Your Mood and Emotions
+  tool: feeling_tracker2
+  position: 2
+
+feeling_tracker_module3_2:
+  title: 'Tracking Your Mood & Emotions'
+  tool: feeling_tracker2
+  position: 3
+
+feeling_tracker_module4_2:
+  title: '#3 Making Changes'
+  tool: feeling_tracker2
+  position: 4
+
+feeling_tracker_emotions_list_2:
+  title: "Your Recent Moods & Emotions"
+  tool: feeling_tracker2
+  position: 5
+
+messages_landing2:
+  title: Rules/Contact a Moderator
+  tool: messages2
+  position: 1
+
+library_landing2:
+  title: Lessons
+  tool: library2
+  position: 1  
+
+slideshow_content_module_1_2:
+  title: Home Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 2
+
+slideshow_content_module_2_2:
+  title: Do - Awareness Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 3
+
+slideshow_content_module_3_2:
+  title: Do - Planning Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 4
+
+slideshow_content_module_4_2:
+  title: Do - Planning Slideshow 3 of 4
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 5
+
+slideshow_content_module_5_2:
+  title: Do - Doing Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 6
+
+slideshow_content_module_6_2:
+  title: Do - Congrats
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 7
+
+slideshow_content_module_7_2:
+  title: Think - Identifying Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 8
+
+slideshow_content_module_8_2:
+  title: Think - Identifying Conclusion
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 9
+
+slideshow_content_module_9_2:
+  title: Think - Patterns Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 10
+
+slideshow_content_module_10_2:
+  title: Think - Patterns Conclusion
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 11
+
+slideshow_content_module_11_2:
+  title: Think - Reshape Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 12
+
+slideshow_content_module_12_2:
+  title: Feel - Mood Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 13
+
+slideshow_content_module_13_2:
+  title: Feel - Emotions Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 14
+
+slideshow_content_module_14_2:
+  title: Feel - Changes Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 15
+
+slideshow_content_module_15_2:
+  title: Feel - Identify Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 16
+
+slideshow_content_module_16_2:
+  title: Learn - Thoughts Introduction
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 17
+
+slideshow_content_module_17_2:
+  title: Testing adding/updating slides/lessons
+  tool: library2
+  type: "ContentModules::LessonModule"
+  position: 18

@@ -1,0 +1,12 @@
+participant1_statement1:
+  participant: participant1
+  description: it's always sunny in Philadelphia
+
+participant2_statement1:
+  participant: participant2
+  description: what about Bob?
+
+statement_g6_pt61_1:
+  participant: participant61
+  description: I'm feeling great!
+  created_at: <%= Time.zone.now - 14.days %>

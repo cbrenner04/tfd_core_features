@@ -1,0 +1,20 @@
+audio_access1:
+  participant: participant1
+  slide: audio_slide
+  end_time: <%= Time.zone.now + 2.minutes %>
+  media_type: "audio"
+  media_link: "https://intellicare.cbits.northwestern.edu/static/audio/autogenic/01_autogenic.mp3"
+
+audio_access5:
+  participant: participant5
+  slide: audio_slide
+  end_time: <%= Time.zone.now + 2.minutes %>
+  media_type: "audio"
+  media_link: "https://intellicare.cbits.northwestern.edu/static/audio/autogenic/01_autogenic.mp3"
+
+audio_access_data1:
+  participant: participant_data
+  slide: audio_slide
+  end_time: <%= Time.zone.now + 2.minutes %>
+  media_type: "audio"
+  media_link: "https://intellicare.cbits.northwestern.edu/static/audio/autogenic/01_autogenic.mp3"

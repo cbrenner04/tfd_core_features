@@ -1,0 +1,35 @@
+longing:
+  creator: participant1
+  name: longing
+
+angry:
+  creator: participant1
+  name: angry
+
+fatigued:
+  creator: participant1
+  name: fatigued
+
+anxious:
+  creator: participant1
+  name: anxious
+
+surprised:
+  creator: participant2
+  name: surprised
+
+longing_5:
+  creator: participant5
+  name: longing
+
+angry_5:
+  creator: participant5
+  name: angry
+
+fatigued_5:
+  creator: participant5
+  name: fatigued
+
+anxious_5:
+  creator: participant5
+  name: anxious

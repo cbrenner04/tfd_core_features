@@ -1,0 +1,82 @@
+participant_incentive_gp1_likes_pt1:
+  participant: participant1
+  incentive: incentive_gp1_likes
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_gp1_likes_pt2:
+  participant: participant2
+  incentive: incentive_gp1_likes
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_likes_pt3:
+  participant: participant3
+  incentive: incentive_gp1_likes
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_comments_pt1:
+  participant: participant1
+  incentive: incentive_gp1_comments
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_comments_pt2:
+  participant: participant2
+  incentive: incentive_gp1_comments
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_comments_pt3:
+  participant: participant3
+  incentive: incentive_gp1_comments
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_comments_pt_moderator:
+  participant: participant_grp1_moderator
+  incentive: incentive_gp1_comments
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_comments_pt_background:
+  participant: participant_background
+  incentive: incentive_gp1_comments
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_comments_pt_withdraw_test:
+  participant: participant_for_withdraw_test
+  incentive: incentive_gp1_comments
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_pg1_comments_pt_completed:
+  participant: participant_is_complete
+  incentive: incentive_gp1_comments
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_gp1_goal_pt3_1:
+  participant: participant3
+  incentive: incentive_gp1_goals
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_gp1_goal_pt3_2:
+  participant: participant3
+  incentive: incentive_gp1_goals
+  created_at: <%= Time.zone.now %>
+
+participant_incentive_gp9_goal_pt_test_7:
+  participant: participant_test_7
+  incentive: incentive_gp9_goals
+  is_complete: true
+  is_notification_sent: true
+  created_at: <%= Time.zone.now %>

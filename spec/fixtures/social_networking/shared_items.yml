@@ -1,0 +1,47 @@
+participant1_goal_alpha:
+  item: participant1_goal_alpha (SocialNetworking::Goal)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant1) %>
+
+p1_goal_yesterday:
+  item: pt1_goal_due_yesterday (SocialNetworking::Goal)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant1) %>
+
+pt1_goal_due_two_days_ago:
+  item: pt1_goal_due_two_days_ago (SocialNetworking::Goal)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant1) %>
+
+inactive_participant:
+  item: inactive_participant_activity1 (Activity)
+
+audio_access_shared:
+  item: audio_access1 (MediaAccessEvent)
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant1) %>
+  is_public: true
+
+shared_thought_1:
+  item: thought_g6_pt61_1 (Thought)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant61) %>
+
+shared_activity_1:
+  item: activity_g6_pt62_1 (Activity)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant62) %>
+
+shared_activity_2:
+  item: activity_g6_pt63_1 (Activity)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant63) %>
+
+shared_goal_1:
+  item: goal_g6_pt63_1 (SocialNetworking::Goal)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant63) %>
+
+shared_goal_2:
+  item: goal_g6_pt65_1 (SocialNetworking::Goal)
+  is_public: true
+  participant_id: <%= ActiveRecord::FixtureSet.identify(:participant65) %>

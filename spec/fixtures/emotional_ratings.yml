@@ -1,0 +1,59 @@
+longing:
+  participant: participant1
+  emotion: longing
+  rating: 2
+  is_positive: false
+
+angry:
+  participant: participant1
+  emotion: angry
+  rating: 4
+  is_positive: false
+
+fatigued:
+  participant: participant1
+  emotion: fatigued
+  rating: 1
+  is_positive: false
+
+anxious:
+  participant: participant1
+  emotion: anxious
+  rating: 8
+  is_positive: false
+
+surprised:
+  participant: participant2
+  emotion: surprised
+  rating: 3
+  is_positive: true
+
+longing_5:
+  participant: participant5
+  emotion: longing
+  rating: 2
+  is_positive: false
+
+angry_5:
+  participant: participant5
+  emotion: angry
+  rating: 4
+  is_positive: false
+
+fatigued_5:
+  participant: participant5
+  emotion: fatigued
+  rating: 1
+  is_positive: false
+
+anxious_5:
+  participant: participant5
+  emotion: anxious
+  rating: 8
+  is_positive: false
+
+longing_data:
+  participant: participant_data
+  emotion: longing
+  rating: 2
+  is_positive: false

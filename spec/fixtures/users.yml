@@ -1,0 +1,54 @@
+admin1:
+  email: admin1@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+  is_admin: true
+
+clinician1:
+  email: clinician1@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+user2:
+  email: user2@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+content_author1:
+  email: content_author1@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+researcher1:
+  email: researcher1@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+test_1:
+  email: test_1@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+test_2:
+  email: test_2@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+test_3:
+  email: test_3@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+test_4:
+  email: test_4@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+test_5:
+  email: test_5@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+test_6:
+  email: test_6@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+
+test_7:
+  email: test_7@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+  is_admin: true
+
+test_8:
+  email: test_8@example.com
+  encrypted_password: <%= User.new.send(:password_digest, "9ed56e32af0a77d8b60d85b3a6361054aa9306996a28eed36e95e87bef3642b3576239d978febfb2d21595a98dc4a48c7460b595d279d6f23a9d03d989bb1503") %>
+  is_admin: true

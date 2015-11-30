@@ -1,0 +1,23 @@
+profile_question1:
+  question_text: What are your hobbies?
+  group: group1
+
+profile_question2:
+  question_text: What is your favorite color?
+  group: group1
+
+profile_question3:
+  question_text: Animal, vegetable or mineral?
+  group: group1
+
+profile_question_for_group_1:
+  question_text: Group 1 profile question
+  group: group1
+
+profile_question_other_group:
+  question_text: Group 2 profile question
+  group: group2
+
+profile_question1_group3:
+  question_text: What are your hobbies?
+  group: group3
