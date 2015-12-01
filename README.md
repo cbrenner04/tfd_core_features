@@ -27,14 +27,9 @@ to the environment in which you are testing.
   `participant61` - `participant65`
 * Users: `admin1`, `clinician1`, `user2`, `content_author1`, `researcher1`
 
-See selenium fixtures in the host app for more details on the data that these
-participants and users need. Not every host app needs every participant and
-user:
-
-* [ThinkFeelDo](https://github.com/cbitstech/think_feel_do/tree/master/spec/selenium_fixtures)
-* [ThinkFeelDoSo](https://github.com/cbitstech/think_feel_do_so/tree/master/spec/selenium_fixtures)
-* [SunnySide](https://github.com/cbitstech/sunnyside/tree/master/spec/selenium_fixtures)
-* [Marigold](https://github.com/NU-CBITS/marigold/tree/master/spec/selenium_fixtures)
+See [TFD Selenium Fixtures](https://github.com/cbrenner04/tfd_selenium_fixtures)
+for more details on the data that these participants and users need. Not every
+host app needs every participant and user:
 
 You will need a file called `env_variables.rb`, which is required in the
 `.rspec` file, that houses the following environment variables. These
