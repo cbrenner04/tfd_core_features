@@ -28,7 +28,7 @@ describe 'Researcher signs in, navigates to Groups,',
   end
 
   it 'updates a group' do
-    page.execute_script('.window.scrollBy(0,500)')
+    page.execute_script('window.scrollBy(0,500)')
     click_on 'Group 8'
     click_on 'Edit'
     fill_in 'group_title', with: 'Updated Group 8'
