@@ -6,6 +6,7 @@ namespace :sunnyside do
   task :load_app_local do
     Dir.chdir('/Users/Chris/Work/sunnyside') do
       system('rake db:drop db:create db:migrate')
+      system('rake selenium_seed:app_fixtures')
       system('rake selenium_seed:with_fixtures')
       system('rake reports:generate')
       system('rake goal_tasks:share_past_due')
