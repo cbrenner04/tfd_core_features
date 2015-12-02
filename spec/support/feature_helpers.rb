@@ -122,7 +122,7 @@ end
 
 def moderator
   if ENV['tfd'] || ENV['tfdso']
-    'TFD Moderator'
+    'participant2'
   elsif ENV['sunnyside']
     'SunnySide'
   elsif ENV['marigold']
@@ -131,9 +131,7 @@ def moderator
 end
 
 def host_app
-  if ENV['tfd']
-    'ThinkFeelDo'
-  elsif ENV['tfdso']
+  if ENV['tfd'] || ENV['tfdso']
     'ThinkFeelDo'
   elsif ENV['sunnyside']
     'Sunnyside'

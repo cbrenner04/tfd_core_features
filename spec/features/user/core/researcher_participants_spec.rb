@@ -63,7 +63,8 @@ describe 'Researcher signs in, navigates to Participants,',
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_3'
     click_on 'Assign New Group'
-    select 'Group 1', from: 'membership_group_id'
+    num = ENV['tfd'] ? 5 : 1
+    select "Group #{num}", from: 'membership_group_id'
     unless ENV['tfd']
       fill_in 'membership_display_name', with: 'Tester'
     end
@@ -81,7 +82,8 @@ describe 'Researcher signs in, navigates to Participants,',
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'test_3'
       click_on 'Assign New Group'
-      select 'Group 1', from: 'membership_group_id'
+      num = ENV['tfd'] ? 5 : 1
+      select "Group #{num}", from: 'membership_group_id'
       unless ENV['tfd']
         fill_in 'membership_display_name', with: 'Tester'
       end
@@ -98,7 +100,8 @@ describe 'Researcher signs in, navigates to Participants,',
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'test_3'
       click_on 'Assign New Group'
-      select 'Group 1', from: 'membership_group_id'
+      num = ENV['tfd'] ? 5 : 1
+      select "Group #{num}", from: 'membership_group_id'
       unless ENV['tfd']
         fill_in 'membership_display_name', with: 'Tester'
       end
@@ -117,7 +120,8 @@ describe 'Researcher signs in, navigates to Participants,',
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_4'
     click_on 'Assign New Group'
-    select 'Group 1', from: 'membership_group_id'
+    num = ENV['tfd'] ? 5 : 1
+    select "Group #{num}", from: 'membership_group_id'
     unless ENV['chrome']
       fill_in 'membership_start_date',
               with: Date.today.prev_day.strftime('%Y-%m-%d')
@@ -143,7 +147,7 @@ describe 'Researcher signs in, navigates to Participants,',
 
     unless ENV['chrome']
       expect(page).to have_content "Membership Status: Active\nCurrent " \
-                                   'Group: Group 1'
+                                   "Group: Group #{num}"
     end
   end
 

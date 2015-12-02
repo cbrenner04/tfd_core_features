@@ -56,8 +56,6 @@ describe 'Active participant signs in, navigates to THINK tool,',
     page.execute_script('window.scrollBy(0,500)')
     accept_social
     find('.alert-success', text: 'Thought saved')
-    find('h1', text: 'Good work!')
-    click_on 'Next'
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 

@@ -118,9 +118,11 @@ describe 'Authorization examples - ',
 
     it 'can access correct portions of group page' do
       click_on 'Arms'
-      click_on 'Arm 1'
-      click_on 'Group 1'
-      find('p', text: 'Title: Group 1')
+      arm = ENV['tfd'] ? 3 : 1
+      click_on "Arm #{arm}"
+      num = ENV['tfd'] ? 5 : 1
+      click_on "Group #{num}"
+      find('p', text: "Title: Group #{num}")
       button_names = all('.btn').map(&:text)
       if ENV['tfd']
         expect(button_names).to match_array(ClinicianDashButtons::TFDGROUP)
@@ -180,15 +182,16 @@ describe 'Authorization examples - ',
     end
 
     it 'can access correct portions of group page' do
-      click_on 'Arms'
-      click_on 'Arm 1'
-      click_on 'Group 1'
-      find('p', text: 'Title: Group 1')
+      click_on 'Groups'
+      num = ENV['tfd'] ? 5 : 1
+      click_on "Group #{num}"
+      find('p', text: "Title: Group #{num}")
       button_names = all('.btn').map(&:text)
       if ENV['tfd']
         expect(button_names).to_not match_array(ResearcherDashButtons::TFDGROUP)
       elsif ENV['tfdso']
-        expect(button_names).to_not match_array(ResearcherDashButtons::TFDSOGROUP)
+        expect(button_names)
+          .to_not match_array(ResearcherDashButtons::TFDSOGROUP)
       elsif ENV['sunnyside'] || ENV['marigold']
         expect(button_names).to_not match_array(ResearcherDashButtons::SSGROUP)
       end
@@ -299,12 +302,11 @@ describe 'Authorization examples - ',
       end
     end
 
-    it 'has access all portions of Arm page' do
-      click_on 'Arms'
-      click_on 'Arm 1'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Group 1'
-      find('p', text: 'Title: Group 1')
+    it 'has access all portions of Group page' do
+      click_on 'Groups'
+      num = ENV['tfd'] ? 5 : 1
+      click_on "Group #{num}"
+      find('p', text: "Title: Group #{num}")
       button_names =  all('.btn').map(&:text)
       if ENV['tfd']
         expect(button_names).to match_array(SuperUserDashButtons::TFDGROUP)

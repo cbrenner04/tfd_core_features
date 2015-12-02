@@ -35,7 +35,7 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
   it 'reads a sent message' do
     click_on 'Sent'
     click_on 'I like this app'
-    find('.well', text: 'From You')
+    find('strong', text: 'From You')
     expect(page).to have_content 'This app is really helpful!'
   end
 

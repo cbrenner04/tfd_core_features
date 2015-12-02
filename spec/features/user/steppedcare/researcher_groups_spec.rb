@@ -21,7 +21,7 @@ describe 'Researcher signs in, navigates to Groups,',
   it 'creates a group' do
     click_on 'New'
     fill_in 'group_title', with: 'Testing Group'
-    select 'Arm 1', from: 'group_arm_id'
+    select 'Arm 2', from: 'group_arm_id'
     click_on 'Create'
     expect(page).to have_content 'Group was successfully created.'
   end
@@ -37,11 +37,11 @@ describe 'Researcher signs in, navigates to Groups,',
 
   it 'destroys a group' do
     click_on 'Group 9'
-    find('p', text: 'Title: Testing Group')
+    find('p', text: 'Title: Group 9')
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
     find('.alert-success', text: 'Group was successfully destroyed.')
-    expect(page).to_not have_content 'Testing Group'
+    expect(page).to_not have_content 'Group 9'
   end
 
   it 'assigns a task within a group' do

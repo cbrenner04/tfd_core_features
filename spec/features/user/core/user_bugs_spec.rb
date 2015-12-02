@@ -29,7 +29,8 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
       click_on 'Create'
       find('.alert-success', text: 'Participant was successfully created.')
       click_on 'Assign New Group'
-      select 'Group 1', from: 'membership_group_id'
+      num = ENV['tfd'] ? 5 : 1
+      select "Group #{num}", from: 'membership_group_id'
       unless ENV['tfd']
         fill_in 'membership_display_name', with: 'Bug Tester'
       end
@@ -57,7 +58,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
       find('.alert-success', text: 'Group was successfully assigned')
       unless ENV['chrome']
         expect(page).to have_content "Membership Status: Active\nCurrent " \
-                                     'Group: Group 1'
+                                     "Group: Group #{num}"
       end
     end
   end
@@ -84,11 +85,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
       click_on 'Arms'
       find('h1', text: 'Arms')
       click_on 'Arm 1'
-      if ENV['tfd']
-        click_on 'Group 1'
-      else
-        click_on 'Group 6'
-      end
+      click_on 'Group 6'
 
       click_on 'Patient Dashboard'
       within('#patients') do

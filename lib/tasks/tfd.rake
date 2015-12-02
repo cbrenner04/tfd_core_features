@@ -7,7 +7,7 @@ namespace :tfd do
     Dir.chdir('/Users/Chris/Work/think_feel_do') do
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
-      system('rake selenium_seed:with_fixtures')
+      system('tfd=true rake selenium_seed:with_fixtures')
       system('rake reports:generate')
       system('rails s')
     end

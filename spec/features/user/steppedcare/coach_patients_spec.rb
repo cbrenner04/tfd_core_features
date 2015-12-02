@@ -10,12 +10,12 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
       click_on 'Arm 1'
-      click_on 'Group 1'
-      click_on 'Patient Dashboard'
-      find('h1', text: 'Patient Dashboard')
     end
 
     it 'sees consistent # of Logins' do
+      click_on 'Group 6'
+      click_on 'Patient Dashboard'
+      find('h1', text: 'Patient Dashboard')
       within('#patients') do
         within('table#patients tr', text: 'participant61') do
           expect(page).to have_content 'participant61 0 6'
@@ -27,6 +27,9 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
     end
 
     it 'uses the table of contents in the patient report' do
+      click_on 'Group 1'
+      click_on 'Patient Dashboard'
+      find('h1', text: 'Patient Dashboard')
       select_patient('TFD-1111')
       find('h3', text: 'General Patient Info')
 
@@ -37,6 +40,9 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
     end
 
     it 'views Login Info' do
+      click_on 'Group 6'
+      click_on 'Patient Dashboard'
+      find('h1', text: 'Patient Dashboard')
       select_patient('participant61')
       within('.panel.panel-default', text: 'Login Info') do
         date1 = Date.today - 4
