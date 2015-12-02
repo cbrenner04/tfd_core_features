@@ -92,12 +92,12 @@ describe 'Individual incentives',
     end
 
     it 'checks completed behaviors and incentives of another participant' do
-      within('.col-xs-12.col-md-4.text-center', text: "#{host}") do
+      within('.col-xs-12.col-md-4.text-center', text: 'participant2') do
         within('.garden.small-garden') do
           expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
         end
 
-        click_on "#{host}"
+        click_on 'participant2'
       end
 
       find('.panel.panel-default.panel-info',
@@ -124,15 +124,5 @@ describe 'Individual incentives',
       visit ENV['Base_URL']
       sign_out('participant3')
     end
-  end
-end
-
-def host
-  if ENV['tfdso']
-    'ThinkFeelDo'
-  elsif ENV['sunnyside']
-    'SunnySide'
-  elsif ENV['marigold']
-    'Marigold'
   end
 end
