@@ -121,13 +121,7 @@ def go_to_next_page(module_text)
 end
 
 def moderator
-  if ENV['tfd'] || ENV['tfdso']
-    'participant2'
-  elsif ENV['sunnyside']
-    'SunnySide'
-  elsif ENV['marigold']
-    'Marigold'
-  end
+  'participant2'
 end
 
 def host_app
