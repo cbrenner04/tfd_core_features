@@ -18,6 +18,33 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
   end
 
+  it 'reads goal help text' do
+    click_on 'Need some help writing a goal?'
+    expect(page).to have_content 'The ACHIEVE tool helps you set goals. When' \
+                                 ' you are writing your goal, be sure to con' \
+                                 'sider the following: What is the specif' \
+                                 'ic thing you will do? Where will you do' \
+                                 ' it? When will you do it? How much a' \
+                                 'nd how often? Remember that SMART goals te' \
+                                 'nd to be the most helpful: Specific (the W' \
+                                 'hat), Measurable (helps you track your pro' \
+                                 'gress), Attainable (something you believe ' \
+                                 'you can do), Relevant (i.e., meaningful to' \
+                                 ' you, not something other people want you ' \
+                                 'to do), and Time-framed. For example, let\'' \
+                                 's say you want to work toward being less s' \
+                                 'tressed. You might start with a goal to do' \
+                                 ' more calming activities each week. From t' \
+                                 'here, you can make your goal even more hel' \
+                                 'pful by adding in the details: what the sp' \
+                                 'ecific calming activities will be, where y' \
+                                 'ou\'ll do them, when, how much and how ofte' \
+                                 'n. You would then write "I will listen to ' \
+                                 '(WHAT) at least 3 calming songs (HOW MUCH)' \
+                                 ' every evening (HOW OFTEN) after dinner (W' \
+                                 'HEN) on the couch (WHERE).'
+  end
+
   it 'creates a goal' do
     click_on '+ add a goal'
     fill_in 'new-goal-description', with: 'eat a whole pizza'

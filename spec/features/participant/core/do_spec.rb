@@ -327,7 +327,7 @@ describe 'Active participant in group 3 signs in, navigates to DO tool,',
 
   it 'visits Reviewing from viz at bottom of DO > Landing' do
     find('.Recent_Past_Activities')
-    click_on 'Edit'
+    click_on 'Review'
     expect(page).to have_content 'You said you were going to'
   end
 end
