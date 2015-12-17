@@ -22,27 +22,27 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     click_on 'Need some help writing a goal?'
     expect(page).to have_content 'The ACHIEVE tool helps you set goals. When' \
                                  ' you are writing your goal, be sure to con' \
-                                 'sider the following: What is the specif' \
-                                 'ic thing you will do? Where will you do' \
-                                 ' it? When will you do it? How much a' \
-                                 'nd how often? Remember that SMART goals te' \
-                                 'nd to be the most helpful: Specific (the W' \
-                                 'hat), Measurable (helps you track your pro' \
-                                 'gress), Attainable (something you believe ' \
-                                 'you can do), Relevant (i.e., meaningful to' \
-                                 ' you, not something other people want you ' \
-                                 'to do), and Time-framed. For example, let\'' \
-                                 's say you want to work toward being less s' \
-                                 'tressed. You might start with a goal to do' \
-                                 ' more calming activities each week. From t' \
-                                 'here, you can make your goal even more hel' \
-                                 'pful by adding in the details: what the sp' \
-                                 'ecific calming activities will be, where y' \
-                                 'ou\'ll do them, when, how much and how ofte' \
-                                 'n. You would then write "I will listen to ' \
-                                 '(WHAT) at least 3 calming songs (HOW MUCH)' \
-                                 ' every evening (HOW OFTEN) after dinner (W' \
-                                 'HEN) on the couch (WHERE).'
+                                 'sider the following: What is the specific ' \
+                                 'thing you will do? Where will you do it? W' \
+                                 'hen will you do it? How much and how often' \
+                                 '? Remember that SMART goals tend to be the' \
+                                 ' most helpful: Specific (the What), Measur' \
+                                 'able (helps you track your progress), Atta' \
+                                 'inable (something you believe you can do),' \
+                                 ' Relevant (i.e., meaningful to you, not so' \
+                                 'mething other people want you to do), and ' \
+                                 'Time-framed. For example, let’s say you wa' \
+                                 'nt to work toward being less stressed. You' \
+                                 ' might start with a goal to do more calmin' \
+                                 'g activities each week. From there, you ca' \
+                                 'n make your goal even more helpful by addi' \
+                                 'ng in the details: what the specific calmi' \
+                                 'ng activities will be, where you’ll do the' \
+                                 'm, when, how much and how often. You would' \
+                                 ' then write “I will listen to (WHAT) at le' \
+                                 'ast 3 calming songs (HOW MUCH) every eveni' \
+                                 'ng (HOW OFTEN) after dinner (WHEN) on the ' \
+                                 'couch (WHERE).'
   end
 
   it 'creates a goal' do
