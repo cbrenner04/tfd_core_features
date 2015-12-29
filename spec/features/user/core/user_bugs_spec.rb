@@ -139,6 +139,52 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
   end
 end
 
+describe 'Super User signs in,', :core, type: :feature, sauce: sauce_labs do
+  before do
+    sign_in_user(ENV['User_Email'], "#{moderator}",
+                 ENV['User_Password'])
+  end
+
+  it 'cannot access Lesson Modules or Slideshows' \
+     'in Manage Content of Arm without tools' do
+    click_on 'Arms'
+    click_on 'New'
+    fill_in 'arm_title', with: 'Test Arm for Content Management'
+    click_on 'Create'
+    expect(page).to have_content 'Arm was successfully created.'
+
+    click_on 'Manage Content'
+    if ENV['chrome'] || ENV['safari']
+      page.driver
+        .execute_script('window.confirm = function() {return true}')
+    end
+
+    click_on 'Lesson Modules'
+    unless ENV['chrome'] || ENV['safari']
+      page.accept_alert 'A learn tool has to be created in order to access' \
+                        ' this page'
+    end
+
+    expect(page).to have_content 'Title: Test Arm for Content Management'
+    expect(page).to_not have_css('h1', text: 'Listing Lesson Modules')
+
+    click_on 'Manage Content'
+    if ENV['chrome'] || ENV['safari']
+      page.driver
+        .execute_script('window.confirm = function() {return true}')
+    end
+
+    click_on 'Slideshows'
+    unless ENV['chrome'] || ENV['safari']
+      page.accept_alert 'A learn tool has to be created in order to access' \
+                        ' this page'
+    end
+
+    expect(page).to have_content 'Title: Test Arm for Content Management'
+    expect(page).to_not have_css('h1', text: 'Listing Slideshows')
+  end
+end
+
 require 'selenium-webdriver'
 require 'rspec/expectations'
 include RSpec::Matchers

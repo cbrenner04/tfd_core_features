@@ -262,7 +262,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
     it 'deletes an audio slide' do
       find('small', text: 'Brand new slideshow for testing')
       page.driver.execute_script('window.confirm = function() {return true}')
-      within('li', text: 'Slide 8') do
+      within('li', text: 'Test audio slide') do
         find('.btn.btn-danger').click
       end
 
