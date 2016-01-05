@@ -5,7 +5,7 @@ describe 'SocialNetworking Landing Page, ',
   describe 'Active participant in social arm signs in,' do
     before do
       unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'participant1',
+        sign_in_pt(ENV['Participant_Email'], 'goal_4',
                    ENV['Participant_Password'])
       end
 

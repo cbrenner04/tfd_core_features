@@ -48,7 +48,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
   it 'creates a goal' do
     click_on '+ add a goal'
     fill_in 'new-goal-description', with: 'eat a whole pizza'
-    choose '8 weeks (end of study)'
+    choose 'end of study'
     click_on 'Save'
     find('.list-group-item.ng-scope', text: 'due yesterday')
     find('.list-group-item.ng-scope', text: 'eat a whole pizza')
@@ -107,5 +107,54 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     expect(page).to_not have_content 'p1 alpha'
 
     expect(page).to have_content 'p1 gamma'
+  end
+end
+
+describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
+         :social_networking, type: :feature, sauce: sauce_labs do
+  it 'has more than 4 weeks remaining, sees all options to create a goal' do
+    sign_in_pt(ENV['PTGoal1_Email'], 'participant1', ENV['PTGoal1_Password'])
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of one week'
+    expect(page).to have_content 'end of 2 weeks'
+    expect(page).to have_content 'end of 4 weeks'
+    expect(page).to have_content 'end of study'
+  end
+
+  it 'has more than 2 weeks remaining, sees all options to create a goal' do
+    sign_in_pt(ENV['PTGoal2_Email'], 'goal_1', ENV['PTGoal2_Password'])
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of one week'
+    expect(page).to have_content 'end of 2 weeks'
+    expect(page).to have_content 'end of 4 weeks'
+    expect(page).to have_content 'end of study'
+  end
+
+  it 'has more than 1 weeks remaining, sees all options to create a goal' do
+    sign_in_pt(ENV['PTGoal3_Email'], 'goal_2', ENV['PTGoal3_Password'])
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of one week'
+    expect(page).to have_content 'end of 2 weeks'
+    expect(page).to have_content 'end of 4 weeks'
+    expect(page).to have_content 'end of study'
+  end
+
+  it 'has less than 1 weeks remaining, sees all options to create a goal' do
+    sign_in_pt(ENV['PTGoal4_Email'], 'goal_3', ENV['PTGoal4_Password'])
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of one week'
+    expect(page).to have_content 'end of 2 weeks'
+    expect(page).to have_content 'end of 4 weeks'
+    expect(page).to have_content 'end of study'
+
+    sign_out('goal_4')
   end
 end
