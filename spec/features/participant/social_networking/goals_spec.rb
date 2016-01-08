@@ -122,36 +122,52 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
   it 'has more than 4 weeks remaining, sees all options to create a goal' do
     sign_in_pt(ENV['PTGoal1_Email'], 'participant1', ENV['PTGoal1_Password'])
 
-    view_goal_options
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of one week'
+    expect(page).to have_content 'end of 2 weeks'
+    expect(page).to have_content 'end of 4 weeks'
+    expect(page).to have_content 'end of study'
   end
 
-  it 'has more than 2 weeks remaining, sees all options to create a goal' do
+  it 'has more than 2 weeks remaining, sees correct options to create a goal' do
     sign_in_pt(ENV['PTGoal2_Email'], 'goal_1', ENV['PTGoal2_Password'])
 
-    view_goal_options
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of one week'
+    expect(page).to have_content 'end of 2 weeks'
+    expect(page).to have_content 'end of study'
   end
 
-  it 'has more than 1 weeks remaining, sees all options to create a goal' do
+  it 'has more than 1 weeks remaining, sees correct options to create a goal' do
     sign_in_pt(ENV['PTGoal3_Email'], 'goal_2', ENV['PTGoal3_Password'])
 
-    view_goal_options
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of one week'
+    expect(page).to have_content 'end of study'
   end
 
-  it 'has less than 1 weeks remaining, sees all options to create a goal' do
+  it 'has less than 1 weeks remaining, sees correct options to create a goal' do
     sign_in_pt(ENV['PTGoal4_Email'], 'goal_3', ENV['PTGoal4_Password'])
 
-    view_goal_options
-
-    sign_out('goal_4')
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+    expect(page).to have_content 'end of study'
   end
-end
 
-def view_goal_options
-  visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
-  click_on '+ add a goal'
-  expect(page).to have_content 'no specific date'
-  expect(page).to have_content 'end of one week'
-  expect(page).to have_content 'end of 2 weeks'
-  expect(page).to have_content 'end of 4 weeks'
-  expect(page).to have_content 'end of study'
+  it 'is a completed participant, sees correct options to create a goal' do
+    sign_in_pt(ENV['Completed_Pt_Email'], 'goal_4', ENV['Complete_Pt_Password'])
+
+    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    click_on '+ add a goal'
+    expect(page).to have_content 'no specific date'
+
+    sign_out('completer')
+  end
 end
