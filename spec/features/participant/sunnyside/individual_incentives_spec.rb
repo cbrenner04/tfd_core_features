@@ -76,7 +76,7 @@ describe 'Individual incentives',
       visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
       click_on '+ add a goal'
       fill_in 'new-goal-description', with: 'do something fun'
-      choose '8 weeks (end of study)'
+      choose 'end of study'
       click_on 'Save'
       find('.list-group-item.ng-scope', text: 'do something fun')
       visit ENV['Base_URL']

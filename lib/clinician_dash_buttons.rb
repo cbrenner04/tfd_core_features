@@ -5,7 +5,7 @@ module ClinicianDashButtons
   TFDSOGROUP = ['Arm', 'Patient Dashboard', 'Messaging', 'Group Dashboard',
                 'Moderate', 'Manage Profile Questions']
   SSGROUP = ['ARM', 'PATIENT DASHBOARD', 'GROUP DASHBOARD', 'MESSAGING',
-             'MODERATE', 'MANAGE PROFILE QUESTIONS']
+             'MODERATE', 'MANAGE PROFILE QUESTIONS', 'MANAGE INCENTIVES']
   NOGROUP = ['Manage Tasks']
   SSNOGROUP = ['MANAGE TASKS']
 end

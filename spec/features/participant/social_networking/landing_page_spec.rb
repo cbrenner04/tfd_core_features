@@ -84,8 +84,8 @@ describe 'SocialNetworking Landing Page, ',
       find_feed_item('nudged participant1')
       page.execute_script('window.scrollBy(0,2000)')
       like("said it's always sunny in Philadelphia")
-      within first('.list-group-item.ng-scope',
-                   text: 'nudged participant1') do
+      within('.list-group-item.ng-scope',
+             text: "said it's always sunny in Philadelphia") do
         find('.likes.ng-binding').click
         expect(page).to have_content 'participant1'
       end

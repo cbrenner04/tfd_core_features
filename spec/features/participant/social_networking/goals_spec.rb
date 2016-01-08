@@ -19,7 +19,14 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
   end
 
   it 'reads goal help text' do
-    click_on 'Need some help writing a goal?'
+    begin
+      tries ||= 2
+      click_on 'Need some help writing a goal?'
+      find('.popover.fade.bottom.in')
+    rescue Capybara::ElementNotFound
+      retry unless (tries -= 1).zero?
+    end
+
     expect(page).to have_content 'The ACHIEVE tool helps you set goals. When' \
                                  ' you are writing your goal, be sure to con' \
                                  'sider the following: What is the specific ' \

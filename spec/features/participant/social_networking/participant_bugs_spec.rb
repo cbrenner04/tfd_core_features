@@ -10,7 +10,7 @@ describe 'Social Networking Bugs', :social_networking,
 
     it 'cannot select My Profile from navbar dropdown' do
       within '.navbar-collapse' do
-        click_on 'nonsocialpt'
+        find('.fa.fa-user.fa-lg')
         expect(page).to_not have_content 'My Profile'
       end
 

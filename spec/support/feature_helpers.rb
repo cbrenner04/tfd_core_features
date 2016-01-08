@@ -34,13 +34,20 @@ def sign_in_user(user, old_user, password)
 end
 
 def sign_out(display_name)
+  tries ||= 2
   within('.navbar-collapse') do
     unless page.has_text?('Sign Out')
-      find('a', text: display_name).click
+      if page.has_css?('a', text: display_name)
+        find('a', text: display_name).click
+      else
+        find('.fa.fa-user.fa-lg').click
+      end
     end
     click_on 'Sign Out'
   end
-  expect(page).to have_content 'Forgot your password?'
+  find('#participant_email')
+rescue Capybara::ElementNotFound
+  retry unless (tries -= 1).zero?
 end
 
 def choose_rating(element_id, value)
