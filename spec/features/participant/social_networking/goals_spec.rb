@@ -149,6 +149,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     click_on '+ add a goal'
     expect(page).to have_content 'no specific date'
     expect(page).to have_content 'end of one week'
+    expect(page).to_not have_content 'end of 2 weeks'
     expect(page).to have_content 'end of study'
   end
 
@@ -158,15 +159,21 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
     click_on '+ add a goal'
     expect(page).to have_content 'no specific date'
+    expect(page).to_not have_content 'end of one week'
+    expect(page).to_not have_content 'end of 2 weeks'
     expect(page).to have_content 'end of study'
   end
 
   it 'is a completed participant, sees correct options to create a goal' do
-    sign_in_pt(ENV['Completed_Pt_Email'], 'goal_4', ENV['Complete_Pt_Password'])
+    sign_in_pt(ENV['Completed_Pt_Email'], 'goal_4',
+               ENV['Completed_Pt_Password'])
 
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
     click_on '+ add a goal'
     expect(page).to have_content 'no specific date'
+    expect(page).to_not have_content 'end of one week'
+    expect(page).to_not have_content 'end of 2 weeks'
+    expect(page).to_not have_content 'end of study'
 
     sign_out('completer')
   end
