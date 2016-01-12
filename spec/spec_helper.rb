@@ -52,6 +52,10 @@ Capybara.configure do |config|
   config.default_wait_time = 5
   config.default_driver = test_driver
   config.register_driver :selenium do |app|
+    if driver == :firefox
+      Selenium::WebDriver::Firefox::Binary.path =
+        '/Applications/firefox33/Firefox.app/Contents/MacOS/firefox-bin'
+    end
     Capybara::Selenium::Driver.new(app, browser: driver)
   end
   config.page.driver.browser.manage.window.resize_to(1280, 743)

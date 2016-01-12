@@ -15,6 +15,12 @@ Chrome, or Firefox as the browser. It can also be pointed at Sauce Labs for
 even more environment possibilities. For general information on this set up,
 see this [guide](https://github.com/cbitstech/guides/tree/master/testing/selenium/selenium_webdriver).
 
+Due to dependency issues with versions of selenium-webdriver and Firefox, I
+have different versions of Firefox running on my machine. The version used for
+this suite is 33.0. I would suggest downloading this version of Firefox to the
+same directory specified in the `spec_helper`. You can download version 33.0
+[here](https://ftp.mozilla.org/pub/firefox/releases/33.0/mac/en-US/).
+
 You will need to set up the following participants and users in the host app.
 You can use the fixtures in the host app to seed this data. See the
 corresponding rake file (under `./lib/tasks/`) for the tasks that make sense
