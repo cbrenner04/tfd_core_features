@@ -30,7 +30,17 @@ describe 'Researcher signs in, navigates to Groups,',
       choose("#{app}_incentive[image_url]")
     end
 
-    click_on 'Create'
+    if driver == :firefox
+      click_on 'Create'
+      accept_alert 'Please note that you will not be able to change SCOPE and' \
+                   ' REPEATABLE. Please review and make sure everything is ' \
+                   "correct. If you'd like to proceed, hit OKAY. If you'd " \
+                   'like review/edit before proceeding, hit CANCEL.'
+    else
+      page.driver.execute_script('window.confirm = function() {return true}')
+      click_on 'Create'
+    end
+
     find('.alert-success', text: 'Incentive was successfully created.')
     expect(page).to have_css('h1', text: 'Group 9 Incentive - complete a goal')
 
@@ -38,6 +48,23 @@ describe 'Researcher signs in, navigates to Groups,',
 
     expect(page).to have_content "Description: complete a goal\nScope: " \
                                  "Individual\nRepeatable: No"
+  end
+
+  it 'is unable to edit scope and repeatable once its created' do
+    click_on 'Group 9'
+    click_on 'Manage Incentives'
+    find('h1', text: 'Group 9 Incentives')
+    find('.list-group-item', text: 'Individual, like 3 feed items').click
+    click_on 'Edit'
+    within('.form-group', text: 'Repeatable') do
+      expect { check "#{app}_incentive[is_repeatable]" }.to raise_error
+      expect(page).to have_content 'this field is no longer editable'
+    end
+
+    within('.form-group', text: 'Scope') do
+      expect { select 'Group', from: "#{app}_incentive[scope]" }.to raise_error
+      expect(page).to have_content 'this field is no longer editable'
+    end
   end
 
   it 'adds a behavior to an incentive' do
@@ -68,7 +95,17 @@ describe 'Researcher signs in, navigates to Groups,',
       choose("#{app}_incentive[image_url]")
     end
 
-    click_on 'Create'
+    if driver == :firefox
+      click_on 'Create'
+      accept_alert 'Please note that you will not be able to change SCOPE and' \
+                   ' REPEATABLE. Please review and make sure everything is ' \
+                   "correct. If you'd like to proceed, hit OKAY. If you'd " \
+                   'like review/edit before proceeding, hit CANCEL.'
+    else
+      page.driver.execute_script('window.confirm = function() {return true}')
+      click_on 'Create'
+    end
+
     find('.alert-success', text: 'Incentive was successfully created.')
     expect(page).to have_css('h1',
                              text: 'Group 9 Incentive - comment on a post')
@@ -106,7 +143,17 @@ describe 'Researcher signs in, navigates to Groups,',
       choose("#{app}_incentive[image_url]")
     end
 
-    click_on 'Create'
+    if driver == :firefox
+      click_on 'Create'
+      accept_alert 'Please note that you will not be able to change SCOPE and' \
+                   ' REPEATABLE. Please review and make sure everything is ' \
+                   "correct. If you'd like to proceed, hit OKAY. If you'd " \
+                   'like review/edit before proceeding, hit CANCEL.'
+    else
+      page.driver.execute_script('window.confirm = function() {return true}')
+      click_on 'Create'
+    end
+
     find('.alert-success', text: 'Incentive was successfully created.')
     expect(page)
       .to have_css('h1', text: 'Group 9 Incentive - read something')
@@ -213,7 +260,17 @@ describe 'Clinician signs in, navigates to Groups,',
       choose("#{app}_incentive[image_url]")
     end
 
-    click_on 'Create'
+    if driver == :firefox
+      click_on 'Create'
+      accept_alert 'Please note that you will not be able to change SCOPE and' \
+                   ' REPEATABLE. Please review and make sure everything is ' \
+                   "correct. If you'd like to proceed, hit OKAY. If you'd " \
+                   'like review/edit before proceeding, hit CANCEL.'
+    else
+      page.driver.execute_script('window.confirm = function() {return true}')
+      click_on 'Create'
+    end
+
     find('.alert-success', text: 'Incentive was successfully created.')
     expect(page).to have_css('h1', text: 'Group 9 Incentive - complete a goal')
 
@@ -221,6 +278,20 @@ describe 'Clinician signs in, navigates to Groups,',
 
     expect(page).to have_content "Description: complete a goal\nScope: " \
                                  "Individual\nRepeatable: No"
+  end
+
+  it 'is unable to edit scope and repeatable once its created' do
+    find('.list-group-item', text: 'Individual, like 3 feed items').click
+    click_on 'Edit'
+    within('.form-group', text: 'Repeatable') do
+      expect { check "#{app}_incentive[is_repeatable]" }.to raise_error
+      expect(page).to have_content 'this field is no longer editable'
+    end
+
+    within('.form-group', text: 'Scope') do
+      expect { select 'Group', from: "#{app}_incentive[scope]" }.to raise_error
+      expect(page).to have_content 'this field is no longer editable'
+    end
   end
 
   it 'adds a behavior to an incentive' do
@@ -245,7 +316,17 @@ describe 'Clinician signs in, navigates to Groups,',
       choose("#{app}_incentive[image_url]")
     end
 
-    click_on 'Create'
+    if driver == :firefox
+      click_on 'Create'
+      accept_alert 'Please note that you will not be able to change SCOPE and' \
+                   ' REPEATABLE. Please review and make sure everything is ' \
+                   "correct. If you'd like to proceed, hit OKAY. If you'd " \
+                   'like review/edit before proceeding, hit CANCEL.'
+    else
+      page.driver.execute_script('window.confirm = function() {return true}')
+      click_on 'Create'
+    end
+
     find('.alert-success', text: 'Incentive was successfully created.')
     expect(page).to have_css('h1',
                              text: 'Group 9 Incentive - comment on a post')
@@ -277,7 +358,17 @@ describe 'Clinician signs in, navigates to Groups,',
       choose("#{app}_incentive[image_url]")
     end
 
-    click_on 'Create'
+    if driver == :firefox
+      click_on 'Create'
+      accept_alert 'Please note that you will not be able to change SCOPE and' \
+                   ' REPEATABLE. Please review and make sure everything is ' \
+                   "correct. If you'd like to proceed, hit OKAY. If you'd " \
+                   'like review/edit before proceeding, hit CANCEL.'
+    else
+      page.driver.execute_script('window.confirm = function() {return true}')
+      click_on 'Create'
+    end
+
     find('.alert-success', text: 'Incentive was successfully created.')
     expect(page)
       .to have_css('h1', text: 'Group 9 Incentive - read something')

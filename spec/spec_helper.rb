@@ -16,21 +16,21 @@ end
 
 def driver
   if ENV['safari']
-    puts 'Running in Safari'
     :safari
   elsif ENV['chrome']
-    puts 'Running in Chrome'
     :chrome
   else
-    puts 'Running in Firefox'
     :firefox
   end
 end
 
+def sanity_check
+  puts "Sauce Labs is set to #{sauce_labs}\nAuto screenshots is set to " \
+       "#{!sauce_labs}\nRunning in #{driver}\nThe time is " \
+       "#{Time.now.strftime('%H:%M:%S')}"
+end
+
 def test_driver
-  puts "Sauce Labs is set to #{sauce_labs}"
-  puts "Auto screenshots is set to #{!sauce_labs}"
-  puts "The time is #{Time.now.strftime('%H:%M:%S')}"
   if sauce_labs == false
     :selenium
   else
@@ -45,6 +45,9 @@ RSpec.configure do |config|
     c.syntax = [:should, :expect]
   end
   config.profile_examples = 10
+  config.before(:suite) do
+    puts sanity_check
+  end
 end
 
 # Capybara configuration options
