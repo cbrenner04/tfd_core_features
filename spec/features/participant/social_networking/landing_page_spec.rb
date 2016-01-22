@@ -146,12 +146,7 @@ describe 'SocialNetworking Landing Page, ',
 
     it 'is able to scroll for more feed items' do
       find('.panel-title', text: 'To Do')
-      counter = 0
-      while page.has_no_css?('.list-group-item.ng-scope',
-                             text: 'nudged participant1') && counter < 15
-        page.execute_script('window.scrollTo(0,100000)')
-        counter += 1
-      end
+      find_feed_item('nudged participant1')
 
       expect(page).to have_content 'nudged participant1'
     end
@@ -163,12 +158,7 @@ describe 'SocialNetworking Landing Page, ',
       find('#hamburger_button').click
       find('a', text: 'Home').click
       find('.panel-title', text: 'To Do')
-      counter = 0
-      while page.has_no_css?('.list-group-item.ng-scope',
-                             text: 'nudged participant1') && counter < 15
-        page.execute_script('window.scrollTo(0,100000)')
-        counter += 1
-      end
+      find_feed_item('nudged participant1')
 
       expect(page).to have_content 'nudged participant1'
     end

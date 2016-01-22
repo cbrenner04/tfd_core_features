@@ -87,13 +87,9 @@ Sauce.config do |config|
     ['OS X 10.10', 'Firefox', '32'],
     ['OS X 10.10', 'Chrome', nil]
   ].sample
-
-  config.after do |example|
-    if example.exception.nil?
-      SauceWhisk::Jobs.pass_job @driver.session_id
-    else
-      SauceWhisk::Jobs.fail_job @driver.session_id
-    end
-    @driver.quit
-  end
 end
+
+# sauce_whisk configuration options
+# SauceWhisk::Jobs.pass_job job_id
+# SauceWhisk::Jobs.fail_job job_id
+# SauceWhisk::Jobs.change_status job_id, true_for_passed_false_for_failed
