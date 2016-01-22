@@ -259,15 +259,13 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       select_patient('PHQ-3')
 
       within('#phq9-container') do
-        within('tr:nth-child(2)') do
-          three_weeks_ago = Date.today - 18
-          expect(page)
-            .to have_content 'Released ' \
-                             "#{three_weeks_ago.strftime('%m/%d/%Y')}" \
-                             ' Created ' \
-                             "#{three_weeks_ago.strftime('%m/%d/%Y')}" \
-                             ' 9 * 1 2  1 2 1 1 1  '
-        end
+        three_weeks_ago = Date.today - 18
+        expect(page)
+          .to have_content 'Released ' \
+                           "#{three_weeks_ago.strftime('%m/%d/%Y')}" \
+                           ' Created ' \
+                           "#{three_weeks_ago.strftime('%m/%d/%Y')}" \
+                           ' 9 * 1 2  1 2 1 1 1  '
       end
     end
 

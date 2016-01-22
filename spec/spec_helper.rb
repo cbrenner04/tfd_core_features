@@ -45,9 +45,7 @@ RSpec.configure do |config|
     c.syntax = [:should, :expect]
   end
   config.profile_examples = 10
-  config.before(:suite) do
-    puts sanity_check
-  end
+  config.before(:suite) { sanity_check }
 end
 
 # Capybara configuration options
@@ -55,10 +53,8 @@ Capybara.configure do |config|
   config.default_wait_time = 5
   config.default_driver = test_driver
   config.register_driver :selenium do |app|
-    if driver == :firefox
-      Selenium::WebDriver::Firefox::Binary.path =
-        '/Applications/firefox33/Firefox.app/Contents/MacOS/firefox-bin'
-    end
+    Selenium::WebDriver::Firefox::Binary.path =
+      '/Applications/firefox33/Firefox.app/Contents/MacOS/firefox-bin'
     Capybara::Selenium::Driver.new(app, browser: driver)
   end
   config.page.driver.browser.manage.window.resize_to(1280, 743)
