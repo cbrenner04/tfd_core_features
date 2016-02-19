@@ -1,8 +1,8 @@
 # filename: ./spec/features/user/core/content_author_slideshows_spec.rb
 
-describe 'Content Author signs in, navigates to Slideshows tool,',
-         :superfluous, :core, type: :feature, sauce: sauce_labs do
-  before do
+feature 'Content Author, Slideshows',
+        :superfluous, :core, sauce: sauce_labs do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                    ENV['Content_Author_Password'])
@@ -14,7 +14,7 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
     click_on 'Slideshows'
   end
 
-  it 'creates a slideshow' do
+  scenario 'Content Author creates a slideshow' do
     click_on 'New'
     fill_in 'slideshow_title', with: 'Test slideshow'
     click_on 'Create'
@@ -22,7 +22,7 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
     expect(page).to have_content 'Test slideshow'
   end
 
-  it 'updates slideshow' do
+  scenario 'Content Author updates slideshow' do
     find('h1', text: 'Listing Slideshows')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Another testing slideshow'
@@ -33,7 +33,7 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
     expect(page).to have_css('a', text: 'Holy cow!')
   end
 
-  it 'destroys slideshow' do
+  scenario 'Content Author destroys slideshow' do
     find('h1', text: 'Listing Slideshows')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Is this overkill?'
@@ -43,7 +43,7 @@ describe 'Content Author signs in, navigates to Slideshows tool,',
     expect(page).to_not have_content 'Is this overkill?'
   end
 
-  it 'uses breadcrumbs to return home' do
+  scenario 'Content Author uses breadcrumbs to return home' do
     find('h1', text: 'Listing Slideshows')
     click_on 'Arm'
     within('.breadcrumb') do

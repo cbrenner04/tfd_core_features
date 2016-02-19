@@ -1,8 +1,7 @@
 # filename: ./spec/features/user/core/coach_site_messages_spec.rb
 
-describe 'Coach signs in, navigates to Site Messages tool,',
-         :core, type: :feature, sauce: sauce_labs do
-  before do
+feature 'Site Messaging', :core, sauce: sauce_labs do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
@@ -15,7 +14,7 @@ describe 'Coach signs in, navigates to Site Messages tool,',
     click_on 'Site Messaging'
   end
 
-  it 'creates and sends a new site message' do
+  scenario 'Coach creates and sends a new site message' do
     click_on 'New'
     find('p', text: "#{app_email}")
     select 'TFD-1111', from: 'site_message_participant_id'
@@ -39,7 +38,7 @@ describe 'Coach signs in, navigates to Site Messages tool,',
     end
   end
 
-  it 'reviews a previously sent site message' do
+  scenario 'Coach reviews a previously sent site message' do
     within('tr', text: 'message subject') do
       click_on 'Show'
     end
@@ -49,7 +48,7 @@ describe 'Coach signs in, navigates to Site Messages tool,',
                                  "\nBody: message body"
   end
 
-  it 'uses breadcrumbs to return to home' do
+  scenario 'Coach uses breadcrumbs to return to home' do
     click_on 'Group'
     within('.breadcrumb') do
       click_on 'Home'

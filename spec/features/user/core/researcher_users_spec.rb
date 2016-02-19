@@ -1,8 +1,7 @@
 # filename: ./spec/features/user/core/researcher_users_spec.rb
 
-describe 'Research signs in, navigates to Users,',
-         :superfluous, :core, type: :feature, sauce: sauce_labs do
-  before do
+feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
@@ -11,7 +10,7 @@ describe 'Research signs in, navigates to Users,',
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/users"
   end
 
-  it 'creates a researcher' do
+  scenario 'Researcher creates a researcher' do
     click_on 'New'
     fill_in 'user_email', with: 'researcher@test.com'
     check 'user_user_roles_researcher'
@@ -21,7 +20,7 @@ describe 'Research signs in, navigates to Users,',
                                  "\nRoles: Researcher"
   end
 
-  it 'adds a clinician role to a researcher' do
+  scenario 'Researcher adds a clinician role to a researcher' do
     click_on 'test_1@example.com'
     click_on 'Edit'
     check 'user_user_roles_clinician'
@@ -32,7 +31,7 @@ describe 'Research signs in, navigates to Users,',
     end
   end
 
-  it 'destroys a researcher' do
+  scenario 'Researcher destroys a researcher' do
     click_on 'test_2@example.com'
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
@@ -40,7 +39,7 @@ describe 'Research signs in, navigates to Users,',
     expect(page).to_not have_content 'test_2@example.com'
   end
 
-  it 'creates a clinician' do
+  scenario 'Researcher creates a clinician' do
     click_on 'New'
     fill_in 'user_email', with: 'clinician@test.com'
     check 'user_user_roles_clinician'
@@ -50,7 +49,7 @@ describe 'Research signs in, navigates to Users,',
                                  "\nRoles: Clinician"
   end
 
-  it 'adds a content author role to a clinician' do
+  scenario 'Researcher adds a content author role to a clinician' do
     click_on 'test_3@example.com'
     click_on 'Edit'
     check 'user_user_roles_content_author'
@@ -61,7 +60,7 @@ describe 'Research signs in, navigates to Users,',
     end
   end
 
-  it 'destroys a clinician' do
+  scenario 'Researcher destroys a clinician' do
     click_on 'test_4@example.com'
     find('p', text: 'Email: test_4@example.com')
     page.driver.execute_script('window.confirm = function() {return true}')
@@ -70,7 +69,7 @@ describe 'Research signs in, navigates to Users,',
     expect(page).to_not have_content 'test_4@example.com'
   end
 
-  it 'creates a content author' do
+  scenario 'Researcher creates a content author' do
     click_on 'New'
     fill_in 'user_email', with: 'contentauthor@test.com'
     check 'user_user_roles_content_author'
@@ -81,7 +80,7 @@ describe 'Research signs in, navigates to Users,',
                                  "\nRoles: Content Author"
   end
 
-  it 'adds a clinician role to a content author' do
+  scenario 'Researcher adds a clinician role to a content author' do
     click_on 'test_5@example.com'
     click_on 'Edit'
     check 'user_user_roles_clinician'
@@ -92,7 +91,7 @@ describe 'Research signs in, navigates to Users,',
     end
   end
 
-  it 'destroys a content author' do
+  scenario 'Researcher destroys a content author' do
     click_on 'test_6@example.com'
     find('p', text: 'Email: test_6@example.com')
     page.driver.execute_script('window.confirm = function() {return true}')
@@ -101,7 +100,7 @@ describe 'Research signs in, navigates to Users,',
     expect(page).to_not have_content 'test_6@example.com'
   end
 
-  it 'uses breadcrumbs to return to home' do
+  scenario 'Researcher uses breadcrumbs to return to home' do
     first('.list-group-item').click
     find('p', text: 'Super User:')
     click_on 'Users'

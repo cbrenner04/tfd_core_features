@@ -1,15 +1,15 @@
 # filename: ./spec/features/user/social_networking/researcher_groups_spec.rb
 
-describe 'Researcher signs in, navigates to Groups,',
-         :superfluous, :social_networking, type: :feature, sauce: sauce_labs do
+feature 'Researcher, Groups,',
+        :superfluous, :social_networking, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
@@ -18,7 +18,7 @@ describe 'Researcher signs in, navigates to Groups,',
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/groups"
   end
 
-  it 'creates a group' do
+  scenario 'Researcher creates a group' do
     click_on 'New'
     fill_in 'group_title', with: 'Testing Group'
     select 'Arm 1', from: 'group_arm_id'
@@ -27,7 +27,7 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content 'Group was successfully created.'
   end
 
-  it 'updates a group' do
+  scenario 'Researcher updates a group' do
     page.execute_script('window.scrollBy(0,500)')
     click_on 'Group 8'
     click_on 'Edit'
@@ -37,7 +37,7 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content 'Title: Updated Group 8'
   end
 
-  it 'updates moderator for Group 9' do
+  scenario 'Researcher updates moderator for Group 9' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Group 9'
@@ -48,7 +48,7 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content "Coach/Moderator: #{ENV['User_Email']}"
   end
 
-  it 'destroys a group' do
+  scenario 'Researcher destroys a group' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Group 10'
@@ -59,7 +59,7 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to_not have_content 'Group 10'
   end
 
-  it 'assigns a task within a group' do
+  scenario 'Researcher assigns a task within a group' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Group 11'
@@ -71,7 +71,7 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content 'Task assigned.'
   end
 
-  it 'unassigns a task within a group' do
+  scenario 'Researcher unassigns a task within a group' do
     find('h1', text: 'Groups')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Group 11'
@@ -88,7 +88,7 @@ describe 'Researcher signs in, navigates to Groups,',
     end
   end
 
-  it 'uses breadcrumbs to return to home' do
+  scenario 'Researcher uses breadcrumbs to return to home' do
     within('.breadcrumb') do
       click_on 'Home'
     end

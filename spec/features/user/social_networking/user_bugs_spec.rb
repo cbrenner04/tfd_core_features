@@ -1,16 +1,15 @@
 # filename: ./spec/features/user/social_networking/user_bugs_spec.rb
 
-describe 'User Dashboard Bugs,',
-         :social_networkting, type: :feature, sauce: sauce_labs do
-  describe 'Researcher signs in,' do
+feature 'User Dashboard Bugs', :social_networking, sauce: sauce_labs do
+  feature 'Researcher' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
@@ -19,8 +18,8 @@ describe 'User Dashboard Bugs,',
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'creates a participant, assigns a social group membership without a ' \
-       'display name, receives alert that display name is needed' do
+    scenario 'Researcher creates a participant, assigns social membership wo' \
+             ' a display name, receives alert that display name is needed' do
       click_on 'Participants'
       click_on 'New'
       fill_in 'participant_study_id', with: 'Fake'
@@ -48,15 +47,15 @@ describe 'User Dashboard Bugs,',
     end
   end
 
-  describe 'Clinician signs in,' do
+  feature 'Clinician' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
@@ -65,8 +64,8 @@ describe 'User Dashboard Bugs,',
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'navigates to Patient Dashboard, views Tool Use table, sees correct ' \
-       'data for activities' do
+    scenario 'Clinician navigates to Patient Dashboard, views Tool Use table' \
+             ', sees correct data for activities' do
       click_on 'Arms'
       find('h1', text: 'Arms')
       click_on 'Arm 1'

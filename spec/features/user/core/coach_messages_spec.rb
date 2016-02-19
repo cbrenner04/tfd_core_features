@@ -1,15 +1,14 @@
 # filename: ./spec/features/user/core/coach_messages_spec.rb
 
-describe 'Coach signs in and navigates to messages tool for Group 1',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'Coach messaging', :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
                    ENV['Clinician_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
                    ENV['Clinician_Password'])
@@ -22,19 +21,19 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     click_on 'Messages'
   end
 
-  it 'reads a received message' do
+  scenario 'Coach reads a received message' do
     click_on 'I like this app'
     find('strong', text: 'From TFD-1111')
     expect(page).to have_content 'This app is really helpful!'
   end
 
-  it 'reads a sent message' do
+  scenario 'Coach reads a sent message' do
     click_on 'Sent'
     click_on 'Try out the LEARN tool'
     expect(page).to have_content 'I think you will find it helpful.'
   end
 
-  it 'replies to a message' do
+  scenario 'Coach replies to a message' do
     click_on 'I like this app'
     click_on 'Reply to this message'
     find('#coach-message-link-selection')
@@ -52,7 +51,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     end
   end
 
-  it 'composes a message' do
+  scenario 'Coach composes a message' do
     click_on 'Compose'
     select 'TFD-1111', from: 'message_recipient_id'
     fill_in 'message_subject', with: 'Testing compose functionality'
@@ -70,7 +69,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     end
   end
 
-  it 'searches for a specific participants messages' do
+  scenario 'Coach searches for a specific participants messages' do
     select 'TFD-1111', from: 'search'
     click_on 'Search'
     find('.list-group-item', text: 'I like this app')
@@ -80,7 +79,7 @@ describe 'Coach signs in and navigates to messages tool for Group 1',
     expect(page).to_not have_content 'Check out the Introduction slideshow'
   end
 
-  it 'uses breadcrumbs to return to home' do
+  scenario 'Coach uses breadcrumbs to return to home' do
     click_on 'Group'
     within('.breadcrumb') do
       click_on 'Home'

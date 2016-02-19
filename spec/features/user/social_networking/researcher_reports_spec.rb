@@ -3,8 +3,8 @@
 require 'uuid'
 require 'fileutils'
 
-describe 'Researcher signs in,', :social_networking, type: :feature do
-  before do
+feature 'CSV Exports', :social_networking do
+  background do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
 
@@ -27,7 +27,7 @@ describe 'Researcher signs in,', :social_networking, type: :feature do
     FileUtils.rm_rf @download_dir
   end
 
-  it 'navigates to CSV reports, downloads all reports' do
+  scenario 'Researcher navigates to CSV reports, downloads all reports' do
     @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
     (14..20).each do |i|
       download_link = @driver.find_elements(class: 'list-group-item')[i]

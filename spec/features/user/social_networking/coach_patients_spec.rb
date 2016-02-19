@@ -1,10 +1,8 @@
 # filename: ./spec/features/user/social_networking/coach_patients_spec.rb
 
-describe 'Patient Dashboard - ',
-         :social_networking, type: :feature, sauce: sauce_labs do
-  describe 'Coach signs in, navigates to Patient Dashboard of ' \
-           'active patient in Group 1,' do
-    before do
+feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
+  feature 'Group 1' do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
@@ -17,7 +15,7 @@ describe 'Patient Dashboard - ',
       find('h1', text: 'Patient Dashboard')
     end
 
-    it 'views Tool Use table' do
+    scenario 'Coach views Tool Use table' do
       select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
         table_row = page.all('tr:nth-child(1)')
@@ -36,7 +34,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'uses the links within Tool Use table' do
+    scenario 'Coach uses the links within Tool Use table' do
       select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
         ['Lessons Read', 'Moods', 'Thoughts', 'Activities Planned',
@@ -47,7 +45,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'uses the links within Social Activity table' do
+    scenario 'Coach uses the links within Social Activity table' do
       select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
@@ -59,9 +57,8 @@ describe 'Patient Dashboard - ',
     end
   end
 
-  describe 'Coach signs in, navigates to Patient Dashboard ' \
-           'of active patient in Group 6,' do
-    before do
+  feature 'Group 6' do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
@@ -73,7 +70,7 @@ describe 'Patient Dashboard - ',
       click_on 'Patient Dashboard'
     end
 
-    it 'sees consistent # of Logins' do
+    scenario 'Coach sees consistent # of Logins' do
       within('#patients') do
         within('table#patients tr', text: 'participant61') do
           date1 = Date.today - 4
@@ -83,7 +80,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Social Activity' do
+    scenario 'Coach views Social Activity' do
       select_patient('participant61')
       within('.table.table-hover', text: 'Social Activity') do
         table_row = page.all('tr:nth-child(1)')
@@ -98,7 +95,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Likes' do
+    scenario 'Coach views Likes' do
       select_patient('participant61')
       within('#likes-container', text: 'Item Liked') do
         table_row = page.all('tr:nth-child(1)')
@@ -112,7 +109,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Goals' do
+    scenario 'Coach views Goals' do
       select_patient('participant61')
       within('#goals-container', text: 'Goals') do
         table_row = page.all('tr:nth-child(1)')
@@ -132,7 +129,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Comments' do
+    scenario 'Coach views Comments' do
       select_patient('participant61')
       within('#comments-container') do
         table_row = page.all('tr:nth-child(1)')
@@ -147,7 +144,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Nudges Initiated' do
+    scenario 'Coach views Nudges Initiated' do
       select_patient('participant61')
       within('.panel.panel-default', text: 'Nudges Initiated') do
         table_row = page.all('tr:nth-child(1)')
@@ -159,7 +156,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views Nudges Received' do
+    scenario 'Coach views Nudges Received' do
       select_patient('participant61')
       within('.panel.panel-default', text: 'Nudges Received') do
         table_row = page.all('tr:nth-child(1)')
@@ -171,7 +168,7 @@ describe 'Patient Dashboard - ',
       end
     end
 
-    it 'views On-My-Mind Statements' do
+    scenario 'Coach views On-My-Mind Statements' do
       select_patient('participant61')
       within('#on-my-mind-container') do
         table_row = page.all('tr:nth-child(1)')
@@ -186,10 +183,8 @@ describe 'Patient Dashboard - ',
     end
   end
 
-  describe 'Terminate Access - ' do
-    it 'Coach signs in, navigates to Patient Dashboard, ' \
-       'selects Terminate Access to end active status of participant,' \
-       ' checks to make sure profile is removed' do
+  feature 'Terminate Access' do
+    scenario 'Coach Terminates Access, checks profile is removed' do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])

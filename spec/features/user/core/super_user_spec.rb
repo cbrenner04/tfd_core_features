@@ -1,25 +1,24 @@
 # filename: ./spec/features/user/core/super_user_spec.rb
 
-describe 'Super User signs in,',
-         :superfluous, :core, type: :feature, sauce: sauce_labs do
+feature 'Super User', :superfluous, :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['User_Email'], "#{moderator}",
                    ENV['User_Password'])
     end
 
-    before do
+    background do
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
   else
-    before do
+    background do
       sign_in_user(ENV['User_Email'], "#{moderator}",
                    ENV['User_Password'])
     end
   end
 
-  it 'creates an arm' do
+  scenario 'Super user creates an arm' do
     click_on 'Arms'
     click_on 'New'
     fill_in 'arm_title', with: 'Test Arm'
@@ -27,7 +26,7 @@ describe 'Super User signs in,',
     expect(page).to have_content 'Arm was successfully created.'
   end
 
-  it 'updates an arm' do
+  scenario 'Super user updates an arm' do
     click_on 'Arms'
     click_on 'Testing Arm'
     click_on 'Edit'
@@ -37,7 +36,7 @@ describe 'Super User signs in,',
     expect(page).to have_content 'Title: Updated Testing Arm'
   end
 
-  it 'sees appropriate alert when trying to destroy an arm' do
+  scenario 'Super user sees appropriate alert when trying to destroy an arm' do
     click_on 'Arms'
     click_on 'Testing Arm 2'
     find('p', text: 'Title: Testing Arm 2')
@@ -48,7 +47,7 @@ describe 'Super User signs in,',
                                  'to remove this arm.'
   end
 
-  it 'creates a super user' do
+  scenario 'Super user creates a super user' do
     click_on 'Users'
     click_on 'New'
     fill_in 'user_email', with: 'superuser@test.com'
@@ -58,7 +57,7 @@ describe 'Super User signs in,',
     expect(page).to have_content "Super User: Yes\nEmail: superuser@test.com"
   end
 
-  it 'updates a super user' do
+  scenario 'Super user updates a super user' do
     click_on 'Users'
     click_on 'test_7@example.com'
     click_on 'Edit'
@@ -69,7 +68,7 @@ describe 'Super User signs in,',
                                  "\nRoles: Clinician"
   end
 
-  it 'destroys a super user' do
+  scenario 'Super user destroys a super user' do
     click_on 'Users'
     click_on 'test_8@example.com'
     find('p', text: 'Email: test_8@example.com')

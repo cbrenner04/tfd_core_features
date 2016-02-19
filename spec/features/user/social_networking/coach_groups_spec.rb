@@ -1,15 +1,14 @@
 # filename: ./spec/features/user/social_networking/coach_groups_spec.rb
 
-describe 'Coach signs in and navigates to Group Dashboard of Group 6',
-         :social_networking, type: :feature, sauce: sauce_labs do
+feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
@@ -21,7 +20,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     click_on 'Group Dashboard'
   end
 
-  it 'views Group Summary' do
+  scenario 'Coach views Group Summary' do
     within('.panel.panel-default', text: 'Group Summary') do
       data = ['logins  7 10 4 3 5 0 0 0', 'thoughts  1 0 1 1 1 0 0 0',
               'activities past  1 0 1 0 0 0 0 0',
@@ -36,7 +35,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'uses the links within Group Summary' do
+  scenario 'Coach uses the links within Group Summary' do
     within('.panel.panel-default', text: 'Group Summary') do
       %w(logins thoughts activities\ past activities\ future
          on\ the\ mind\ statements comments goals likes).each do |tool|
@@ -45,7 +44,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Logins by Week' do
+  scenario 'Coach views Logins by Week' do
     within('.panel.panel-default', text: 'Logins By Week') do
       data = ['First 4 3 0 2 2 0 0 0', 'Second  2 1 1 1 2 0 0 0',
               'Third  1 0 1 0 1 0 0 0', 'Fourth  0 6 1 0 0 0 0 0',
@@ -56,7 +55,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Lesson View Summary' do
+  scenario 'Coach views Lesson View Summary' do
     within('.panel.panel-default', text: 'Lesson View Summary') do
       row = ['Do - Awareness Introduction', 'Do - Planning Introduction',
              'Think - Identifying Conclusion']
@@ -81,7 +80,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Thoughts' do
+  scenario 'Coach views Thoughts' do
     within('.panel.panel-default', text: 'Group Summary') do
       click_on 'thoughts'
     end
@@ -107,7 +106,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Activities Past' do
+  scenario 'Coach views Activities Past' do
     within('.panel.panel-default', text: 'Group Summary') do
       click_on 'activities past'
     end
@@ -136,7 +135,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Activities Future' do
+  scenario 'Coach views Activities Future' do
     within('.panel.panel-default', text: 'Group Summary') do
       click_on 'activities future'
     end
@@ -163,7 +162,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views On-My-Mind Statements' do
+  scenario 'Coach views On-My-Mind Statements' do
     within('.panel.panel-default', text: 'Group Summary') do
       click_on 'on the mind statements'
     end
@@ -181,7 +180,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Comments' do
+  scenario 'Coach views Comments' do
     within('.panel.panel-default', text: 'Group Summary') do
       click_on 'comments'
     end
@@ -208,7 +207,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Goals' do
+  scenario 'Coach views Goals' do
     within('.panel.panel-default', text: 'Group Summary') do
       click_on 'goals'
     end
@@ -245,7 +244,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'views Likes' do
+  scenario 'Coach views Likes' do
     within('.panel.panel-default', text: 'Group Summary') do
       begin
         tries ||= 3
@@ -284,7 +283,7 @@ describe 'Coach signs in and navigates to Group Dashboard of Group 6',
     end
   end
 
-  it 'uses breadcrumbs to return to home' do
+  scenario 'Coach uses breadcrumbs to return to home' do
     click_on 'Group'
     find('p', text: 'Title: Group 6')
     within('.breadcrumb') do

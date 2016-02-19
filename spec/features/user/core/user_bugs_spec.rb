@@ -1,15 +1,15 @@
 # filename: ./spec/features/user/core/user_bugs_spec.rb
 
-describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
-  describe 'Researcher signs in,' do
+feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
+  feature 'Researcher' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
@@ -18,8 +18,8 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'creates a participant, assigns a group membership, sees correct ' \
-       'calculation of end date' do
+    scenario 'Researcher creates a participant, assigns a group membership, ' \
+             'sees correct calculation of end date' do
       click_on 'Participants'
       click_on 'New'
       fill_in 'participant_study_id', with: 'bug_test_pt'
@@ -63,15 +63,15 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
     end
   end
 
-  describe 'Clinician signs in,' do
+  feature 'Clinician, Patient Dashboard' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
@@ -80,8 +80,7 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'navigates to Patient Dashboard, see consistent # of Logins in ' \
-       'listing page and Patient Report' do
+    scenario 'Clinician sees consistent Logins in listing, Patient Report' do
       click_on 'Arms'
       find('h1', text: 'Arms')
       click_on 'Arm 1'
@@ -108,8 +107,8 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
     end
   end
 
-  describe 'Participant reads lesson' do
-    it 'Clinician sees correct duration calculation' do
+  feature 'Clincian, Patient Dashboard' do
+    scenario 'Clinician sees correct duration calculation' do
       sign_in_pt(ENV['Participant_Email'], "#{moderator}",
                  ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
@@ -139,14 +138,14 @@ describe 'User Dashboard Bugs,', :core, type: :feature, sauce: sauce_labs do
   end
 end
 
-describe 'Super User signs in,', :core, type: :feature, sauce: sauce_labs do
-  before do
+feature 'Super User', :core, sauce: sauce_labs do
+  background do
     sign_in_user(ENV['User_Email'], "#{moderator}",
                  ENV['User_Password'])
   end
 
-  it 'cannot access Lesson Modules or Slideshows' \
-     'in Manage Content of Arm without tools' do
+  scenario 'Super User cannot access Lesson Modules or Slideshows' \
+           'in Manage Content of Arm without tools' do
     click_on 'Arms'
     click_on 'New'
     fill_in 'arm_title', with: 'Test Arm for Content Management'
@@ -191,8 +190,8 @@ include RSpec::Matchers
 require 'uuid'
 require 'fileutils'
 
-describe 'Researcher signs in,', :core, type: :feature do
-  before do
+feature 'CSV Exports', :core, type: :feature do
+  scenario do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
 
@@ -215,7 +214,8 @@ describe 'Researcher signs in,', :core, type: :feature do
     FileUtils.rm_rf @download_dir
   end
 
-  it 'navigates to CSV reports, downloads CSVs, does not receive exception' do
+  scenario 'Researcher navigates to CSV reports, downloads CSVs, does not ' \
+           'receive exception' do
     @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
     (12..13).each do |i|
       download_link = @driver.find_elements(class: 'list-group-item')[i]

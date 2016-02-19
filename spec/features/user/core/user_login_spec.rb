@@ -1,16 +1,16 @@
 # filename: ./spec/features/user/core/user_login_spec.rb
 
-require_relative '../../../../lib/clinician_dash_buttons.rb'
-require_relative '../../../../lib/researcher_dash_buttons.rb'
-require_relative '../../../../lib/super_user_dash_buttons.rb'
+require './lib/content/clinician_dash_buttons'
+require './lib/content/researcher_dash_buttons'
+require './lib/content/super_user_dash_buttons'
 
-describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
-  it 'is an authorized user, signs in' do
+feature 'User login', :core, sauce: sauce_labs do
+  scenario 'User signs in' do
     sign_in_user(ENV['User_Email'], "#{moderator}", ENV['User_Password'])
     expect(page).to have_content 'Signed in successfully'
   end
 
-  it 'is not an authorized user, fails to sign in' do
+  scenario 'Visitor with bad creds fails to sign in' do
     visit "#{ENV['Base_URL']}/users/sign_in"
 
     if ENV['safari']
@@ -26,13 +26,13 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
     expect(page).to have_content 'Invalid email address or password'
   end
 
-  it 'is not signed, visits a specific page' do
+  scenario 'Visitor visits a specific page' do
     visit ENV['Base_URL'] + '/think_feel_do_dashboard'
     expect(page).to have_content 'You need to sign in or sign up before ' \
                                  'continuing'
   end
 
-  it 'is not signed in, views the intro slideshow' do
+  scenario 'Visitor views the intro slideshow' do
     visit "#{ENV['Base_URL']}/users/sign_in"
     click_on "Introduction to #{host_app}"
     click_on 'Done'
@@ -40,7 +40,7 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
                                  'continuing.'
   end
 
-  it 'uses the forgot password functionality' do
+  scenario 'User uses the forgot password functionality' do
     visit "#{ENV['Base_URL']}/users/sign_in"
     click_on 'Forgot your password?'
     find('h2', text: 'Forgot your password?')
@@ -55,7 +55,7 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
                                  'password in a few minutes.'
   end
 
-  it 'is an authorized super user, uses brand link to return to home page' do
+  scenario 'Super user uses brand link to return to home page' do
     if ENV['safari']
       visit "#{ENV['Base_URL']}/users/sign_in"
     else
@@ -74,17 +74,16 @@ describe 'Visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   end
 end
 
-describe 'Authorization examples - ',
-         :core, type: :feature, sauce: sauce_labs do
-  describe 'An authorized clinician signs in,' do
+feature 'Authorization', :core, sauce: sauce_labs do
+  feature 'Clinician' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
@@ -93,7 +92,7 @@ describe 'Authorization examples - ',
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'sees correct landing page' do
+    scenario 'Clinician sees correct landing page' do
       find('.list-group-item', text: 'Arms')
       expect(page)
         .to_not have_content "Groups\nCreate, update, delete, and associate " \
@@ -105,7 +104,7 @@ describe 'Authorization examples - ',
                              "\nCSV Reports\nDownload data via csv."
     end
 
-    it 'cannot manage content' do
+    scenario 'Clinician cannot manage content' do
       click_on 'Arms'
       click_on 'Arm 1'
       find('p', text: 'Title: Arm 1')
@@ -116,7 +115,7 @@ describe 'Authorization examples - ',
       end
     end
 
-    it 'can access correct portions of group page' do
+    scenario 'Clinician can access correct portions of group page' do
       click_on 'Arms'
       arm = ENV['tfd'] ? 3 : 1
       click_on "Arm #{arm}"
@@ -140,15 +139,15 @@ describe 'Authorization examples - ',
     end
   end
 
-  describe 'An authorized researcher signs in,' do
+  feature 'Researcher' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
@@ -157,7 +156,7 @@ describe 'Authorization examples - ',
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'sees correct landing page' do
+    scenario 'Researcher sees correct landing page' do
       expect(page)
         .to have_content "Arms\nNavigate to groups and participants " \
                          "through arms.\nGroups\nCreate, update, " \
@@ -170,7 +169,7 @@ describe 'Authorization examples - ',
                          "Reports\nDownload data via csv."
     end
 
-    it 'cannot manage content' do
+    scenario 'Researcher cannot manage content' do
       click_on 'Arms'
       click_on 'Arm 1'
       find('p', text: 'Title: Arm 1')
@@ -181,7 +180,7 @@ describe 'Authorization examples - ',
       end
     end
 
-    it 'can access correct portions of group page' do
+    scenario 'Researcher can access correct portions of group page' do
       click_on 'Groups'
       num = ENV['tfd'] ? 5 : 1
       click_on "Group #{num}"
@@ -206,15 +205,15 @@ describe 'Authorization examples - ',
     end
   end
 
-  describe 'An authorized content author signs in,' do
+  feature 'Content Author' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                      ENV['Content_Author_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                      ENV['Content_Author_Password'])
@@ -223,7 +222,7 @@ describe 'Authorization examples - ',
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'sees correct landing page' do
+    scenario 'Content Author sees correct landing page' do
       expect(page)
         .to_not have_content "Groups\nCreate, update, delete, and " \
                              'associate groups with arms along with ' \
@@ -236,7 +235,7 @@ describe 'Authorization examples - ',
                              'via csv.'
     end
 
-    it 'can manage content' do
+    scenario 'Content Author can manage content' do
       click_on 'Arms'
       click_on 'Arm 1'
       find('p', text: 'Title: Arm 1')
@@ -250,15 +249,15 @@ describe 'Authorization examples - ',
     end
   end
 
-  describe 'An authorized super user signs in,' do
+  feature 'Super User' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_user(ENV['User_Email'], "#{moderator}",
                      ENV['User_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['User_Email'], "#{moderator}",
                      ENV['User_Password'])
@@ -267,7 +266,7 @@ describe 'Authorization examples - ',
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
     end
 
-    it 'sees correct landing page' do
+    scenario 'Super User sees correct landing page' do
       expect(page)
         .to have_content "Arms\nNavigate to groups and participants " \
                          "through arms.\nGroups\nCreate, update, " \
@@ -280,7 +279,7 @@ describe 'Authorization examples - ',
                          "Reports\nDownload data via csv."
     end
 
-    it 'can add arms' do
+    scenario 'Super User can add arms' do
       click_on 'Arms'
       find('.list-group-item', text: 'Arm 1')
       if ENV['tfd'] || ENV['tfdso']
@@ -290,7 +289,7 @@ describe 'Authorization examples - ',
       end
     end
 
-    it 'has access all portions of Arm page' do
+    scenario 'Super User has access all portions of Arm page' do
       click_on 'Arms'
       click_on 'Arm 1'
       find('p', text: 'Arm 1')
@@ -302,7 +301,7 @@ describe 'Authorization examples - ',
       end
     end
 
-    it 'has access all portions of Group page' do
+    scenario 'Super User has access all portions of Group page' do
       click_on 'Groups'
       num = ENV['tfd'] ? 5 : 1
       click_on "Group #{num}"

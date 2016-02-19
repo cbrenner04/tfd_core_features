@@ -1,9 +1,9 @@
 # filename: ./spec/features/user/core/content_author_slides_spec.rb
 
-describe 'Content Author signs in, navigates to Arm 1,',
-         :superfluous, :core, type: :feature, sauce: sauce_labs do
-  describe 'navigates to Lesson Modules, selects a lesson,' do
-    before do
+feature 'Content Author, Slides,',
+        :superfluous, :core, type: :feature, sauce: sauce_labs do
+  feature 'Lesson Modules' do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                      ENV['Content_Author_Password'])
@@ -18,7 +18,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       click_on 'Testing adding/updating slides/lessons'
     end
 
-    it 'creates a slide' do
+    scenario 'Content Author creates a slide' do
       click_on 'Add Slide'
       fill_in 'slide_title', with: 'Test slide 2'
       uncheck 'slide[is_title_visible]'
@@ -31,7 +31,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Test slide 2'
     end
 
-    it 'updates a slide' do
+    scenario 'Content Author updates a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       within('li', text: 'Slide 3') do
         find('.btn.btn-default').click
@@ -42,12 +42,12 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Successfully updated slide for lesson'
     end
 
-    it 'views a slide' do
+    scenario 'Content Author views a slide' do
       click_on 'Slide 2'
       expect(page).to have_content 'Log in once a day'
     end
 
-    it 'destroys a slide' do
+    scenario 'Content Author destroys a slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
       within('li', text: 'Slide 5') do
@@ -58,7 +58,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to_not have_content 'Slide 5'
     end
 
-    it 'adds a video slide' do
+    scenario 'Content Author adds a video slide' do
       click_on 'Add Video Slide'
       fill_in 'slide_title', with: 'Test video slide 2'
       fill_in 'slide_options_vimeo_id', with: '111087687'
@@ -70,7 +70,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Test video slide 2'
     end
 
-    it 'updates a video slide' do
+    scenario 'Content Author updates a video slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       within('li', text: 'Slide 4') do
         find('.btn.btn-default').click
@@ -82,12 +82,12 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Successfully updated slide for lesson'
     end
 
-    it 'views a video slide' do
+    scenario 'Content Author views a video slide' do
       click_on 'Slide 4'
       expect(page).to have_css('.responsive-video')
     end
 
-    it 'destroys a video slide' do
+    scenario 'Content Author destroys a video slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
       within('li', text: 'Slide 6') do
@@ -98,7 +98,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to_not have_content 'Slide 6'
     end
 
-    it 'adds an audio slide' do
+    scenario 'Content Author adds an audio slide' do
       click_on 'Add Audio Slide'
       fill_in 'slide_title', with: 'Test audio slide'
       fill_in 'slide_options_audio_url', with: ENV['Audio_File']
@@ -109,7 +109,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Test audio slide'
     end
 
-    it 'updates an audio slide' do
+    scenario 'Content Author updates an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       within('li', text: 'Slide 7') do
         find('.btn.btn-default').click
@@ -122,12 +122,12 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Successfully updated slide for lesson'
     end
 
-    it 'views an audio slide' do
+    scenario 'Content Author views an audio slide' do
       click_on 'Slide 7'
       expect(page).to have_css('.responsive-audio')
     end
 
-    it 'deletes an audio slide' do
+    scenario 'Content Author deletes an audio slide' do
       find('small', text: 'Testing adding/updating slides/lessons')
       page.driver.execute_script('window.confirm = function() {return true}')
       within('li', text: 'Slide 8') do
@@ -139,8 +139,8 @@ describe 'Content Author signs in, navigates to Arm 1,',
     end
   end
 
-  describe 'navigates to Slideshows, selects a slideshow,' do
-    before do
+  feature 'Slideshows' do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                      ENV['Content_Author_Password'])
@@ -155,7 +155,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       click_on 'Brand new slideshow for testing'
     end
 
-    it 'creates a slide' do
+    scenario 'Content Author creates a slide' do
       click_on 'Add Slide'
       fill_in 'slide_title', with: 'Test slide 2'
       uncheck 'slide[is_title_visible]'
@@ -167,7 +167,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Test slide 2'
     end
 
-    it 'updates a slide' do
+    scenario 'Content Author updates a slide' do
       find('small', text: 'Brand new slideshow for testing')
       within('li', text: 'Slide 3') do
         find('.btn.btn-default').click
@@ -178,12 +178,12 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_css('small', text: 'Brand new slideshow for testing')
     end
 
-    it 'views a slide' do
+    scenario 'Content Author views a slide' do
       click_on 'Slide 2'
       expect(page).to have_content 'Log in once a day'
     end
 
-    it 'destroys a slide' do
+    scenario 'Content Author destroys a slide' do
       find('small', text: 'Brand new slideshow for testing')
       page.driver.execute_script('window.confirm = function() {return true}')
       within('li', text: 'Slide 5') do
@@ -193,7 +193,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to_not have_content 'Slide 5'
     end
 
-    it 'adds a video slide' do
+    scenario 'Content Author adds a video slide' do
       click_on 'Add Video Slide'
       fill_in 'slide_title', with: 'Test video slide 2'
       fill_in 'slide_options_vimeo_id', with: '111087687'
@@ -204,7 +204,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Test video slide 2'
     end
 
-    it 'updates a video slide' do
+    scenario 'Content Author updates a video slide' do
       find('small', text: 'Brand new slideshow for testing')
       within('li', text: 'Slide 4') do
         find('.btn.btn-default').click
@@ -216,12 +216,12 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_css('small', text: 'Brand new slideshow for testing')
     end
 
-    it 'views a video slide' do
+    scenario 'Content Author views a video slide' do
       click_on 'Slide 4'
       expect(page).to have_css('.responsive-video')
     end
 
-    it 'destroys a video slide' do
+    scenario 'Content Author destroys a video slide' do
       find('small', text: 'Brand new slideshow for testing')
       page.driver.execute_script('window.confirm = function() {return true}')
       within('li', text: 'Slide 6') do
@@ -231,7 +231,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to_not have_content 'Slide 6'
     end
 
-    it 'adds an audio slide' do
+    scenario 'Content Author adds an audio slide' do
       click_on 'Add Audio Slide'
       fill_in 'slide_title', with: 'Test audio slide'
       fill_in 'slide_options_audio_url', with: ENV['Audio_File']
@@ -241,7 +241,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_content 'Test audio slide'
     end
 
-    it 'updates an audio slide' do
+    scenario 'Content Author updates an audio slide' do
       find('small', text: 'Brand new slideshow for testing')
       within('li', text: 'Slide 7') do
         find('.btn.btn-default').click
@@ -254,12 +254,12 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to have_css('small', text: 'Brand new slideshow for testing')
     end
 
-    it 'views an audio slide' do
+    scenario 'Content Author views an audio slide' do
       click_on 'Slide 7'
       expect(page).to have_css('.responsive-audio')
     end
 
-    it 'deletes an audio slide' do
+    scenario 'Content Author deletes an audio slide' do
       find('small', text: 'Brand new slideshow for testing')
       page.driver.execute_script('window.confirm = function() {return true}')
       within('li', text: 'Test audio slide') do
@@ -269,7 +269,7 @@ describe 'Content Author signs in, navigates to Arm 1,',
       expect(page).to_not have_content 'Test audio slide'
     end
 
-    it 'adds and removes table of contents' do
+    scenario 'Content Author adds and removes table of contents' do
       click_on 'Add Table of Contents'
       within '.ui-sortable' do
         expect(page).to have_content 'Table of Contents'

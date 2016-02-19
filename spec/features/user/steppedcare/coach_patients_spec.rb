@@ -1,8 +1,8 @@
 # filename ./spec/features/user/steppedcare/coach_patients_spec.rb
 
-describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
-  describe 'navigates to Patient Dashboard of active patient in Group 1,' do
-    before do
+feature 'Coach', :tfd, sauce: sauce_labs do
+  feature 'Patient Dashboard' do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
@@ -12,7 +12,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       click_on 'Arm 1'
     end
 
-    it 'sees consistent # of Logins' do
+    scenario 'Coach sees consistent # of Logins' do
       click_on 'Group 6'
       click_on 'Patient Dashboard'
       find('h1', text: 'Patient Dashboard')
@@ -26,7 +26,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'uses the table of contents in the patient report' do
+    scenario 'Coach uses the table of contents in the patient report' do
       click_on 'Group 1'
       click_on 'Patient Dashboard'
       find('h1', text: 'Patient Dashboard')
@@ -39,7 +39,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'views Login Info' do
+    scenario 'Coach views Login Info' do
       click_on 'Group 6'
       click_on 'Patient Dashboard'
       find('h1', text: 'Patient Dashboard')
@@ -56,9 +56,9 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
   end
 end
 
-describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
-  describe 'navigates to Patient Dashboard of active patient in Group 1,' do
-    before do
+feature 'Coach', :tfd, sauce: sauce_labs do
+  feature 'Patient Dashboard, PHQ Group' do
+    background do
       unless ENV['safari']
         sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
@@ -71,7 +71,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       find('h1', text: 'Patient Dashboard')
     end
 
-    it 'checks details for stepping' do
+    scenario 'Coach checks details for stepping' do
       within('#patients') do
         within first('tr', text: 'PHQ-1') do
           click_on 'Details'
@@ -98,7 +98,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'does not see a suggestion for a participant in week 3' do
+    scenario 'Coach does not see a suggestion for a participant in week 3' do
       within('#patients') do
         within('tr', text: 'PHQ-6') do
           date1 = Date.today - 4
@@ -110,7 +110,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to step for a participant in week 4' do
+    scenario 'Coach sees a suggestion to step for a participant in week 4' do
       within('#patients') do
         within('tr', text: 'PHQ-7') do
           date1 = Date.today - 4
@@ -121,7 +121,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to stay for a participant in week 4' do
+    scenario 'Coach sees a suggestion to stay for a participant in week 4' do
       within('#patients') do
         within('tr', text: 'PHQ-8') do
           date1 = Date.today - 4
@@ -132,7 +132,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to discontinue for a participant in week 4' do
+    scenario 'Coach sees discontinue suggestion for participant in week 4' do
       within('#patients') do
         within('tr', text: 'PHQ-9') do
           date1 = Date.today - 4
@@ -144,7 +144,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to step for a participant in week 8' do
+    scenario 'Coach sees a suggestion to step for a participant in week 8' do
       within('#patients') do
         within('tr', text: 'PHQ-10') do
           date1 = Date.today - 4
@@ -155,7 +155,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to stay for a participant in week 8' do
+    scenario 'Coach sees a suggestion to stay for a participant in week 8' do
       within('#patients') do
         within('tr', text: 'PHQ-11') do
           date1 = Date.today - 4
@@ -166,7 +166,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to discontinue for a participant in week 9' do
+    scenario 'Coach sees discontinue suggestion for participant in week 9' do
       within('#patients') do
         within('tr', text: 'PHQ-12') do
           date1 = Date.today - 4
@@ -178,7 +178,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to step for a participant in week 9' do
+    scenario 'Coach sees a suggestion to step for a participant in week 9' do
       within('#patients') do
         within('tr', text: 'PHQ-13') do
           date1 = Date.today - 4
@@ -189,7 +189,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to stay for a participant in week 9' do
+    scenario 'Coach sees a suggestion to stay for a participant in week 9' do
       within('#patients') do
         within('tr', text: 'PHQ-14') do
           date1 = Date.today - 4
@@ -200,7 +200,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to step for a participant in week 10' do
+    scenario 'Coach sees a suggestion to step for a participant in week 10' do
       within('#patients') do
         within('tr', text: 'PHQ-15') do
           date1 = Date.today - 4
@@ -211,7 +211,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'sees a suggestion to stay for a participant in week 10' do
+    scenario 'Coach sees a suggestion to stay for a participant in week 10' do
       within('#patients') do
         within('tr', text: 'PHQ-16') do
           date1 = Date.today - 4
@@ -222,7 +222,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'steps a participant' do
+    scenario 'Coach steps a participant' do
       within('#patients') do
         within('table#patients tr', text: 'PHQ-2') do
           if ENV['chrome'] || ENV['safari']
@@ -255,7 +255,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'views PHQ9' do
+    scenario 'Coach views PHQ9' do
       select_patient('PHQ-3')
 
       within('#phq9-container') do
@@ -269,7 +269,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'views PHQ9 management tool' do
+    scenario 'Coach views PHQ9 management tool' do
       select_patient('PHQ-4')
       within('.list-group') do
         find('a', text: 'PHQ9').click
@@ -279,7 +279,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       expect(page).to have_css('h2', text: 'PHQ assessments for PHQ-4')
     end
 
-    it 'creates a new PHQ9 assessment' do
+    scenario 'Coach creates a new PHQ9 assessment' do
       select_patient('PHQ-4')
       within('.list-group') do
         find('a', text: 'PHQ9').click
@@ -302,7 +302,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'manages an existing PHQ9 assessment, Most Recent stays the same' do
+    scenario 'Coach manages an existing PHQ9, Most Recent stays the same' do
       within('#patients') do
         within first('tr', text: 'PHQ-1') do
           date1 = Date.today - 4
@@ -343,7 +343,7 @@ describe 'Coach signs in,', :tfd, type: :feature, sauce: sauce_labs do
       end
     end
 
-    it 'deletes an existing PHQ9 assessment' do
+    scenario 'Coach deletes an existing PHQ9 assessment' do
       select_patient('PHQ-5')
 
       within('.list-group') do

@@ -1,15 +1,14 @@
 # filename: ./spec/features/user/core/content_author_lessons_spec.rb
 
-describe 'Content Author signs in , navigates to Lesson Modules tool,',
-         :superfluous, :core, type: :feature, sauce: sauce_labs do
+feature 'Content Author, Lessons', :superfluous, :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                    ENV['Content_Author_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                    ENV['Content_Author_Password'])
@@ -21,7 +20,7 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
     click_on 'Lesson Modules'
   end
 
-  it 'creates a new lesson' do
+  scenario 'Content Author creates a new lesson' do
     click_on 'New'
     fill_in 'lesson_title', with: 'Test lesson'
     fill_in 'lesson_position', with: '19'
@@ -29,7 +28,7 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
     expect(page).to have_content 'Successfully created lesson'
   end
 
-  it 'updates title of a lesson' do
+  scenario 'Content Author updates title of a lesson' do
     click_on 'Do - Doing Introduction'
     find('a', text: 'Welcome back!')
     page.all('.btn.btn-default')[1].click
@@ -42,7 +41,7 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
   # this example is commented out as it fails most runs
   # drag_to doesn't play nice with sortable list
   #
-  # it 'updates position of lessons by using drag and drop sorting' do
+  # scenario 'Content author updates lessons position by drag/drop sorting' do
   #   lesson_value = find('tr:nth-child(11)').text
   #   lesson = page.all('.fa.fa-sort.fa-lg')
   #   lesson[11].drag_to(lesson[3])
@@ -52,7 +51,7 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
   #   end
   # end
 
-  it 'destroys lesson' do
+  scenario 'Content Author destroys lesson' do
     find('h1', text: 'Listing Lesson Modules')
     page.execute_script('window.scrollTo(0,5000)')
     within('tr', text: 'Lesson for tests') do
@@ -64,7 +63,7 @@ describe 'Content Author signs in , navigates to Lesson Modules tool,',
     expect(page).to_not have_content 'Lessons for tests'
   end
 
-  it 'uses breadcrumbs to return home' do
+  scenario 'Content Author uses breadcrumbs to return home' do
     find('h1', text: 'Listing Lesson Modules')
     click_on 'Arm'
     within('.breadcrumb') do

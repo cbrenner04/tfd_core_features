@@ -1,8 +1,8 @@
 # filename: ./spec/features/user/core/content_author_modules_spec.rb
 
-describe 'Content Author signs in, visits Content Modules tool,',
-         :superfluous, :core, type: :feature, sauce: sauce_labs do
-  before do
+feature 'Content Author, Content Modules',
+        :superfluous, :core, sauce: sauce_labs do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                    ENV['Content_Author_Password'])
@@ -14,7 +14,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
     click_on 'Content Modules'
   end
 
-  it 'creates a new module' do
+  scenario 'Content Author creates a new module' do
     click_on 'New'
     fill_in 'content_module_title', with: 'Test content module'
     select 'THINK', from: 'content_module_bit_core_tool_id'
@@ -23,7 +23,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
     expect(page).to have_content 'Content module was successfully created.'
   end
 
-  it 'edits a module' do
+  scenario 'Content Author edits a module' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
     go_to_next_page('Testing content module')
@@ -37,7 +37,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
     expect(page).to have_content 'Tool: THINK'
   end
 
-  it 'destroys a module' do
+  scenario 'Content Author destroys a module' do
     go_to_next_page('Content module for Testing')
     click_on 'Content module for Testing'
     page.driver.execute_script('window.confirm = function() {return true}')
@@ -48,7 +48,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
     expect(page).to_not have_content 'Content module for Testing'
   end
 
-  it 'creates a provider' do
+  scenario 'Content Author creates a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
     go_to_next_page('Home Introduction')
@@ -71,7 +71,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
                                  " viewing: true\nSlideshow: Home Intro"
   end
 
-  it 'updates a provider' do
+  scenario 'Content Author updates a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
     go_to_next_page('Home Introduction')
@@ -86,7 +86,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
     expect(page).to have_content 'Position: 10 / 10'
   end
 
-  it 'destroys a provider' do
+  scenario 'Content Author destroys a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
     go_to_next_page('Second test module')
@@ -100,7 +100,7 @@ describe 'Content Author signs in, visits Content Modules tool,',
                    text: 'Content provider was successfully destroyed')
   end
 
-  it 'uses breadcrumbs to return home' do
+  scenario 'Content Author uses breadcrumbs to return home' do
     find('h1', text: 'Listing Content Modules')
     click_on 'Arm'
     within('.breadcrumb') do

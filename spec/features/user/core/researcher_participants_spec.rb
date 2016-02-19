@@ -1,15 +1,14 @@
 # filename: researcher_participants_spec.rb
 
-describe 'Researcher signs in, navigates to Participants,',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'Researcher, Participants', :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
@@ -18,7 +17,7 @@ describe 'Researcher signs in, navigates to Participants,',
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/participants"
   end
 
-  it 'creates a participant' do
+  scenario 'Researcher creates a participant' do
     click_on 'New'
     fill_in 'participant_study_id', with: 'Tests'
     fill_in 'participant_email', with: 'test@test.com'
@@ -32,7 +31,7 @@ describe 'Researcher signs in, navigates to Participants,',
                                  "\nContact Preference: Email"
   end
 
-  it 'updates a participant' do
+  scenario 'Researcher updates a participant' do
     find('h1', text: 'Participants')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_1'
@@ -49,7 +48,7 @@ describe 'Researcher signs in, navigates to Participants,',
                                  "\nContact Preference: Email"
   end
 
-  it 'cannot assign a coach without a group membership' do
+  scenario 'Researcher cannot assign a coach without a group membership' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_2'
     expect(page).to have_content 'Current Coach/Moderator: None'
@@ -59,7 +58,7 @@ describe 'Researcher signs in, navigates to Participants,',
     expect(page).to have_content '* Please assign Group first'
   end
 
-  it 'cannot assign a group membership with invalid start date' do
+  scenario 'Researcher cannot assign a membership with invalid start date' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_3'
     click_on 'Assign New Group'
@@ -78,7 +77,7 @@ describe 'Researcher signs in, navigates to Participants,',
   end
 
   unless ENV['chrome']
-    it 'cannot assign a group membership with a blank end date' do
+    scenario 'Researcher cannot assign membership with a blank end date' do
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'test_3'
       click_on 'Assign New Group'
@@ -96,7 +95,7 @@ describe 'Researcher signs in, navigates to Participants,',
       expect(page).to have_content 'Memberships is invalid'
     end
 
-    it 'cannot assign a group membership with invalid start date' do
+    scenario 'Researcher cannot assign membership with invalid start date' do
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'test_3'
       click_on 'Assign New Group'
@@ -116,7 +115,7 @@ describe 'Researcher signs in, navigates to Participants,',
     end
   end
 
-  it 'assigns a group membership' do
+  scenario 'Researcher assigns a group membership' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_4'
     click_on 'Assign New Group'
@@ -151,7 +150,7 @@ describe 'Researcher signs in, navigates to Participants,',
     end
   end
 
-  it 'assigns a coach' do
+  scenario 'Researcher assigns a coach' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_5'
     begin
@@ -172,7 +171,7 @@ describe 'Researcher signs in, navigates to Participants,',
                                  "#{ENV['Clinician_Email']}"
   end
 
-  it 'destroys a participant' do
+  scenario 'Researcher destroys a participant' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'test_6'
     page.driver.execute_script('window.confirm = function() {return true}')
@@ -181,7 +180,7 @@ describe 'Researcher signs in, navigates to Participants,',
     expect(page).to_not have_content 'test_6'
   end
 
-  it 'uses breadcrumbs to return to home through Participants' do
+  scenario 'Researcher uses breadcrumbs to return home through Participants' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'TFD-1111'
     find('p', text: 'Contact Preference')
@@ -197,7 +196,7 @@ describe 'Researcher signs in, navigates to Participants,',
     expect(page).to have_content 'Arms'
   end
 
-  it 'uses breadcrumbs to return to home through Groups' do
+  scenario 'Researcher uses breadcrumbs to return to home through Groups' do
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'TFD-1111'
     find('p', text: 'Contact Preference')

@@ -1,15 +1,14 @@
 # filename: ./spec/features/user/sunnyside/researcher_groups_spec.rb
 
-describe 'Researcher signs in, navigates to Groups,',
-         :superfluous, :sunnyside, type: :feature, sauce: sauce_labs do
+feature 'Incentive, Researcher', :superfluous, :sunnyside, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
@@ -20,7 +19,7 @@ describe 'Researcher signs in, navigates to Groups,',
     page.execute_script('window.scrollBy(0,500)')
   end
 
-  it 'adds an individual incentive' do
+  scenario 'Researcher adds an individual incentive' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -50,7 +49,7 @@ describe 'Researcher signs in, navigates to Groups,',
                                  "Individual\nRepeatable: No"
   end
 
-  it 'is unable to edit scope and repeatable once its created' do
+  scenario 'Researcher is unable to edit scope, repeatable once its created' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -67,7 +66,7 @@ describe 'Researcher signs in, navigates to Groups,',
     end
   end
 
-  it 'adds a behavior to an incentive' do
+  scenario 'Researcher adds a behavior to an incentive' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -84,7 +83,7 @@ describe 'Researcher signs in, navigates to Groups,',
                                  "\nCondition: complete"
   end
 
-  it 'adds a repeatable individual incentive' do
+  scenario 'Researcher adds a repeatable individual incentive' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -116,7 +115,7 @@ describe 'Researcher signs in, navigates to Groups,',
                                  "Individual\nRepeatable: Yes"
   end
 
-  it 'adds a behavior to a repeatable incentive' do
+  scenario 'Researcher adds a behavior to a repeatable incentive' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -132,7 +131,7 @@ describe 'Researcher signs in, navigates to Groups,',
                                  "\nCondition: create"
   end
 
-  it 'adds a group incentive' do
+  scenario 'Researcher adds a group incentive' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -164,7 +163,7 @@ describe 'Researcher signs in, navigates to Groups,',
                                  "Group\nRepeatable: No"
   end
 
-  it 'adds a behavior to a group incentive' do
+  scenario 'Researcher adds a behavior to a group incentive' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -180,7 +179,7 @@ describe 'Researcher signs in, navigates to Groups,',
     expect(page).to have_content "Action: TaskStatus\nCondition: complete"
   end
 
-  it 'is unable to destroy incentive w/o first destroying related behaviors' do
+  scenario 'Researcher cannot destroy wo destroying linked behaviors' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -192,7 +191,7 @@ describe 'Researcher signs in, navigates to Groups,',
                        'incentive if all associated behaviors are removed.'
   end
 
-  it 'is unable to destroy behaviors that already have data' do
+  scenario 'Researcher is unable to destroy behaviors that have data' do
     click_on 'Group 9'
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
@@ -206,7 +205,7 @@ describe 'Researcher signs in, navigates to Groups,',
       .to have_content "Can't be destroyed because participant behaviors exist."
   end
 
-  it 'is able to destroy behaviors and incentives' do
+  scenario 'Researcher is able to destroy behaviors and incentives' do
     click_on 'Group 6'
     click_on 'Manage Incentives'
     expect(page).to have_content 'Group 6 Incentives'
@@ -230,16 +229,15 @@ describe 'Researcher signs in, navigates to Groups,',
   end
 end
 
-describe 'Clinician signs in, navigates to Groups,',
-         :superfluous, :sunnyside, type: :feature, sauce: sauce_labs do
+feature 'Incentives, Coach', :superfluous, :sunnyside, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
@@ -253,7 +251,7 @@ describe 'Clinician signs in, navigates to Groups,',
     find('h1', text: 'Group 9 Incentives')
   end
 
-  it 'adds an individual incentive' do
+  scenario 'Coach adds an individual incentive' do
     click_on 'New'
     fill_in "#{app}_incentive[description]", with: 'complete a goal'
     within('.col-md-2:nth-child(11)') do
@@ -280,7 +278,7 @@ describe 'Clinician signs in, navigates to Groups,',
                                  "Individual\nRepeatable: No"
   end
 
-  it 'is unable to edit scope and repeatable once its created' do
+  scenario 'Coach is unable to edit scope and repeatable once its created' do
     find('.list-group-item', text: 'Individual, like 3 feed items').click
     click_on 'Edit'
     within('.form-group', text: 'Repeatable') do
@@ -294,7 +292,7 @@ describe 'Clinician signs in, navigates to Groups,',
     end
   end
 
-  it 'adds a behavior to an incentive' do
+  scenario 'Coach adds a behavior to an incentive' do
     find('.list-group-item', text: 'Individual, like 3 feed items').click
     within('.well') do
       click_on 'New'
@@ -308,7 +306,7 @@ describe 'Clinician signs in, navigates to Groups,',
                                  "\nCondition: complete"
   end
 
-  it 'adds a repeatable individual incentive' do
+  scenario 'Coach adds a repeatable individual incentive' do
     click_on 'New'
     fill_in "#{app}_incentive[description]", with: 'comment on a post'
     check "#{app}_incentive[is_repeatable]"
@@ -337,7 +335,7 @@ describe 'Clinician signs in, navigates to Groups,',
                                  "Individual\nRepeatable: Yes"
   end
 
-  it 'adds a behavior to a repeatable incentive' do
+  scenario 'Coach adds a behavior to a repeatable incentive' do
     find('.list-group-item', text: 'Individual, comment on 3 feed items').click
     within('.well') do
       click_on 'New'
@@ -350,7 +348,7 @@ describe 'Clinician signs in, navigates to Groups,',
                                  "\nCondition: create"
   end
 
-  it 'adds a group incentive' do
+  scenario 'Coach adds a group incentive' do
     click_on 'New'
     fill_in "#{app}_incentive[description]", with: 'read something'
     select 'Group', from: "#{app}_incentive[scope]"
@@ -379,7 +377,7 @@ describe 'Clinician signs in, navigates to Groups,',
                                  "Group\nRepeatable: No"
   end
 
-  it 'adds a behavior to a group incentive' do
+  scenario 'Coach adds a behavior to a group incentive' do
     find('.list-group-item', text: 'Group, read a lesson').click
     within('.well') do
       click_on 'New'
@@ -392,7 +390,7 @@ describe 'Clinician signs in, navigates to Groups,',
     expect(page).to have_content "Action: TaskStatus\nCondition: complete"
   end
 
-  it 'is unable to destroy incentive w/o first destroying related behaviors' do
+  scenario 'Coach cannot destroy  w/o first destroying related behaviors' do
     find('.list-group-item', text: 'Individual, create a goal').click
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
@@ -401,7 +399,7 @@ describe 'Clinician signs in, navigates to Groups,',
                        'incentive if all associated behaviors are removed.'
   end
 
-  it 'is unable to destroy behaviors that already have data' do
+  scenario 'Coach is unable to destroy behaviors that already have data' do
     find('.list-group-item', text: 'Individual, create a goal').click
     find('h1', text: 'Group 9 Incentive - create a goal')
     first('.list-group-item').click
@@ -412,7 +410,7 @@ describe 'Clinician signs in, navigates to Groups,',
       .to have_content "Can't be destroyed because participant behaviors exist."
   end
 
-  it 'is able to destroy behaviors and incentives' do
+  scenario 'Coach is able to destroy behaviors and incentives' do
     find('.list-group-item', text: 'Individual, like 3 feed items').click
     find('h1', text: 'Group 9 Incentive - like 3 feed items')
     2.times do
