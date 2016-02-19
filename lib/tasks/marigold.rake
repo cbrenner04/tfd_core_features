@@ -95,27 +95,32 @@ end
 namespace :run_marigold do
   desc 'Run the test suite for the Marigold host application on Chrome'
   task :chrome do
-    system('marigold=true chrome=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('marigold=true chrome=true rspec ./spec/features/participant --tag marigold')
+    system('marigold=true chrome=true rspec ./spec/features/user --tag marigold')
   end
 
   desc 'Run the test suite for the Marigold host application on Safari'
   task :safari do
-    system('marigold=true safari=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('marigold=true safari=true rspec ./spec/features/participant --tag marigold')
+    system('marigold=true safari=true rspec ./spec/features/user --tag marigold')
   end
 
   desc 'Run the test suite for the Marigold host application on Firefox'
   task :firefox do
-    system('marigold=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('marigold=true rspec ./spec/features/participant --tag marigold')
+    system('marigold=true rspec ./spec/features/user --tag marigold')
   end
 
   desc 'Run the test suite for Marigold on Chrome without certain example groups to increase speed'
   task :fast do
-    system('marigold=true rspec --tag core --tag social_networking --tag sunnyside --tag ~superfluous')
+    system('marigold=true rspec ./spec/features/participant --tag marigold --tag ~superfluous')
+    system('marigold=true rspec ./spec/features/user --tag marigold --tag ~superfluous')
   end
 
   # this requires switching databases on staging
   desc 'Run the test suite for the Marigold host application on SauceLabs'
   task :sauce do
-    system('marigold=true sauce=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('marigold=true sauce=true rspec ./spec/features/participant --tag marigold')
+    system('marigold=true sauce=true rspec ./spec/features/user --tag marigold')
   end
 end

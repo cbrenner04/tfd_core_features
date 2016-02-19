@@ -1,7 +1,7 @@
 # filename: ./spec/features/participant/sunnyside/individual_incentives_spec.rb
 
 describe 'Individual incentives',
-         :sunnyside, type: :feature, sauce: sauce_labs do
+         :sunnyside, :marigold, type: :feature, sauce: sauce_labs do
   describe 'Active participant signs in,' do
     before do
       unless ENV['safari']

@@ -93,7 +93,7 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
     end
   end
 
-  describe 'Participant 2 signs in,' do
+  describe 'Participant 2 signs in,', :marigold do
     before do
       sign_in_pt(ENV['Participant_2_Email'], 'participant1',
                  ENV['Participant_2_Password'])

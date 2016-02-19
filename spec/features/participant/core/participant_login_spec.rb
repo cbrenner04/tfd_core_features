@@ -1,6 +1,7 @@
 # filename: ./spec/features/participant/core/participant_login_spec.rb
 
-describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
+describe 'A visitor to the site,',
+         :core, :marigold, type: :feature, sauce: sauce_labs do
   it 'is an active participant, signs in' do
     sign_in_pt(ENV['Participant_Email'], "#{moderator}",
                ENV['Participant_Password'])
@@ -86,7 +87,6 @@ describe 'A visitor to the site,', :core, type: :feature, sauce: sauce_labs do
   end
 end
 
-# need to update arm to not allow for this
 describe 'A visitor to the site,', :tfd, type: :feature, sauce: sauce_labs do
   it 'was an active participant who has completed' do
     sign_in_pt(ENV['Completed_Pt_Email'], 'participant1',

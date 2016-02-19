@@ -1,7 +1,7 @@
 # filename: ./spec/features/participant/social_networking/nudge_spec.rb
 
 describe 'Active participant in a social arm signs in,',
-         :social_networking, type: :feature, sauce: sauce_labs do
+         :social_networking, :marigold, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     if ENV['sunnyside'] || ENV['marigold']
       before(:all) do

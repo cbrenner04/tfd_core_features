@@ -1,7 +1,7 @@
 # filename: ./spec/features/participant/core/learn_spec.rb
 
 describe 'Active participant in group 1 signs in, navigates to LEARN,',
-         :core, type: :feature, sauce: sauce_labs do
+         :core, :marigold, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
       sign_in_pt(ENV['Participant_Email'], 'participant5',

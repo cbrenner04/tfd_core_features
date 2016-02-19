@@ -1,7 +1,7 @@
 # filename: ./spec/features/participant/social_networking/shared_items_spec.rb
 
 describe 'Active participant in a social arm signs in,',
-         :social_networking, type: :feature, sauce: sauce_labs do
+         :social_networking, :marigold, type: :feature, sauce: sauce_labs do
   describe 'visits the THINK tool,' do
     if ENV['safari']
       before(:all) do

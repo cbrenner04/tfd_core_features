@@ -1,6 +1,6 @@
 # file: ./spec/features/participant/social_networking/participant_bugs_spec.rb
 
-describe 'Social Networking Bugs', :social_networking,
+describe 'Social Networking Bugs', :social_networking, :marigold,
          type: :feature, sauce: sauce_labs do
   describe 'Active participant in group 5 signs in,' do
     before do

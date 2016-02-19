@@ -1,7 +1,7 @@
 # filename: ./spec/features/participant/sunnyside/communal_incentives_spec.rb
 
 describe 'Active participant signs in,',
-         :sunnyside, type: :feature, sauce: sauce_labs do
+         :sunnyside, :marigold, type: :feature, sauce: sauce_labs do
   if ENV['safari']
     before(:all) do
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',

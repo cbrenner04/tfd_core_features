@@ -1,7 +1,7 @@
 # filename: do1_spec.rb
 
 describe 'Active participant signs in, navigates to RELAX tool,',
-         :core, type: :feature, sauce: sauce_labs do
+         :core, :marigold, type: :feature, sauce: sauce_labs do
   before do
     sign_in_pt(ENV['Participant_Email'], 'completer',
                ENV['Participant_Password'])

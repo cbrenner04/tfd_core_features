@@ -1,6 +1,6 @@
 # file: ./spec/features/participant/social_networking/participant_login_spec.rb
 
-describe 'A visitor to the site,', :social_networking,
+describe 'A visitor to the site,', :social_networking, :marigold,
          type: :feature, sauce: sauce_labs do
   it 'was an active participant in a social arm who has completed' do
     sign_in_pt(ENV['Completed_Pt_Email'], 'nonsocialpt',

@@ -1,7 +1,7 @@
 # filename: ./spec/features/participant/social_networking/landing_page_spec.rb
 
 describe 'SocialNetworking Landing Page, ',
-         :social_networking, type: :feature, sauce: sauce_labs do
+         :social_networking, :marigold, type: :feature, sauce: sauce_labs do
   describe 'Active participant in social arm signs in,' do
     before do
       unless ENV['safari']
