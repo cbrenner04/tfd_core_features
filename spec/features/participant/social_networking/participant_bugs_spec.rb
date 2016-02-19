@@ -1,20 +1,18 @@
 # file: ./spec/features/participant/social_networking/participant_bugs_spec.rb
 
-describe 'Social Networking Bugs', :social_networking, :marigold,
-         type: :feature, sauce: sauce_labs do
-  describe 'Active participant in group 5 signs in,' do
-    before do
-      sign_in_pt(ENV['NS_Participant_Email'], 'participant1',
-                 ENV['NS_Participant_Password'])
+feature 'Social Networking Bugs, Non-social Participant',
+        :social_networking, :marigold, sauce: sauce_labs do
+  background do
+    sign_in_pt(ENV['NS_Participant_Email'], 'participant1',
+               ENV['NS_Participant_Password'])
+  end
+
+  scenario 'Participant cannot select My Profile from navbar dropdown' do
+    within '.navbar-collapse' do
+      find('.fa.fa-user.fa-lg')
+      expect(page).to_not have_content 'My Profile'
     end
 
-    it 'cannot select My Profile from navbar dropdown' do
-      within '.navbar-collapse' do
-        find('.fa.fa-user.fa-lg')
-        expect(page).to_not have_content 'My Profile'
-      end
-
-      sign_out('nonsocialpt')
-    end
+    sign_out('nonsocialpt')
   end
 end

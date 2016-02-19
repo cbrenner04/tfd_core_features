@@ -1,15 +1,14 @@
 # filename: ./spec/features/participant/sunnyside/background_spec.rb
 
-describe 'An active participant signs in,',
-         :sunnyside, :marigold, type: :feature, sauce: sauce_labs do
+feature 'Background image', :sunnyside, :marigold, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['PTBackground_Email'], 'participant5',
                  ENV['PTBackground_Password'])
     end
   end
 
-  before do
+  background do
     if ENV['safari']
       visit ENV['Base_URL']
     else
@@ -18,7 +17,7 @@ describe 'An active participant signs in,',
     end
   end
 
-  it 'selects a background image' do
+  scenario 'Participant selects a background image' do
     within('.modal-content') do
       find('#vine-image').click
     end
@@ -37,7 +36,7 @@ describe 'An active participant signs in,',
     end
   end
 
-  it 'updates the background image from profile page' do
+  scenario 'Participant updates the background image from profile page' do
     unless page.has_no_css?('.modal-content')
       within('.modal-content') do
         find('#vine-image').click

@@ -1,8 +1,8 @@
 # file: ./spec/features/participant/social_networking/participant_login_spec.rb
 
-describe 'A visitor to the site,', :social_networking, :marigold,
-         type: :feature, sauce: sauce_labs do
-  it 'was an active participant in a social arm who has completed' do
+feature 'Social Networking login', :social_networking, :marigold,
+        sauce: sauce_labs do
+  scenario 'Completed participant in a social arm sends message' do
     sign_in_pt(ENV['Completed_Pt_Email'], 'nonsocialpt',
                ENV['Completed_Pt_Password'])
     find('h1', text: 'HOME')
@@ -39,7 +39,7 @@ describe 'A visitor to the site,', :social_networking, :marigold,
     end
   end
 
-  it 'was an active participant in a mobile arm who has completed' do
+  scenario 'Completed participant in a mobile arm cannot compose a message' do
     sign_in_pt(ENV['Mobile_Comp_Pt_Email'], 'completer',
                ENV['Mobile_Comp_Pt_Password'])
     find('h1', text: 'HOME')

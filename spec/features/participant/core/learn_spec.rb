@@ -1,15 +1,14 @@
 # filename: ./spec/features/participant/core/learn_spec.rb
 
-describe 'Active participant in group 1 signs in, navigates to LEARN,',
-         :core, :marigold, type: :feature, sauce: sauce_labs do
+feature 'LEARN tool', :core, :marigold, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant_Email'], 'participant5',
                  ENV['Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_Email'], 'participant5',
                  ENV['Participant_Password'])
@@ -18,13 +17,13 @@ describe 'Active participant in group 1 signs in, navigates to LEARN,',
     visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
   end
 
-  it 'sees list opened to this week, collapses list' do
+  scenario 'Participant sees list opened to this week, collapses list' do
     find('.list-group-item-heading', text: 'Do - Awareness Introduction')
     first('.panel-title', text: 'Week 1').click
     expect(page).to_not have_content 'Do - Awareness Introduction'
   end
 
-  it 'reads Lesson 1' do
+  scenario 'Participant reads Lesson 1' do
     click_on 'Do - Awareness Introduction'
     find('h1', text: 'This is just the beginning...')
     click_on 'Next'
@@ -34,7 +33,7 @@ describe 'Active participant in group 1 signs in, navigates to LEARN,',
     expect(page).to have_content 'Printable'
   end
 
-  it 'only sees lessons listed to the end of study length' do
+  scenario 'Participant only sees lessons listed to the end of study length' do
     last_wk_num = (16 if ENV['tfd']) ||
                   (8 if ENV['tfdso'] || ENV['sunnyside'] || ENV['marigold'])
     last_week = (Date.today + 105 if ENV['tfd']) ||
@@ -56,16 +55,15 @@ describe 'Active participant in group 1 signs in, navigates to LEARN,',
   end
 end
 
-describe 'Active participant in group 1 signs in, navigates to LEARN,',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'LEARN tool, Participant 5', :core, :marigold, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant__5_Email'], 'participant1',
                  ENV['Participant__5_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_5_Email'], 'participant1',
                  ENV['Participant_5_Password'])
@@ -74,7 +72,7 @@ describe 'Active participant in group 1 signs in, navigates to LEARN,',
     visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
   end
 
-  it 'views print preview of a lesson' do
+  scenario 'Participant views print preview of a lesson' do
     click_on 'Printable'
     find('a', text: 'Print')
     click_on 'Return to Lessons'

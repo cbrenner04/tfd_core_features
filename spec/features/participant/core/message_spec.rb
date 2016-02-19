@@ -1,15 +1,14 @@
 # filename: ./spec/features/participant/core/message_spec.rb
 
-describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
-         :core, :marigold, type: :feature, sauce: sauce_labs do
+feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant_Email'], 'participant5',
                  ENV['Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_Email'], 'participant5',
                  ENV['Participant_Password'])
@@ -18,7 +17,7 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
     visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
   end
 
-  it 'composes a new message' do
+  scenario 'Participant composes a new message' do
     click_on 'Compose'
     find('.control-label', text: 'To Coach')
     within('#new_message') do
@@ -32,19 +31,19 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
     expect(page).to have_content 'Message saved'
   end
 
-  it 'reads a sent message' do
+  scenario 'Participant reads a sent message' do
     click_on 'Sent'
     click_on 'I like this app'
     find('strong', text: 'From You')
     expect(page).to have_content 'This app is really helpful!'
   end
 
-  it 'reads a received message' do
+  scenario 'Participant reads a received message' do
     click_on 'Try out the LEARN tool'
     expect(page).to have_content 'I think you will find it helpful.'
   end
 
-  it 'replies to a received message' do
+  scenario 'Participant replies to a received message' do
     click_on 'Try out the LEARN tool'
     find('p', text: 'I think you will find it helpful.')
     click_on 'Reply'
@@ -58,35 +57,35 @@ describe 'Active participant in group 1 signs in, navigates to MESSAGES,',
     expect(page).to have_content 'Message saved'
   end
 
-  it 'composes a message from reading a message' do
+  scenario 'Participant composes a message from reading a message' do
     click_on 'Try out the LEARN tool'
     find('p', text: 'I think you will find it helpful.')
     click_on 'Compose'
     expect(page).to have_content 'To Coach'
   end
 
-  it 'uses the cancel button within compose message' do
+  scenario 'Participant uses the cancel button within compose message' do
     click_on 'Compose'
     click_on 'Cancel'
     expect(page).to have_content 'Inbox'
   end
 
-  it 'uses return button within compose message' do
+  scenario 'uses return button within compose message' do
     click_on 'Compose'
     click_on 'Return'
     expect(page).to have_content 'Inbox'
   end
 end
 
-describe 'Active participant in group 3 signs in, navigates to MESSAGES',
-         :core, type: :feature, sauce: sauce_labs do
-  before do
+feature 'MESSAGES tool, Participant 3',
+        :core, :marigold, sauce: sauce_labs do
+  background do
     sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
                ENV['Alt_Participant_Password'])
     visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
   end
 
-  it 'accesses a link from a message in inbox' do
+  scenario 'Participant accesses a link from a message in inbox' do
     click_on 'Check out the Introduction slideshow'
     find('p', text: "Here's a link to the introduction slideshow:")
     click_on 'Introduction to ThinkFeelDo'

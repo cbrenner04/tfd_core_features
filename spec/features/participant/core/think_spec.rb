@@ -1,8 +1,7 @@
-# filename: think_spec.rb
+# filename: ./spec/features/participant/core/think_spec.rb
 
-describe 'Active participant signs in, navigates to THINK tool,',
-         :core, type: :feature, sauce: sauce_labs do
-  before do
+feature 'THINK tool', :core, sauce: sauce_labs do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_Email'], 'nonsocialpt',
                  ENV['Participant_Password'])
@@ -12,7 +11,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  it 'completes Identifying module' do
+  scenario 'Participant completes Identifying module' do
     click_on '#1 Identifying'
     find('h1', text: 'You are what you think')
     ['Helpful thoughts are...', 'Harmful thoughts are:',
@@ -40,7 +39,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  it 'completes Patterns module' do
+  scenario 'Participant completes Patterns module' do
     click_on '#2 Patterns'
     click_on 'Next'
     find('p', text: "Let's start by")
@@ -59,7 +58,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  it 'completes Reshape module' do
+  scenario 'Participant completes Reshape module' do
     click_on '#3 Reshape'
     click_on 'Next'
     find('h2', text: 'You said you had the following unhelpful thoughts:')
@@ -81,7 +80,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  it 'completes Add a New Harmful Thought module' do
+  scenario 'Participant completes Add a New Harmful Thought module' do
     click_on 'Add a New Harmful Thought'
     fill_in 'thought_content', with: 'Testing add a new thought'
     select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
@@ -95,7 +94,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content 'Add a New Harmful Thought'
   end
 
-  it 'cancels Add a New Harmful Thought' do
+  scenario 'Participant cancels Add a New Harmful Thought' do
     click_on 'Add a New Harmful Thought'
     find('h2', text: 'Add a New Harmful Thought')
     page.execute_script('window.scrollBy(0,500)')
@@ -103,7 +102,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     expect(page).to have_content '#1 Identifying'
   end
 
-  it 'visits Thoughts and sort by column Pattern' do
+  scenario 'Participant visits Thoughts and sort by column Pattern' do
     click_on 'Thoughts'
     find('tr', text: 'I am insignificant')
     find('.sorting', text: 'Pattern').click
@@ -111,21 +110,21 @@ describe 'Active participant signs in, navigates to THINK tool,',
       .to have_content 'Labeling and Mislabeling'
   end
 
-  it 'uses the skip functionality in Identifying' do
+  scenario 'Participant uses the skip functionality in Identifying' do
     click_on '#1 Identifying'
     find('h1', text: 'You are what you think...')
     click_on 'Skip'
     expect(page).to have_content 'Now, your turn...'
   end
 
-  it 'uses the skip functionality in Patterns' do
+  scenario 'Participant uses the skip functionality in Patterns' do
     click_on '#2 Patterns'
     find('h1', text: 'Like we said, you are what you think...')
     click_on 'Skip'
     expect(page).to have_content "Let's start by"
   end
 
-  it 'uses the skip functionality in Reshape' do
+  scenario 'Participant uses the skip functionality in Reshape' do
     click_on '#3 Reshape'
     find('h1', text: 'Challenging Harmful Thoughts')
     click_on 'Skip'
@@ -134,7 +133,7 @@ describe 'Active participant signs in, navigates to THINK tool,',
     end
   end
 
-  it 'uses navbar functionality for all of THINK' do
+  scenario 'Participant uses navbar functionality for all of THINK' do
     visit "#{ENV['Base_URL']}/navigator/modules/954850709"
 
     tool = ['#2 Patterns', '#1 Identifying', '#3 Reshape',
@@ -151,25 +150,14 @@ describe 'Active participant signs in, navigates to THINK tool,',
   end
 end
 
-describe 'Active participant in group 1 signs in, navigates to THINK,',
-         :core, type: :feature, sauce: sauce_labs do
-  if ENV['safari']
-    before(:all) do
-      sign_in_pt(ENV['Participant__5_Email'], 'participant1',
-                 ENV['Participant__5_Password'])
-    end
-  end
-
-  before do
-    unless ENV['safari']
-      sign_in_pt(ENV['Participant_5_Email'], 'participant1',
-                 ENV['Participant_5_Password'])
-    end
-
+feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
+  background do
+    sign_in_pt(ENV['Participant__5_Email'], 'participant1',
+               ENV['Participant__5_Password'])
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
   end
 
-  it 'uses the visualization' do
+  scenario 'Participant uses the visualization' do
     page.execute_script('window.scrollBy(0,1000)')
     find('.thoughtviz_text.viz-clickable',
          text: 'Magnification or Catastro...').click

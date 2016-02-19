@@ -1,15 +1,14 @@
 # filename: ./spec/features/participant/core/feel_spec.rb
 
-describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'FEEL tool', :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant_Email'], 'participant3',
                  ENV['Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_Email'], 'participant3',
                  ENV['Participant_Password'])
@@ -18,7 +17,7 @@ describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"
   end
 
-  it 'completes Tracking Your Mood' do
+  scenario 'Participant completes Tracking Your Mood' do
     click_on 'Tracking Your Mood'
     select '6', from: 'mood[rating]'
     click_on 'Next'
@@ -30,16 +29,15 @@ describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
   end
 end
 
-describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'FEEL tool, Participant 3', :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
                  ENV['Alt_Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
                  ENV['Alt_Participant_Password'])
@@ -48,7 +46,7 @@ describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"
   end
 
-  it 'completes Tracking Your Mood & Emotions' do
+  scenario 'Participant completes Tracking Your Mood & Emotions' do
     click_on 'Tracking Your Mood & Emotions'
     select '6', from: 'mood[rating]'
     click_on 'Next'
@@ -72,7 +70,7 @@ describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
     expect(page).to have_content 'Feeling Tracker Landing'
   end
 
-  it 'uses navbar functionality in all of FEEL' do
+  scenario 'Participant uses navbar functionality in all of FEEL' do
     visit "#{ENV['Base_URL']}/navigator/modules/86966983"
 
     tool = ['Your Recent Moods & Emotions', 'Tracking Your Mood & Emotions',
@@ -88,16 +86,15 @@ describe 'Active participant in group 3 signs in, navigates to FEEL tool,',
   end
 end
 
-describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'FEEL Tool, Your Recent Mood & Emotions', :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant_5_Email'], 'participant3',
                  ENV['Participant_5_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_5_Email'], 'participant3',
                  ENV['Participant_5_Password'])
@@ -106,7 +103,7 @@ describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"
   end
 
-  it 'views ratings in Mood graph in Your Recent Mood & Emotions' do
+  scenario 'Participant views ratings in Mood Graph' do
     click_on 'Your Recent Moods & Emotions'
     within('#mood') do
       find('.title', text: 'Mood*')
@@ -114,7 +111,7 @@ describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
     end
   end
 
-  it 'views ratings in Emotions graph in Your Recent Mood & Emotions' do
+  scenario 'Participant views ratings in Emotions graph' do
     click_on 'Your Recent Moods & Emotions'
     within('#emotions') do
       find('.title', text: 'Positive and Negative Emotions*')
@@ -122,7 +119,7 @@ describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
     end
   end
 
-  it 'navigates to 28 day view in Your Recent Mood & Emotions' do
+  scenario 'Participant navigates to 28 day view' do
     click_on 'Your Recent Moods & Emotions'
     one_week_ago = Date.today - 6
     one_month_ago = Date.today - 27
@@ -134,7 +131,7 @@ describe 'Active participant in group 1 signs in, navigates to FEEL tool,',
                                  "#{Date.today.strftime('%b %d %Y')}"
   end
 
-  it 'navigates to Previous Period in Your Recent Mood & Emotions' do
+  scenario 'Participant navigates to Previous Period' do
     click_on 'Your Recent Moods & Emotions'
     find('.title', text: 'Mood*')
     click_on 'Previous Period'

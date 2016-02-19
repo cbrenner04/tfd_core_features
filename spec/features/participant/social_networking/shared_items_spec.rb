@@ -1,16 +1,16 @@
 # filename: ./spec/features/participant/social_networking/shared_items_spec.rb
 
-describe 'Active participant in a social arm signs in,',
-         :social_networking, :marigold, type: :feature, sauce: sauce_labs do
-  describe 'visits the THINK tool,' do
+feature 'Shared items, Social arm',
+        :social_networking, :marigold, sauce: sauce_labs do
+  feature 'THINK tool,' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_pt(ENV['Participant_Email'], 'mobilecompleter',
                    ENV['Participant_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_pt(ENV['Participant_Email'], 'mobilecompleter',
                    ENV['Participant_Password'])
@@ -19,7 +19,7 @@ describe 'Active participant in a social arm signs in,',
       visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
     end
 
-    it 'shares THINK > Identifying responses' do
+    scenario 'Participant shares THINK > Identifying responses' do
       click_on '#1 Identifying'
       click_on 'Skip'
       fill_in 'thought_content', with: 'Public thought 1'
@@ -41,7 +41,7 @@ describe 'Active participant in a social arm signs in,',
       end
     end
 
-    it 'shares Add a New Harmful Thought responses' do
+    scenario 'Participant shares Add a New Harmful Thought responses' do
       click_on 'Add a New Harmful Thought'
       fill_in 'thought_content', with: 'Public thought 3'
       select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
@@ -62,7 +62,7 @@ describe 'Active participant in a social arm signs in,',
       end
     end
 
-    it 'does not share Add a New Harmful Thought responses' do
+    scenario 'Participant does not share Add a New Harmful Thought response' do
       click_on 'Add a New Harmful Thought'
       fill_in 'thought_content', with: 'Private thought 2'
       select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
@@ -83,8 +83,8 @@ describe 'Active participant in a social arm signs in,',
     end
   end
 
-  describe 'visits the DO tool,' do
-    before do
+  feature 'DO tool,' do
+    background do
       unless ENV['safari']
         sign_in_pt(ENV['Participant_Email'], 'participant1',
                    ENV['Participant_Password'])
@@ -93,7 +93,7 @@ describe 'Active participant in a social arm signs in,',
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
     end
 
-    it 'shares DO > Planning responses' do
+    scenario 'Participant shares DO > Planning responses' do
       click_on '#2 Planning'
       click_on 'Next'
       plan_activity('New public activity', 6, 3)
@@ -125,7 +125,7 @@ describe 'Active participant in a social arm signs in,',
       end
     end
 
-    it 'shares Add a New Activity responses' do
+    scenario 'Participant shares Add a New Activity responses' do
       click_on 'Add a New Activity'
       plan_activity('New public activity 2', 4, 3)
       find('h1', text: 'Do Landing')
@@ -138,7 +138,7 @@ describe 'Active participant in a social arm signs in,',
       end
     end
 
-    it 'does not share Add a New Activity responses' do
+    scenario 'Participant does not share Add a New Activity responses' do
       click_on 'Add a New Activity'
       find('#new_activity_radio')
       page.execute_script('window.scrollBy(0,500)')
@@ -161,17 +161,17 @@ describe 'Active participant in a social arm signs in,',
   end
 end
 
-describe 'Active participant in a non-social arm signs in,',
-         :social_networking, type: :feature, sauce: sauce_labs do
-  describe 'visits the THINK tool,' do
+feature 'Shared items, Mobile arm',
+        :social_networking, :marigold, sauce: sauce_labs do
+  feature 'THINK tool' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_pt(ENV['NS_Participant_Email'], 'participant1',
                    ENV['NS_Participant_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_pt(ENV['NS_Participant_Email'], 'participant1',
                    ENV['NS_Participant_Password'])
@@ -180,7 +180,7 @@ describe 'Active participant in a non-social arm signs in,',
       visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
     end
 
-    it 'is not able to create a shared item in Identifying' do
+    scenario 'Participant cannot create a shared item in Identifying' do
       click_on '#1 Identifying'
       find('h1', text: 'You are what you think')
       ['Helpful thoughts are...', 'Harmful thoughts are:',
@@ -198,7 +198,7 @@ describe 'Active participant in a non-social arm signs in,',
       expect(page).to have_content 'Now list another harmful thought...'
     end
 
-    it 'is not able to create a shared item in Add a New Harmful Thought' do
+    scenario 'Participant cannot create in Add a New Harmful Thought' do
       click_on 'Add a New Harmful Thought'
       expect(page).to have_content 'Add A New Harmful Thought'
 
@@ -206,8 +206,8 @@ describe 'Active participant in a non-social arm signs in,',
     end
   end
 
-  describe 'visits the DO tool,' do
-    before do
+  feature 'DO tool' do
+    background do
       unless ENV['safari']
         sign_in_pt(ENV['NS_Participant_Email'], 'nonsocialpt',
                    ENV['NS_Participant_Password'])
@@ -216,7 +216,7 @@ describe 'Active participant in a non-social arm signs in,',
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
     end
 
-    it 'is not able to create a shared item in Awareness' do
+    scenario 'Participant cannot create a shared item in Awareness' do
       click_on '#1 Awareness'
       click_on 'Next'
       select "#{Date.today.strftime('%a')} 4 AM",
@@ -226,7 +226,7 @@ describe 'Active participant in a non-social arm signs in,',
       expect(page).to_not have_content 'Share the content of this activity?'
     end
 
-    it 'is not able to create a shared item in Planning' do
+    scenario 'Participant cannot create a shared item in Planning' do
       click_on '#2 Planning'
       click_on 'Next'
       expect(page).to have_content 'We want you to plan one fun thing'
@@ -234,7 +234,7 @@ describe 'Active participant in a non-social arm signs in,',
       expect(page).to_not have_content 'Share the content of this activity?'
     end
 
-    it 'is not able to create a shared item in Plan a New Activity' do
+    scenario 'Participant cannot create shared item in Plan a New Activity' do
       click_on 'Add a New Activity'
       expect(page).to have_content "But you don't have to start from scratch,"
 
@@ -243,23 +243,23 @@ describe 'Active participant in a non-social arm signs in,',
   end
 end
 
-describe 'Active participant in a social arm signs in,',
-         :social_networking, type: :feature, sauce: sauce_labs do
+feature 'Shared items, Social arm',
+        :social_networking, :marigold, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant_5_Email'], 'nonsocialpt',
                  ENV['Participant_5_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_5_Email'], 'nonsocialpt',
                  ENV['Participant_5_Password'])
     end
   end
 
-  it 'shared DO > Reviewing responses' do
+  scenario 'Participant shared DO > Reviewing responses' do
     visit "#{ENV['Base_URL']}/navigator/contexts/DO"
     click_on '#3 Doing'
     click_on 'Next'
@@ -302,7 +302,7 @@ describe 'Active participant in a social arm signs in,',
     expect(page).to_not have_content 'Reviewed & Completed an Activity: Loving'
   end
 
-  it 'reads Lesson 1 and finds the related feed item' do
+  scenario 'Participant reads Lesson 1 and finds the related feed item' do
     visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
     click_on 'Do - Awareness Introduction'
     expect(page).to have_content 'This is just the beginning...'
@@ -315,7 +315,7 @@ describe 'Active participant in a social arm signs in,',
     expect(page).to have_content 'Read a Lesson: Do - Awareness Introduction'
   end
 
-  it 'listens to a relax exercise and the related feed item' do
+  scenario 'Participant listens to a relax exercise & the related feed item' do
     visit "#{ENV['Base_URL']}/navigator/contexts/RELAX"
     click_on 'Autogenic Exercises'
     within('.jp-controls') do
@@ -330,7 +330,7 @@ describe 'Active participant in a social arm signs in,',
     expect(page).to have_content 'Listened to a Relaxation Exercise: Audio!'
   end
 
-  it 'shares THINK > Patterns responses' do
+  scenario 'Participant shares THINK > Patterns responses' do
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
     click_on '#2 Patterns'
     click_on 'Next'
@@ -357,7 +357,7 @@ describe 'Active participant in a social arm signs in,',
     end
   end
 
-  it 'completes Reshape module responses' do
+  scenario 'Participant completes Reshape module responses' do
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
     click_on '#3 Reshape'
     click_on 'Next'

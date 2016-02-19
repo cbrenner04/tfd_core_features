@@ -1,15 +1,14 @@
-# filename: do1_spec.rb
+# filename: ./spec/features/participant/core/relax_spec.rb
 
-describe 'Active participant signs in, navigates to RELAX tool,',
-         :core, :marigold, type: :feature, sauce: sauce_labs do
-  before do
+feature 'RELAX tool', :core, :marigold, sauce: sauce_labs do
+  background do
     sign_in_pt(ENV['Participant_Email'], 'completer',
                ENV['Participant_Password'])
     visit "#{ENV['Base_URL']}/navigator/contexts/RELAX"
     expect(page).to have_content 'RELAX Home'
   end
 
-  it 'listens to a relax exercise' do
+  scenario 'Participant listens to a relax exercise' do
     click_on 'Autogenic Exercises'
     within('.jp-controls') do
       find('.jp-play').click

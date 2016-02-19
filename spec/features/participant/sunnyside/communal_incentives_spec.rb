@@ -1,15 +1,14 @@
 # filename: ./spec/features/participant/sunnyside/communal_incentives_spec.rb
 
-describe 'Active participant signs in,',
-         :sunnyside, :marigold, type: :feature, sauce: sauce_labs do
+feature 'Communal incentives', :sunnyside, :marigold, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',
                  ENV['Alt_Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',
                  ENV['Alt_Participant_Password'])
@@ -18,7 +17,7 @@ describe 'Active participant signs in,',
     visit ENV['Base_URL']
   end
 
-  it 'views communal incentives list' do
+  scenario 'Participant views communal incentives list' do
     find('#communal-plot-btn').click
     within('.panel-title.panel-unreleased',
            text: 'comment on 3 feed items 6/7 complete') do
@@ -40,7 +39,7 @@ describe 'Active participant signs in,',
     end
   end
 
-  it 'completes communal incentive, sees communal incentive list update' do
+  scenario 'Participant completes communal incentive, sees list update' do
     find('#communal-plot-btn').click
     find('.panel-title.panel-unreleased',
          text: 'comment on 3 feed items 6/7 complete')

@@ -1,15 +1,14 @@
 # filename: ./spec/features/participant/social_networking/goals_spec.rb
 
-describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
-         :social_networking, type: :feature, sauce: sauce_labs do
+feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant_Email'], 'participant1',
                  ENV['Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_Email'], 'participant1',
                  ENV['Participant_Password'])
@@ -18,7 +17,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
   end
 
-  it 'reads goal help text' do
+  scenario 'Participant reads goal help text' do
     begin
       tries ||= 2
       click_on 'Need some help writing a goal?'
@@ -52,7 +51,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
                                  'couch (WHERE).'
   end
 
-  it 'creates a goal' do
+  scenario 'Participant creates a goal' do
     click_on '+ add a goal'
     fill_in 'new-goal-description', with: 'eat a whole pizza'
     choose 'end of study'
@@ -71,7 +70,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     end
   end
 
-  it 'completes a goal' do
+  scenario 'Participant completes a goal' do
     within('.list-group-item.ng-scope', text: 'p1 alpha') do
       if ENV['chrome'] || ENV['safari']
         page.driver.execute_script('window.confirm = function() {return true}')
@@ -96,7 +95,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     expect(page).to have_content 'Completed a Goal: p1 alpha'
   end
 
-  it 'deletes a goal' do
+  scenario 'Participant deletes a goal' do
     if ENV['chrome'] || ENV['safari']
       page.driver.execute_script('window.confirm = function() {return true}')
       find('.list-group-item.ng-scope',
@@ -117,9 +116,8 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
   end
 end
 
-describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
-         :social_networking, type: :feature, sauce: sauce_labs do
-  it 'has more than 4 weeks remaining, sees all options to create a goal' do
+feature 'ACHIEVE tool create options', :social_networking, sauce: sauce_labs do
+  scenario 'Participant has more than 4 weeks remaining, sees all options' do
     sign_in_pt(ENV['PTGoal1_Email'], 'participant1', ENV['PTGoal1_Password'])
 
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
@@ -131,7 +129,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     expect(page).to have_content 'end of study'
   end
 
-  it 'has more than 2 weeks remaining, sees correct options to create a goal' do
+  scenario 'Participant has 2+ weeks remaining, sees correct options' do
     sign_in_pt(ENV['PTGoal2_Email'], 'goal_1', ENV['PTGoal2_Password'])
 
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
@@ -142,7 +140,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     expect(page).to have_content 'end of study'
   end
 
-  it 'has more than 1 weeks remaining, sees correct options to create a goal' do
+  scenario 'Participant has 1+ weeks remaining, sees correct options' do
     sign_in_pt(ENV['PTGoal3_Email'], 'goal_2', ENV['PTGoal3_Password'])
 
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
@@ -153,7 +151,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     expect(page).to have_content 'end of study'
   end
 
-  it 'has less than 1 weeks remaining, sees correct options to create a goal' do
+  scenario 'Participant has < 1 weeks remaining, sees correct options' do
     sign_in_pt(ENV['PTGoal4_Email'], 'goal_3', ENV['PTGoal4_Password'])
 
     visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
@@ -164,7 +162,7 @@ describe 'Active pt in social arm signs in, navigates to ACHIEVE tool,',
     expect(page).to have_content 'end of study'
   end
 
-  it 'is a completed participant, sees correct options to create a goal' do
+  scenario 'Completed participant sees correct options' do
     sign_in_pt(ENV['Completed_Pt_Email'], 'goal_4',
                ENV['Completed_Pt_Password'])
 

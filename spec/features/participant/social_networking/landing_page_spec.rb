@@ -1,9 +1,9 @@
 # filename: ./spec/features/participant/social_networking/landing_page_spec.rb
 
-describe 'SocialNetworking Landing Page, ',
-         :social_networking, :marigold, type: :feature, sauce: sauce_labs do
-  describe 'Active participant in social arm signs in,' do
-    before do
+feature 'SocialNetworking Landing Page',
+        :social_networking, :marigold, sauce: sauce_labs do
+  feature 'Social Arm' do
+    background do
       unless ENV['safari']
         sign_in_pt(ENV['Participant_Email'], 'goal_4',
                    ENV['Participant_Password'])
@@ -12,7 +12,7 @@ describe 'SocialNetworking Landing Page, ',
       visit ENV['Base_URL']
     end
 
-    it 'creates a profile' do
+    scenario 'Participant creates a profile' do
       page.execute_script('window.scrollBy(0,500)')
       click_on 'Create a Profile'
       unless page.has_no_css?('.modal-content')
@@ -46,7 +46,7 @@ describe 'SocialNetworking Landing Page, ',
       expect(page).to_not have_content 'Create a Profile'
     end
 
-    it 'navigates to the profile page from a page other than home' do
+    scenario 'Participant navigates to the profile page from not home' do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       within '.navbar-collapse' do
         click_on 'participant1'
@@ -56,7 +56,7 @@ describe 'SocialNetworking Landing Page, ',
       expect(page).to have_content 'Group 1 profile question'
     end
 
-    it 'creates a whats on your mind post' do
+    scenario 'Participant creates a whats on your mind post' do
       page.execute_script('window.scrollBy(0,500)')
       click_on "What's on your mind?"
       fill_in 'new-on-your-mind-description', with: "I'm feeling happy!"
@@ -67,19 +67,19 @@ describe 'SocialNetworking Landing Page, ',
       expect(page).to have_content "said I'm feeling happy!"
     end
 
-    it 'selects link in TODO list' do
+    scenario 'Participant selects link in TODO list' do
       find('.panel-title', text: 'To Do')
       page.execute_script('window.scrollBy(0,1500)')
       click_on 'THINK: Thought Distortions'
       expect(page).to have_css('h1', text: 'Thought Distortions')
     end
 
-    it 'views another participants profile' do
+    scenario 'Participant views another participants profile' do
       find('a', text: 'participant5').click
       expect(page).to have_content 'What is your favorite color?'
     end
 
-    it 'likes a whats on your mind post written by another participant' do
+    scenario 'Participant likes a whats on your mind post' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
       page.execute_script('window.scrollBy(0,2000)')
@@ -91,7 +91,7 @@ describe 'SocialNetworking Landing Page, ',
       end
     end
 
-    it 'comments on a nudge post' do
+    scenario 'Participant comments on a nudge post' do
       find('h1', text: 'HOME')
       comment('nudged participant1', 'Sweet Dude!')
       within first('.list-group-item.ng-scope',
@@ -101,7 +101,7 @@ describe 'SocialNetworking Landing Page, ',
       end
     end
 
-    it 'checks for due date of a goal post' do
+    scenario 'Participant checks for due date of a goal post' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
       within first('.list-group-item.ng-scope', text: 'a Goal: p1 alpha') do
@@ -112,14 +112,14 @@ describe 'SocialNetworking Landing Page, ',
       end
     end
 
-    it 'checks for a goal that was due yesterday and is now incomplete' do
+    scenario 'Participant checks for an incomplete goal' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
       page.execute_script('window.scrollBy(0,2000)')
       expect(page).to have_content 'Did Not Complete a Goal: due yesterday'
     end
 
-    it 'does not see an incomplete goal for a goal that was due two days ago' do
+    scenario 'Pt does not see an incomplete goal for goal due 2 days ago' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
       expect(page).to_not have_content 'Did Not Complete a Goal: due two days' \
@@ -128,8 +128,8 @@ describe 'SocialNetworking Landing Page, ',
     end
   end
 
-  describe 'Active participant signs in, resizes window to mobile' do
-    before do
+  feature 'Resize window to mobile size' do
+    background do
       unless ENV['safari']
         sign_in_pt(ENV['Participant_Email'], 'participant1',
                    ENV['Participant_Password'])
@@ -144,14 +144,14 @@ describe 'SocialNetworking Landing Page, ',
       page.driver.browser.manage.window.resize_to(1280, 743)
     end
 
-    it 'is able to scroll for more feed items' do
+    scenario 'Participant is able to scroll for more feed items' do
       find('.panel-title', text: 'To Do')
       find_feed_item('nudged participant1')
 
       expect(page).to have_content 'nudged participant1'
     end
 
-    it 'returns to the home page and still sees the feed' do
+    scenario 'Participant returns to the home page and still sees the feed' do
       visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
       expect(page).to have_content 'Add a New Harmful Thought'
 
@@ -164,8 +164,8 @@ describe 'SocialNetworking Landing Page, ',
     end
   end
 
-  describe 'Active participant signs in,' do
-    it 'complete last task in To Do, sees appropriate message' do
+  feature 'To Do list' do
+    scenario 'Participant complete last To Do, sees appropriate message' do
       sign_in_pt(ENV['Participant_4_Email'], 'participant1',
                  ENV['Participant_4_Password'])
       within('.panel.panel-default.ng-scope', text: 'To Do') do
@@ -198,9 +198,8 @@ describe 'SocialNetworking Landing Page, ',
   end
 end
 
-describe 'SocialNetworking Landing Page, ',
-         :tfdso, type: :feature, sauce: sauce_labs do
-  describe 'Active participant in social arm signs in,' do
+feature 'SocialNetworking Landing Page', :tfdso, sauce: sauce_labs do
+  feature 'Checks moderator' do
     if ENV['safari']
       before(:all) do
         sign_in_pt(ENV['Participant_Email'], 'participant4',
@@ -217,7 +216,7 @@ describe 'SocialNetworking Landing Page, ',
       visit ENV['Base_URL']
     end
 
-    it "does not see 'Last seen:' for moderator" do
+    scenario 'Participant does not see \'Last seen:\' for moderator' do
       find('h1', text: 'HOME')
       within('.col-xs-12.col-md-4.text-center.ng-scope', text: 'ThinkFeelDo') do
         expect('.profile-border.profile-last-seen')

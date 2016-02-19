@@ -1,15 +1,14 @@
 # filename: ./spec/features/participant/core/do_spec.rb
 
-describe 'Active participant in group 1 signs in, navigates to DO tool,',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'DO tool', :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Participant_Email'], 'participant1',
                  ENV['Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Participant_Email'], 'participant1',
                  ENV['Participant_Password'])
@@ -18,7 +17,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/DO"
   end
 
-  it 'completes Awareness' do
+  scenario 'A participant completes the Awareness module' do
     click_on '#1 Awareness'
     click_on 'Next'
     find('h1', text: 'Just a slide')
@@ -57,7 +56,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     find('h1', text: 'Do Landing')
   end
 
-  it 'cannot complete Awareness for a time period already completed' do
+  scenario 'Participant cannot complete for time period already completed' do
     click_on '#1 Awareness'
     click_on 'Next'
     find('h1', text: 'Just a slide')
@@ -73,7 +72,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     end
   end
 
-  it 'completes Awareness for different time on same day that overlaps days' do
+  scenario 'Participant completes for time that overlaps days' do
     click_on '#1 Awareness'
     click_on 'Next'
     find('h1', text: 'Just a slide')
@@ -103,7 +102,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     find('h1', text: 'Do Landing')
   end
 
-  it 'completes Planning' do
+  scenario 'Participant completes Planning module' do
     click_on '#2 Planning'
     click_on 'Next'
     plan_activity('New planned activity', 6, 3)
@@ -119,7 +118,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     find('h1', text: 'Do Landing')
   end
 
-  it 'completes Reviewing' do
+  scenario 'Participant completes Reviewing module' do
     click_on '#3 Doing'
     click_on 'Next'
     find('h1', text: "Let's do this...")
@@ -140,26 +139,26 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     end
   end
 
-  it 'completes Plan a New Activity' do
+  scenario 'Participant completes Plan a New Activity module' do
     click_on 'Add a New Activity'
     plan_activity('New planned activity', 4, 3)
     expect(page).to have_content 'New planned activity'
   end
 
-  it 'navigates to Your Activities viz' do
+  scenario 'Participant navigates to Your Activities viz' do
     click_on 'Your Activities'
     expect(page)
       .to have_content "Daily Averages for #{Date.today.strftime('%b %d %Y')}"
   end
 
-  it 'collapses Daily Summaries in Your Activities viz' do
+  scenario 'Participant collapses Daily Summaries in Your Activities viz' do
     click_on 'Your Activities'
     find('p', text: 'Average Accomplishment Discrepancy')
     click_on 'Daily Summaries'
     expect(page).to_not have_content 'Average Accomplishment Discrepancy'
   end
 
-  it 'navigates to previous day in Your Activities viz' do
+  scenario 'Participant navigates to previous day in Your Activities viz' do
     click_on 'Your Activities'
     find('h3', text: 'Daily Averages')
     page.execute_script('window.scrollTo(0,5000)')
@@ -169,7 +168,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
       .to have_content "Daily Averages for #{prev_day.strftime('%b %d %Y')}"
   end
 
-  it 'views ratings of an activity in Your Activities viz' do
+  scenario 'Participant views ratings of an activity in Your Activities viz' do
     click_on 'Your Activities'
     find('h3', text: 'Daily Averages')
     page.execute_script('window.scrollTo(0,5000)')
@@ -188,7 +187,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     end
   end
 
-  it 'edits ratings of an activity in Your Activities viz' do
+  scenario 'Participant edits ratings of an activity in Your Activities viz' do
     click_on 'Your Activities'
     find('h3', text: 'Daily Averages')
     page.execute_script('window.scrollTo(0,5000)')
@@ -213,7 +212,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     end
   end
 
-  it 'uses the visualization in Your Activities viz' do
+  scenario 'Participant uses the visualization in Your Activities viz' do
     click_on 'Your Activities'
     find('h3', text: 'Daily Averages')
     click_on 'Visualize'
@@ -225,13 +224,13 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     expect(page).to have_css('#datepicker')
   end
 
-  it 'visits View Planned Activities' do
+  scenario 'Participant visits View Planned Activities module' do
     click_on 'View Planned Activities'
     find('.text-capitalize', text: 'View Planned Activities')
     expect(page).to have_content 'Speech'
   end
 
-  it 'uses navbar functionality for all of DO' do
+  scenario 'Participant uses navbar functionality for all of DO' do
     visit "#{ENV['Base_URL']}/navigator/modules/339588004"
     find('h1', text: 'This is just the beginning...')
 
@@ -249,14 +248,14 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     end
   end
 
-  it 'uses skip functionality in Awareness' do
+  scenario 'Participant uses skip functionality in Awareness' do
     click_on '#1 Awareness'
     find('h1', text: 'This is just the beginning...')
     click_on 'Skip'
     expect(page).to have_content "OK, let's talk about yesterday."
   end
 
-  it 'uses skip functionality in Planning' do
+  scenario 'Participant uses skip functionality in Planning' do
     click_on 'DO'
     first('a', text: '#2 Planning').click
     find('h1', text: 'The last few times you were here...')
@@ -264,7 +263,7 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     expect(page).to have_content 'We want you to plan one fun thing'
   end
 
-  it 'uses skip functionality in Doing' do
+  scenario 'Participant uses skip functionality in Doing' do
     click_on 'DO'
     first('a', text: '#3 Doing').click
     find('h1', text: 'Welcome back!')
@@ -275,21 +274,20 @@ describe 'Active participant in group 1 signs in, navigates to DO tool,',
     end
   end
 
-  it 'sees Upcoming Activities on DO > Landing' do
+  scenario 'Participant sees Upcoming Activities on DO > Landing' do
     expect(page).to have_content 'Activities in your near future'
   end
 end
 
-describe 'Active participant in group 3 signs in, navigates to DO tool,',
-         :core, type: :feature, sauce: sauce_labs do
+feature 'DO Tool, Participant 3', :core, sauce: sauce_labs do
   if ENV['safari']
-    before(:all) do
+    background(:all) do
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
                  ENV['Alt_Participant_Password'])
     end
   end
 
-  before do
+  background do
     unless ENV['safari']
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
                  ENV['Alt_Participant_Password'])
@@ -298,7 +296,7 @@ describe 'Active participant in group 3 signs in, navigates to DO tool,',
     visit "#{ENV['Base_URL']}/navigator/contexts/DO"
   end
 
-  it 'completes Awareness w/ already entered but not completed awake period' do
+  scenario 'Participant completes Awareness w/ already entered awake period' do
     click_on '#1 Awareness'
     click_on 'Next'
     find('h1', text: 'Just a slide')
@@ -325,7 +323,7 @@ describe 'Active participant in group 3 signs in, navigates to DO tool,',
     find('h1', text: 'Do Landing')
   end
 
-  it 'visits Reviewing from viz at bottom of DO > Landing' do
+  scenario 'Participant visits Reviewing from viz at bottom of DO > Landing' do
     find('.Recent_Past_Activities')
     click_on 'Review'
     expect(page).to have_content 'You said you were going to'

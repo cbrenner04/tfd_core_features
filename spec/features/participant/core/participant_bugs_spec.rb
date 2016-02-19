@@ -1,22 +1,22 @@
-# filename: participant_bugs_spec.rb
+# filename: ./spec/features/participant/core/participant_bugs_spec.rb
 
-describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
-  describe 'Participant 1 signs in,' do
+feature 'Participant Bugs', :core, sauce: sauce_labs do
+  feature 'DO tool,' do
     if ENV['safari']
-      before(:all) do
+      background(:all) do
         sign_in_pt(ENV['Participant_Email'], 'participant3',
                    ENV['Participant_Password'])
       end
     end
 
-    before do
+    background do
       unless ENV['safari']
         sign_in_pt(ENV['Participant_Email'], 'participant3',
                    ENV['Participant_Password'])
       end
     end
 
-    it 'navigates to the DO tool, completes Planning without multiple alerts' do
+    scenario 'Participant completes Planning without multiple alerts' do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       click_on '#2 Planning'
       click_on 'Next'
@@ -31,16 +31,14 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
       expect(page).to have_content 'Do Landing'
     end
 
-    it 'navigates to the DO tool, completes Plan a New Activity without ' \
-       'multiple alerts' do
+    scenario 'Participant completes Plan a New Activity wo multiple alerts' do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       click_on 'Add a New Activity'
       plan_activity('New planned activity', 4, 3)
       expect(page).to have_content 'New planned activity'
     end
 
-    it 'navigates to the DO tool, visits Your Activities, selects Previous ' \
-       'Day w/out exception' do
+    scenario 'Participant selects Previous Day wo exception' do
       visit "#{ENV['Base_URL']}/navigator/contexts/DO"
       click_on '#1 Awareness'
       click_on 'Next'
@@ -72,9 +70,15 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
         .to have_content 'Daily Averages for ' \
                          "#{Date.today.prev_day.strftime('%b %d %Y')}"
     end
+  end
 
-    it 'visits Your Recent Moods & Emotions, ' \
-       'is able to switch view back to 7 Day' do
+  feature 'FEEL tool, Your Recent Mood & Emotions' do
+    background do
+      sign_in_pt(ENV['Participant_Email'], 'participant3',
+                 ENV['Participant_Password'])
+    end
+
+    scenario 'Participant is able to switch view back to 7 Day' do
       visit "#{ENV['Base_URL']}/navigator/contexts/FEEL"
       click_on 'Your Recent Moods & Emotions'
       one_week_ago = Date.today - 6
@@ -93,13 +97,13 @@ describe 'Participant Bugs', :core, type: :feature, sauce: sauce_labs do
     end
   end
 
-  describe 'Participant 2 signs in,', :marigold do
-    before do
+  feature 'Participant 2 signs in,', :marigold do
+    background do
       sign_in_pt(ENV['Participant_2_Email'], 'participant1',
                  ENV['Participant_2_Password'])
     end
 
-    it 'navigates and completes a module, it appears complete' do
+    scenario 'Participant completes a module, it appears complete' do
       within('.dropdown-toggle', text: 'FEEL') do
         expect(page).to have_content 'New!'
       end
