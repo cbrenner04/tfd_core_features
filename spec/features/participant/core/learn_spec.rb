@@ -1,81 +1,44 @@
 # filename: ./spec/features/participant/core/learn_spec.rb
 
 feature 'LEARN tool', :core, :marigold, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      sign_in_pt(ENV['Participant_Email'], 'participant5',
-                 ENV['Participant_Password'])
-    end
-  end
+  background(:all) { participant_1.sign_in if ENV['safari'] }
 
   background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], 'participant5',
-                 ENV['Participant_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
+    participant_1.sign_in unless ENV['safari']
+    visit learn.landing_page
   end
 
   scenario 'Participant sees list opened to this week, collapses list' do
-    find('.list-group-item-heading', text: 'Do - Awareness Introduction')
-    first('.panel-title', text: 'Week 1').click
-    expect(page).to_not have_content 'Do - Awareness Introduction'
+    learn.toggle_week_1_panel
+
+    expect(learn).to_not have_do_intro_lesson_visible
   end
 
   scenario 'Participant reads Lesson 1' do
-    click_on 'Do - Awareness Introduction'
-    find('h1', text: 'This is just the beginning...')
-    click_on 'Next'
-    click_on 'Finish'
-    expect(page).to have_content "Read on #{Date.today.strftime('%b %d')}"
+    learn.read_do_intro_lesson
 
-    expect(page).to have_content 'Printable'
+    expect(learn).to have_read_record
+
+    expect(learn).to have_printable_link_visible
   end
 
   scenario 'Participant only sees lessons listed to the end of study length' do
-    last_wk_num = (16 if ENV['tfd']) ||
-                  (8 if ENV['tfdso'] || ENV['sunnyside'] || ENV['marigold'])
-    last_week = (Date.today + 105 if ENV['tfd']) ||
-                (Date.today + 49 if ENV['tfdso'] || ENV['sunnyside'] ||
-                 ENV['marigold'])
-    after_wk_num = (17 if ENV['tfd']) ||
-                   (9 if ENV['tfdso'] || ENV['sunnyside'] || ENV['marigold'])
-    after_study = (Date.today + 112 if ENV['tfd']) ||
-                  (Date.today + 56 if ENV['tfdso'] || ENV['sunnyside'] ||
-                   ENV['marigold'])
-    expect(page)
-      .to have_css('.panel-title.panel-unreleased',
-                   text: "Week #{last_wk_num} " \
-                   "· #{last_week.strftime('%b %d %Y')}")
-    expect(page)
-      .to_not have_css('.panel-title.panel-unreleased',
-                       text: "Week #{after_wk_num} " \
-                       "· #{after_study.strftime('%b %d %Y')}")
+    expect(learn).to have_last_week_listed
+
+    expect(learn).to_not have_week_list_beyond_study
   end
 end
 
 feature 'LEARN tool, Participant 5', :core, :marigold, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      sign_in_pt(ENV['Participant__5_Email'], 'participant1',
-                 ENV['Participant__5_Password'])
-    end
-  end
+  background(:all) { participant_5.sign_in if ENV['safari'] }
 
   background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Participant_5_Email'], 'participant1',
-                 ENV['Participant_5_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
+    participant_5.sign_in unless ENV['safari']
+    visit learn.landing_page
   end
 
   scenario 'Participant views print preview of a lesson' do
-    click_on 'Printable'
-    find('a', text: 'Print')
-    click_on 'Return to Lessons'
-    expect(page).to have_content 'Week 1'
+    learn.print
+    learn.return_to_lessons
   end
 end

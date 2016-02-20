@@ -1,6 +1,6 @@
 # filename: ./spec/features/participant/core/do_spec.rb
 
-require './spec/support/do_helper'
+require './spec/support/participants/do_helper'
 
 feature 'DO tool', :core, sauce: sauce_labs do
   background(:all) { participant_1.sign_in if ENV['safari'] }

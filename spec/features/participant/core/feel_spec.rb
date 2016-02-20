@@ -1,5 +1,7 @@
 # filename: ./spec/features/participant/core/feel_spec.rb
 
+require './spec/support/participants/feel_helper'
+
 feature 'FEEL tool, Tracking Mood', :core, sauce: sauce_labs do
   background(:all) { participant_1.sign_in if ENV['safari'] }
 

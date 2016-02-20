@@ -4,7 +4,7 @@ class Participants
     include Capybara::DSL
 
     def accept_social
-      driver.execute_script('window.confirm = function() {return true}')
+      execute_script('window.confirm = function() {return true}')
       click_on 'Next'
     end
   end
