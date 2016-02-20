@@ -23,8 +23,48 @@ class Participants
       click_on 'Cancel'
     end
 
+    def done
+      click_on 'Done'
+    end
+
     def has_new_assignment_in_feel?
       find('.dropdown-toggle', text: 'FEEL').has_text?('New!')
+    end
+
+    def has_successful_login_alert?
+      has_text? 'Signed in successfully.'
+    end
+
+    def has_unsuccessful_login_alert?
+      has_text? 'Invalid email address or password'
+    end
+
+    def has_sign_up_alert?
+      has_text? 'You need to sign in or sign up before continuing.'
+    end
+
+    def has_no_active_membership_alert
+      has_text? 'We\'re sorry, but you can\'t sign in yet ' \
+                'because you are not assigned to an active ' \
+                'group'
+    end
+
+    def click_brand
+      find(:css, '.navbar-brand').click
+    end
+
+    def has_home_page_visible?
+      has_text? 'HOME'
+    end
+
+    def click_on_login_page_slideshow
+      click_on "Introduction to #{host_app}"
+    end
+
+    def has_password_reset_alert?
+      has_text? 'You will receive an email with ' \
+                'instructions on how to reset your password ' \
+                'in a few minutes.'
     end
   end
 end

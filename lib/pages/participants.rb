@@ -9,18 +9,43 @@ class Participants
     @display_name ||= pt_arry[:display_name]
   end
 
+  def login_page
+    "#{ENV['Base_URL']}/participants/sign_in"
+  end
+
+  def fill_in_login_form
+    within('#new_participant') do
+      fill_in 'participant_email', with: @participant
+      fill_in 'participant_password', with: @password
+    end
+  end
+
+  def submit_login
+    click_on 'Sign in'
+  end
+
+  def select_forgot_password
+    click_on 'Forgot your password?'
+  end
+
+  def submit_forgot_password
+    find('h2', text: 'Forgot your password?')
+    within('#new_participant') do
+      fill_in 'participant_email', with: @paricipant
+    end
+
+    click_on 'Send me reset password instructions'
+  end
+
   def sign_in
-    visit "#{ENV['Base_URL']}/participants/sign_in"
+    visit login_page
     unless page.has_css?('#new_participant')
       sign_out(@old_participant)
     end
     if page.has_css?('#new_participant')
-      within('#new_participant') do
-        fill_in 'participant_email', with: @participant
-        fill_in 'participant_password', with: @password
-      end
-      click_on 'Sign in'
-      expect(page).to have_content 'HOME'
+      fill_in_login_form
+      submit_login
+      has_text? 'HOME'
     else
       puts 'LOGIN FAILED'
     end

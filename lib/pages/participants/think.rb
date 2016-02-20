@@ -3,6 +3,10 @@ class Participants
   class Think
     include Capybara::DSL
 
+    def landing_page
+      "#{ENV['Base_URL']}/navigator/contexts/THINK"
+    end
+
     def compare_thought(thought)
       page.execute_script('window.scrollBy(0,500)')
       accept_social

@@ -6,12 +6,21 @@ def participant_1_so1
   @participant_1_so1 ||= Participants.new(
     participant: ENV['Participant_Email'],
     old_participant: 'participant1',
+    password: ENV['Participant_Password'],
+    display_name: 'participant1'
+  )
+end
+
+def participant_1_so2
+  @participant_1_so2 ||= Participants.new(
+    participant: ENV['Participant_Email'],
+    old_participant: 'participant2',
     password: ENV['Participant_Password']
   )
 end
 
 def participant_1_so3
-  @participant_1 ||= Participants.new(
+  @participant_1_so3 ||= Participants.new(
     participant: ENV['Participant_Email'],
     old_participant: 'participant3',
     password: ENV['Participant_Password']
@@ -19,7 +28,7 @@ def participant_1_so3
 end
 
 def participant_1_so5
-  @participant_1 ||= Participants.new(
+  @participant_1_so5 ||= Participants.new(
     participant: ENV['Participant_Email'],
     old_participant: 'participant5',
     password: ENV['Participant_Password']
@@ -27,7 +36,7 @@ def participant_1_so5
 end
 
 def participant_2_so1
-  @participant_1 ||= Participants.new(
+  @participant_2_so1 ||= Participants.new(
     participant: ENV['Participant_2_Email'],
     old_participant: 'participant1',
     password: ENV['Participant_Password'],
@@ -44,7 +53,7 @@ def participant_3_so1
 end
 
 def participant_5_so1
-  @participant_5 ||= Participants.new(
+  @participant_5_so1 ||= Participants.new(
     participant: ENV['Participant_5_Email'],
     old_participant: 'participant1',
     password: ENV['Participant_5_Password']
@@ -52,7 +61,7 @@ def participant_5_so1
 end
 
 def participant_5_so3
-  @participant_5 ||= Participants.new(
+  @participant_5_so3 ||= Participants.new(
     participant: ENV['Participant_5_Email'],
     old_participant: 'participant3',
     password: ENV['Participant_5_Password']

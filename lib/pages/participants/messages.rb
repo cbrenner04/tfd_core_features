@@ -66,6 +66,10 @@ class Participants
       has_text? 'Inbox'
     end
 
+    def has_compose_button?
+      has_text? 'Compose'
+    end
+
     def return_to_inbox
       click_on 'Return'
     end

@@ -14,6 +14,10 @@ class Participants
       "#{ENV['Base_URL']}/navigator/contexts/LEARN"
     end
 
+    def visible?
+      find('h1', text: 'Lessons Week 1')
+    end
+
     def toggle_week_1_panel
       first('.panel-title', text: 'Week 1').click
     end
