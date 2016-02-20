@@ -21,6 +21,14 @@ class Participants
         click_on '#2 Planning'
       end
 
+      def has_first_slide_visible?
+        has_text? 'The last few times you were here...'
+      end
+
+      def has_planning_form_visible?
+        has_text? 'We want you to plan one fun thing'
+      end
+
       def plan_first_activity
         plan(@first_activity, @first_pleasure, @first_accomplishment)
       end

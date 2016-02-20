@@ -7,7 +7,6 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
   background do
     participant_1.sign_in unless ENV['safari']
-
     visit do_tool.landing
   end
 
@@ -19,7 +18,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
     expect(awareness_7a_to_10p).to have_entries
 
-    awareness.finish
+    expect(do_tool).to have_landing_visible
   end
 
   # this is dependent on the previous example, need to update
@@ -43,7 +42,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
     expect(awareness_11p_to_1a).to have_entries
 
-    awareness.finish
+    expect(do_tool).to have_landing_visible
   end
 
   scenario 'Participant completes Planning module' do
@@ -85,179 +84,115 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
   scenario 'Participant collapses Daily Summaries in Your Activities viz' do
     activity_viz.open
-    find('p', text: 'Average Accomplishment Discrepancy')
-    click_on 'Daily Summaries'
-    expect(page).to_not have_content 'Average Accomplishment Discrepancy'
+
+    expect(activity_viz).to have_daily_summary_visible
+
+    activity_viz.toggle_daily_summary
+
+    expect(activity_viz).to_not have_daily_summary_visible
   end
 
-  scenario 'Participant navigates to previous day in Your Activities viz' do
+  scenario 'Participant goes to previous day, views & edits ratings in viz' do
     activity_viz.open
-    find('h3', text: 'Daily Averages')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Previous Day'
-    prev_day = Date.today - 1
-    expect(page)
-      .to have_content "Daily Averages for #{prev_day.strftime('%b %d %Y')}"
-  end
+    navigation.scroll_to_bottom
+    activity_viz.go_to_previous_day
 
-  scenario 'Participant views ratings of an activity in Your Activities viz' do
-    activity_viz.open
-    find('h3', text: 'Daily Averages')
-    page.execute_script('window.scrollTo(0,5000)')
-    prev_day = Date.today - 1
-    click_on 'Previous Day'
-    find('h3', text: "Daily Averages for #{prev_day.strftime('%b %d %Y')}")
-    page.execute_script('window.scrollTo(0,5000)')
-    endtime = Time.now + (60 * 60)
-    within('.panel.panel-default',
-           text: "#{Time.now.strftime('%-l %P')} - " \
-                 "#{endtime.strftime('%-l %P')}: Parkour") do
-      click_on "#{Time.now.strftime('%-l %P')} - " \
-               "#{endtime.strftime('%-l %P')}: Parkour"
-      expect(page)
-        .to have_content 'Predicted  Average Importance: 4 Really fun: 9'
-    end
-  end
+    expect(activity_viz).to have_previous_day_visible
 
-  scenario 'Participant edits ratings of an activity in Your Activities viz' do
-    activity_viz.open
-    find('h3', text: 'Daily Averages')
-    page.execute_script('window.scrollTo(0,5000)')
-    prev_day = Date.today - 1
-    click_on 'Previous Day'
-    find('h3', text: "Daily Averages for #{prev_day.strftime('%b %d %Y')}")
-    page.execute_script('window.scrollTo(0,5000)')
-    endtime = Time.now + (60 * 60)
-    within('.panel.panel-default',
-           text: "#{Time.now.strftime('%-l %P')} - " \
-           "#{endtime.strftime('%-l %P')}: Parkour") do
-      click_on "#{Time.now.strftime('%-l %P')} - " \
-               "#{endtime.strftime('%-l %P')}: Parkour"
-      within('.collapse.in') do
-        click_on 'Edit'
-        select '6', from: 'activity[actual_pleasure_intensity]'
-        select '7', from: 'activity[actual_accomplishment_intensity]'
-        click_on 'Update'
-      end
-      expect(page)
-        .to have_content 'Accomplishment: 7 · Pleasure: 6'
-    end
+    navigation.scroll_to_bottom
+    activity_viz.view_activity_rating
+
+    expect(activity_viz).to have_activity_rating
+
+    activity_viz.edit_ratings
+
+    expect(activity_viz).to have_new_ratings
   end
 
   scenario 'Participant uses the visualization in Your Activities viz' do
     activity_viz.open
-    find('h3', text: 'Daily Averages')
-    click_on 'Visualize'
-    click_on 'Last 3 Days'
-    date1 = Date.today - 2
-    expect(page).to have_content date1.strftime('%A, %m/%d')
+    activity_viz.open_visualize
+    activity_viz.go_to_three_day_view
 
-    click_on 'Day'
-    expect(page).to have_css('#datepicker')
+    expect(activity_viz).to have_three_day_view_visible
+
+    activity_viz.open_date_picker
+
+    expect(activity_viz).to have_date_picker # doesn't pick a date, update?
   end
 
   scenario 'Participant visits View Planned Activities module' do
-    click_on 'View Planned Activities'
-    find('.text-capitalize', text: 'View Planned Activities')
-    expect(page).to have_content 'Speech'
+    planned_activities.open
+
+    expect(planned_activities).to be_visible
+
+    expect(planned_activities).to have_activity
   end
 
   scenario 'Participant uses navbar functionality for all of DO' do
-    visit "#{ENV['Base_URL']}/navigator/modules/339588004"
-    find('h1', text: 'This is just the beginning...')
+    visit do_tool.awareness
 
-    tool = ['#2 Planning', '#1 Awareness', '#3 Doing', 'Add a New Activity',
-            'Your Activities', 'View Planned Activities', 'DO Home']
-    content = ['The last few times you were here...',
-               'This is just the beginning...', 'Welcome back!',
-               "But you don't have to start from scratch", 'Daily Averages',
-               'Speech', 'Add a New Activity']
+    expect(awarenss).to have_first_slide_visible
 
-    tool.zip(content) do |t, c|
-      click_on 'DO'
-      click_on t
-      expect(page).to have_content c
-    end
+    do_tool.navigate_to_all_modules_through_nav_bar
   end
 
   scenario 'Participant uses skip functionality in Awareness' do
-    click_on '#1 Awareness'
-    find('h1', text: 'This is just the beginning...')
-    click_on 'Skip'
-    expect(page).to have_content "OK, let's talk about yesterday."
+    awareness.open
+
+    expect(awareness).to have_first_slide_visible
+
+    navigation.skip
+
+    expect(awareness).to have_time_period_selection_form_visible
   end
 
   scenario 'Participant uses skip functionality in Planning' do
-    click_on 'DO'
-    first('a', text: '#2 Planning').click
-    find('h1', text: 'The last few times you were here...')
-    click_on 'Skip'
-    expect(page).to have_content 'We want you to plan one fun thing'
+    planning.open
+
+    expect(planning).to have_first_slide_visible
+
+    navigation.skip
+
+    expect(planning).to have_planning_form_visible
   end
 
   scenario 'Participant uses skip functionality in Doing' do
-    click_on 'DO'
-    first('a', text: '#3 Doing').click
-    find('h1', text: 'Welcome back!')
-    click_on 'Skip'
-    unless page.has_text?('You said you were going to')
-      expect(page).to have_content "It doesn't look like there are any " \
-                                   'activities for you to review at this time'
+    reviewing.open
+    reviewing.has_first_slide_visible?
+    navigation.skip
+    unless reviewing.has_another_activity_to_review?
+      expect(reviewing).to have_nothing_to_do_message
     end
   end
 
   scenario 'Participant sees Upcoming Activities on DO > Landing' do
-    expect(page).to have_content 'Activities in your near future'
+    expect(do_tool).to have_upcoming_activities_visible
   end
 end
 
 feature 'DO Tool, Participant 3', :core, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
-                 ENV['Alt_Participant_Password'])
-    end
-  end
+  background(:all) { participant_3.sign_in if ENV['safari'] }
 
   background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Alt_Participant_Email'], 'participant1',
-                 ENV['Alt_Participant_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/navigator/contexts/DO"
+    participant_3.sign_in unless ENV['safari']
+    visit do_tool.landing_page
   end
 
   scenario 'Participant completes Awareness w/ already entered awake period' do
-    click_on '#1 Awareness'
-    click_on 'Next'
-    find('h1', text: 'Just a slide')
-    click_on 'Next'
-    click_on 'Complete'
+    awareness.open
+    awareness.move_to_time_period_selection
+    awareness.choose_to_complete_time_period
+    awareness_complete_entry.complete_multiple_hour_review
 
-    activity = ['Get ready for work', 'Travel to work', 'Work']
+    expect(awareness_complete_entry).to have_entries
 
-    (0..2).zip(activity, [6, 2, 8], [7, 3, 9]) do |a, b, c, d|
-      fill_in "activity_type_#{a}", with: b
-      choose_rating("pleasure_#{a}", c)
-      choose_rating("accomplishment_#{a}", d)
-      page.execute_script('window.scrollBy(0,500)')
-    end
-
-    click_on 'Next'
-
-    %w(recent fun accomplished).zip([4, 3, 3]) do |x, y|
-      find("##{x}_activities")
-      click_on 'Next'
-      expect(page).to have_css('tr', count: y)
-    end
-
-    find('h1', text: 'Do Landing')
+    expect(do_tool).to have_landing_visible
   end
 
   scenario 'Participant visits Reviewing from viz at bottom of DO > Landing' do
-    find('.Recent_Past_Activities')
-    click_on 'Review'
-    expect(page).to have_content 'You said you were going to'
+    do_tool.review_activities_from_landing
+
+    expect(reviewing).to have_another_activity_to_review
   end
 end

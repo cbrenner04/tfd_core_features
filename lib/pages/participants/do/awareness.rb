@@ -20,10 +20,18 @@ class Participants
         click_on '#1 Awareness'
       end
 
+      def has_first_slide_visible?
+        has_text 'This is just the beginning...'
+      end
+
       def move_to_time_period_selection
         navigation.next
         find('h1', text: 'Just a slide')
         navigation.next
+      end
+
+      def has_time_period_selection_form_visible?
+        has_text? 'OK, let\'s talk about yesterday'
       end
 
       def create_time_period
@@ -33,6 +41,10 @@ class Participants
                from: 'awake_period_end_time'
         click_on 'Create'
         find('.alert-success', text: 'Awake Period saved')
+      end
+
+      def choose_to_complete_time_period
+        click_on 'Complete'
       end
 
       def has_start_time?(start_time)
@@ -67,13 +79,9 @@ class Participants
       def has_entries?
         %w(recent fun accomplished).zip(@count) do |x, y|
           find("##{x}_activities").has_css?('tr', count: y)
+          naviation.scroll_to_bottom
+          navigation.next
         end
-      end
-
-      def finish
-        naviation.scroll_to_bottom
-        navigation.next
-        find('h1', text: 'Do Landing')
       end
 
       private

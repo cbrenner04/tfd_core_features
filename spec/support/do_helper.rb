@@ -2,18 +2,21 @@
 
 require './lib/pages/participants'
 require './lib/pages/participants/do'
-require './lib/pages/participants/navigation'
-require './lib/pages/participants/do/awareness'
-require './lib/pages/participants/do/planning'
-require './lib/pages/participants/do/reviewing'
-require './lib/pages/participants/do/plan_new_activity'
-require './lib/pages/participants/do/activity_visualization'
+Dir['./lib/pages/participants/do/*.rb'].each { |file| require file }
 
 def participant_1
   @participant_1 ||= Participants.new(
     participant: ENV['Participant_Email'],
     old_participant: 'participant1',
     password: ENV['Participant_Password']
+  )
+end
+
+def participant_3
+  @participant_3 ||= Participants.new(
+    participant: ENV['Alt_Participant_Email'],
+    old_participant: 'participant1',
+    password: ENV['Alt_Participant_Password']
   )
 end
 
@@ -51,6 +54,16 @@ def awareness_11p_to_1a
   )
 end
 
+def awareness_complete_entry
+  @awareness_complete_entry ||= Participants::DoTool::Awareness.new(
+    activity: ['Get ready for work', 'Travel to work', 'Work'],
+    num_fields: [0..2],
+    pleasure: [6, 2, 8],
+    accomplishment: [7, 3, 9],
+    count: [4, 3, 3]
+  )
+end
+
 def planning
   @planning ||= Participants::DoTool::Planning.new(
     first_activity: 'New planned activity',
@@ -80,5 +93,20 @@ def plan_new_activity
 end
 
 def activity_viz
-  @activity_vis ||= Participants.DoTool.ActivityVisualization.new
+  @activity_vis ||= Participants.DoTool::ActivityVisualization.new(
+    prev_day: Date.today - 1,
+    activity: 'Parkour',
+    start_time: Time.now,
+    end_time: Time.now + (60 * 60),
+    importance: 4,
+    fun: 9,
+    accomplishment: 7,
+    pleasure: 6
+  )
+end
+
+def planned_activity
+  @planned_activity ||= Participants::DoTool::PlannedActivities.new(
+    activity: 'Speech'
+  )
 end

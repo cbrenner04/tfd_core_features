@@ -14,5 +14,9 @@ class Participants
     def scroll_down
       execute_script('window.scrollBy(0,500)')
     end
+
+    def skip
+      click_on 'Skip'
+    end
   end
 end

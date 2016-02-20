@@ -16,6 +16,15 @@ class Participants
         click_on '#3 Doing'
       end
 
+      def has_first_slide_visible?
+        has_text? 'Welcome back!'
+      end
+
+      def has_nothing_to_do_message?
+        has_text? 'It doesn\'t look like there are any ' \
+                  'activities for you to review at this time'
+      end
+
       def move_to_review
         navigation.next
         find('h1', text: 'Let\'s do this...')
