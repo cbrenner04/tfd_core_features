@@ -1,165 +1,97 @@
 # filename: ./spec/features/participant/core/do_spec.rb
 
+require './spec/support/do_helper'
+
 feature 'DO tool', :core, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      sign_in_pt(ENV['Participant_Email'], 'participant1',
-                 ENV['Participant_Password'])
-    end
-  end
+  background(:all) { participant_1.sign_in if ENV['safari'] }
 
   background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], 'participant1',
-                 ENV['Participant_Password'])
-    end
+    participant_1.sign_in unless ENV['safari']
 
-    visit "#{ENV['Base_URL']}/navigator/contexts/DO"
+    visit do_tool.landing
   end
 
   scenario 'A participant completes the Awareness module' do
-    click_on '#1 Awareness'
-    click_on 'Next'
-    find('h1', text: 'Just a slide')
-    click_on 'Next'
-    select "#{Date.today.prev_day.strftime('%a')} 7 AM",
-           from: 'awake_period_start_time'
-    select "#{Date.today.prev_day.strftime('%a')} 10 PM",
-           from: 'awake_period_end_time'
-    click_on 'Create'
-    find('.alert-success', text: 'Awake Period saved')
+    awareness.open
+    awareness.move_to_time_period_selection
+    awareness_7a_to_10p.create_time_period
+    awareness_7a_to_10p.complete_multiple_hour_review
 
-    activity = ['Get ready for work', 'Travel to work', 'Work', 'Work', 'Work',
-                'Work', 'Work', 'Work', 'Work', 'Work', 'Travel from work',
-                'Eat dinner', 'Watch TV', 'read', 'Get ready for bed']
-    pleasure = [6, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 9, 9, 2]
-    accomplishment = [7, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3]
+    expect(awareness_7a_to_10p).to have_entries
 
-    (0..14).zip(activity, pleasure, accomplishment) do |a, b, c, d|
-      fill_in "activity_type_#{a}", with: b
-      choose_rating("pleasure_#{a}", c)
-      choose_rating("accomplishment_#{a}", d)
-      page.execute_script('window.scrollBy(0,500)')
-    end
-
-    click_on 'Next'
-
-    %w(recent fun accomplished).zip([17, 5, 5]) do |x, y|
-      within("##{x}_activities") do
-        expect(page).to have_css('tr', count: y)
-      end
-
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Next'
-    end
-
-    find('h1', text: 'Do Landing')
+    awareness.finish
   end
 
+  # this is dependent on the previous example, need to update
   scenario 'Participant cannot complete for time period already completed' do
-    click_on '#1 Awareness'
-    click_on 'Next'
-    find('h1', text: 'Just a slide')
-    click_on 'Next'
-    within('#awake_period_start_time') do
-      expect(page).to_not have_content "#{Date.today.prev_day.strftime('%a')}" \
-                                       ' 7 AM'
-    end
+    awareness.open
+    awareness.move_to_time_period_selection
 
-    within('#awake_period_end_time') do
-      expect(page).to_not have_content "#{Date.today.prev_day.strftime('%a')}" \
-                                       ' 10 PM'
-    end
+    expect(awareness).to_not have_start_time('7 AM')
+
+    expect(awareness).to_not have_end_time('10 PM')
   end
 
   scenario 'Participant completes for time that overlaps days' do
-    click_on '#1 Awareness'
-    click_on 'Next'
-    find('h1', text: 'Just a slide')
-    click_on 'Next'
-    select "#{Date.today.prev_day.strftime('%a')} 11 PM",
-           from: 'awake_period_start_time'
-    select "#{Date.today.strftime('%a')} 1 AM", from: 'awake_period_end_time'
-    click_on 'Create'
-    find('.alert-success', text: 'Awake Period saved')
+    awareness.open
+    awareness.move_to_time_period_selection
+    awareness_11p_to_1a.create_time_period
+    awareness_11p_to_1a.complete_one_hour_review(0, 'Sleep', 6, 1)
+    awareness_11p_to_1a.copy(0)
+    navigation.scroll_to_bottom
+    navigation.next
 
-    fill_in 'activity_type_0', with: 'Sleep'
-    choose_rating('pleasure_0', 6)
-    choose_rating('accomplishment_0', 1)
-    page.execute_script('window.scrollBy(0,500)')
-    click_on 'copy_1'
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Next'
+    expect(awareness_11p_to_1a).to have_entries
 
-    %w(recent fun accomplished).zip([3, 2, 1]) do |x, y|
-      within("##{x}_activities") do
-        expect(page).to have_css('tr', count: y)
-      end
-
-      click_on 'Next'
-    end
-
-    find('h1', text: 'Do Landing')
+    awareness.finish
   end
 
   scenario 'Participant completes Planning module' do
-    click_on '#2 Planning'
-    click_on 'Next'
-    plan_activity('New planned activity', 6, 3)
-    page.execute_script('window.scrollBy(0,500)')
-    plan_activity('Another planned activity', 4, 8)
-    find('h1', text: 'OK...')
-    click_on 'Next'
-    within('#previous_activities') do
-      expect(page).to have_css('tr', count: '6')
-    end
+    planning.open
+    navigation.next
+    planning.plan_first_activity
+    navigation.scroll_down
+    planning.plan_second_activity
+    planning.move_to_review
 
-    click_on 'Next'
-    find('h1', text: 'Do Landing')
+    expect(planning).to have_entries
+
+    planning.finish
   end
 
   scenario 'Participant completes Reviewing module' do
-    click_on '#3 Doing'
-    click_on 'Next'
-    find('h1', text: "Let's do this...")
+    reviewing.open
+    reviewing.move_to_review
+    reviewing.review_completed_activity
 
-    click_on 'Next'
-    find('.btn.btn-success').click
-    select '7', from: 'activity[actual_pleasure_intensity]'
-    select '5', from: 'activity[actual_accomplishment_intensity]'
-    page.execute_script('window.scrollBy(0,500)')
-    accept_social
-    expect(page).to have_content 'Activity saved'
-
-    unless page.has_no_text?('You said you were going to')
-      find('.btn.btn-danger').click
-      fill_in 'activity[noncompliance_reason]', with: "I didn't have time"
-      accept_social
-      expect(page).to have_content 'Activity saved'
+    # this is due to a dependency issue, need to update
+    unless reviewing.has_another_activity_to_review?
+      reviewing.review_incomplete_activity
     end
   end
 
   scenario 'Participant completes Plan a New Activity module' do
-    click_on 'Add a New Activity'
-    plan_activity('New planned activity', 4, 3)
-    expect(page).to have_content 'New planned activity'
+    plan_new_activity.open
+    plan_new_activity.plan_activity
+
+    expect(plan_new_activity).to have_activity
   end
 
   scenario 'Participant navigates to Your Activities viz' do
-    click_on 'Your Activities'
-    expect(page)
-      .to have_content "Daily Averages for #{Date.today.strftime('%b %d %Y')}"
+    activity_viz.open
+
+    expect(activity_viz).to be_visible
   end
 
   scenario 'Participant collapses Daily Summaries in Your Activities viz' do
-    click_on 'Your Activities'
+    activity_viz.open
     find('p', text: 'Average Accomplishment Discrepancy')
     click_on 'Daily Summaries'
     expect(page).to_not have_content 'Average Accomplishment Discrepancy'
   end
 
   scenario 'Participant navigates to previous day in Your Activities viz' do
-    click_on 'Your Activities'
+    activity_viz.open
     find('h3', text: 'Daily Averages')
     page.execute_script('window.scrollTo(0,5000)')
     click_on 'Previous Day'
@@ -169,7 +101,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
   end
 
   scenario 'Participant views ratings of an activity in Your Activities viz' do
-    click_on 'Your Activities'
+    activity_viz.open
     find('h3', text: 'Daily Averages')
     page.execute_script('window.scrollTo(0,5000)')
     prev_day = Date.today - 1
@@ -188,7 +120,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
   end
 
   scenario 'Participant edits ratings of an activity in Your Activities viz' do
-    click_on 'Your Activities'
+    activity_viz.open
     find('h3', text: 'Daily Averages')
     page.execute_script('window.scrollTo(0,5000)')
     prev_day = Date.today - 1
@@ -213,7 +145,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
   end
 
   scenario 'Participant uses the visualization in Your Activities viz' do
-    click_on 'Your Activities'
+    activity_viz.open
     find('h3', text: 'Daily Averages')
     click_on 'Visualize'
     click_on 'Last 3 Days'
