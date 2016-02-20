@@ -1,4 +1,4 @@
-# filename: ./spec/support/do_helper.rb
+# filename: ./spec/support/particiapnts/do_helper.rb
 
 require './lib/pages/participants'
 require './lib/pages/participants/do'
