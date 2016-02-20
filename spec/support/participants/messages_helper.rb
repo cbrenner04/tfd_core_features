@@ -1,27 +1,10 @@
 # filename: ./spec/support/participants/messages_helper.rb
 
-require './lib/pages/participants'
 require './lib/pages/participants/messages'
 require './lib/pages/participants/navigation'
 
 def navigation
   @navigation ||= Participants::Navigation.new
-end
-
-def participant_1
-  @participant_1 ||= Participants.new(
-    participant: ENV['Participant_Email'],
-    old_participant: 'participant5',
-    password: ENV['Participant_Password']
-  )
-end
-
-def participant_3
-  @participant_3 ||= Participant.new(
-    participant: ENV['Alt_Participant_Email'],
-    old_participant: 'participant1',
-    password: ENV['Alt_Participant_Password']
-  )
 end
 
 def messages

@@ -4,22 +4,6 @@ require './lib/pages/participants'
 require './lib/pages/participants/do'
 Dir['./lib/pages/participants/do/*.rb'].each { |file| require file }
 
-def participant_1
-  @participant_1 ||= Participants.new(
-    participant: ENV['Participant_Email'],
-    old_participant: 'participant1',
-    password: ENV['Participant_Password']
-  )
-end
-
-def participant_3
-  @participant_3 ||= Participants.new(
-    participant: ENV['Alt_Participant_Email'],
-    old_participant: 'participant1',
-    password: ENV['Alt_Participant_Password']
-  )
-end
-
 def do_tool
   @do_tool ||= Participants::DoTool.new
 end

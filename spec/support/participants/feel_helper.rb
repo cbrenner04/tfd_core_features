@@ -1,32 +1,7 @@
 # filename: ./spec/support/participants/feel_helper.rb
 
-require './lib/pages/participants'
 require './lib/pages/participants/feel'
 Dir['./lib/pages/participants/feel/*.rb'].each { |file| require file }
-
-def participant_1
-  @participant_1 ||= Participants.new(
-    participant: ENV['Participant_Email'],
-    old_participant: 'participant3',
-    password: ENV['Participant_Password']
-  )
-end
-
-def participant_3
-  @participant_3 ||= Participants.new(
-    participant: ENV['Alt_Participant_Email'],
-    old_participant: 'participant1',
-    password: ENV['Alt_Participant_Password']
-  )
-end
-
-def participant_5
-  @participant_5 ||= Participants.new(
-    participant: ENV['Participant_5_Email'],
-    old_participant: 'participant3',
-    password: ENV['Participant_5_Password']
-  )
-end
 
 def feel
   @feel ||= Participants::Feel.new

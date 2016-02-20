@@ -3,10 +3,10 @@
 require './spec/support/participants/do_helper'
 
 feature 'DO tool', :core, sauce: sauce_labs do
-  background(:all) { participant_1.sign_in if ENV['safari'] }
+  background(:all) { participant_1_so1.sign_in if ENV['safari'] }
 
   background do
-    participant_1.sign_in unless ENV['safari']
+    participant_1_so1.sign_in unless ENV['safari']
     visit do_tool.landing
   end
 
@@ -172,10 +172,10 @@ feature 'DO tool', :core, sauce: sauce_labs do
 end
 
 feature 'DO Tool, Participant 3', :core, sauce: sauce_labs do
-  background(:all) { participant_3.sign_in if ENV['safari'] }
+  background(:all) { participant_3_so1.sign_in if ENV['safari'] }
 
   background do
-    participant_3.sign_in unless ENV['safari']
+    participant_3_so1.sign_in unless ENV['safari']
     visit do_tool.landing_page
   end
 

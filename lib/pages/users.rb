@@ -33,4 +33,39 @@ class Users
   rescue Capybara::ElementNotFound
     retry unless (tries -= 1).zero?
   end
+
+  def select_patient(patient)
+    within('#patients', text: patient) do
+      click_on patient
+    end
+  end
+
+  def check_data(item, data)
+    within(item) do
+      expect(page).to have_content data
+    end
+  end
+
+  def go_to_next_page(module_text)
+    unless page.has_text? module_text
+      page.execute_script('window.scrollTo(0,5000)')
+      within('.pagination') do
+        click_on 'Next'
+      end
+    end
+  end
+
+  def moderator
+    'participant2'
+  end
+
+  def host_app
+    if ENV['tfd'] || ENV['tfdso']
+      'ThinkFeelDo'
+    elsif ENV['sunnyside']
+      'Sunnyside'
+    elsif ENV['marigold']
+      'Marigold'
+    end
+  end
 end
