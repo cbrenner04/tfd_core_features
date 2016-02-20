@@ -41,6 +41,10 @@ class Participants
                   "#{Date.today.strftime('%b %d %Y')}"
       end
 
+      def switch_to_7_day_view
+        find('.btn.btn-default', text: '7').click
+      end
+
       def switch_to_previous_period
         click_on 'Previous Period'
       end

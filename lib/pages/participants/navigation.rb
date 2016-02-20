@@ -22,5 +22,9 @@ class Participants
     def cancel
       click_on 'Cancel'
     end
+
+    def has_new_assignment_in_feel?
+      find('.dropdown-toggle', text: 'FEEL').has_text?('New!')
+    end
   end
 end

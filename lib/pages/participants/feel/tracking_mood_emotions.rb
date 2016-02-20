@@ -13,6 +13,16 @@ class Participants
         @emotion_rating ||= mood_emotions_arry[:emotion_rating]
       end
 
+      def unread?
+        has_css?('.list-group-item-unread',
+                 text: 'Tracking Your Mood & Emotions')
+      end
+
+      def read?
+        has_css?('.list-group-item-read',
+                 text: 'Tracking Your Mood & Emotions')
+      end
+
       def open
         click_on 'Tracking Your Mood & Emotions'
       end

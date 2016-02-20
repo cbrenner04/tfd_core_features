@@ -26,9 +26,9 @@ class Participants
 
       def planning
         @planning ||= Participants::DoTool::Planning.new(
-          first_activity: @activity,
-          first_pleasure: @pleasure,
-          first_accomplishment: @accomplishment
+          activity: @activity,
+          pleasure: @pleasure,
+          accomplishment: @accomplishment
         )
       end
     end

@@ -26,6 +26,15 @@ def participant_1_so5
   )
 end
 
+def participant_2_so1
+  @participant_1 ||= Participants.new(
+    participant: ENV['Participant_2_Email'],
+    old_participant: 'participant1',
+    password: ENV['Participant_Password'],
+    display_name: 'participant2'
+  )
+end
+
 def participant_3_so1
   @participant_3_so1 ||= Participants.new(
     participant: ENV['Alt_Participant_Email'],

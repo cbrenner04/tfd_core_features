@@ -1,5 +1,7 @@
 # filename: ./spec/features/participant/core/message_spec.rb
 
+require './spec/support/participants/messages_helper'
+
 feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
   background(:all) { participant_1_so5.sign_in if ENV['safari'] }
 

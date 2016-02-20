@@ -6,6 +6,7 @@ class Participants
     @participant ||= pt_arry[:participant]
     @old_participant ||= pt_arry[:old_participant]
     @password ||= pt_arry[:password]
+    @display_name ||= pt_arry[:display_name]
   end
 
   def sign_in
@@ -25,12 +26,12 @@ class Participants
     end
   end
 
-  def sign_out(display_name)
+  def sign_out
     tries ||= 2
     within('.navbar-collapse') do
-      unless page.has_text?('Sign Out')
-        if page.has_css?('a', text: display_name)
-          find('a', text: display_name).click
+      unless has_text?('Sign Out')
+        if has_css?('a', text: @display_name)
+          find('a', text: @display_name).click
         else
           find('.fa.fa-user.fa-lg').click
         end

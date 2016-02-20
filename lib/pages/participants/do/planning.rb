@@ -45,6 +45,10 @@ class Participants
         click_on 'Next'
       end
 
+      def has_review_page_visible?
+        find('h2', text: 'Your Planned Activities')
+      end
+
       def has_entries?
         find('#previous_activities').have_css?('tr', count: @entries)
       end

@@ -84,6 +84,13 @@ class Participants
         end
       end
 
+      def has_review_tables?
+        %w(recent fun accomplished).each do |x|
+          find("##{x}_activities")
+          click_on 'Next'
+        end
+      end
+
       private
 
       def navigation
