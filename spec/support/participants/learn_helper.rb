@@ -1,8 +1,7 @@
 # filename: ./spec/support/participants/learn_helper.rb
 
 require './lib/pages/participants'
-require './lib/pages/participants/feel'
-Dir['./lib/pages/participants/feel/*.rb'].each { |file| require file }
+require './lib/pages/participants/learn'
 
 def participant_1
   @participant_1 ||= Participants.new(
