@@ -28,8 +28,8 @@ feature 'FEEL tool, Tracking Mood & Emotions', :core, sauce: sauce_labs do
   scenario 'Participant completes Tracking Your Mood & Emotions' do
     tracking_mood_and_emotions.open
     tracking_mood_and_emotions.rate_mood
-    tracking_mood_and_emotions.rate_emotion
-    tracking_mood_and_emotions.add_and_rate_emotion
+    first_emotion.rate_emotion
+    second_emotion.add_and_rate_emotion
     tracking_mood_and_emotions.submit
     tracking_mood_and_emotions.finish
   end

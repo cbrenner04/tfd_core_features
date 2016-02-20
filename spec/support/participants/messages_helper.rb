@@ -25,18 +25,36 @@ def participant_3
 end
 
 def messages
-  @messages ||= Participants::Messages.new(
-    new_message_subject: 'New message',
-    new_message_body: 'This is a test message to my moderator. ' \
-                      'Hello, Moderator! How are you??',
-    sent_message_subject: 'I like this app',
-    sent_message_body: 'This app is really helpful!',
-    received_message_subject: 'Try out the LEARN tool',
-    received_message_body: 'I think you will find it helpful',
-    reply_body: 'Got it. Thanks!',
-    linked_message_subject: 'Check out the Introduction slideshow',
-    linked_message_body: 'Here\'s a link to the Introduction slideshow:',
-    linked_message_link: 'Introduction to ThinkFeelDo',
+  @messages ||= Participants::Messages.new(reply_text: 'Got it. Thanks!')
+end
+
+def new_message
+  @new_message ||= Participants.Messages.new(
+    message_subject: 'New message',
+    message_body: 'This is a test message to my moderator. ' \
+                      'Hello, Moderator! How are you??'
+  )
+end
+
+def sent_message
+  @new_message ||= Participants.Messages.new(
+    message_subject: 'I like this app',
+    message_body: 'This app is really helpful!'
+  )
+end
+
+def received_message
+  @received_message ||= Participant::Messages.new(
+    message_subject: 'Try out the LEARN tool',
+    message_body: 'I think you will find it helpful'
+  )
+end
+
+def linked_message
+  @linked_message ||= Participants::Messages.new(
+    message_subject: 'Check out the Introduction slideshow',
+    message_body: 'Here\'s a link to the Introduction slideshow:',
+    link: 'Introduction to ThinkFeelDo',
     link_content: 'Welcome to ThiFeDo'
   )
 end

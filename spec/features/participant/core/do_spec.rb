@@ -48,9 +48,9 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant completes Planning module' do
     planning.open
     navigation.next
-    planning.plan_first_activity
+    plan_activity_1.plan
     navigation.scroll_down
-    planning.plan_second_activity
+    plan_activity_2.plan
     planning.move_to_review
 
     expect(planning).to have_entries

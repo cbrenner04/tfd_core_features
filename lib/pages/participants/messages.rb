@@ -4,16 +4,10 @@ class Participants
     include Capybara::DSL
 
     def initialize(messages_arry)
-      @new_message_subject ||= messages_arry[:new_message_subject]
-      @new_message_body ||= messages_arry[:new_message_body]
-      @sent_message_subject ||= messages_arry[:sent_message_subject]
-      @sent_message_body ||= messages_arry[:sent_message_body]
-      @received_message_subject ||= messages_arry[:received_message_subject]
-      @received_message_body ||= messages_arry[:received_message_body]
+      @message_subject ||= messages_arry[:message_subject]
+      @message_body ||= messages_arry[:message_body]
       @reply_body ||= messages_arry[:reply_body]
-      @linked_message_subject ||= messages_arry[:linked_message_subject]
-      @linked_message_body ||= messages_arry[:linked_message_body]
-      @linked_message_link ||= messages_arry[:linked_message_link]
+      @link ||= messages_arry[:link]
       @link_content ||= messages_arry[:link_content]
     end
 
@@ -32,7 +26,7 @@ class Participants
     def write_message
       within('#new_message') do
         fill_in 'message_subject', with: @message_subject
-        fill_in 'message_body', with: @new_message_body
+        fill_in 'message_body', with: @message_body
       end
     end
 
@@ -48,21 +42,16 @@ class Participants
       click_on 'Sent'
     end
 
-    def open_sent_message
-      click_on @sent_message_subject
-      find('strong', text: 'From You')
+    def open_message
+      click_on @message_subject
     end
 
-    def has_sent_message_visible
-      has_text? @sent_message_body
+    def has_you_as_sender?
+      has_css?('strong', text: 'From You')
     end
 
-    def open_recieved_message
-      click_on @received_message_subject
-    end
-
-    def has_received_message_visible?
-      has_text? @received_message_body
+    def has_message_visible
+      has_text? @message_body
     end
 
     def open_reply
@@ -81,16 +70,8 @@ class Participants
       click_on 'Return'
     end
 
-    def open_linked_message
-      click_on @linked_message_subject
-    end
-
-    def has_linked_message_visible?
-      has_text? @linked_message_body
-    end
-
     def go_to_link
-      click_on @linked_message_link
+      click_on @link
     end
 
     def has_link_content?

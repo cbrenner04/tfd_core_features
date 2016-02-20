@@ -20,5 +20,8 @@ def participant_5
 end
 
 def learn
-  @learn ||= Participants::Learn.new
+  @learn ||= Participants::Learn.new(
+    lesson_title: 'Do - Awareness Introduction',
+    first_slide_body: 'Do - Awareness Introduction'
+  )
 end

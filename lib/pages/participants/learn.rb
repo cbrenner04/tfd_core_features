@@ -5,6 +5,11 @@ class Participants
   class Learn
     include Capybara::DSL
 
+    def initialize(learn_arry)
+      @lesson_title ||= learn_arry[:lesson_title]
+      @first_slide_body ||= learn_arry[:first_slide_body]
+    end
+
     def landing_page
       "#{ENV['Base_URL']}/navigator/contexts/LEARN"
     end
@@ -13,13 +18,13 @@ class Participants
       first('.panel-title', text: 'Week 1').click
     end
 
-    def has_do_intro_lesson_visible?
-      has_text? 'Do - Awareness Introduction'
+    def has_lesson_visible?
+      has_text? @lesson_title
     end
 
-    def read_do_intro_lesson
-      click_on 'Do - Awareness Introduction'
-      find('h1', text: 'This is just the beginning...')
+    def read_lesson
+      click_on @lesson_title
+      find('h1', text: @first_slide_body)
       navigation.next
       click_on 'Finish'
     end

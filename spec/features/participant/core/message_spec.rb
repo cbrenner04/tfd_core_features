@@ -13,7 +13,7 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
 
     expect(messages).to have_coach_as_recipient
 
-    messages.write_message
+    new_message.write_message
     messages.send
 
     expect(messages).to have_saved_alert
@@ -21,15 +21,17 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
 
   scenario 'Participant reads a sent message' do
     messages.go_to_sent_messages
-    messages.open_sent_message
+    sent_message.open_message
 
-    expect(messages).to have_sent_message_visible
+    expect(sent_message).to have_you_as_sender
+
+    expect(sent_messages).to have_message_visible
   end
 
   scenario 'Participant reads and replies to a received message' do
-    messages.open_received_message
+    received_message.open_message
 
-    expect(messages).to have_received_message_visible
+    expect(received_messages).to have_message_visible
 
     messages.open_reply
 
@@ -43,9 +45,9 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
   end
 
   scenario 'Participant composes a message from reading a message' do
-    messages.open_received_message
+    received_message.open_message
 
-    expect(messages).to have_received_message_visible
+    expect(received_message).to have_message_visible
 
     messages.open_new_message
 
@@ -67,17 +69,16 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
   end
 end
 
-feature 'MESSAGES tool, accessing a link',
-        :core, :marigold, sauce: sauce_labs do
+feature 'MESSAGES tool, with link', :core, :marigold, sauce: sauce_labs do
   scenario 'Participant accesses a link from a message in inbox' do
     participant_3.sign_in
     visit messages.landing_page
-    messages.open_linked_message
+    linked_message.open_message
 
-    expect(messages).to have_linked_message_visible
+    expect(linked_message).to have_message_visible
 
-    messages.go_to_link
+    linked_messages.go_to_link
 
-    expect(messages).to have_link_content
+    expect(linked_message).to have_link_content
   end
 end

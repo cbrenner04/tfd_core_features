@@ -40,13 +40,23 @@ end
 
 def tracking_mood_and_emotions
   @tracking_mood_and_emotions ||= Participants::Feel::TrackingMoodEmotions.new(
-    mood_rating: 6,
-    first_emotion: 'anxious',
-    first_emotion_type: 'negative',
-    first_emotion_rating: 4,
-    second_emotion: 'crazy',
-    second_emotion_type: 'negative',
-    second_emotion_rating: 8
+    mood_rating: 6
+  )
+end
+
+def first_emotion
+  @first_emotion ||= Participants::Feel::TrackingMoodEmotions.new(
+    emotion: 'anxious',
+    emotion_type: 'negative',
+    emotion_rating: 4
+  )
+end
+
+def second_emotion
+  @second_emotion ||= Participants::Feel::TrackingMoodEmotions.new(
+    emotion: 'crazy',
+    emotion_type: 'negative',
+    emotion_rating: 8
   )
 end
 

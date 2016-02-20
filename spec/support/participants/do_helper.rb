@@ -65,14 +65,22 @@ def awareness_complete_entry
 end
 
 def planning
-  @planning ||= Participants::DoTool::Planning.new(
-    first_activity: 'New planned activity',
-    first_pleasure: 6,
-    first_accomplishment: 3,
-    second_activity: 'Another planned activity',
-    second_pleasure: 4,
-    second_accomplishment: 8,
-    entries: 6
+  @planning ||= Participants::DoTool::Planning.new(entries: 6)
+end
+
+def plan_activity_1
+  @plan_activity_1 ||= Participants::DoTool::Planning.new(
+    activity: 'New planned activity',
+    pleasure: 6,
+    accomplishment: 3
+  )
+end
+
+def plan_activity_2
+  @plan_activity_2 ||= Participants::DoTool::Planning.new(
+    activity: 'Another planned activity',
+    pleasure: 4,
+    accomplishment: 8
   )
 end
 

@@ -8,12 +8,9 @@ class Participants
       include Capybara::DSL
 
       def initialize(planning_arry)
-        @first_activity ||= planning_arry[:first_activity]
-        @first_pleasure ||= planning_arry[:first_pleasure]
-        @first_accomplishment ||= planning_arry[:first_accomplishment]
-        @second_activity ||= planning_arry[:second_activity]
-        @second_pleasure ||= planning_arry[:second_pleasure]
-        @second_accomplishment ||= planning_arry[:second_accomplishment]
+        @activity ||= planning_arry[:activity]
+        @pleasure ||= planning_arry[:pleasure]
+        @accomplishment ||= planning_arry[:accomplishment]
         @entries ||= planning_arry[:entries]
       end
 
@@ -29,12 +26,18 @@ class Participants
         has_text? 'We want you to plan one fun thing'
       end
 
-      def plan_first_activity
-        plan(@first_activity, @first_pleasure, @first_accomplishment)
-      end
-
-      def plan_second_activity
-        plan(@second_activity, @second_pleasure, @second_accomplishment)
+      def plan
+        find('#new_activity_radio')
+        navigation.scroll_down
+        find('#new_activity_radio').click
+        fill_in 'activity_activity_type_new_title', with: @activity
+        navigation.scroll_down
+        find('.fa.fa-calendar').click
+        pick_tomorrow
+        choose_rating('pleasure_0', @pleasure)
+        choose_rating('accomplishment_0', @accomplishment)
+        social_networking.accept_social
+        find('.alert-success', text: 'Activity saved')
       end
 
       def move_to_review
@@ -59,20 +62,6 @@ class Participants
 
       def social_networking
         @social_networking ||= Participants::SocialNetworking.new
-      end
-
-      def plan(activity, pleasure, accomplishment)
-        find('#new_activity_radio')
-        navigation.scroll_down
-        find('#new_activity_radio').click
-        fill_in 'activity_activity_type_new_title', with: activity
-        navigation.scroll_down
-        find('.fa.fa-calendar').click
-        pick_tomorrow
-        choose_rating('pleasure_0', pleasure)
-        choose_rating('accomplishment_0', accomplishment)
-        social_networking.accept_social
-        find('.alert-success', text: 'Activity saved')
       end
 
       def pick_tomorrow
