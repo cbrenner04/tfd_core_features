@@ -18,5 +18,9 @@ class Participants
     def skip
       click_on 'Skip'
     end
+
+    def cancel
+      click_on 'Cancel'
+    end
   end
 end

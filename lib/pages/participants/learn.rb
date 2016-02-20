@@ -60,27 +60,25 @@ class Participants
     end
 
     def last_wk_num
-      @last_wk_num ||= (16 if ENV['tfd']) ||
-                       (8 if ENV['tfdso'] || ENV['sunnyside'] ||
-                        ENV['marigold'])
+      @last_wk_num ||= (16 if ENV['tfd']) || (8 if is_social_networking_app?)
     end
 
     def last_week
       @last_week ||= (Date.today + 105 if ENV['tfd']) ||
-                     (Date.today + 49 if ENV['tfdso'] || ENV['sunnyside'] ||
-                      ENV['marigold'])
+                     (Date.today + 49 if is_social_networking_app?)
     end
 
     def after_wk_num
-      @after_wk_num ||= (17 if ENV['tfd']) ||
-                        (9 if ENV['tfdso'] || ENV['sunnyside'] ||
-                         ENV['marigold'])
+      @after_wk_num ||= (17 if ENV['tfd']) || (9 if is_social_networking_app?)
     end
 
     def after_study
       @after_study ||= (Date.today + 112 if ENV['tfd']) ||
-                       (Date.today + 56 if ENV['tfdso'] || ENV['sunnyside'] ||
-                        ENV['marigold'])
+                       (Date.today + 56 if is_social_networking_app?)
+    end
+
+    def is_social_networking_app?
+      return true if ENV['tfdso'] || ENV['sunnyside'] || ENV['marigold']
     end
   end
 end
