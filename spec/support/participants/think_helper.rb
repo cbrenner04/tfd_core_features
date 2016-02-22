@@ -27,7 +27,7 @@ end
 def reshape
   @reshape ||= Participants::Think::Reshape.new(
     challenge: 'Example challenge',
-    actions: 'Example act-as-if',
+    action: 'Example act-as-if',
     num_thoughts: 3
   )
 end
@@ -49,7 +49,7 @@ def thoughts
 end
 
 def thought_viz
-  @thought_viz ||= Particiapnts::Think::ThoughtVisualization.new(
+  @thought_viz ||= Participants::Think::ThoughtVisualization.new(
     pattern: 'Magnification or Catastro...',
     detail_pattern: 'Magnification or Catastro...',
     thought: 'No one likes me'

@@ -50,7 +50,7 @@ class Participants
       has_css?('strong', text: 'From You')
     end
 
-    def has_message_visible
+    def has_message_visible?
       has_text? @message_body
     end
 
@@ -76,6 +76,7 @@ class Participants
 
     def go_to_link
       click_on @link
+      sleep(1)
     end
 
     def has_link_content?

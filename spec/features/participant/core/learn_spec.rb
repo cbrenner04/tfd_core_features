@@ -13,11 +13,11 @@ feature 'LEARN tool', :core, :marigold, sauce: sauce_labs do
   scenario 'Participant sees list opened to this week, collapses list' do
     learn.toggle_week_1_panel
 
-    expect(learn).to_not have_do_intro_lesson_visible
+    expect(learn).to_not have_lesson_visible
   end
 
   scenario 'Participant reads Lesson 1' do
-    learn.read_do_intro_lesson
+    learn.read_lesson
 
     expect(learn).to have_read_record
 
@@ -27,7 +27,7 @@ feature 'LEARN tool', :core, :marigold, sauce: sauce_labs do
   scenario 'Participant only sees lessons listed to the end of study length' do
     expect(learn).to have_last_week_listed
 
-    expect(learn).to_not have_week_list_beyond_study
+    expect(learn).to_not have_week_listed_beyond_study
   end
 end
 

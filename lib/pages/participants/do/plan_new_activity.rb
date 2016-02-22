@@ -15,7 +15,7 @@ class Participants
       end
 
       def plan_activity
-        planning.plan_first_activity
+        planning.plan
       end
 
       def has_activity?

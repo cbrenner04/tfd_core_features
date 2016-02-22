@@ -6,6 +6,7 @@ class Participants
   class Think
     # page object for the Identifying module
     class Identifying
+      include RSpec::Matchers
       include Capybara::DSL
 
       def initialize(think_arry)

@@ -1,4 +1,5 @@
-require './lib/participants/navigation'
+require './lib/pages/participants/do'
+require './lib/pages/participants/navigation'
 
 class Participants
   class DoTool
@@ -18,10 +19,11 @@ class Participants
 
       def open
         click_on '#1 Awareness'
+        find('h1', text: '#1 Awareness')
       end
 
       def has_first_slide_visible?
-        has_text 'This is just the beginning...'
+        has_text? 'This is just the beginning...'
       end
 
       def move_to_time_period_selection
@@ -35,10 +37,8 @@ class Participants
       end
 
       def create_time_period
-        select "#{Date.today.prev_day.strftime('%a')} #{@start_time}",
-               from: 'awake_period_start_time'
-        select "#{Date.today.prev_day.strftime('%a')} #{@end_time}",
-               from: 'awake_period_end_time'
+        select "#{@start_time}", from: 'awake_period_start_time'
+        select "#{@end_time}", from: 'awake_period_end_time'
         click_on 'Create'
         find('.alert-success', text: 'Awake Period saved')
       end
@@ -58,8 +58,8 @@ class Participants
       end
 
       def complete_multiple_hour_review
-        @num_fields.zip(@activity, @pleasure, @accomplishment) do |a, b, c, d|
-          complete_on_hour_review(a, b, c, d)
+        (@num_fields).zip(@activity, @pleasure, @accomplishment) do |a, b, c, d|
+          complete_one_hour_review(a, b, c, d)
         end
 
         navigation.next
@@ -67,8 +67,8 @@ class Participants
 
       def complete_one_hour_review(a, b, c, d)
         fill_in "activity_type_#{a}", with: b
-        choose_rating("pleasure_#{a}", c)
-        choose_rating("accomplishment_#{a}", d)
+        do_tool.choose_rating("pleasure_#{a}", c)
+        do_tool.choose_rating("accomplishment_#{a}", d)
         navigation.scroll_down
       end
 
@@ -79,9 +79,10 @@ class Participants
       def has_entries?
         %w(recent fun accomplished).zip(@count) do |x, y|
           find("##{x}_activities").has_css?('tr', count: y)
-          naviation.scroll_to_bottom
+          navigation.scroll_to_bottom
           navigation.next
         end
+        has_css?('h1', text: 'Do Landing')
       end
 
       def has_review_tables?
@@ -93,13 +94,12 @@ class Participants
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigations.new
+      def do_tool
+        @do_tool ||= Participants::DoTool.new
       end
 
-      def choose_rating(element_id, value)
-        find("##{element_id} select")
-          .find(:xpath, "option[#{(value + 1)}]").select_option
+      def navigation
+        @navigation ||= Participants::Navigation.new
       end
     end
   end

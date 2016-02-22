@@ -30,6 +30,7 @@ class Participants
 
       def toggle_daily_summary
         click_on 'Daily Summaries'
+        sleep(1)
       end
 
       def go_to_previous_day
@@ -37,7 +38,7 @@ class Participants
       end
 
       def has_previous_day_visible?
-        has_text? "Daily Averages for #{@prev_day.stftime('%b %d %Y')}"
+        has_text? "Daily Averages for #{@prev_day.strftime('%b %d %Y')}"
       end
 
       def view_activity_rating
@@ -53,8 +54,8 @@ class Participants
         within('.panel', text: activity_header) do
           within('.collapse') do
             click_on 'Edit'
-            select "#{pleasure}", from: 'activity[actual_pleasure_intensity]'
-            select "#{accomplishment}",
+            select "#{@pleasure}", from: 'activity[actual_pleasure_intensity]'
+            select "#{@accomplishment}",
                    from: 'activity[actual_accomplishment_intensity]'
             click_on 'Update'
           end
@@ -62,7 +63,7 @@ class Participants
       end
 
       def has_new_ratings?
-        has_text? "Accomplishment: #{accomplishment} · Pleasure #{pleasure}"
+        has_text? "Accomplishment: #{@accomplishment} · Pleasure: #{@pleasure}"
       end
 
       def open_visualize

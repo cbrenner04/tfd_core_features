@@ -14,7 +14,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
     scenario 'Participant completes Planning without multiple alerts' do
       planning.open
       navigation.next
-      first_planned_activit.plan
+      first_planned_activity.plan
       navigation.scroll_to_bottom
       second_planned_activity.plan
       planning.move_to_review
@@ -36,7 +36,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
       awareness.open
       awareness.move_to_time_period_selection
       awareness.create_time_period
-      awareness.complete_one_hour_review
+      awareness.complete_one_hour_review(0, 'Sleep', 9, 3)
       social_networking.accept_social
 
       expect(awareness).to have_review_tables

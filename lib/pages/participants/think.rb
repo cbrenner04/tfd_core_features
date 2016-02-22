@@ -25,7 +25,7 @@ class Participants
       tool.zip(content) do |t, c|
         click_on 'THINK'
         click_on t
-        expect(page).to have_content c
+        has_text? c
       end
     end
   end

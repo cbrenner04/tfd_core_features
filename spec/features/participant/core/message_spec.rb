@@ -27,19 +27,19 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
 
     expect(sent_message).to have_you_as_sender
 
-    expect(sent_messages).to have_message_visible
+    expect(sent_message).to have_message_visible
   end
 
   scenario 'Participant reads and replies to a received message' do
     received_message.open_message
 
-    expect(received_messages).to have_message_visible
+    expect(received_message).to have_message_visible
 
     messages.open_reply
 
     expect(messages).to have_coach_as_recipient
 
-    mesages.enter_reply_message
+    messages.enter_reply_message
     navigation.scroll_down
     messages.send
 
@@ -63,7 +63,7 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
     expect(messages).to have_inbox_visible
   end
 
-  scenario 'uses return button within compose message' do
+  scenario 'Participant uses return button within compose message' do
     messages.open_new_message
     messages.return_to_inbox
 
@@ -79,7 +79,7 @@ feature 'MESSAGES tool, with link', :core, :marigold, sauce: sauce_labs do
 
     expect(linked_message).to have_message_visible
 
-    linked_messages.go_to_link
+    linked_message.go_to_link
 
     expect(linked_message).to have_link_content
   end

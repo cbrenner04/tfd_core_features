@@ -58,7 +58,7 @@ class Participants
       def finish
         navigation.scroll_to_bottom
         navigation.next
-        expect(page).to have_content 'Feeling Tracker Landing'
+        has_text? 'Feeling Tracker Landing'
       end
 
       private

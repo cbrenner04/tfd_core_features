@@ -13,14 +13,14 @@ def navigation
 end
 
 def awareness
-  @awareness ||= Participants::DoTool::Awareness.new
+  @awareness ||= Participants::DoTool::Awareness.new(start_time: Time.now)
 end
 
 def awareness_7a_to_10p
   @awareness_7a_to_10p ||= Participants::DoTool::Awareness.new(
-    start_time: '7 AM',
-    end_time: '10 PM',
-    num_fields: [0..14],
+    start_time: "#{Date.today.prev_day.strftime('%a')} 7 AM",
+    end_time: "#{Date.today.prev_day.strftime('%a')} 10 PM",
+    num_fields: 0..14,
     activity: ['Get ready for work', 'Travel to work', 'Work', 'Work', 'Work',
                'Work', 'Work', 'Work', 'Work', 'Work', 'Travel from work',
                'Eat dinner', 'Watch TV', 'read', 'Get ready for bed'],
@@ -32,8 +32,8 @@ end
 
 def awareness_11p_to_1a
   @awareness_11p_to_1a ||= Participants::DoTool::Awareness.new(
-    start_time: '11 PM',
-    end_time: '10 AM',
+    start_time: "#{Date.today.prev_day.strftime('%a')} 11 PM",
+    end_time: "#{Date.today.strftime('%a')} 1 AM",
     count: [3, 2, 1]
   )
 end
@@ -41,7 +41,7 @@ end
 def awareness_complete_entry
   @awareness_complete_entry ||= Participants::DoTool::Awareness.new(
     activity: ['Get ready for work', 'Travel to work', 'Work'],
-    num_fields: [0..2],
+    num_fields: 0..2,
     pleasure: [6, 2, 8],
     accomplishment: [7, 3, 9],
     count: [4, 3, 3]
@@ -85,7 +85,7 @@ def plan_new_activity
 end
 
 def activity_viz
-  @activity_vis ||= Participants.DoTool::ActivityVisualization.new(
+  @activity_vis ||= Participants::DoTool::ActivityVisualization.new(
     prev_day: Date.today - 1,
     activity: 'Parkour',
     start_time: Time.now,
@@ -97,7 +97,7 @@ def activity_viz
   )
 end
 
-def planned_activity
+def planned_activities
   @planned_activity ||= Participants::DoTool::PlannedActivities.new(
     activity: 'Speech'
   )

@@ -20,6 +20,7 @@ class Participants
 
     def toggle_week_1_panel
       first('.panel-title', text: 'Week 1').click
+      sleep(1)
     end
 
     def has_lesson_visible?
@@ -69,24 +70,24 @@ class Participants
     end
 
     def last_wk_num
-      @last_wk_num ||= (16 if ENV['tfd']) || (8 if is_social_networking_app?)
+      @last_wk_num ||= (16 if ENV['tfd']) || (8 if social_networking_app?)
     end
 
     def last_week
       @last_week ||= (Date.today + 105 if ENV['tfd']) ||
-                     (Date.today + 49 if is_social_networking_app?)
+                     (Date.today + 49 if social_networking_app?)
     end
 
     def after_wk_num
-      @after_wk_num ||= (17 if ENV['tfd']) || (9 if is_social_networking_app?)
+      @after_wk_num ||= (17 if ENV['tfd']) || (9 if social_networking_app?)
     end
 
     def after_study
       @after_study ||= (Date.today + 112 if ENV['tfd']) ||
-                       (Date.today + 56 if is_social_networking_app?)
+                       (Date.today + 56 if social_networking_app?)
     end
 
-    def is_social_networking_app?
+    def social_networking_app?
       return true if ENV['tfdso'] || ENV['sunnyside'] || ENV['marigold']
     end
   end

@@ -5,6 +5,6 @@ require './lib/pages/participants/learn'
 def learn
   @learn ||= Participants::Learn.new(
     lesson_title: 'Do - Awareness Introduction',
-    first_slide_body: 'Do - Awareness Introduction'
+    first_slide_body: 'This is just the beginning...'
   )
 end

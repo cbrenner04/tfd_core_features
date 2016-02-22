@@ -6,7 +6,7 @@ class Participants
     include Capybara::DSL
 
     def landing_page
-      visit "#{ENV['Base_URL']}/navigator/contexts/RELAX"
+      "#{ENV['Base_URL']}/navigator/contexts/RELAX"
     end
 
     def visible?

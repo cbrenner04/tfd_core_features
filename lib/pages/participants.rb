@@ -31,7 +31,7 @@ class Participants
   def submit_forgot_password
     find('h2', text: 'Forgot your password?')
     within('#new_participant') do
-      fill_in 'participant_email', with: @paricipant
+      fill_in 'participant_email', with: @participant
     end
 
     click_on 'Send me reset password instructions'

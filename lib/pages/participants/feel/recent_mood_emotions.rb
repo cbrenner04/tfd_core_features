@@ -13,6 +13,7 @@ class Participants
 
       def open
         click_on 'Your Recent Moods & Emotions'
+        find('h1', text: 'Your Recent Moods & Emotions')
       end
 
       def has_moods?

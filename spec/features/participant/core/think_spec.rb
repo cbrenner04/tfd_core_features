@@ -38,7 +38,7 @@ feature 'THINK tool', :core, sauce: sauce_labs do
 
   scenario 'Participant cancels Add a New Harmful Thought' do
     add_new_thought.open
-    navigation.scoll_down
+    navigation.scroll_down
     navigation.cancel
 
     expect(think).to be_visible
@@ -51,7 +51,7 @@ feature 'THINK tool', :core, sauce: sauce_labs do
 
     thoughts.sort_by_patterns
 
-    expect(thought.first_row).to have_pattern
+    within(thoughts.first_row) { expect(thoughts).to have_pattern }
   end
 
   scenario 'Participant uses the skip functionality in Identifying' do
@@ -97,7 +97,7 @@ feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
 
     expect(thought_viz).to have_detail
 
-    expect(thgought_viz).to be_visible
+    expect(thought_viz).to be_visible
 
     participant_5_so1.sign_out
   end

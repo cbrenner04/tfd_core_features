@@ -50,7 +50,7 @@ class Participants
         find('h3', text: 'You said that you thought...')
         navigation.next
         fill_in 'thought[challenging_thought]', with: @challenge
-        navigation.scroll_by
+        navigation.scroll_down
         navigation.next
         find('.alert-success', text: 'Thought saved')
         find('p', text: 'Because what you THINK, FEEL, Do')

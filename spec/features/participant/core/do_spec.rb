@@ -7,18 +7,16 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
   background do
     participant_1_so1.sign_in unless ENV['safari']
-    visit do_tool.landing
+    visit do_tool.landing_page
   end
 
-  scenario 'A participant completes the Awareness module' do
+  scenario 'Participant completes the Awareness module' do
     awareness.open
     awareness.move_to_time_period_selection
     awareness_7a_to_10p.create_time_period
     awareness_7a_to_10p.complete_multiple_hour_review
 
     expect(awareness_7a_to_10p).to have_entries
-
-    expect(do_tool).to have_landing_visible
   end
 
   # this is dependent on the previous example, need to update
@@ -41,8 +39,6 @@ feature 'DO tool', :core, sauce: sauce_labs do
     navigation.next
 
     expect(awareness_11p_to_1a).to have_entries
-
-    expect(do_tool).to have_landing_visible
   end
 
   scenario 'Participant completes Planning module' do
@@ -132,7 +128,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant uses navbar functionality for all of DO' do
     visit do_tool.awareness
 
-    expect(awarenss).to have_first_slide_visible
+    expect(awareness).to have_first_slide_visible
 
     do_tool.navigate_to_all_modules_through_nav_bar
   end

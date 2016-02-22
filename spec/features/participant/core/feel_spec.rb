@@ -60,7 +60,7 @@ feature 'FEEL Tool, Your Recent Mood & Emotions', :core, sauce: sauce_labs do
 
     expect(recent_mood_and_emotions).to have_week_view_visible
 
-    recent_mood_and_emotions.click
+    recent_mood_and_emotions.switch_to_28_day_view
 
     expect(recent_mood_and_emotions).to have_28_day_view_visible
   end
@@ -69,6 +69,6 @@ feature 'FEEL Tool, Your Recent Mood & Emotions', :core, sauce: sauce_labs do
     recent_mood_and_emotions.open
     recent_mood_and_emotions.switch_to_previous_period
 
-    expect(page).to have_previous_period_visible
+    expect(recent_mood_and_emotions).to have_previous_period_visible
   end
 end

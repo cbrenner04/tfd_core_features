@@ -33,7 +33,7 @@ def navigation
 end
 
 def learn
-  @learn ||= Participants::Learn.new
+  @learn ||= Participants::Learn.new(lesson_title: 'Introduction')
 end
 
 def think
@@ -41,5 +41,5 @@ def think
 end
 
 def messages
-  @messages ||= Participants::Messages.new
+  @messages ||= Participants::Messages.new(message_subject: 'fake')
 end

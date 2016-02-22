@@ -10,10 +10,11 @@ class Participants
 
       def open
         click_on 'View Planned Activities'
+        find('h1', text: 'View Planned Activities')
       end
 
       def visible?
-        has_css('.text-capitalize', text: 'View Planned Activites')
+        has_css?('.text-capitalize', text: 'View Planned Activities')
       end
 
       def has_activity?

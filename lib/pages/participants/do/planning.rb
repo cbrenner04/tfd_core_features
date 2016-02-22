@@ -34,8 +34,8 @@ class Participants
         navigation.scroll_down
         find('.fa.fa-calendar').click
         pick_tomorrow
-        choose_rating('pleasure_0', @pleasure)
-        choose_rating('accomplishment_0', @accomplishment)
+        do_tool.choose_rating('pleasure_0', @pleasure)
+        do_tool.choose_rating('accomplishment_0', @accomplishment)
         social_networking.accept_social
         find('.alert-success', text: 'Activity saved')
       end
@@ -50,7 +50,7 @@ class Participants
       end
 
       def has_entries?
-        find('#previous_activities').have_css?('tr', count: @entries)
+        find('#previous_activities').has_css?('tr', count: @entries)
       end
 
       def finish

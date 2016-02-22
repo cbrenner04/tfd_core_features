@@ -35,7 +35,7 @@ def second_emotion
   )
 end
 
-def recent_moods_and_emotions
+def recent_mood_and_emotions
   @recent_moods_and_emotions ||= Participants::Feel::RecentMoodsEmotions.new(
     mood_count: 1,
     emotion_count: 1,

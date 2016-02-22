@@ -11,6 +11,11 @@ class Participants
       @awareness ||= "#{ENV['Base_URL']}/navigator/modules/339588004"
     end
 
+    def choose_rating(element_id, value)
+      find("##{element_id} select")
+        .find(:xpath, "option[#{(value + 1)}]").select_option
+    end
+
     def navigate_to_all_modules_through_nav_bar
       tool = ['#2 Planning', '#1 Awareness', '#3 Doing', 'Add a New Activity',
               'Your Activities', 'View Planned Activities', 'DO Home']
@@ -30,6 +35,7 @@ class Participants
     end
 
     def has_landing_visible?
+      sleep(1)
       has_css?('h1', text: 'Do Landing')
     end
 

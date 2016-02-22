@@ -6,16 +6,17 @@ require './lib/pages/participants/do'
 require './lib/pages/participants/do/planning'
 require './lib/pages/participants/do/plan_new_activity'
 require './lib/pages/participants/do/awareness'
+require './lib/pages/participants/do/activity_visualization'
 require './lib/pages/participants/feel'
-require './lib/pages/participants/recent_mood_emotions'
-require './lib/pages/participants/tracking_mood_emotions'
+require './lib/pages/participants/feel/recent_mood_emotions'
+require './lib/pages/participants/feel/tracking_mood_emotions'
 
 def navigation
   @navigation ||= Participants::Navigation.new
 end
 
 def social_networking
-  @social_networking ||= Particiapnts::SocialNetworking.new
+  @social_networking ||= Participants::SocialNetworking.new
 end
 
 def do_tool
@@ -23,7 +24,7 @@ def do_tool
 end
 
 def planning
-  @planning ||= Participants::DoTool::Planning.new
+  @planning ||= Participants::DoTool::Planning.new(activity: 'fake')
 end
 
 def first_planned_activity
@@ -52,8 +53,8 @@ end
 
 def awareness
   @awareness ||= Participants::DoTool::Awareness.new(
-    start_time: '2 AM',
-    end_time: '3 AM',
+    start_time: "#{Date.today.strftime('%a')} 2 AM",
+    end_time: "#{Date.today.strftime('%a')} 3 AM",
     activity: 'Sleep',
     pleasure: 9,
     accomplishment: 3
@@ -71,7 +72,9 @@ def feel
 end
 
 def recent_moods_emotions
-  @recent_moods_emotions ||= Participants::Feel::RecentMoodEmotions.new
+  @recent_moods_emotions ||= Participants::Feel::RecentMoodsEmotions.new(
+    mood_count: 1
+  )
 end
 
 def tracking_mood_emotions

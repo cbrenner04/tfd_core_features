@@ -36,14 +36,16 @@ class Participants
     end
 
     def has_unsuccessful_login_alert?
+      find('#new_participant')
       has_text? 'Invalid email address or password'
     end
 
     def has_sign_up_alert?
+      find('#new_participant')
       has_text? 'You need to sign in or sign up before continuing.'
     end
 
-    def has_no_active_membership_alert
+    def has_no_active_membership_alert?
       has_text? 'We\'re sorry, but you can\'t sign in yet ' \
                 'because you are not assigned to an active ' \
                 'group'
@@ -62,9 +64,22 @@ class Participants
     end
 
     def has_password_reset_alert?
+      find('#new_participant')
       has_text? 'You will receive an email with ' \
                 'instructions on how to reset your password ' \
                 'in a few minutes.'
+    end
+
+    private
+
+    def host_app
+      if ENV['tfd'] || ENV['tfdso']
+        'ThinkFeelDo'
+      elsif ENV['sunnyside']
+        'Sunnyside'
+      elsif ENV['marigold']
+        'Marigold'
+      end
     end
   end
 end

@@ -6,6 +6,7 @@ class Participants
   class Think
     # page object for Patterns module
     class Patterns
+      include RSpec::Matchers
       include Capybara::DSL
 
       def open
@@ -53,13 +54,11 @@ class Participants
       end
 
       def compare_thought(thought)
-        page.execute_script('window.scrollBy(0,500)')
-        accept_social
+        navigation.scroll_down
+        social_networking.accept_social
         find('.alert-success', text: 'Thought saved')
-        within('.panel-body.adjusted-list-group-item') do
-          expect(page).to_not have_content thought
-        end
-        find('.panel-body.adjusted-list-group-item').text
+        within('.adjusted-list-group-item') { has_no_content? thought }
+        find('.adjusted-list-group-item').text
       end
     end
   end

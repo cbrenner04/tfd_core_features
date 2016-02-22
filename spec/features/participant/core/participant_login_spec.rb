@@ -50,7 +50,7 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
   scenario 'Visitor tries to visit a specific page, is redirected to login' do
     visit think.landing_page
 
-    expect(navigation).to have_unsuccessful_login_alert
+    expect(navigation).to have_sign_up_alert
   end
 
   scenario 'Visitor views the intro slideshow' do
@@ -58,7 +58,7 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
     navigation.click_on_login_page_slideshow
     navigation.done
 
-    expect(navigation).to have_unsuccessful_login_alert
+    expect(navigation).to have_sign_up_alert
   end
 
   scenario 'Participant uses the forgot password functionality' do
