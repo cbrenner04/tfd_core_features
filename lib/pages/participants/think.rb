@@ -8,6 +8,7 @@ class Participants
     end
 
     def visible?
+      sleep(1)
       has_text? 'Add a New Harmful Thought'
     end
 

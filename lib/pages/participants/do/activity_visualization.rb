@@ -8,7 +8,6 @@ class Participants
         @start_time ||= activity_viz_arry[:start_time]
         @end_time ||= activity_viz_arry[:end_time]
         @activity ||= activity_viz_arry[:activity]
-        @prev_day ||= activity_viz_arry[:prev_day]
         @importance ||= activity_viz_arry[:importance]
         @fun ||= activity_viz_arry[:fun]
         @accomplishment ||= activity_viz_arry[:accomplishment]
@@ -38,7 +37,8 @@ class Participants
       end
 
       def has_previous_day_visible?
-        has_text? "Daily Averages for #{@prev_day.strftime('%b %d %Y')}"
+        has_text? 'Daily Averages for ' \
+                  "#{Date.today.prev_day.strftime('%b %d %Y')}"
       end
 
       def view_activity_rating
@@ -47,7 +47,8 @@ class Participants
 
       def has_activity_rating?
         find('.panel', text: activity_header)
-          .has_text?  'Predicted  Average Importance: 4 Really fun: 9'
+          .has_text?  "Predicted  Average Importance: #{@importance} " \
+                      "Really fun: #{@fun}"
       end
 
       def edit_ratings
@@ -63,6 +64,7 @@ class Participants
       end
 
       def has_new_ratings?
+        sleep(1)
         has_text? "Accomplishment: #{@accomplishment} · Pleasure: #{@pleasure}"
       end
 

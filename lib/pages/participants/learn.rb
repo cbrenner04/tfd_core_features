@@ -7,7 +7,7 @@ class Participants
 
     def initialize(learn_arry)
       @lesson_title ||= learn_arry[:lesson_title]
-      @first_slide_body ||= learn_arry[:first_slide_body]
+      # @first_slide_body ||= learn_arry[:first_slide_body]
     end
 
     def landing_page
@@ -29,7 +29,6 @@ class Participants
 
     def read_lesson
       click_on @lesson_title
-      find('h1', text: @first_slide_body)
       navigation.next
       click_on 'Finish'
     end

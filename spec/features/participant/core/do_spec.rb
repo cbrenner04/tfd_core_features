@@ -89,20 +89,20 @@ feature 'DO tool', :core, sauce: sauce_labs do
   end
 
   scenario 'Participant goes to previous day, views & edits ratings in viz' do
-    activity_viz.open
+    edit_activity_viz.open
     navigation.scroll_to_bottom
-    activity_viz.go_to_previous_day
+    edit_activity_viz.go_to_previous_day
 
-    expect(activity_viz).to have_previous_day_visible
+    expect(edit_activity_viz).to have_previous_day_visible
 
     navigation.scroll_to_bottom
-    activity_viz.view_activity_rating
+    edit_activity_viz.view_activity_rating
 
-    expect(activity_viz).to have_activity_rating
+    expect(edit_activity_viz).to have_activity_rating
 
-    activity_viz.edit_ratings
+    edit_activity_viz.edit_ratings
 
-    expect(activity_viz).to have_new_ratings
+    expect(edit_activity_viz).to have_new_ratings
   end
 
   scenario 'Participant uses the visualization in Your Activities viz' do

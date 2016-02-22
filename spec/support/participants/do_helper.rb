@@ -85,8 +85,13 @@ def plan_new_activity
 end
 
 def activity_viz
-  @activity_vis ||= Participants::DoTool::ActivityVisualization.new(
-    prev_day: Date.today - 1,
+  @activity_viz ||= Participants::DoTool::ActivityVisualization.new(
+    activity: 'fake'
+  )
+end
+
+def edit_activity_viz
+  @edit_activity_viz ||= Participants::DoTool::ActivityVisualization.new(
     activity: 'Parkour',
     start_time: Time.now,
     end_time: Time.now + (60 * 60),
