@@ -1,6 +1,12 @@
 # filename: ./spec/features/participant/core/learn_spec.rb
 
-require './spec/support/participants/learn_helper'
+require './lib/pages/participants/learn'
+
+def learn
+  @learn ||= Participants::Learn.new(
+    lesson_title: 'Do - Awareness Introduction'
+  )
+end
 
 feature 'LEARN tool', :core, :marigold, sauce: sauce_labs do
   background(:all) { participant_1_so5.sign_in if ENV['safari'] }

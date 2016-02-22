@@ -1,178 +1,132 @@
 # filename: ./spec/features/participant/social_networking/goals_spec.rb
 
+require './spec/support/participants/goal_helper.rb'
+
 feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      sign_in_pt(ENV['Participant_Email'], 'participant1',
-                 ENV['Participant_Password'])
-    end
-  end
+  background(:all) { participant_1_so1.sign_in if ENV['safari'] }
 
   background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], 'participant1',
-                 ENV['Participant_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
+    participant_1_so1.sign_in unless ENV['safari']
+    visit achieve.landing_page
   end
 
   scenario 'Participant reads goal help text' do
-    begin
-      tries ||= 2
-      click_on 'Need some help writing a goal?'
-      find('.popover.fade.bottom.in')
-    rescue Capybara::ElementNotFound
-      retry unless (tries -= 1).zero?
-    end
+    achieve.open_help
 
-    expect(page).to have_content 'The ACHIEVE tool helps you set goals. When' \
-                                 ' you are writing your goal, be sure to con' \
-                                 'sider the following: What is the specific ' \
-                                 'thing you will do? Where will you do it? W' \
-                                 'hen will you do it? How much and how often' \
-                                 '? Remember that SMART goals tend to be the' \
-                                 ' most helpful: Specific (the What), Measur' \
-                                 'able (helps you track your progress), Atta' \
-                                 'inable (something you believe you can do),' \
-                                 ' Relevant (i.e., meaningful to you, not so' \
-                                 'mething other people want you to do), and ' \
-                                 'Time-framed. For example, let’s say you wa' \
-                                 'nt to work toward being less stressed. You' \
-                                 ' might start with a goal to do more calmin' \
-                                 'g activities each week. From there, you ca' \
-                                 'n make your goal even more helpful by addi' \
-                                 'ng in the details: what the specific calmi' \
-                                 'ng activities will be, where you’ll do the' \
-                                 'm, when, how much and how often. You would' \
-                                 ' then write “I will listen to (WHAT) at le' \
-                                 'ast 3 calming songs (HOW MUCH) every eveni' \
-                                 'ng (HOW OFTEN) after dinner (WHEN) on the ' \
-                                 'couch (WHERE).'
+    expect(achieve).to have_help_text
   end
 
   scenario 'Participant creates a goal' do
-    click_on '+ add a goal'
-    fill_in 'new-goal-description', with: 'eat a whole pizza'
-    choose 'end of study'
-    click_on 'Save'
-    find('.list-group-item.ng-scope', text: 'due yesterday')
-    find('.list-group-item.ng-scope', text: 'eat a whole pizza')
-    visit ENV['Base_URL']
-    find_feed_item('Created a Goal: eat a whole pizza')
-    within('.list-group-item.ng-scope',
-           text: 'Created a Goal: eat a whole pizza') do
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'More'
+    eat_pizza_goal.add
 
-      end_of_study = Date.today + 365
-      expect(page).to have_content "due #{end_of_study.strftime('%b %d %Y')}"
-    end
+    expect(goal_due_yesterday).to be_visible
+
+    expect(eat_pizza_goal).to be_visible
+
+    visit ENV['Base_URL']
+    eat_pizza_goal.find_in_feed
+
+    expect(eat_pizza_goal).to have_details
   end
 
   scenario 'Participant completes a goal' do
-    within('.list-group-item.ng-scope', text: 'p1 alpha') do
-      if ENV['chrome'] || ENV['safari']
-        page.driver.execute_script('window.confirm = function() {return true}')
-      end
+    goal_p1_alpha.complete
 
-      click_on 'Complete'
-    end
+    expect(goal_p1_gamma).to_not be_visible
 
-    unless ENV['chrome'] || ENV['safari']
-      page.accept_alert 'Are you sure you would like to mark this goal as ' \
-                      'complete? This action cannot be undone.'
-    end
-
-    page.should have_css('.list-group-item-success', text: 'p1 alpha')
-    click_on 'Completed'
-    expect(page).to_not have_content 'p1 gamma'
-
-    expect(page).to have_content 'p1 alpha'
+    expect(goal_p1_alpha).to be_visible
 
     visit ENV['Base_URL']
-    find_feed_item('Completed a Goal: p1 alpha')
-    expect(page).to have_content 'Completed a Goal: p1 alpha'
+    goal_p1_alpha.find_in_feed
+
+    expect(goal_p1_alpha).to be_visible_in_feed
   end
 
   scenario 'Participant deletes a goal' do
-    if ENV['chrome'] || ENV['safari']
-      page.driver.execute_script('window.confirm = function() {return true}')
-      find('.list-group-item.ng-scope',
-           text: 'p1 gamma').find('.btn.btn-link.delete.ng-scope').click
-    else
-      find('.list-group-item.ng-scope',
-           text: 'p1 gamma').find('.btn.btn-link.delete.ng-scope').click
-      page.accept_alert 'Are you sure you would like to delete this goal? ' \
-                        'This action cannot be undone.'
-    end
+    goal_p1_gamma.delete
 
-    expect(page).to_not have_content 'p1 gamma'
+    expect(goal_p1_gamma).to_not be_visible
 
-    click_on 'Deleted'
-    expect(page).to_not have_content 'p1 alpha'
+    goal_p1_gamma.view_deleted
 
-    expect(page).to have_content 'p1 gamma'
+    expect(goal_p1_alpha).to_not be_visible
+
+    expect(goal_p1_gamma).to be_visible
   end
 end
 
 feature 'ACHIEVE tool create options', :social_networking, sauce: sauce_labs do
   scenario 'Participant has more than 4 weeks remaining, sees all options' do
-    sign_in_pt(ENV['PTGoal1_Email'], 'participant1', ENV['PTGoal1_Password'])
+    goal_participant_1.sign_in
+    visit achieve.landing_page
+    achieve.open_new
 
-    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
-    click_on '+ add a goal'
-    expect(page).to have_content 'no specific date'
-    expect(page).to have_content 'end of one week'
-    expect(page).to have_content 'end of 2 weeks'
-    expect(page).to have_content 'end of 4 weeks'
-    expect(page).to have_content 'end of study'
+    expect(achieve).to have_no_specific_date_option
+
+    expect(achieve).to have_one_week_option
+
+    expect(achieve).to have_two_week_option
+
+    expect(achieve).to have_four_week_option
+
+    expect(achieve).to have_end_of_study_option
   end
 
   scenario 'Participant has 2+ weeks remaining, sees correct options' do
-    sign_in_pt(ENV['PTGoal2_Email'], 'goal_1', ENV['PTGoal2_Password'])
+    goal_participant_2.sign_in
+    visit achieve.landing_page
+    achieve.open_new
 
-    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
-    click_on '+ add a goal'
-    expect(page).to have_content 'no specific date'
-    expect(page).to have_content 'end of one week'
-    expect(page).to have_content 'end of 2 weeks'
-    expect(page).to have_content 'end of study'
+    expect(achieve).to have_no_specific_date_option
+
+    expect(achieve).to have_one_week_option
+
+    expect(achieve).to have_two_week_option
+
+    expect(achieve).to have_end_of_study_option
   end
 
   scenario 'Participant has 1+ weeks remaining, sees correct options' do
-    sign_in_pt(ENV['PTGoal3_Email'], 'goal_2', ENV['PTGoal3_Password'])
+    goal_participant_3.sign_in
+    visit achieve.landing_page
+    achieve.open_new
 
-    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
-    click_on '+ add a goal'
-    expect(page).to have_content 'no specific date'
-    expect(page).to have_content 'end of one week'
-    expect(page).to_not have_content 'end of 2 weeks'
-    expect(page).to have_content 'end of study'
+    expect(achieve).to have_no_specific_date_option
+
+    expect(achieve).to have_one_week_option
+
+    expect(achieve).to_not have_two_week_option
+
+    expect(achieve).to have_end_of_study_option
   end
 
   scenario 'Participant has < 1 weeks remaining, sees correct options' do
-    sign_in_pt(ENV['PTGoal4_Email'], 'goal_3', ENV['PTGoal4_Password'])
+    goal_participant_4.sign_in
+    visit achieve.landing_page
+    achieve.open_new
 
-    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
-    click_on '+ add a goal'
-    expect(page).to have_content 'no specific date'
-    expect(page).to_not have_content 'end of one week'
-    expect(page).to_not have_content 'end of 2 weeks'
-    expect(page).to have_content 'end of study'
+    expect(achieve).to have_no_specific_date_option
+
+    expect(achieve).to_not have_one_week_option
+
+    expect(achieve).to_not have_two_week_option
+
+    expect(achieve).to have_end_of_study_option
   end
 
   scenario 'Completed participant sees correct options' do
-    sign_in_pt(ENV['Completed_Pt_Email'], 'goal_4',
-               ENV['Completed_Pt_Password'])
+    completer_participant.sign_in
+    visit achieve.landing_page
+    achieve.open_new
 
-    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
-    click_on '+ add a goal'
-    expect(page).to have_content 'no specific date'
-    expect(page).to_not have_content 'end of one week'
-    expect(page).to_not have_content 'end of 2 weeks'
-    expect(page).to_not have_content 'end of study'
+    expect(achieve).to have_no_specific_date_option
 
-    sign_out('completer')
+    expect(achieve).to_not have_one_week_option
+
+    expect(achieve).to_not have_two_week_option
+
+    expect(achieve).to_not have_end_of_study_option
+
+    completer_participant.sign_out
   end
 end

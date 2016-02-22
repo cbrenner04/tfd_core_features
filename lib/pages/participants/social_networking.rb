@@ -5,9 +5,17 @@ class Participants
   class SocialNetworking
     include Capybara::DSL
 
-    def accept_social
+    def confirm_with_js
       execute_script('window.confirm = function() {return true}')
+    end
+
+    def accept_social
+      confirm_with_js
       navigation.next
+    end
+
+    def open_detail
+      click_on 'More'
     end
 
     def find_feed_item(item)
