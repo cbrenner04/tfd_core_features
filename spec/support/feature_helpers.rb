@@ -35,6 +35,14 @@ def participant_1_so5
   )
 end
 
+def participant_1_soc
+  @participant_1_soc ||= Participants.new(
+    participant: ENV['Participant_Email'],
+    old_participant: 'completer',
+    password: ENV['Participant_Password']
+  )
+end
+
 def participant_2_so1
   @participant_2_so1 ||= Participants.new(
     participant: ENV['Participant_2_Email'],
@@ -56,7 +64,8 @@ def participant_5_so1
   @participant_5_so1 ||= Participants.new(
     participant: ENV['Participant_5_Email'],
     old_participant: 'participant1',
-    password: ENV['Participant_5_Password']
+    password: ENV['Participant_5_Password'],
+    display_name: 'participant5'
   )
 end
 

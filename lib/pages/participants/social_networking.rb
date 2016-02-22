@@ -1,3 +1,5 @@
+require './lib/pages/participants/navigation'
+
 class Participants
   # page object for Social networking features
   class SocialNetworking
@@ -5,7 +7,7 @@ class Participants
 
     def accept_social
       execute_script('window.confirm = function() {return true}')
-      click_on 'Next'
+      navigation.next
     end
 
     def find_feed_item(item)
@@ -49,6 +51,12 @@ class Participants
           all('img')[2].click
         end
       end
+    end
+
+    private
+
+    def navigation
+      @navigation ||= Participants::Navigation.new
     end
   end
 end

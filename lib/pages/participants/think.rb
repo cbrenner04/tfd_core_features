@@ -7,30 +7,26 @@ class Participants
       "#{ENV['Base_URL']}/navigator/contexts/THINK"
     end
 
-    def compare_thought(thought)
-      page.execute_script('window.scrollBy(0,500)')
-      accept_social
-      find('.alert-success', text: 'Thought saved')
-      within('.panel-body.adjusted-list-group-item') do
-        expect(page).to_not have_content thought
-      end
-      find('.panel-body.adjusted-list-group-item').text
+    def visible?
+      has_text? 'Add a New Harmful Thought'
     end
 
-    def reshape(challenge, action)
-      find('h3', text: 'You said that you thought...')
-      click_on 'Next'
-      fill_in 'thought[challenging_thought]', with: challenge
-      page.execute_script('window.scrollBy(0,500)')
-      click_on 'Next'
-      find('.alert-success', text: 'Thought saved')
-      find('p', text: 'Because what you THINK, FEEL, Do')
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Next'
-      find('label', text: 'What could you do to ACT AS IF you believe this?')
-      fill_in 'thought_act_as_if', with: action
-      click_on 'Next'
-      find('.alert-success', text: 'Thought saved')
+    def identifying_tool
+      "#{ENV['Base_URL']}/navigator/modules/954850709"
+    end
+
+    def navigate_to_all_modules_through_nav_bar
+      tool = ['#2 Patterns', '#1 Identifying', '#3 Reshape',
+              'Add a New Harmful Thought', 'Thoughts']
+      content = ['Like we said, you are what you think...',
+                 'You are what you think...', 'Challenging Harmful Thoughts',
+                 'Add a New Harmful Thought', 'Harmful Thoughts']
+
+      tool.zip(content) do |t, c|
+        click_on 'THINK'
+        click_on t
+        expect(page).to have_content c
+      end
     end
   end
 end
