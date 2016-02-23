@@ -82,6 +82,10 @@ class Participants
       find('a', text: 'Home').click
     end
 
+    def has_profile_link_in_dropdown?
+      find('.navbar-collapse').find('.fa.fa-user.fa-lg').has_text? 'My Profile'
+    end
+
     private
 
     def host_app
