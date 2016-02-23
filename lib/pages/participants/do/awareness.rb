@@ -37,10 +37,10 @@ class Participants
       end
 
       def create_time_period
-        select "#{@start_time}", from: 'awake_period_start_time'
-        select "#{@end_time}", from: 'awake_period_end_time'
+        select @start_time, from: 'awake_period_start_time'
+        select @end_time, from: 'awake_period_end_time'
         click_on 'Create'
-        find('.alert-success', text: 'Awake Period saved')
+        do_tool.has_success_alert?
       end
 
       def choose_to_complete_time_period
@@ -58,7 +58,7 @@ class Participants
       end
 
       def complete_multiple_hour_review
-        (@num_fields).zip(@activity, @pleasure, @accomplishment) do |a, b, c, d|
+        @num_fields.zip(@activity, @pleasure, @accomplishment) do |a, b, c, d|
           complete_one_hour_review(a, b, c, d)
         end
 

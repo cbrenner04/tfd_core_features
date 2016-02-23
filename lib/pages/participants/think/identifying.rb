@@ -13,6 +13,8 @@ class Participants
         @first_thought ||= think_arry[:first_thought]
         @second_thought ||= think_arry[:second_thought]
         @third_thought ||= think_arry[:third_thought]
+        @feed_item ||= think_arry[:feed_item]
+        @timestamp ||= think_arry[:timestamp]
       end
 
       def open
@@ -35,18 +37,38 @@ class Participants
                    'Just one more']
         response = [@first_thought, @second_thought, @third_thought]
         heading.zip(response) do |h, r|
-          find('h2', text: h)
-          fill_in 'thought_content', with: r
+          enter_thought(h, r)
           social_networking.accept_social
-          find('.alert-success', text: 'Thought saved')
+          has_success_alert?
         end
         find('h1', text: 'Good work')
         navigation.next
         expect(think).to be_visible
       end
 
+      def enter_thought(heading, response)
+        find('h2', text: heading)
+        fill_in 'thought_content', with: response
+      end
+
       def has_thought_entry_form?
         has_text? 'Now, your turn...'
+      end
+
+      def has_second_thought_entry_form?
+        has_text? 'Now list another harmful thought...'
+      end
+
+      def find_in_feed
+        social_networking.find_feed_item(@feed_item)
+      end
+
+      def visible?
+        has_text? @feed_item
+      end
+
+      def has_timestamp?
+        find('.list-group-item.ng-scope', text: @feed_item).has_text? @timestamp
       end
 
       private

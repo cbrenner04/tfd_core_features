@@ -35,7 +35,7 @@ class Participants
         select 'Personalization', from: 'thought_pattern_id'
         navigation.scroll_down
         social_networking.accept_social
-        find('.alert-success', text: 'Thought saved')
+        think.has_success_alert?
         expect(think).to be_visible
       end
 
@@ -56,7 +56,7 @@ class Participants
       def compare_thought(thought)
         navigation.scroll_down
         social_networking.accept_social
-        find('.alert-success', text: 'Thought saved')
+        think.has_success_alert?
         within('.adjusted-list-group-item') { has_no_content? thought }
         find('.adjusted-list-group-item').text
       end

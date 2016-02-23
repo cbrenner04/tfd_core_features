@@ -9,8 +9,17 @@ class Participants
       execute_script('window.confirm = function() {return true}')
     end
 
+    def has_share_options?
+      has_text? 'Share the content of this thought?'
+    end
+
     def accept_social
       confirm_with_js
+      navigation.next
+    end
+
+    def decline_social
+      choose 'No'
       navigation.next
     end
 

@@ -45,8 +45,16 @@ feature 'DO tool', :core, sauce: sauce_labs do
     planning.open
     navigation.next
     plan_activity_1.plan
+    social_networking.accept_social
+
+    expect(do_tool).to have_success_alert
+
     navigation.scroll_down
     plan_activity_2.plan
+    social_networking.accept_social
+
+    expect(do_tool).to have_success_alert
+
     planning.move_to_review
 
     expect(planning).to have_entries
@@ -58,10 +66,16 @@ feature 'DO tool', :core, sauce: sauce_labs do
     reviewing.open
     reviewing.move_to_review
     reviewing.review_completed_activity
+    social_networking.decline_social
+
+    expect(do_tool).to have_success_alert
 
     # this is due to a dependency issue, need to update
     unless reviewing.has_another_activity_to_review?
       reviewing.review_incomplete_activity
+      social_networking.decline_social
+
+      expect(do_tool).to have_success_alert
     end
   end
 

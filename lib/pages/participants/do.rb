@@ -30,6 +30,10 @@ class Participants
       end
     end
 
+    def has_success_alert?
+      has_css?('.alert-success', text: 'Activity saved')
+    end
+
     def has_upcoming_activities_visible?
       has_text? 'Activities in your near future'
     end

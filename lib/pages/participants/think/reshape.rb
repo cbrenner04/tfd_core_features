@@ -1,4 +1,5 @@
 require './lib/pages/participants/navigation'
+require './lib/pages/participants/think'
 
 class Participants
   class Think
@@ -46,20 +47,24 @@ class Participants
         @navigation ||= Participants::Navigation.new
       end
 
+      def think
+        @think ||= Participants::Think.new
+      end
+
       def reshape
         find('h3', text: 'You said that you thought...')
         navigation.next
         fill_in 'thought[challenging_thought]', with: @challenge
         navigation.scroll_down
         navigation.next
-        find('.alert-success', text: 'Thought saved')
+        think.has_success_alert?
         find('p', text: 'Because what you THINK, FEEL, Do')
         navigation.scroll_to_bottom
         navigation.next
         find('label', text: 'What could you do to ACT AS IF you believe this?')
         fill_in 'thought_act_as_if', with: @action
         navigation.next
-        find('.alert-success', text: 'Thought saved')
+        think.has_success_alert?
       end
     end
   end

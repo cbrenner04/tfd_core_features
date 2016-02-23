@@ -59,6 +59,14 @@ def participant_1_sog4
   )
 end
 
+def participant_1_somc
+  @participant_1_somc ||= Participants.new(
+    participant: ENV['Participant_Email'],
+    old_participant: 'mobilecompleter',
+    password: ENV['Participant_Password']
+  )
+end
+
 def participant_2_so1
   @participant_2_so1 ||= Participants.new(
     participant: ENV['Participant_2_Email'],
@@ -99,5 +107,31 @@ def participant_5_so3
     participant: ENV['Participant_5_Email'],
     old_participant: 'participant3',
     password: ENV['Participant_5_Password']
+  )
+end
+
+def participant_5_sons
+  @participant_5_sons ||= Participants.new(
+    participant: ENV['Participant_5_Email'],
+    old_participant: 'nonsocialpt',
+    password: ENV['Participant_5_Password']
+  )
+end
+
+def nonsocial_pt
+  @nonsocial_pt ||= Participants.new(
+    participant: ENV['NS_Participant_Email'],
+    old_participant: 'participant1',
+    password: ENV['NS_Participant_Password'],
+    display_name: 'nonsocialpt'
+  )
+end
+
+def nonsocial_pt_sons
+  @nonsocial_pt ||= Participants.new(
+    participant: ENV['NS_Participant_Email'],
+    old_participant: 'nonsocialpt',
+    password: ENV['NS_Participant_Password'],
+    display_name: 'nonsocialpt'
   )
 end

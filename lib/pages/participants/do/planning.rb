@@ -1,3 +1,4 @@
+require './lib/pages/participants/do'
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 
@@ -12,6 +13,7 @@ class Participants
         @pleasure ||= planning_arry[:pleasure]
         @accomplishment ||= planning_arry[:accomplishment]
         @entries ||= planning_arry[:entries]
+        @timestamp ||= planning_arry[:timestamp]
       end
 
       def open
@@ -36,8 +38,6 @@ class Participants
         pick_tomorrow
         do_tool.choose_rating('pleasure_0', @pleasure)
         do_tool.choose_rating('accomplishment_0', @accomplishment)
-        social_networking.accept_social
-        find('.alert-success', text: 'Activity saved')
       end
 
       def move_to_review
@@ -54,11 +54,27 @@ class Participants
       end
 
       def finish
-        click_on 'Next'
-        find('h1', text: 'Do Landing')
+        navigation.next
+        do_tool.has_landing_page_visible?
+      end
+
+      def find_in_feed
+        social_networking.find_feed_item(@activity)
+      end
+
+      def visible?
+        has_text? @activity
+      end
+
+      def has_timestamp?
+        find('.list-group-item.ng-scope', text: @activity).has_text? @timestamp
       end
 
       private
+
+      def do_tool
+        @do_tool ||= Participants::DoTool.new
+      end
 
       def navigation
         @navigation ||= Participants::Navigation.new
@@ -72,7 +88,7 @@ class Participants
         tomorrow = Date.today + 1
         within('#ui-datepicker-div') do
           unless has_no_css?('.ui-datepicker-unselectable.ui-state-disabled',
-                             text: "#{tomorrow.strftime('%-e')}")
+                             text: tomorrow.strftime('%-e'))
             find('.ui-datepicker-next.ui-corner-all').click
           end
           click_on tomorrow.strftime('%-e')

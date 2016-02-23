@@ -29,5 +29,9 @@ class Participants
         has_text? c
       end
     end
+
+    def has_success_alert?
+      has_css?('.alert-success', text: 'Thought saved')
+    end
   end
 end

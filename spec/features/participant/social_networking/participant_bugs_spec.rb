@@ -1,16 +1,6 @@
 # file: ./spec/features/participant/social_networking/participant_bugs_spec.rb
 
-require './lib/pages/participants'
 require './lib/pages/participants/navigation'
-
-def nonsocial_pt
-  @nonsocial_pt ||= Participants.new(
-    participant: ENV['NS_Participant_Email'],
-    old_participant: 'participant1',
-    password: ENV['NS_Participant_Password'],
-    display_name: 'nonsocialpt'
-  )
-end
 
 def navigation
   @navigation ||= Participants::Navigation.new

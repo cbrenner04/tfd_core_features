@@ -15,8 +15,16 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
       planning.open
       navigation.next
       first_planned_activity.plan
+      social_networking.accept_social
+
+      expect(do_tool).to have_success_alert
+
       navigation.scroll_to_bottom
       second_planned_activity.plan
+      social_networking.accept_social
+
+      expect(do_tool).to have_success_alert
+
       planning.move_to_review
 
       expect(planning).to have_review_page_visible

@@ -2,161 +2,140 @@
 
 feature 'Shared items, Social arm',
         :social_networking, :marigold, sauce: sauce_labs do
-  feature 'THINK tool,' do
-    if ENV['safari']
-      background(:all) do
-        sign_in_pt(ENV['Participant_Email'], 'mobilecompleter',
-                   ENV['Participant_Password'])
-      end
-    end
+  feature 'THINK tool' do
+    background(:all) { participant_1_somc.sign_in if ENV['safari'] }
 
     background do
-      unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'mobilecompleter',
-                   ENV['Participant_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
+      participant_1_somc.sign_in unless ENV['safari']
+      visit think.landing_page
     end
 
     scenario 'Participant shares THINK > Identifying responses' do
-      click_on '#1 Identifying'
-      click_on 'Skip'
-      fill_in 'thought_content', with: 'Public thought 1'
-      accept_social
-      find('.alert-success', text: 'Thought saved')
-      find('h2', text: 'Now list another harmful thought...')
-      fill_in 'thought_content', with: 'Private thought 1'
-      choose 'No'
-      click_on 'Next'
-      find('.alert-success', text: 'Thought saved')
+      pt_1_identify_thought_1.open
+      navigation.skip
+      pt_1_identify_thought_1
+        .enter_thought('Now, your turn...', 'Public thought 1')
+      social_networking.accept_social
+
+      expect(think).to has_success_alert
+
+      pt_1_identify_thought_2
+        .enter_thought('Now list another harmful thought...',
+                       'Private thought 1')
+      social_networking.decline_social
+
+      expect(think).to has_success_alert
+
       visit ENV['Base_URL']
-      find_feed_item('Public thought 1')
-      expect(page).to_not have_content 'Private thought'
+      pt_1_identify_thought_1.find_in_feed
 
-      expect(page).to have_content 'Public thought 1'
+      expect(pt_1_identify_thought_2).to_not be_visible
 
-      within('.list-group-item.ng-scope', text: 'Public thought 1') do
-        expect(page).to have_content "Today at #{Time.now.strftime('%l')}"
-      end
+      expect(pt_1_identify_thought_1).to be_visible
+
+      expect(pt_1_identify_thought_1).to have_timestamp
     end
 
     scenario 'Participant shares Add a New Harmful Thought responses' do
-      click_on 'Add a New Harmful Thought'
-      fill_in 'thought_content', with: 'Public thought 3'
-      select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
-      fill_in 'thought_challenging_thought', with: 'Testing challenge thought'
-      fill_in 'thought_act_as_if', with: 'Testing act-as-if action'
-      page.execute_script('window.scrollTo(0,5000)')
-      accept_social
-      find('.alert-success', text: 'Thought saved')
-      page.execute_script('window.scrollTo(0,5000)')
-      find('.btn.btn-primary.pull-right').click
-      find('.list-group-item', text: 'Add a New Harmful Thought')
+      pt_1_add_new_thought_1.open
+      pt_1_add_new_thought_1.complete
       visit ENV['Base_URL']
-      find_feed_item('Public thought 3')
-      expect(page).to have_content 'Public thought 3'
 
-      within('.list-group-item.ng-scope', text: 'Public thought 3') do
-        expect(page).to have_content "Today at #{Time.now.strftime('%l')}"
-      end
+      expect(pt_1_add_new_thought_1).to be_visible
+
+      pt_1_add_new_thought_1.find_in_feed
+
+      expect(pt_1_add_new_thought_1).to have_timestamp
     end
 
     scenario 'Participant does not share Add a New Harmful Thought response' do
-      click_on 'Add a New Harmful Thought'
-      fill_in 'thought_content', with: 'Private thought 2'
-      select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
-      fill_in 'thought_challenging_thought', with: 'Testing challenge thought'
-      fill_in 'thought_act_as_if', with: 'Testing act-as-if action'
-      choose 'No'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Next'
-      find('.alert-success', text: 'Thought saved')
-      page.execute_script('window.scrollTo(0,5000)')
-      find('.btn.btn-primary.pull-right').click
-      find('.list-group-item', text: 'Add a New Harmful Thought')
-      visit ENV['Base_URL']
-      find_feed_item('Public thought 1')
-      expect(page).to_not have_content 'Private thought 2'
+      pt_1_add_new_thought_2.open
+      pt_1_add_new_thought_2.enter_thought
+      social_networking.decline_social
+      navigation.next
 
-      expect(page).to have_content 'Public thought 1'
+      expect(think).to have_success_alert
+
+      navigation.scroll_to_bottom
+      navigation.next
+
+      expect(think).to be_visible
+
+      visit ENV['Base_URL']
+      pt_1_add_new_thought_1.find_in_feed
+
+      expect(pt_1_add_new_thought_2).to_not be_visible
+
+      expect(pt_1_add_new_thought_1).to be_visible
     end
   end
 
-  feature 'DO tool,' do
+  feature 'DO tool' do
     background do
-      unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'participant1',
-                   ENV['Participant_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/navigator/contexts/DO"
+      participant_1_so1.sign_in unless ENV['safari']
+      visit do_tool.landing_page
     end
 
     scenario 'Participant shares DO > Planning responses' do
-      click_on '#2 Planning'
-      click_on 'Next'
-      plan_activity('New public activity', 6, 3)
-      page.execute_script('window.scrollTo(0,5000)')
-      find('#new_activity_radio').click
-      fill_in 'activity_activity_type_new_title', with: 'New private activity'
-      page.execute_script('window.scrollTo(0,5000)')
-      find('.fa.fa-calendar').click
-      pick_tomorrow
-      choose_rating('pleasure_0', 4)
-      choose_rating('accomplishment_0', 8)
-      choose 'No'
-      click_on 'Next'
-      find('.alert-success', text: 'Activity saved')
-      find('h1', text: 'OK...')
-      click_on 'Next'
-      find('h2', text: 'Your Planned Activities')
-      page.execute_script('window.scrollBy(0,500)')
-      click_on 'Next'
-      find('h1', text: 'Do Landing')
+      pt_1_planning_1.open
+      navigation.next
+      pt_1_planning_1.plan
+      social_networking.accept_social
+
+      expect(do_tool).to have_success_alert
+
+      navigation.scroll_to_bottom
+      pt_1_planning_2.plan
+      social_networking.decline_social
+
+      expect(do_tool).to have_success_alert
+
+      pt_1_planning_2.move_to_review
+
+      expect(pt_1_planning_2).to have_review_page_visible
+
+      navigation.scroll_down
+      pt_1_planning_2.finish
+
       visit ENV['Base_URL']
-      find_feed_item('New public activity')
-      expect(page).to_not have_content 'New private activity'
+      pt_1_planning_1.find_in_feed
 
-      expect(page).to have_content 'New public activity'
+      expect(pt_1_planning_2).to_not be_visible
 
-      within('.list-group-item.ng-scope', text: 'New public activity') do
-        expect(page).to have_content "Today at #{Time.now.strftime('%l')}"
-      end
+      expect(pt_1_planning_1).to be_visible
+
+      expect(pt_1_planning_1).to have_timestamp
     end
 
     scenario 'Participant shares Add a New Activity responses' do
-      click_on 'Add a New Activity'
-      plan_activity('New public activity 2', 4, 3)
-      find('h1', text: 'Do Landing')
-      visit ENV['Base_URL']
-      find_feed_item('New public activity 2')
-      expect(page).to have_content 'New public activity 2'
+      pt_1_plan_new_1.open
+      pt_1_plan_new_1.plan_activity
+      social_networking.accept_social
 
-      within('.list-group-item.ng-scope', text: 'New public activity 2') do
-        expect(page).to have_content "Today at #{Time.now.strftime('%l')}"
-      end
+      expect(do_tool).to have_success_alert
+
+      expect(do_tool).to have_landing_visible
+
+      visit ENV['Base_URL']
+      pt_1_plan_new_1.find_in_feed
+
+      expect(pt_1_plan_new_1).to be_visible
+
+      expect(pt_1_plan_new_1).to have_timestamp
     end
 
     scenario 'Participant does not share Add a New Activity responses' do
-      click_on 'Add a New Activity'
-      find('#new_activity_radio')
-      page.execute_script('window.scrollBy(0,500)')
-      find('#new_activity_radio').click
-      fill_in 'activity_activity_type_new_title', with: 'New private activity 2'
-      page.execute_script('window.scrollTo(0,5000)')
-      find('.fa.fa-calendar').click
-      pick_tomorrow
-      choose_rating('pleasure_0', 4)
-      choose_rating('accomplishment_0', 3)
-      choose 'No'
-      click_on 'Next'
-      find('.alert-success', text: 'Activity saved')
-      visit ENV['Base_URL']
-      find_feed_item('New public activity 2')
-      expect(page).to_not have_content 'New private activity 2'
+      pt_1_plan_2.open
+      pt_1_plan_2.plan_activity
+      social_networking.decline_social
 
-      expect(page).to have_content 'New public activity 2'
+      expect(do_tool).to have_success_alert
+      visit ENV['Base_URL']
+      pt_1_plan_new_1.find_in_feed
+
+      expect(pt_1_plan_new_2).to_not be_visible
+
+      expect(pt_1_plan_new_1).to be_visible
     end
   end
 end
@@ -164,142 +143,90 @@ end
 feature 'Shared items, Mobile arm',
         :social_networking, :marigold, sauce: sauce_labs do
   feature 'THINK tool' do
-    if ENV['safari']
-      background(:all) do
-        sign_in_pt(ENV['NS_Participant_Email'], 'participant1',
-                   ENV['NS_Participant_Password'])
-      end
-    end
+    background(:all) { nonsocial_pt.sign_in if ENV['safari'] }
 
     background do
-      unless ENV['safari']
-        sign_in_pt(ENV['NS_Participant_Email'], 'participant1',
-                   ENV['NS_Participant_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
+      nonsocial_pt.sign_in unless ENV['safari']
+      visit think.landing_page
     end
 
     scenario 'Participant cannot create a shared item in Identifying' do
-      click_on '#1 Identifying'
-      find('h1', text: 'You are what you think')
-      ['Helpful thoughts are...', 'Harmful thoughts are:',
-       'Some quick examples...'].each do |s|
-        page.execute_script('window.scrollTo(0,5000)')
-        click_on 'Next'
-        find('h1', text: s)
-      end
+      ns_pt_identifying.open
+      ns_pt_identifying.move_to_thought_input
+      navgiation.next
 
-      click_on 'Next'
-      expect(page).to_not have_content 'Share the content of this thought?'
+      expect(social_networking).to_not have_share_options
 
-      fill_in 'thought_content', with: 'Test thought 1'
-      click_on 'Next'
-      expect(page).to have_content 'Now list another harmful thought...'
+      ns_pt_identifying.enter_thought('Now your turn...', 'Test thought 1')
+      navigation.next
+
+      expect(nw_pt_identifying).to have_second_thought_entry_form
     end
 
     scenario 'Participant cannot create in Add a New Harmful Thought' do
-      click_on 'Add a New Harmful Thought'
-      expect(page).to have_content 'Add A New Harmful Thought'
+      ns_pt_add_new_thought.open
 
-      expect(page).to_not have_content 'Share the content of this thought?'
+      expect(social_networking).to_not have_share_options
     end
   end
 
   feature 'DO tool' do
     background do
-      unless ENV['safari']
-        sign_in_pt(ENV['NS_Participant_Email'], 'nonsocialpt',
-                   ENV['NS_Participant_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/navigator/contexts/DO"
+      nonsocial_pt_sons.sign_in unless ENV['safari']
+      visit do_tool.landing_page
     end
 
     scenario 'Participant cannot create a shared item in Awareness' do
-      click_on '#1 Awareness'
-      click_on 'Next'
-      select "#{Date.today.strftime('%a')} 4 AM",
-             from: 'awake_period_start_time'
-      select "#{Date.today.strftime('%a')} 7 AM", from: 'awake_period_end_time'
-      click_on 'Create'
-      expect(page).to_not have_content 'Share the content of this activity?'
+      ns_pt_awareness.open
+      navigation.next
+      ns_pt_awarens.create_time_period
+
+      expect(social_networking).to_not have_share_options
     end
 
     scenario 'Participant cannot create a shared item in Planning' do
-      click_on '#2 Planning'
-      click_on 'Next'
-      expect(page).to have_content 'We want you to plan one fun thing'
+      ns_pt_planning.open
+      navigation.next
 
-      expect(page).to_not have_content 'Share the content of this activity?'
+      expect(ns_pt_planning).to have_planning_form_visible
+
+      expect(social_networking).to_not have_share_options
     end
 
     scenario 'Participant cannot create shared item in Plan a New Activity' do
-      click_on 'Add a New Activity'
-      expect(page).to have_content "But you don't have to start from scratch,"
+      ns_pt_add_new_activity.open
 
-      expect(page).to_not have_content 'Share the content of this activity?'
+      expect(ns_pt_add_new_activity).to be_on_form
+
+      expect(social_networking).to_not have_share_options
     end
   end
 end
 
 feature 'Shared items, Social arm',
         :social_networking, :marigold, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      sign_in_pt(ENV['Participant_5_Email'], 'nonsocialpt',
-                 ENV['Participant_5_Password'])
-    end
-  end
-
-  background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Participant_5_Email'], 'nonsocialpt',
-                 ENV['Participant_5_Password'])
-    end
-  end
+  background(:all) { participant_5_sons.sign_in if ENV['safari'] }
+  background { participant_5_sons.sign_in unless ENV['safari'] }
 
   scenario 'Participant shared DO > Reviewing responses' do
-    visit "#{ENV['Base_URL']}/navigator/contexts/DO"
-    click_on '#3 Doing'
-    click_on 'Next'
-    find('h1', text: "Let's do this...")
-    click_on 'Next'
-    find('.btn.btn-success').click
-    select '7', from: 'activity[actual_pleasure_intensity]'
-    select '5', from: 'activity[actual_accomplishment_intensity]'
-    page.execute_script('window.scrollBy(0,500)')
-    accept_social
-    find('.alert-success', text: 'Activity saved')
-    find('.btn.btn-danger').click
-    fill_in 'activity[noncompliance_reason]', with: "I didn't have time"
-    within('.form-group', text: 'Share the content of this activity?') do
-      choose 'No'
-    end
+    visit do_tool.landing_page
+    pt_5_reviewing_1.open
+    pt_5_reviewing_1.move_to_review
+    pt_5_reviewing_1.review_complete_activity
+    social_networking.accept_social
 
-    click_on 'Next'
-    find('.alert-success', text: 'Activity saved')
+    expect(do_tool).to have_success_alert
+
+    pt_5_reviewing_1.review_incomplete_activity
+    social_networking.decline_social
+
+    expect(do_tool).to have_success_alert
 
     visit ENV['Base_URL']
-    find_feed_item('Reviewed & Completed an Activity: Parkour')
-    within('.list-group-item.ng-scope',
-           text: 'Reviewed & Completed an Activity: Parkour') do
-      page.execute_script('window.scrollBy(0,1000)')
-      click_on 'More'
-      time1 = Time.now - (60 * 60 * 24)
-      time2 = Time.now - (60 * 60 * 23)
-      expect(page)
-        .to have_content "start: #{time1.strftime('%b. %-d, %Y at %-l')}"
+    pt_5_reviewing_1.find_in_feed
+    expect(pt_5_reviewing_1).to have_feed_item_detail
 
-      expect(page)
-        .to have_content "end: #{time2.strftime('%b. %-d, %Y at %-l')}"
-
-      expect(page)
-        .to have_content "predicted accomplishment: 4\npredicted pleasure: " \
-                         "9\nactual accomplishment: 5\nactual pleasure: 7"
-    end
-
-    expect(page).to_not have_content 'Reviewed & Completed an Activity: Loving'
+    expect(pt_5_reviewing_2).to_not be_visible
   end
 
   scenario 'Participant reads Lesson 1 and finds the related feed item' do

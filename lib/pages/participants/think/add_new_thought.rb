@@ -1,5 +1,6 @@
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
+require './lib/pages/participants/think'
 
 class Participants
   class Think
@@ -12,6 +13,7 @@ class Participants
         @pattern ||= add_new_thought_arry[:pattern]
         @challenge ||= add_new_thought_arry[:challenge]
         @action ||= add_new_thought_arry[:action]
+        @timestamp ||= add_new_thought_arry[:timestamp]
       end
 
       def open
@@ -20,15 +22,32 @@ class Participants
       end
 
       def complete
+        enter_thought
+        social_networking.accept_social
+        think.has_success_alert?
+        navigation.scroll_to_bottom
+        find('.btn.btn-primary.pull-right').click
+      end
+
+      def enter_thought
         fill_in 'thought_content', with: @thought
         select @pattern, from: 'thought_pattern_id'
         fill_in 'thought_challenging_thought', with: @challenge
         fill_in 'thought_act_as_if', with: @action
         navigation.scroll_to_bottom
-        social_networking.accept_social
-        find('.alert-success', text: 'Thought saved')
-        navigation.scroll_to_bottom
-        find('.btn.btn-primary.pull-right').click
+      end
+
+      def find_in_feed
+        social_networking.find_feed_item(@thought)
+      end
+
+      def visible?
+        has_text? @thought
+      end
+
+      def has_timestamp?
+        find('.list-group-item.ng-scope',
+             text: 'Public thought 3').has_text? @timestamp
       end
 
       private
@@ -39,6 +58,10 @@ class Participants
 
       def social_networking
         @social_networking ||= Participants::SocialNetworking.new
+      end
+
+      def think
+        @think ||= Participants::Think.new
       end
     end
   end
