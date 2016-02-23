@@ -1,5 +1,7 @@
 # filename: ./lib/tasks/tfdso.rake
 
+require './spec/env_variables'
+
 namespace :tfdso do
   # load development version of think_feel_do_so locally
   desc 'Set and start think_feel_do_so for full suite testing locally'

@@ -1,4 +1,6 @@
-# filename: Rakefile
+# filename: ./lib/tasks/sunnyside.rake
+
+require './spec/env_variables'
 
 namespace :sunnyside do
   # load development version of sunnyside locally

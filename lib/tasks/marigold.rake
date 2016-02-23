@@ -1,5 +1,7 @@
 # filename: ./lib/tasks/marigold.rake
 
+require './spec/env_variables'
+
 namespace :marigold do
   # load development version of marigold locally
   desc 'Set and start marigold for full suite testing locally'
