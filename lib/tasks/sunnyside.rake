@@ -4,7 +4,7 @@ namespace :sunnyside do
   # load development version of sunnyside locally
   desc 'Set and start sunnyside for full suite testing locally'
   task :load_app_local do
-    Dir.chdir('/Users/Chris/Work/sunnyside') do
+    Dir.chdir(ENV['sunnyside_path']) do
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('rake selenium_seed:with_fixtures')
@@ -26,7 +26,7 @@ namespace :sunnyside do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb sunnyside_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb sunnyside_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d sunnyside_development -f /Users/Chris/Work/dbs/sunnyside_db.sql')
-    Dir.chdir('/Users/Chris/Work/sunnyside') do
+    Dir.chdir(ENV['sunnyside_path']) do
       system('rails s')
     end
   end
@@ -35,7 +35,7 @@ namespace :sunnyside do
   desc 'Set test database for testing on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://sunnyside-staging.cbits.northwestern.edu')
-    Dir.chdir('/Users/Chris/Work/sunnyside') do
+    Dir.chdir(ENV['sunnyside_path']) do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate')
@@ -74,7 +74,7 @@ namespace :sunnyside do
   task :load_app_sauce do
     system('export Base_URL=https://sunnyside-staging.cbits.northwestern.edu')
     system('Sauce=true')
-    Dir.chdir('/Users/Chris/Work/sunnyside') do
+    Dir.chdir(ENV['sunnyside_path']) do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate_db')
@@ -86,7 +86,7 @@ namespace :sunnyside do
   # load staging version of sunnyside on staging
   desc 'Returning staging database on staging'
   task :return_staging do
-    Dir.chdir('/Users/Chris/Work/sunnyside') do
+    Dir.chdir(ENV['sunnyside_path']) do
       system('cap staging deploy:use_staging_db')
     end
   end
