@@ -4,7 +4,7 @@ namespace :tfd do
   # load development version of think_feel_do locally
   desc 'Set and start think_feel_do for full suite testing locally'
   task :load_app_local do
-    Dir.chdir('/Users/Chris/Work/think_feel_do') do
+    Dir.chdir(ENV['tfd_path']) do
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('tfd=true rake selenium_seed:with_fixtures')
@@ -25,7 +25,7 @@ namespace :tfd do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb think_feel_do_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb think_feel_do_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d think_feel_do_development -f /Users/Chris/Work/dbs/tfd_db.sql')
-    Dir.chdir('/Users/Chris/Work/think_feel_do') do
+    Dir.chdir(ENV['tfd_path']) do
       system('rails s')
     end
   end
@@ -34,7 +34,7 @@ namespace :tfd do
   desc 'Set test database for testing think_feel_do on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
-    Dir.chdir('/Users/Chris/Work/think_feel_do') do
+    Dir.chdir(ENV['tfd_path']) do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate')
@@ -61,7 +61,7 @@ namespace :tfd do
   task :load_app_sauce do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
     system('Sauce=true')
-    Dir.chdir('/Users/Chris/Work/think_feel_do') do
+    Dir.chdir(ENV['tfd_path']) do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate_db')
@@ -72,7 +72,7 @@ namespace :tfd do
   # load staging version of think_feel_do on staging
   desc 'Returning think_feel_do staging database on staging'
   task :return_staging do
-    Dir.chdir('/Users/Chris/Work/think_feel_do') do
+    Dir.chdir(ENV['tfd_path']) do
       system('cap staging deploy:use_staging_db')
     end
   end
