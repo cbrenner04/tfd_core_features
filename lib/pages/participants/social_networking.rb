@@ -22,11 +22,10 @@ class Participants
       find_feed_item('nudged participant1')
     end
 
-    def find_feed_item(item)
+    def find_feed_item(x)
       find('#feed-btn').click unless ENV['tfd'] || ENV['tfdso']
       counter = 0
-      while has_no_css?('.list-group-item.ng-scope',
-                        text: item) && counter < 15
+      while has_no_css?('.list-group-item.ng-scope', text: x) && counter < 15
         navigation.scroll_to_bottom
         counter += 1
       end
