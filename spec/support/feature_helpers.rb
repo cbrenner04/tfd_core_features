@@ -27,6 +27,14 @@ def participant_1_so3
   )
 end
 
+def participant_1_so4
+  @participant_1_so4 ||= Participants.new(
+    participant: ENV['Participant_Email'],
+    old_participant: 'participant4',
+    password: ENV['Participant_Password']
+  )
+end
+
 def participant_1_so5
   @participant_1_so5 ||= Participants.new(
     participant: ENV['Participant_Email'],
@@ -39,6 +47,14 @@ def participant_1_soc
   @participant_1_soc ||= Participants.new(
     participant: ENV['Participant_Email'],
     old_participant: 'completer',
+    password: ENV['Participant_Password']
+  )
+end
+
+def participant_1_sog4
+  @participant_1_sog4 ||= Participants.new(
+    participant: ENV['Participant_Email'],
+    old_participant: 'goal_4',
     password: ENV['Participant_Password']
   )
 end
@@ -57,6 +73,15 @@ def participant_3_so1
     participant: ENV['Alt_Participant_Email'],
     old_participant: 'participant1',
     password: ENV['Alt_Participant_Password']
+  )
+end
+
+def participant_4_so1
+  @participant_4_so1 ||= Participants.new(
+    participant: ENV['Participant_4_Email'],
+    old_participant: 'participant1',
+    password: ENV['Participant_4_Password'],
+    display_name: 'participant4'
   )
 end
 

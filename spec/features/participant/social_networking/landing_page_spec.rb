@@ -1,88 +1,63 @@
 # filename: ./spec/features/participant/social_networking/landing_page_spec.rb
 
+require './spec/support/participants/social_networking_landing_helper'
+
 feature 'SocialNetworking Landing Page',
         :social_networking, :marigold, sauce: sauce_labs do
   feature 'Social Arm' do
     background do
-      unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'goal_4',
-                   ENV['Participant_Password'])
-      end
-
+      participant_1_sog4.sign_in unless ENV['safari']
       visit ENV['Base_URL']
     end
 
     scenario 'Participant creates a profile' do
-      page.execute_script('window.scrollBy(0,500)')
-      click_on 'Create a Profile'
-      unless page.has_no_css?('.modal-content')
-        within('.modal-content') do
-          page.all('img')[2].click
-        end
-      end
+      navigation.scroll_down
 
-      expect(page).to have_content 'Fill out your profile so other group ' \
-                                   'members can get to know you!'
+      expect(participant_1_to_do_list).to have_profile_task
 
-      question = ['What are your hobbies?', 'What is your favorite color?',
-                  'Animal, vegetable or mineral?', 'Group 1 profile question']
-      answer = ['Running', 'Blue', 'Mineral', 'Group 1']
+      participant_1_profile.create
 
-      question.zip(answer) do |q, a|
-        page.execute_script('window.scrollBy(0,500)')
-        answer_profile_question(q, a)
-      end
-
-      expect(page).to_not have_content 'Fill out your profile so other ' \
-                                       'group members can get to know you!'
-
-      within(".panel.panel-#{profile_class}.ng-scope",
-             text: 'Group 1 profile question') do
-        expect(page).to have_css '.fa.fa-pencil'
-      end
+      expect(participant_1_profile).to be_able_to_edit_question
 
       visit ENV['Base_URL']
-      find_feed_item('Shared a Profile: Welcome, participant1')
-      expect(page).to_not have_content 'Create a Profile'
+      participant_1_profile.find_in_feed
+
+      expect(participant_1_to_do_list).to_not have_profile_task
     end
 
     scenario 'Participant navigates to the profile page from not home' do
-      visit "#{ENV['Base_URL']}/navigator/contexts/DO"
-      within '.navbar-collapse' do
-        click_on 'participant1'
-        click_on 'My Profile'
-      end
+      visit do_tool.landing_page
+      participant_1_profile.navigate_to_profile
 
-      expect(page).to have_content 'Group 1 profile question'
+      expect(participant_1_profile).to be_visible
     end
 
     scenario 'Participant creates a whats on your mind post' do
-      page.execute_script('window.scrollBy(0,500)')
-      click_on "What's on your mind?"
-      fill_in 'new-on-your-mind-description', with: "I'm feeling happy!"
-      click_on 'Save'
-      if ENV['sunnyside'] || ENV['marigold']
-        find('#feed-btn').click
-      end
-      expect(page).to have_content "said I'm feeling happy!"
+      navigation.scroll_down
+      pt_1_on_the_mind.create
+
+      expect(pt_1_on_the_mind).to be_in_feed
     end
 
     scenario 'Participant selects link in TODO list' do
-      find('.panel-title', text: 'To Do')
-      page.execute_script('window.scrollBy(0,1500)')
-      click_on 'THINK: Thought Distortions'
-      expect(page).to have_css('h1', text: 'Thought Distortions')
+      expect(participant_1_to_do_list).to be_visible
+
+      3.times { navigation.scroll_down }
+      participant_1_to_do_list.select_task
+
+      expect(thoughts).to be_visible
     end
 
     scenario 'Participant views another participants profile' do
-      find('a', text: 'participant5').click
-      expect(page).to have_content 'What is your favorite color?'
+      social_networking.visit_participant_5_profile
+
+      expect(participant_5_profile).to be_visible
     end
 
     scenario 'Participant likes a whats on your mind post' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
-      page.execute_script('window.scrollBy(0,2000)')
+      navigation.scroll_to_bottom
       like("said it's always sunny in Philadelphia")
       within('.list-group-item.ng-scope',
              text: "said it's always sunny in Philadelphia") do
@@ -105,8 +80,8 @@ feature 'SocialNetworking Landing Page',
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
       within first('.list-group-item.ng-scope', text: 'a Goal: p1 alpha') do
-        page.execute_script('window.scrollTo(0,5000)')
-        click_on 'More'
+        navigation.scroll_to_bottom
+        social_networking.open_detail
         expect(page)
           .to have_content "due #{Date.today.strftime('%b %d %Y')}"
       end
@@ -115,7 +90,7 @@ feature 'SocialNetworking Landing Page',
     scenario 'Participant checks for an incomplete goal' do
       find('h1', text: 'HOME')
       find_feed_item('nudged participant1')
-      page.execute_script('window.scrollBy(0,2000)')
+      navigation.scroll_to_bottom
       expect(page).to have_content 'Did Not Complete a Goal: due yesterday'
     end
 
@@ -130,11 +105,7 @@ feature 'SocialNetworking Landing Page',
 
   feature 'Resize window to mobile size' do
     background do
-      unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'participant1',
-                   ENV['Participant_Password'])
-      end
-
+      participant_1_so1.sign_in unless ENV['safari']
       visit ENV['Base_URL']
       page.driver.browser.manage.window.resize_to(400, 800)
       page.execute_script('window.location.reload()')
@@ -166,53 +137,38 @@ feature 'SocialNetworking Landing Page',
 
   feature 'To Do list' do
     scenario 'Participant complete last To Do, sees appropriate message' do
-      sign_in_pt(ENV['Participant_4_Email'], 'participant1',
-                 ENV['Participant_4_Password'])
+      participant_4_so1.sign_in
       within('.panel.panel-default.ng-scope', text: 'To Do') do
         expect(page).to have_link 'Create a Profile'
         expect(page).to_not have_content 'You are all caught up! Great work!'
       end
 
-      click_on 'Create a Profile'
-      unless page.has_no_css?('.modal-content')
-        within('.modal-content') do
-          page.all('img')[2].click
-        end
-      end
+      social_networking.visit_profile
 
       expect(page).to have_content 'Fill out your profile so other group ' \
                                    'members can get to know you!'
 
-      page.execute_script('window.scrollBy(0,1000)')
+      2.times { navigation.scroll_down }
       answer_profile_question('What are your hobbies?', 'Running')
 
       visit ENV['Base_URL']
-      page.evaluate_script('window.confirm = function() { return true; }')
+      navigation.confirm_with_js
       within('.panel.panel-default.ng-scope', text: 'To Do') do
         expect(page).to_not have_link 'Create a Profile'
         expect(page).to have_content 'You are all caught up! Great work!'
       end
 
-      sign_out('participant4')
+      participant_4_so1.sign_out
     end
   end
 end
 
 feature 'SocialNetworking Landing Page', :tfdso, sauce: sauce_labs do
   feature 'Checks moderator' do
-    if ENV['safari']
-      before(:all) do
-        sign_in_pt(ENV['Participant_Email'], 'participant4',
-                   ENV['Participant_Password'])
-      end
-    end
+    background(:all) { participant_1_so4.sign_in if ENV['safari'] }
 
-    before do
-      unless ENV['safari']
-        sign_in_pt(ENV['Participant_Email'], 'participant4',
-                   ENV['Participant_Password'])
-      end
-
+    background do
+      participant_1_so4.sign_in unless ENV['safari']
       visit ENV['Base_URL']
     end
 
@@ -223,21 +179,5 @@ feature 'SocialNetworking Landing Page', :tfdso, sauce: sauce_labs do
           .to_not have_content 'Last seen:'
       end
     end
-  end
-end
-
-def answer_profile_question(question, answer)
-  within(".panel.panel-#{profile_class}.ng-scope", text: question) do
-    find('input[type = text]').set(answer)
-    page.evaluate_script('window.confirm = function() { return true; }')
-    click_on 'Save'
-  end
-end
-
-def profile_class
-  if ENV['tfd'] || ENV['tfdso']
-    'default'
-  elsif ENV['sunnyside'] || ENV['marigold']
-    'success'
   end
 end

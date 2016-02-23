@@ -13,6 +13,10 @@ class Participants
         click_on 'Thoughts'
       end
 
+      def visible?
+        has_css?('h1', text: 'Thought Distortions')
+      end
+
       def has_thought_visible?
         has_css?('tr', text: @thought)
       end

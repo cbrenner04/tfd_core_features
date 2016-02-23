@@ -1,5 +1,5 @@
---require spec_helper
 --require env_variables.rb
+--require spec_helper
 --require support/feature_helpers.rb
 --format documentation
 --format progress

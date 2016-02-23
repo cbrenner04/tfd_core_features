@@ -53,7 +53,7 @@ class Participants
         open_new
         fill_in 'new-goal-description', with: @goal
         choose 'end of study'
-        click_on 'Save'
+        navigation.save
       end
 
       def visible?
@@ -95,7 +95,7 @@ class Participants
       def delete
         if ENV['chrome'] || ENV['safari']
           social_networking.confirm_with_js
-          find('.list-group-item', text:"#{@goal}").find('.delete').click
+          find('.list-group-item', text: "#{@goal}").find('.delete').click
         else
           find('.list-group-item', text: "#{@goal}").find('.delete').click
           accept_alert 'Are you sure you would like to delete this goal? ' \

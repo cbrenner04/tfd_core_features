@@ -94,7 +94,7 @@ namespace :run_tfd do
     system('tfd=true rspec --tag core --tag tfd')
   end
 
-  desc 'Run the test suite for TeleHealth on Chrome without certain example groups to increase speed'
+  desc 'Run the test suite for TeleHealth on Firefox without certain example groups to increase speed'
   task :fast do
     system('tfd=true rspec --tag core --tag tfd --tag ~superfluous')
   end
