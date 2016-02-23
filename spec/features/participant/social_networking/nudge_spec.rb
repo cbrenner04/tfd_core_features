@@ -1,48 +1,40 @@
 # filename: ./spec/features/participant/social_networking/nudge_spec.rb
 
+require './spec/support/participants/nudge_helper'
+
 feature 'Nudge', :social_networking, :marigold, sauce: sauce_labs do
   if ENV['safari']
     if ENV['sunnyside'] || ENV['marigold']
-      background(:all) do
-        sign_in_pt(ENV['Participant_Email'], 'participant4',
-                   ENV['Participant_Password'])
-      end
+      background(:all) { participant_1_so4.sign_in }
     end
   else
     background do
-      sign_in_pt(ENV['Participant_Email'], 'participant1',
-                 ENV['Participant_Password'])
+      participant_1_so1.sign_in
+      visit ENV['Base_URL']
+
+      expect(navigation).to have_home_page_visible
     end
   end
 
   scenario 'Participant nudges another participant' do
+    participant_1_profile.visit_another_participants_profile
+    navigation.scroll_down
+    participant_1_profile.nudge
     visit ENV['Base_URL']
-    find('a', text: 'participant5').click
-    page.execute_script('window.scrollBy(0,500)')
-    click_on 'Nudge'
-    expect(page).to have_content 'Nudge sent!'
 
-    visit ENV['Base_URL']
-    find_feed_item('nudged participant5')
-    expect(page).to have_content 'nudged participant5'
+    expect(participant_1_profile).to have_nudge_in_feed
   end
 
   scenario 'Participant receives a nudge alert on profile page' do
-    visit "#{ENV['Base_URL']}/social_networking/profile_page"
-    unless page.has_no_css?('.modal-content')
-      within('.modal-content') do
-        page.all('img')[2].click
-      end
-    end
+    participant_1_profile.visit_profile
 
-    expect(page).to have_content "#{moderator} nudged you!"
+    expect(participant_1_profile).to have_nudge
   end
 
   scenario 'Participant sees nudge on landing page' do
-    visit ENV['Base_URL']
-    find('h1', text: 'HOME')
-    find_feed_item('nudged participant1')
-    page.execute_script('window.scrollBy(0,2000)')
-    expect(page).to have_content 'nudged participant1'
+    social_networking.scroll_to_bottom_of_feed
+    navigation.scroll_to_bottom
+
+    expect(social_networking).to have_last_feed_item
   end
 end

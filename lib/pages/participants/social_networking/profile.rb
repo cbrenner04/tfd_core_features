@@ -13,6 +13,7 @@ class Participants
         @display_name ||= profile_arry[:display_name]
         @other_pt ||= profile_arry[:other_pt]
         @last_seen ||= profile_arry[:last_seen]
+        @nudger ||= profile_arry[:nudger]
       end
 
       def visit_profile
@@ -77,6 +78,20 @@ class Participants
       def has_last_seen?
         find('.text-center.ng-scope', text: "#{@display_name}")
           .find('.profile-last-seen').has_text? "Last seen: #{@last_seen}"
+      end
+
+      def nudge
+        click_on 'Nudge'
+        has_text? 'Nudge sent!'
+      end
+
+      def has_nudge_in_feed?
+        social_networking.find_feed_item("nudged #{@other_pt}")
+        has_text? "nudged #{@other_pt}"
+      end
+
+      def has_nudge?
+        has_text? "#{@nudger} nudged you!"
       end
 
       private
