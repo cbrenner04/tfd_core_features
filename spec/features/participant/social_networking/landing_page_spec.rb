@@ -8,6 +8,8 @@ feature 'SocialNetworking Landing Page',
     background do
       participant_1_sog4.sign_in unless ENV['safari']
       visit ENV['Base_URL']
+
+      expect(navigation).to have_home_page_visible
     end
 
     scenario 'Participant creates a profile' do
@@ -40,8 +42,6 @@ feature 'SocialNetworking Landing Page',
     end
 
     scenario 'Participant selects link in TODO list' do
-      expect(participant_1_to_do_list).to be_visible
-
       3.times { navigation.scroll_down }
       participant_1_to_do_list.select_task
 
@@ -49,57 +49,44 @@ feature 'SocialNetworking Landing Page',
     end
 
     scenario 'Participant views another participants profile' do
-      social_networking.visit_participant_5_profile
+      participant_1_profile.visit_another_participants_profile
 
       expect(participant_5_profile).to be_visible
     end
 
     scenario 'Participant likes a whats on your mind post' do
-      find('h1', text: 'HOME')
-      find_feed_item('nudged participant1')
+      social_networking.scroll_to_bottom_of_feed
       navigation.scroll_to_bottom
-      like("said it's always sunny in Philadelphia")
-      within('.list-group-item.ng-scope',
-             text: "said it's always sunny in Philadelphia") do
-        find('.likes.ng-binding').click
-        expect(page).to have_content 'participant1'
-      end
+      philly_feed_item.like
+
+      expect(philly_feed_item).to have_like_detail
     end
 
     scenario 'Participant comments on a nudge post' do
-      find('h1', text: 'HOME')
-      comment('nudged participant1', 'Sweet Dude!')
-      within first('.list-group-item.ng-scope',
-                   text: 'nudged participant1') do
-        find('.comments.ng-binding').click
-        expect(page).to have_content 'participant1: Sweet Dude!'
-      end
+      nudge_feed_item.comment
+
+      expect(nudge_feed_item).to have_comment_detail
     end
 
     scenario 'Participant checks for due date of a goal post' do
-      find('h1', text: 'HOME')
-      find_feed_item('nudged participant1')
-      within first('.list-group-item.ng-scope', text: 'a Goal: p1 alpha') do
-        navigation.scroll_to_bottom
-        social_networking.open_detail
-        expect(page)
-          .to have_content "due #{Date.today.strftime('%b %d %Y')}"
-      end
+      social_networking.scroll_to_bottom_of_feed
+
+      expect(goal_p1_alpha).to have_due_date
     end
 
     scenario 'Participant checks for an incomplete goal' do
-      find('h1', text: 'HOME')
-      find_feed_item('nudged participant1')
+      social_networking.scroll_to_bottom_of_feed
       navigation.scroll_to_bottom
-      expect(page).to have_content 'Did Not Complete a Goal: due yesterday'
+
+      expect(incomplete_goal).to be_visible_in_feed
     end
 
     scenario 'Pt does not see an incomplete goal for goal due 2 days ago' do
-      find('h1', text: 'HOME')
-      find_feed_item('nudged participant1')
-      expect(page).to_not have_content 'Did Not Complete a Goal: due two days' \
-                                       ' ago'
-      expect(page).to have_content 'a Goal: due two days ago'
+      social_networking.scroll_to_bottom_of_feed
+
+      expect(two_day_old_incomplete_goal).to_not be_visible_in_feed
+
+      expect(goal_due_two_days_ago).to be_visible_in_feed
     end
   end
 
@@ -107,56 +94,52 @@ feature 'SocialNetworking Landing Page',
     background do
       participant_1_so1.sign_in unless ENV['safari']
       visit ENV['Base_URL']
-      page.driver.browser.manage.window.resize_to(400, 800)
-      page.execute_script('window.location.reload()')
+      participant_1_so1.resize_to_mobile
+
+      expect(to_do_list).to be_visible
     end
 
     after do
-      page.driver.browser.manage.window.resize_to(1280, 743)
+      participant_1_so1.resize_to_desktop
     end
 
     scenario 'Participant is able to scroll for more feed items' do
-      find('.panel-title', text: 'To Do')
-      find_feed_item('nudged participant1')
+      social_networking.scroll_to_bottom_of_feed
 
-      expect(page).to have_content 'nudged participant1'
+      expect(social_networking).to have_last_feed_item
     end
 
     scenario 'Participant returns to the home page and still sees the feed' do
-      visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
-      expect(page).to have_content 'Add a New Harmful Thought'
+      visit think.landing_page
 
-      find('#hamburger_button').click
-      find('a', text: 'Home').click
-      find('.panel-title', text: 'To Do')
-      find_feed_item('nudged participant1')
+      expect(think).to be_visible
 
-      expect(page).to have_content 'nudged participant1'
+      navigation.open_mobile_menu
+      navigation.navigate_home
+
+      expect(to_do_list).to be_visible
+      social_networking.scroll_to_bottom_of_feed
+
+      expect(social_networking).to have_last_feed_item
     end
   end
 
   feature 'To Do list' do
     scenario 'Participant complete last To Do, sees appropriate message' do
       participant_4_so1.sign_in
-      within('.panel.panel-default.ng-scope', text: 'To Do') do
-        expect(page).to have_link 'Create a Profile'
-        expect(page).to_not have_content 'You are all caught up! Great work!'
-      end
 
-      social_networking.visit_profile
+      expect(participant_4_to_do_list).to have_profile_task
 
-      expect(page).to have_content 'Fill out your profile so other group ' \
-                                   'members can get to know you!'
+      expect(participant_4_to_do_list).to_not be_complete
 
-      2.times { navigation.scroll_down }
-      answer_profile_question('What are your hobbies?', 'Running')
+      participant_4_profile.create_group_3_profile
 
       visit ENV['Base_URL']
-      navigation.confirm_with_js
-      within('.panel.panel-default.ng-scope', text: 'To Do') do
-        expect(page).to_not have_link 'Create a Profile'
-        expect(page).to have_content 'You are all caught up! Great work!'
-      end
+      social_networking.confirm_with_js
+
+      expect(participant_4_to_do_list).to_not have_profile_task
+
+      expect(participant_4_to_do_list).to be_complete
 
       participant_4_so1.sign_out
     end
@@ -170,14 +153,12 @@ feature 'SocialNetworking Landing Page', :tfdso, sauce: sauce_labs do
     background do
       participant_1_so4.sign_in unless ENV['safari']
       visit ENV['Base_URL']
+
+      expect(navigation).to have_home_page_visible
     end
 
     scenario 'Participant does not see \'Last seen:\' for moderator' do
-      find('h1', text: 'HOME')
-      within('.col-xs-12.col-md-4.text-center.ng-scope', text: 'ThinkFeelDo') do
-        expect('.profile-border.profile-last-seen')
-          .to_not have_content 'Last seen:'
-      end
+      expect(moderator_profile).to_not have_last_seen
     end
   end
 end

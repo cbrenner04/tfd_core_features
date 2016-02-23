@@ -67,4 +67,13 @@ class Participants
   rescue Capybara::ElementNotFound
     retry unless (tries -= 1).zero?
   end
+
+  def resize_to_mobile
+    page.driver.browser.manage.window.resize_to(400, 800)
+    execute_script('window.location.reload()')
+  end
+
+  def resize_to_desktop
+    page.driver.browser.manage.window.resize_to(1280, 743)
+  end
 end

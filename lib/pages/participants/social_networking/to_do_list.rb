@@ -19,6 +19,10 @@ class Participants
       def select_task
         click_on @task
       end
+
+      def complete?
+        has_text? 'You are all caught up! Great work!'
+      end
     end
   end
 end

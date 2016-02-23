@@ -11,6 +11,8 @@ class Participants
         @answer ||= profile_arry[:answer]
         @question ||= profile_arry[:question]
         @display_name ||= profile_arry[:display_name]
+        @other_pt ||= profile_arry[:other_pt]
+        @last_seen ||= profile_arry[:last_seen]
       end
 
       def visit_profile
@@ -31,6 +33,10 @@ class Participants
         find('#profile-box').has_css?('h3', text: "#{@display_name}")
       end
 
+      def visit_another_participants_profile
+        find('a', text: "#{@other_pt}").click
+      end
+
       def create
         visit_profile
         has_text? 'Fill out your profile so other group members can get ' \
@@ -47,6 +53,16 @@ class Participants
                      'to know you!'
       end
 
+      def create_group_3_profile
+        visit_profile
+        has_text? 'Fill out your profile so other group members can get ' \
+                  'to know you!'
+        2.times { navigation.scroll_down }
+        answer_profile_question('What are your hobbies?', @answer)
+        has_no_text? 'Fill out your profile so other group members can get ' \
+                     'to know you!'
+      end
+
       def able_to_edit_question?
         within(".panel-#{profile_class}.ng-scope", text: @question) do
           has_css? '.fa.fa-pencil'
@@ -56,6 +72,11 @@ class Participants
       def find_in_feed
         social_networking
           .find_feed_item("Shared a Profile: Welcome, #{@display_name}")
+      end
+
+      def has_last_seen?
+        find('.text-center.ng-scope', text: "#{@display_name}")
+          .find('.profile-last-seen').has_text? "Last seen: #{@last_seen}"
       end
 
       private

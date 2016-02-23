@@ -61,11 +61,11 @@ class Participants
       end
 
       def find_in_feed
-        social_networking.find_feed_item("#{@status} a goal: #{@goal}")
+        social_networking.find_feed_item("#{@status} a Goal: #{@goal}")
       end
 
       def visible_in_feed?
-        "#{@status} a goal: #{@goal}"
+        has_text? "#{@status} a Goal: #{@goal}"
       end
 
       def has_details?
@@ -125,6 +125,14 @@ class Participants
 
       def has_end_of_study_option?
         has_text? 'end of study'
+      end
+
+      def has_due_date?
+        within first('.list-group-item.ng-scope', text: "a Goal: #{@goal}") do
+          navigation.scroll_to_bottom
+          social_networking.open_detail
+          has_text? "due #{@due_date.strftime('%b %d %Y')}"
+        end
       end
 
       private

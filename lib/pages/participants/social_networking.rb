@@ -18,6 +18,10 @@ class Participants
       click_on 'More'
     end
 
+    def scroll_to_bottom_of_feed
+      find_feed_item('nudged participant1')
+    end
+
     def find_feed_item(item)
       find('#feed-btn').click unless ENV['tfd'] || ENV['tfdso']
       counter = 0
@@ -28,28 +32,8 @@ class Participants
       end
     end
 
-    def visit_participant_5_profile
-      find('a', text: 'participant5').click
-    end
-
-    def like(item_text)
-      within first('.list-group-item.ng-scope', text: item_text) do
-        click_on 'Like' unless has_text?('Like (1)')
-        has_text? 'Like (1)'
-      end
-    end
-
-    def comment(feed_item, text)
-      find_feed_item(feed_item)
-      navigation.scroll_to_bottom
-      within first('.list-group-item.ng-scope', text: feed_item) do
-        click_on 'Comment'
-        has_text? 'What do you think?'
-        fill_in 'comment-text', with: text
-        navigation.scroll_down
-        click_on 'Save'
-        has_text? 'Comment (1)'
-      end
+    def has_last_feed_item?
+      has_text? 'nudged participant1'
     end
 
     private

@@ -74,6 +74,14 @@ class Participants
                 'in a few minutes.'
     end
 
+    def open_mobile_menu
+      find('#hamburger_button').click
+    end
+
+    def navigate_home
+      find('a', text: 'Home').click
+    end
+
     private
 
     def host_app
