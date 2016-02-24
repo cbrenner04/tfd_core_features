@@ -158,10 +158,10 @@ feature 'Shared items, Mobile arm',
 
       expect(social_networking).to_not have_share_options
 
-      ns_pt_identifying.enter_thought('Now your turn...', 'Test thought 1')
+      ns_pt_identifying.enter_thought('Now list another', 'Test thought 1')
       navigation.next
 
-      expect(nw_pt_identifying).to have_second_thought_entry_form
+      expect(ns_pt_identifying).to have_second_thought_entry_form
     end
 
     scenario 'Participant cannot create in Add a New Harmful Thought' do

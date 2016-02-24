@@ -14,7 +14,7 @@ class Participants
       end
 
       def visible?
-        has_css?('h1', text: 'Thought Distortions')
+        has_css?('h2', text: 'Harmful Thoughts')
       end
 
       def has_thought_visible?

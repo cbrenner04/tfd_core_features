@@ -12,9 +12,14 @@ def social_networking
   @social_networking ||= Participants::SocialNetworking.new
 end
 
-def participant_1_profile
-  @participant_1_profile ||= Participants::SocialNetworking::Profile.new(
-    other_pt: 'participant5',
+def pt_1_prof_1
+  @pt_1_prof_1 ||= Participants::SocialNetworking::Profile.new(
+    other_pt: 'participant5'
+  )
+end
+
+def pt_1_prof_2
+  @pt_1_prof_2 ||= Participants::SocialNetworking::Profile.new(
     nudger: 'participant2'
   )
 end

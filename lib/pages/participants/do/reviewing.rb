@@ -10,10 +10,12 @@ class Participants
 
       def initialize(reviewing_arry)
         @activity ||= reviewing_arry[:activity]
+        @start_time ||= reviewing_arry[:start_time]
+        @end_time ||= reviewing_arry[:end_time]
         @pleasure ||= reviewing_arry[:pleasure]
         @accomplishment ||= reviewing_arry[:accomplishment]
         @non_compliance_reason ||= reviewing_arry[:non_compliance_reason]
-        @predictied_pleasure ||= reviewing_arry[:predictied_pleasure]
+        @predicted_pleasure ||= reviewing_arry[:predicted_pleasure]
         @predicted_accomplishment ||= reviewing_arry[:predicted_accomplishment]
       end
 
@@ -70,7 +72,7 @@ class Participants
           has_text? "start: #{@start_time.strftime('%b. %-d, %Y at %-l')}"
           has_text? "end: #{@end_time.strftime('%b. %-d, %Y at %-l')}"
           has_text? "predicted accomplishment: #{@predicted_accomplishment}\n" \
-                    "predicted pleasure: #{@predictied_pleasure}\n" \
+                    "predicted pleasure: #{@predicted_pleasure}\n" \
                     "actual accomplishment: #{@accomplishment}\n" \
                     "actual pleasure: #{@pleasure}"
         end

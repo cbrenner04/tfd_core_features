@@ -17,21 +17,21 @@ feature 'SocialNetworking Landing Page',
 
       expect(participant_1_to_do_list).to have_profile_task
 
-      participant_1_profile.create
+      participant_1_profile_1.create
 
-      expect(participant_1_profile).to be_able_to_edit_question
+      expect(participant_1_profile_1).to be_able_to_edit_question
 
       visit ENV['Base_URL']
-      participant_1_profile.find_in_feed
+      participant_1_profile_1.find_in_feed
 
       expect(participant_1_to_do_list).to_not have_profile_task
     end
 
     scenario 'Participant navigates to the profile page from not home' do
       visit do_tool.landing_page
-      participant_1_profile.navigate_to_profile
+      participant_1_profile_2.navigate_to_profile
 
-      expect(participant_1_profile).to be_visible
+      expect(participant_1_profile_2).to be_visible
     end
 
     scenario 'Participant creates a whats on your mind post' do
@@ -45,11 +45,11 @@ feature 'SocialNetworking Landing Page',
       3.times { navigation.scroll_down }
       participant_1_to_do_list.select_task
 
-      expect(thoughts).to be_visible
+      expect(thought_viz).to be_visible
     end
 
     scenario 'Participant views another participants profile' do
-      participant_1_profile.visit_another_participants_profile
+      participant_1_profile_3.visit_another_participants_profile
 
       expect(participant_5_profile).to be_visible
     end

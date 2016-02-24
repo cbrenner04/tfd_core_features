@@ -25,17 +25,17 @@ class Participants
 
       def navigate_to_profile
         within '.navbar-collapse' do
-          click_on "#{@display_name}"
+          click_on @display_name
           click_on 'My Profile'
         end
       end
 
       def visible?
-        find('#profile-box').has_css?('h3', text: "#{@display_name}")
+        find('#profile-box').has_css?('h3', text: @display_name)
       end
 
       def visit_another_participants_profile
-        find('a', text: "#{@other_pt}").click
+        find('a', text: @other_pt).click
       end
 
       def create
@@ -76,7 +76,7 @@ class Participants
       end
 
       def has_last_seen?
-        find('.text-center.ng-scope', text: "#{@display_name}")
+        find('.text-center.ng-scope', text: @display_name)
           .find('.profile-last-seen').has_text? "Last seen: #{@last_seen}"
       end
 

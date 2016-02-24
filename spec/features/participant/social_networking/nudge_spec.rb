@@ -17,18 +17,18 @@ feature 'Nudge', :social_networking, :marigold, sauce: sauce_labs do
   end
 
   scenario 'Participant nudges another participant' do
-    participant_1_profile.visit_another_participants_profile
+    pt_1_prof_1.visit_another_participants_profile
     navigation.scroll_down
-    participant_1_profile.nudge
+    pt_1_prof_1.nudge
     visit ENV['Base_URL']
 
-    expect(participant_1_profile).to have_nudge_in_feed
+    expect(pt_1_prof_1).to have_nudge_in_feed
   end
 
   scenario 'Participant receives a nudge alert on profile page' do
-    participant_1_profile.visit_profile
+    pt_1_prof_2.visit_profile
 
-    expect(participant_1_profile).to have_nudge
+    expect(pt_1_prof_2).to have_nudge
   end
 
   scenario 'Participant sees nudge on landing page' do

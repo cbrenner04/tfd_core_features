@@ -23,19 +23,26 @@ def think
   @think ||= Participants::Think.new
 end
 
-def thoughts
-  @thoughts ||= Participants::Think::Thoughts.new(thought: 'fake')
-end
-
 def to_do_list
   @to_do_list ||= Participants::SocialNetworking::ToDoList.new(task: 'fake')
 end
 
-def participant_1_profile
-  @participant_1_profile ||= Participants::SocialNetworking::Profile.new(
+def participant_1_profile_1
+  @participant_1_profile_1 ||= Participants::SocialNetworking::Profile.new(
     answer: ['Running', 'Blue', 'Mineral', 'Group 1'],
     question: 'Group 1 profile question',
-    display_name: 'participant1',
+    display_name: 'participant1'
+  )
+end
+
+def participant_1_profile_2
+  @participant_1_profile_2 ||= Participants::SocialNetworking::Profile.new(
+    display_name: 'participant1'
+  )
+end
+
+def participant_1_profile_3
+  @participant_1_profile_3 ||= Participants::SocialNetworking::Profile.new(
     other_pt: 'participant5'
   )
 end
@@ -117,5 +124,11 @@ def nudge_feed_item
     feed_item: 'nudged participant1',
     comment: 'Sweet Dude!',
     participant: 'participant1'
+  )
+end
+
+def thought_viz
+  @thought_viz ||= Participants::Think::ThoughtVisualization.new(
+    thought: 'fake'
   )
 end

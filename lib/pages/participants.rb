@@ -40,7 +40,7 @@ class Participants
   def sign_in
     visit login_page
     unless page.has_css?('#new_participant')
-      sign_out(@old_participant)
+      private_sign_out(@old_participant)
     end
     if page.has_css?('#new_participant')
       fill_in_login_form
@@ -52,20 +52,7 @@ class Participants
   end
 
   def sign_out
-    tries ||= 2
-    within('.navbar-collapse') do
-      unless has_text?('Sign Out')
-        if has_css?('a', text: @display_name)
-          find('a', text: @display_name).click
-        else
-          find('.fa.fa-user.fa-lg').click
-        end
-      end
-      click_on 'Sign Out'
-    end
-    find('#participant_email')
-  rescue Capybara::ElementNotFound
-    retry unless (tries -= 1).zero?
+    private_sign_out(@display_name)
   end
 
   def resize_to_mobile
@@ -75,5 +62,24 @@ class Participants
 
   def resize_to_desktop
     page.driver.browser.manage.window.resize_to(1280, 743)
+  end
+
+  private
+
+  def private_sign_out(display_name)
+    tries ||= 2
+    within('.navbar-collapse') do
+      unless has_text?('Sign Out')
+        if has_css?('a', text: display_name)
+          find('a', text: display_name).click
+        else
+          find('.fa.fa-user.fa-lg').click
+        end
+      end
+      click_on 'Sign Out'
+    end
+    find('#participant_email')
+  rescue Capybara::ElementNotFound
+    retry unless (tries -= 1).zero?
   end
 end

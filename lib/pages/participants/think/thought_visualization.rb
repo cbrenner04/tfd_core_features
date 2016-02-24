@@ -11,7 +11,7 @@ class Participants
       end
 
       def open_viz
-        find('.viz-clickable', text: @pattern).click
+        first('.viz-clickable', text: @pattern).click
       end
 
       def visible?
@@ -19,7 +19,7 @@ class Participants
       end
 
       def open_detail
-        find('.viz-clickable', text: @detail_pattern).click
+        first('.viz-clickable', text: @detail_pattern).click
       end
 
       def has_detail?
