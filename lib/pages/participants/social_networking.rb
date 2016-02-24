@@ -19,7 +19,7 @@ class Participants
     end
 
     def decline_social
-      choose 'No'
+      within('.form-group', text: 'Share the content') { choose 'No' }
       navigation.next
     end
 

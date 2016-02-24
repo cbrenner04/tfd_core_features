@@ -1,4 +1,4 @@
-require './lib/pages/participants/do_tool'
+require './lib/pages/participants/do'
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 

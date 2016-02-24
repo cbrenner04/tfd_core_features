@@ -5,11 +5,15 @@ require './lib/pages/participants/do/awareness'
 require './lib/pages/participants/do/planning'
 require './lib/pages/participants/do/plan_new_activity'
 require './lib/pages/participants/do/reviewing'
+require './lib/pages/participants/learn'
+require './lib/pages/participants/relax'
+require './lib/pages/participants/navigation'
+require './lib/pages/participants/social_networking'
 require './lib/pages/participants/think'
 require './lib/pages/participants/think/identifying'
 require './lib/pages/participants/think/add_new_thought'
-require './lib/pages/participants/navigation'
-require './lib/pages/participants/social_networking'
+require './lib/pages/participants/think/patterns'
+require './lib/pages/participants/think/reshape'
 
 def think
   @think ||= Participants::Think.new
@@ -60,7 +64,7 @@ def pt_1_add_new_thought_2
 end
 
 def pt_1_planning_1
-  @pt_1_planning_1 ||= Participaants::DoTool::Planning.new(
+  @pt_1_planning_1 ||= Participants::DoTool::Planning.new(
     activity: 'New public activity',
     pleasure: 6,
     accomplishment: 3,
@@ -124,8 +128,8 @@ def ns_pt_add_new_activity
   )
 end
 
-def pt_5_reviewing
-  @pt_5_reviewing ||= Participants::DoTool::Reviewing.new(
+def pt_5_reviewing_1
+  @pt_5_reviewing_1 ||= Participants::DoTool::Reviewing.new(
     activity: 'Parkour',
     start_time: Time.now - (60 * 60 * 24),
     end_time: Time.now - (60 * 60 * 23),
@@ -140,5 +144,31 @@ end
 def pt_5_reviewing_2
   @pt_5_reviewing_2 ||= Participants::DoTool::Reviewing.new(
     activity: 'Loving'
+  )
+end
+
+def pt_5_lesson
+  @pt_5_lesson ||= Participants::Learn.new(
+    lesson_title: 'Do - Awareness Introduction'
+  )
+end
+
+def relax
+  @relax ||= Participants::Relax.new(feed_item: 'Audio!')
+end
+
+def pt_5_pattern
+  @pt_5_pattern ||= Participants::Think::Patterns.new(
+    thought: 'ARG!',
+    pattern: 'Personalization'
+  )
+end
+
+def pt_5_reshape
+  @pt_5_reshape ||= Participants::Think::Reshape.new(
+    challenge: 'Example challenge',
+    action: 'Example act-as-if',
+    thought: 'I am useless',
+    pattern: 'Labeling and Mislabeling'
   )
 end

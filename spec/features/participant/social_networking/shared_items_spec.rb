@@ -1,5 +1,7 @@
 # filename: ./spec/features/participant/social_networking/shared_items_spec.rb
 
+require './spec/support/participants/shared_items_helper'
+
 feature 'Shared items, Social arm',
         :social_networking, :marigold, sauce: sauce_labs do
   feature 'THINK tool' do
@@ -17,14 +19,14 @@ feature 'Shared items, Social arm',
         .enter_thought('Now, your turn...', 'Public thought 1')
       social_networking.accept_social
 
-      expect(think).to has_success_alert
+      expect(think).to have_success_alert
 
       pt_1_identify_thought_2
         .enter_thought('Now list another harmful thought...',
                        'Private thought 1')
       social_networking.decline_social
 
-      expect(think).to has_success_alert
+      expect(think).to have_success_alert
 
       visit ENV['Base_URL']
       pt_1_identify_thought_1.find_in_feed
@@ -125,8 +127,8 @@ feature 'Shared items, Social arm',
     end
 
     scenario 'Participant does not share Add a New Activity responses' do
-      pt_1_plan_2.open
-      pt_1_plan_2.plan_activity
+      pt_1_plan_new_2.open
+      pt_1_plan_new_2.plan_activity
       social_networking.decline_social
 
       expect(do_tool).to have_success_alert
@@ -153,7 +155,7 @@ feature 'Shared items, Mobile arm',
     scenario 'Participant cannot create a shared item in Identifying' do
       ns_pt_identifying.open
       ns_pt_identifying.move_to_thought_input
-      navgiation.next
+      navigation.next
 
       expect(social_networking).to_not have_share_options
 
@@ -179,7 +181,7 @@ feature 'Shared items, Mobile arm',
     scenario 'Participant cannot create a shared item in Awareness' do
       ns_pt_awareness.open
       navigation.next
-      ns_pt_awarens.create_time_period
+      ns_pt_awareness.create_time_period
 
       expect(social_networking).to_not have_share_options
     end
@@ -230,91 +232,46 @@ feature 'Shared items, Social arm',
   end
 
   scenario 'Participant reads Lesson 1 and finds the related feed item' do
-    visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
-    click_on 'Do - Awareness Introduction'
-    expect(page).to have_content 'This is just the beginning...'
-    click_on 'Next'
-    click_on 'Finish'
-    find('.list-group-item', text: "Read on #{Date.today.strftime('%b %d %Y')}")
+    visit learn.landing_page
+    pt_5_lesson.read_lesson
+
+    expect(pt_5_lesson).to have_read_record
 
     visit ENV['Base_URL']
-    find_feed_item('Read a Lesson: Do - Awareness Introduction')
-    expect(page).to have_content 'Read a Lesson: Do - Awareness Introduction'
+    pt_5_lesson.find_in_feed
   end
 
   scenario 'Participant listens to a relax exercise & the related feed item' do
-    visit "#{ENV['Base_URL']}/navigator/contexts/RELAX"
-    click_on 'Autogenic Exercises'
-    within('.jp-controls') do
-      find('.jp-play').click
-    end
-
-    click_on 'Next'
-    find('h1', text: 'Home')
+    visit relax.landing_page
+    relax.open_autogenic_exercises
+    relax.play_audio
+    relax.finish
 
     visit ENV['Base_URL']
-    find_feed_item('Listened to a Relaxation Exercise: Audio!')
-    expect(page).to have_content 'Listened to a Relaxation Exercise: Audio!'
+    relax.find_in_feed
   end
 
   scenario 'Participant shares THINK > Patterns responses' do
-    visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
-    click_on '#2 Patterns'
-    click_on 'Next'
-    find('p', text: "Let's start by")
-    unless page.has_text?("You haven't listed any negative thoughts")
-      thought_value = find('.panel-body.adjusted-list-group-item').text
-      select 'Personalization', from: 'thought_pattern_id'
-      compare_thought(thought_value)
-      select 'Magnification or Catastrophizing', from: 'thought_pattern_id'
-      page.execute_script('window.scrollBy(0,500)')
-      accept_social
-      find('.alert-success', text: 'Thought saved')
-    end
-
+    visit think.landing_page
+    pt_5_pattern.open
+    pt_5_pattern.move_to_entry_form
+    pt_5_pattern.complete_two_thoughts unless pt_5_pattern.has_nothing_to_do?
     visit ENV['Base_URL']
-    find_feed_item('Assigned a pattern to a Thought: ARG!')
-    within first('.list-group-item.ng-scope',
-                 text: 'Assigned a pattern to a Thought: ARG!') do
-      page.execute_script('window.scrollBy(0,1000)')
-      click_on 'More'
+    social_networking.find_feed_item('Assigned a pattern to a Thought: ARG!')
 
-      expect(page).to have_content "this thought is: ARG!\nthought pattern:" \
-                                   ' Personalization'
-    end
+    expect(pt_1_pattern).to have_feed_detail
   end
 
   scenario 'Participant completes Reshape module responses' do
     visit "#{ENV['Base_URL']}/navigator/contexts/THINK"
-    click_on '#3 Reshape'
-    click_on 'Next'
-    find('h2', text: 'You said you had the following unhelpful thoughts:')
-    click_on 'Next'
-    find('p', text: 'Challenging a thought means')
-
-    begin
-      tries ||= 3
-      click_on 'Next'
-    rescue Selenium::WebDriver::Error::UnknownError
-      page.execute_script('window.scrollBy(0,1000)')
-      retry unless (tries -= 1).zero?
-    end
-
-    reshape('Example challenge', 'Example act-as-if')
-
+    pt_5_reshape.open
+    pt_5_reshape.move_to_reshape_form
+    pt_5_reshape.reshape
     visit ENV['Base_URL']
-    find_feed_item('Reshaped a Thought: I am useless')
-    within('.list-group-item.ng-scope',
-           text: 'Reshaped a Thought: I am useless') do
-      page.execute_script('window.scrollBy(0,1000)')
-      click_on 'More'
+    pt_5_reshape.find_in_feed
 
-      expect(page).to have_content 'this thought is: I am useless' \
-                                   "\nthought pattern: Labeling and" \
-                                   " Mislabeling\nchallenging thought:" \
-                                   ' Example challenge' \
-                                   " \nas if action: Example act-as-if"
-    end
-    sign_out('participant5')
+    expect(pt_5_reshape).to have_feed_details
+
+    participant_5_sons.sign_out
   end
 end

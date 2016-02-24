@@ -11,6 +11,8 @@ class Participants
         @challenge ||= reshape_arry[:challenge]
         @action ||= reshape_arry[:action]
         @num_thoughts ||= reshape_arry[:num_thoughts]
+        @thought ||= reshape_arry[:thought]
+        @pattern ||= reshape_arry[:pattern]
       end
 
       def open
@@ -41,16 +43,6 @@ class Participants
         @num_thoughts.times { reshape }
       end
 
-      private
-
-      def navigation
-        @navigation ||= Participants::Navigation.new
-      end
-
-      def think
-        @think ||= Participants::Think.new
-      end
-
       def reshape
         find('h3', text: 'You said that you thought...')
         navigation.next
@@ -65,6 +57,33 @@ class Participants
         fill_in 'thought_act_as_if', with: @action
         navigation.next
         think.has_success_alert?
+      end
+
+      def find_in_feed
+        social_networking.find_feed_item("Reshaped a Thought: #{@thought}")
+      end
+
+      def has_feed_details?
+        within('.list-group-item.ng-scope',
+               text: "Reshaped a Thought: #{@thought}") do
+          2.times { navigation.scroll_down }
+          social_networking.open_detail
+
+          expect(page).to have_content "this thought is: #{@thought}" \
+                                       "\nthought pattern: #{@pattern}" \
+                                       "\nchallenging thought: #{@challenge}" \
+                                       " \nas if action: #{@action}"
+        end
+      end
+
+      private
+
+      def navigation
+        @navigation ||= Participants::Navigation.new
+      end
+
+      def think
+        @think ||= Participants::Think.new
       end
     end
   end

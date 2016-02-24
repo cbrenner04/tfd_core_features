@@ -21,7 +21,7 @@ def identifying
 end
 
 def patterns
-  @patterns ||= Participants::Think::Patterns.new
+  @patterns ||= Participants::Think::Patterns.new(thought: 'fake')
 end
 
 def reshape

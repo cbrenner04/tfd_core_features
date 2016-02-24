@@ -1,4 +1,5 @@
 require './lib/pages/participants/navigation'
+require './lib/pages/participants/social_networking'
 
 class Participants
   # page object for the Learn tool
@@ -7,7 +8,6 @@ class Participants
 
     def initialize(learn_arry)
       @lesson_title ||= learn_arry[:lesson_title]
-      # @first_slide_body ||= learn_arry[:first_slide_body]
     end
 
     def landing_page
@@ -62,10 +62,18 @@ class Participants
       has_text? 'Week 1'
     end
 
+    def find_in_feed
+      find_feed_item("Read a Lesson: #{@lesson_title}")
+    end
+
     private
 
     def navigation
       @navigation ||= Participants::Navigation.new
+    end
+
+    def social_networking
+      @social_networking ||= Participants::SocialNetworking.new
     end
 
     def last_wk_num

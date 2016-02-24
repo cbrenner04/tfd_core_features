@@ -19,7 +19,7 @@ feature 'THINK tool', :core, sauce: sauce_labs do
   scenario 'Participant completes Patterns module' do
     patterns.open
     patterns.move_to_pattern_entry_form
-    patterns.complete
+    patterns.complete_for_five_thoughts
   end
 
   scenario 'Participant completes Reshape module' do

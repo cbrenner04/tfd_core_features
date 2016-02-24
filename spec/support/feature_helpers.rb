@@ -114,7 +114,8 @@ def participant_5_sons
   @participant_5_sons ||= Participants.new(
     participant: ENV['Participant_5_Email'],
     old_participant: 'nonsocialpt',
-    password: ENV['Participant_5_Password']
+    password: ENV['Participant_5_Password'],
+    display_name: 'participant5'
   )
 end
 

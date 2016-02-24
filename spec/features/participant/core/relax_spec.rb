@@ -3,7 +3,7 @@
 require './lib/pages/participants/relax'
 
 def relax
-  @relax ||= Participants::Relax.new
+  @relax ||= Participants::Relax.new(feed_item: 'fake')
 end
 
 feature 'RELAX tool', :core, :marigold, sauce: sauce_labs do

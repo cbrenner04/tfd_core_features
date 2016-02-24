@@ -55,7 +55,7 @@ class Participants
 
       def finish
         navigation.next
-        do_tool.has_landing_page_visible?
+        do_tool.has_landing_visible?
       end
 
       def find_in_feed

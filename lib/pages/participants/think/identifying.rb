@@ -39,7 +39,7 @@ class Participants
         heading.zip(response) do |h, r|
           enter_thought(h, r)
           social_networking.accept_social
-          has_success_alert?
+          think.has_success_alert?
         end
         find('h1', text: 'Good work')
         navigation.next
