@@ -82,6 +82,9 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant completes Plan a New Activity module' do
     plan_new_activity.open
     plan_new_activity.plan_activity
+    social_networking.accept_social
+
+    expect(do_tool).to have_success_alert
 
     expect(plan_new_activity).to have_activity
   end

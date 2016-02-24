@@ -50,7 +50,7 @@ def pt_1_add_new_thought_1
     pattern: 'Magnification or Catastrophizing',
     challenge: 'Testing challenge thought',
     action: 'Testing act-as-if action',
-    timestamp: "Today at #{Time.now.strftime('%l')}"
+    timestamp: "Today at #{Time.now.strftime('%-l')}"
   )
 end
 
@@ -73,7 +73,7 @@ def pt_1_planning_1
 end
 
 def pt_1_planning_2
-  @pt_1_planning_2 ||= Participaants::DoTool::Planning.new(
+  @pt_1_planning_2 ||= Participants::DoTool::Planning.new(
     activity: 'New private activity',
     pleasure: 4,
     accomplishment: 8

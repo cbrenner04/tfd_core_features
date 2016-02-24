@@ -32,7 +32,8 @@ class Participants
     end
 
     def find_in_feed
-      find_feed_item("Listened to a Relaxation Exercise: #{@feed_item}")
+      social_networking
+        .find_feed_item("Listened to a Relaxation Exercise: #{@feed_item}")
     end
 
     private

@@ -35,7 +35,7 @@ class Participants
       find('#feed-btn').click unless ENV['tfd'] || ENV['tfdso']
       counter = 0
       while has_no_css?('.list-group-item.ng-scope', text: x) && counter < 15
-        navigation.scroll_to_bottom
+        execute_script('window.scrollTo(0,100000)')
         counter += 1
       end
     end

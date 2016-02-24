@@ -63,7 +63,7 @@ class Participants
     end
 
     def find_in_feed
-      find_feed_item("Read a Lesson: #{@lesson_title}")
+      social_networking.find_feed_item("Read a Lesson: #{@lesson_title}")
     end
 
     private

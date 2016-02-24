@@ -2,6 +2,7 @@
 
 require './lib/pages/participants'
 require './lib/pages/participants/do'
+require './lib/pages/participants/social_networking'
 Dir['./lib/pages/participants/do/*.rb'].each { |file| require file }
 
 def do_tool
@@ -14,6 +15,10 @@ end
 
 def awareness
   @awareness ||= Participants::DoTool::Awareness.new(start_time: Time.now)
+end
+
+def social_networking
+  @social_networking ||= Participants::SocialNetworking.new
 end
 
 def awareness_7a_to_10p

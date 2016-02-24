@@ -69,10 +69,10 @@ class Participants
           2.times { navigation.scroll_down }
           social_networking.open_detail
 
-          expect(page).to have_content "this thought is: #{@thought}" \
-                                       "\nthought pattern: #{@pattern}" \
-                                       "\nchallenging thought: #{@challenge}" \
-                                       " \nas if action: #{@action}"
+          has_text? "this thought is: #{@thought}" \
+                    "\nthought pattern: #{@pattern}" \
+                    "\nchallenging thought: #{@challenge}" \
+                    "\nas if action: #{@action}"
         end
       end
 

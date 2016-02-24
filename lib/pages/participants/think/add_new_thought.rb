@@ -38,11 +38,11 @@ class Participants
       end
 
       def find_in_feed
-        social_networking.find_feed_item(@thought)
+        social_networking.find_feed_item("Reshaped a Thought: #{@thought}")
       end
 
       def visible?
-        has_text? @thought
+        has_text? "Reshaped a Thought: #{@thought}"
       end
 
       def has_timestamp?

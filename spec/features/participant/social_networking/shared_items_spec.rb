@@ -50,16 +50,15 @@ feature 'Shared items, Social arm',
       expect(pt_1_add_new_thought_1).to have_timestamp
     end
 
+    # dependent on previous spec, need to update
     scenario 'Participant does not share Add a New Harmful Thought response' do
       pt_1_add_new_thought_2.open
       pt_1_add_new_thought_2.enter_thought
       social_networking.decline_social
-      navigation.next
+      # navigation.next
+      all('a', text: 'Next')[1].click
 
       expect(think).to have_success_alert
-
-      navigation.scroll_to_bottom
-      navigation.next
 
       expect(think).to be_visible
 
@@ -214,7 +213,7 @@ feature 'Shared items, Social arm',
     visit do_tool.landing_page
     pt_5_reviewing_1.open
     pt_5_reviewing_1.move_to_review
-    pt_5_reviewing_1.review_complete_activity
+    pt_5_reviewing_1.review_completed_activity
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
@@ -254,12 +253,12 @@ feature 'Shared items, Social arm',
   scenario 'Participant shares THINK > Patterns responses' do
     visit think.landing_page
     pt_5_pattern.open
-    pt_5_pattern.move_to_entry_form
+    pt_5_pattern.move_to_pattern_entry_form
     pt_5_pattern.complete_two_thoughts unless pt_5_pattern.has_nothing_to_do?
     visit ENV['Base_URL']
     social_networking.find_feed_item('Assigned a pattern to a Thought: ARG!')
 
-    expect(pt_1_pattern).to have_feed_detail
+    expect(pt_5_pattern).to have_feed_detail
   end
 
   scenario 'Participant completes Reshape module responses' do
