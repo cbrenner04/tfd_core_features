@@ -1,10 +1,19 @@
 # filename: ./spec/support/participants/feel_helper.rb
 
+require './lib/pages/participats'
 require './lib/pages/participants/feel'
 Dir['./lib/pages/participants/feel/*.rb'].each { |file| require file }
 
 def feel
   @feel ||= Participants::Feel.new
+end
+
+def participant_5_so3
+  @participant_5_so3 ||= Participants.new(
+    participant: ENV['Participant_5_Email'],
+    old_participant: 'participant3',
+    password: ENV['Participant_5_Password']
+  )
 end
 
 def tracking_mood

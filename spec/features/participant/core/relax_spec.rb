@@ -1,6 +1,15 @@
 # filename: ./spec/features/participant/core/relax_spec.rb
 
+require './lib/pages/participants'
 require './lib/pages/participants/relax'
+
+def participant_1_soc
+  @participant_1_soc ||= Participants.new(
+    participant: ENV['Participant_Email'],
+    old_participant: 'completer',
+    password: ENV['Participant_Password']
+  )
+end
 
 def relax
   @relax ||= Participants::Relax.new(feed_item: 'fake')
