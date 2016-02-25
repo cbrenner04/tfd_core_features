@@ -6,8 +6,8 @@ class Participants
   class Learn
     include Capybara::DSL
 
-    def initialize(learn_arry)
-      @lesson_title ||= learn_arry[:lesson_title]
+    def initialize(learn)
+      @lesson_title ||= learn[:lesson_title]
     end
 
     def landing_page

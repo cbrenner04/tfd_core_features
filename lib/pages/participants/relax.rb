@@ -6,8 +6,8 @@ class Participants
   class Relax
     include Capybara::DSL
 
-    def initialize(relax_arry)
-      @feed_item ||= relax_arry[:feed_item]
+    def initialize(relax)
+      @feed_item ||= relax[:feed_item]
     end
 
     def landing_page

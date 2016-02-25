@@ -55,8 +55,6 @@ feature 'SocialNetworking Landing Page',
     end
 
     scenario 'Participant likes a whats on your mind post' do
-      social_networking.scroll_to_bottom_of_feed
-      navigation.scroll_to_bottom
       philly_feed_item.like
 
       expect(philly_feed_item).to have_like_detail

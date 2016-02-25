@@ -3,7 +3,6 @@
 require './lib/pages/participants'
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/incentives'
-require './lib/pages/participants/incentives/communal'
 require './lib/pages/participants/social_networking/comment'
 
 def navigation
@@ -19,7 +18,7 @@ def participant_3_sob
 end
 
 def incomplete_communal_incentive
-  @incomplete_communal_incentive ||= Participants::Incentives::Communal.new(
+  @incomplete_communal_incentive ||= Participants::Incentives.new(
     incentive: 'comment on 3 feed items',
     completed: 6,
     total: 7,
@@ -28,11 +27,14 @@ def incomplete_communal_incentive
 end
 
 def complete_communal_incentive
-  @complete_communal_incentive ||= Participants::Incentives::Communal.new(
+  @complete_communal_incentive ||= Participants::Incentives.new(
     incentive: 'comment on 3 feed items',
     completed: 7,
     total: 7,
-    pt_list_item: 2
+    image: 'flower2',
+    plot: 'communal',
+    pt_list_item: 2,
+    date: Time.now.strftime('%b %d %Y %I')
   )
 end
 

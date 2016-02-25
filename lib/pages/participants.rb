@@ -2,11 +2,11 @@
 class Participants
   include Capybara::DSL
 
-  def initialize(pt_arry)
-    @participant ||= pt_arry[:participant]
-    @old_participant ||= pt_arry[:old_participant]
-    @password ||= pt_arry[:password]
-    @display_name ||= pt_arry[:display_name]
+  def initialize(pt)
+    @participant ||= pt[:participant]
+    @old_participant ||= pt[:old_participant]
+    @password ||= pt[:password]
+    @display_name ||= pt[:display_name]
   end
 
   def login_page

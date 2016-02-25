@@ -1,123 +1,93 @@
 # filename: ./spec/features/participant/incentives/individual_incentives_spec.rb
 
+require './spec/support/participants/individual_incentives_helper'
+
 feature 'Individual incentives', :incentives, sauce: sauce_labs do
   background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Alt_Participant_Email'], 'participant3',
-                 ENV['Alt_Participant_Password'])
-    end
-
+    participant_3_so3.sign_in unless ENV['safari']
     visit ENV['Base_URL']
   end
 
   scenario 'Participant views list of incentives & related behaviors' do
-    visit_profile
-    within('.panel-title.panel-unreleased',
-           text: 'like 3 feed items 0/3 complete') do
-      expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
-    end
+    participant_3_profile.visit_profile
 
-    page.execute_script('window.scrollBy(0,500)')
-    find('.panel-title.panel-unreleased', text: 'like 3 feed items').click
-    expect(page).to have_css('.list-group-item.task-status', count: '3')
+    expect(pt_3_incentive_1).to have_incomplete_image
+
+    navigation.scroll_down
+    pt_3_incentive_1.open_incentives_list
+
+    expect(pt_3_incentive_1).to have_incentives_listed
   end
 
   scenario 'Participant completes a behavior, sees incentive list update' do
-    find_feed_item('Did Not Complete a Goal: p2 alpha')
-    like('Did Not Complete a Goal: p2 alpha')
-    visit_profile
-    find('.panel-title.panel-unreleased',
-         text: 'like 3 feed items 1/3 complete')
+    pt_3_like_1.like
+    participant_3_profile.visit_profile
 
-    page.execute_script('window.scrollBy(0,500)')
-    find('.panel-title.panel-unreleased', text: 'like 3 feed items').click
-    first('.list-group-item', text: "Like a person's shared content.")
-    page.execute_script('window.scrollBy(0,500)')
-    check_completed_behavior(0, "#{Time.now.strftime('%b %d %Y %I')}")
+    expect(pt_3_incentive_2).to be_visible
+
+    navigation.scroll_down
+    pt_3_incentive_2.open_incentives_list
+    navigation.scroll_down
+
+    expect(pt_3_behavior_1).to be_complete
   end
 
   scenario 'Participant completes all behaviors, sees incentive list update' do
-    find_feed_item('said what about Bob?')
-    page.execute_script('window.scrollTo(0,10000)')
-    like('Did Not Complete a Goal: p2 alpha')
-    like('Did Not Complete a Goal: p2 gamma')
-    page.execute_script('window.scrollBy(0,1000)')
-    like('said what about Bob?')
-    visit_profile
-    expect(page).to have_css('.panel.panel-default.panel-info',
-                             text: 'like 3 feed items 3/3 complete')
+    pt_3_like_2.like
+    pt_3_like_3.like
+    participant_3_profile.visit_profile
+    expect(pt_3_incentive_3).to be_visible
 
-    within('#garden-individual') do
-      expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
-    end
+    expect(pt_3_incentive_3).to have_image_in_plot
 
-    page.execute_script('window.scrollBy(0,500)')
-    within('.panel.panel-default.panel-info', text: 'like 3 feed items') do
-      find('.panel-title').click
-    end
+    navigation.scroll_down
+    pt_3_incentive_3.open_incentives_list
 
-    first('.list-group-item', text: "Like a person's shared content.")
-    (0..2).each do |i|
-      check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
-    end
+    expect(pt_3_behavior_2).to be_complete
+
+    expect(pt_3_behavior_3).to be_complete
   end
 
   scenario 'Participant completes a repeatable incentive for a second time' do
-    visit_profile
-    within('#garden-individual') do
-      expect(page).to have_xpath("//img[@src='/assets/flower3.png']")
-    end
+    participant_3_profile.visit_profile
 
-    find('.panel.panel-default.panel-info',
-         text: 'create a goal # of times complete: 1')
+    expect(pt_3_repeatable_incentive_1).to have_image_in_plot
 
-    visit "#{ENV['Base_URL']}/navigator/contexts/ACHIEVE"
-    click_on '+ add a goal'
-    fill_in 'new-goal-description', with: 'do something fun'
-    choose 'end of study'
-    click_on 'Save'
-    find('.list-group-item.ng-scope', text: 'do something fun')
+    expect(pt_3_repeatable_incentive_1).to have_num_completed
+
+    visit pt_3_goal.landing_page
+    pt_3_goal.add
+
+    expect(pt_3_goal).to be_visible
+
     visit ENV['Base_URL']
-    visit_profile
-    within('#garden-individual') do
-      expect(page)
-        .to have_css('.ui-draggable.ui-draggable-handle', count: '3')
-    end
+    participant_3_profile.visit_profile
 
-    expect(page)
-      .to have_css('.panel.panel-default.panel-info',
-                   text: 'create a goal # of times complete: 2')
+    expect(pt_3_repeatable_incentive_2).to have_correct_num_of_flowers_in_plot
+
+    expect(pt_3_repeatable_incentive_2).to have_num_completed
   end
 
   scenario 'Participant checks completed incentives of another participant' do
-    within('.col-xs-12.col-md-4.text-center', text: 'participant2') do
-      within('.garden.small-garden') do
-        expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
-      end
+    expect(participant_2_incentive).to have_image_in_home_plot
 
-      click_on 'participant2'
-    end
+    participant_2_incentive.visit_another_pt_incentives
 
-    find('.panel.panel-default.panel-info',
-         text: 'like 3 feed items 3/3 complete')
+    expect(participant_2_incentive).to be_visible
 
-    within('.large-garden') do
-      expect(page).to have_xpath("//img[@src='/assets/flower1.png']")
-    end
+    expect(participant_2_incentive).to have_image_in_plot
 
-    page.execute_script('window.scrollBy(0,500)')
-    within('.panel.panel-default.panel-info', text: 'like 3 feed items') do
-      find('.panel-title').click
-    end
+    navigation.scroll_down
+    participant_2_incentive.open_incentives_list
 
-    first('.list-group-item', text: "Like a person's shared content.")
-    (0..2).each do |i|
-      check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
-    end
+    expect(pt_2_behavior_1).to be_complete
 
-    first('.close').click while has_css?('.alert', text: 'Congratulations')
+    expect(pt_2_behavior_2).to be_complete
 
+    expect(pt_2_behavior_2).to be_complete
+
+    participant_2_incentive.close_incentive_alerts
     visit ENV['Base_URL']
-    sign_out('participant3')
+    participant_3_so3.sign_out
   end
 end

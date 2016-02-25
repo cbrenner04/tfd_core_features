@@ -3,7 +3,7 @@
 require './spec/support/participants/communal_incentives_helper'
 
 feature 'Communal incentives', :incentives, sauce: sauce_labs do
-  background(:all) { participant_3_sob if ENV['safari'] }
+  background(:all) { participant_3_sob.sign_in if ENV['safari'] }
 
   background do
     participant_3_sob.sign_in unless ENV['safari']
@@ -11,20 +11,20 @@ feature 'Communal incentives', :incentives, sauce: sauce_labs do
   end
 
   scenario 'Participant views communal incentives list' do
-    incomplete_communal_incentive.open
+    incomplete_communal_incentive.open_communal_plot
 
     expect(incomplete_communal_incentive).to have_incomplete_image
 
     navigation.scroll_down
     incomplete_communal_incentive.open_incentives_list
 
-    expect(incomplete_communal_incentive).to have_group_incentives_listed
+    expect(incomplete_communal_incentive).to have_incentives_listed
 
     expect(incomplete_communal_incentive).to be_incomplete
   end
 
   scenario 'Participant completes communal incentive, sees list update' do
-    complete_communal_incentive.open
+    complete_communal_incentive.open_communal_plot
 
     expect(complete_communal_incentive).to_not have_image_in_plot
 
