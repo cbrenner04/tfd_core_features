@@ -55,8 +55,8 @@ class Participants
         has_text? 'Now, your turn...'
       end
 
-      def has_second_thought_entry_form?
-        has_text? 'Now list another harmful thought...'
+      def has_final_slide?
+        has_text? 'Good work.'
       end
 
       def find_in_feed

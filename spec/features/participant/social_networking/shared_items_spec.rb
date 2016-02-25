@@ -43,8 +43,6 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_1.complete
       visit ENV['Base_URL']
 
-      expect(pt_1_add_new_thought_1).to be_visible
-
       pt_1_add_new_thought_1.find_in_feed
 
       expect(pt_1_add_new_thought_1).to have_timestamp
@@ -56,11 +54,9 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_2.enter_thought
       social_networking.decline_social
       # navigation.next
-      all('a', text: 'Next')[1].click
+      find('a', text: 'Next').click
 
       expect(think).to have_success_alert
-
-      expect(think).to be_visible
 
       visit ENV['Base_URL']
       pt_1_add_new_thought_1.find_in_feed
@@ -161,7 +157,7 @@ feature 'Shared items, Mobile arm',
       ns_pt_identifying.enter_thought('Now list another', 'Test thought 1')
       navigation.next
 
-      expect(ns_pt_identifying).to have_second_thought_entry_form
+      expect(ns_pt_identifying).to have_final_slide
     end
 
     scenario 'Participant cannot create in Add a New Harmful Thought' do

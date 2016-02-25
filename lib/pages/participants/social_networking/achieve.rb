@@ -19,7 +19,11 @@ class Participants
 
       def open_help
         tries ||= 2
-        find('.btn', text: 'Need some help writing a goal?').click
+        if ENV['sunnyside']
+          find('.btn', text: 'NEED SOME HELP WRITING A GOAL?').click
+        else
+          find('.btn', text: 'Need some help writing a goal?').click
+        end
         find('.popover.fade.bottom.in')
       rescue Capybara::ElementNotFound
         retry unless (tries -= 1).zero?

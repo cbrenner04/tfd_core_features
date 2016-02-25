@@ -22,6 +22,7 @@ def incomplete_communal_incentive
     incentive: 'comment on 3 feed items',
     completed: 6,
     total: 7,
+    image: 'flower2',
     pt_list_item: 2
   )
 end

@@ -20,25 +20,6 @@ feature 'Social Networking login', :social_networking, :marigold,
     expect(completer_message).to have_saved_alert
 
     completer_sons.sign_out
-
-    unless ENV['safari']
-      visit "#{ENV['Base_URL']}/users/sign_in"
-      user.sign_in_user(ENV['Clinician_Email'], 'completer',
-                        ENV['Clinician_Password'])
-      click_on 'Arms'
-      find('h1', text: 'Arms')
-      click_on 'Arm 1'
-      click_on 'Group 1'
-      click_on 'Messaging'
-      click_on 'Messages'
-      click_on 'Test message from completer'
-
-      expect(page).to have_content 'From Completer'
-
-      expect(page).to have_content 'Test'
-
-      user.sign_out('participant2')
-    end
   end
 
   scenario 'Completed participant in a mobile arm cannot compose a message' do

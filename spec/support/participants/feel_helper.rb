@@ -1,6 +1,6 @@
 # filename: ./spec/support/participants/feel_helper.rb
 
-require './lib/pages/participats'
+require './lib/pages/participants'
 require './lib/pages/participants/feel'
 Dir['./lib/pages/participants/feel/*.rb'].each { |file| require file }
 
