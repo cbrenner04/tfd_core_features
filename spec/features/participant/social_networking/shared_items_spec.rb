@@ -53,8 +53,7 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_2.open
       pt_1_add_new_thought_2.enter_thought
       social_networking.decline_social
-      # navigation.next
-      find('a', text: 'Next').click
+      navigation.alt_next
 
       expect(think).to have_success_alert
 

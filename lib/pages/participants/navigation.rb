@@ -7,6 +7,14 @@ class Participants
       click_on 'Next'
     end
 
+    def alt_next
+      if has_css?('a', text: 'Next', count: 2)
+        all('a', text: 'Next')[1].click
+      else
+        find('a', text: 'Next').click
+      end
+    end
+
     def scroll_to_bottom
       execute_script('window.scrollTo(0,5000)')
     end

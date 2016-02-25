@@ -1,6 +1,11 @@
 # filename: ./spec/support/feature_helpers.rb
 
 require './lib/pages/participants'
+require './lib/pages/users'
+
+def users
+  @users ||= Users.new
+end
 
 def participant_1_so1
   @participant_1_so1 ||= Participants.new(

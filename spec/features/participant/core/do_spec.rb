@@ -66,7 +66,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
     reviewing.open
     reviewing.move_to_review
     reviewing.review_completed_activity
-    social_networking.decline_social
+    ENV['tfd'] ? navigation.next : social_networking.decline_social
 
     expect(do_tool).to have_success_alert
 

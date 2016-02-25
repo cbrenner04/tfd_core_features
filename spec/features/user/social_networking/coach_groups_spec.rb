@@ -3,14 +3,14 @@
 feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
-      sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
   end
 
   background do
     unless ENV['safari']
-      sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
 

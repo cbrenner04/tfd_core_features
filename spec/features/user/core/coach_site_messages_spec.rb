@@ -3,7 +3,7 @@
 feature 'Site Messaging', :core, sauce: sauce_labs do
   background do
     unless ENV['safari']
-      sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                    ENV['Clinician_Password'])
     end
 

@@ -4,14 +4,14 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
   feature 'Researcher' do
     if ENV['safari']
       background(:all) do
-        sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                      ENV['Researcher_Password'])
       end
 
@@ -66,14 +66,14 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
   feature 'Clinician, Patient Dashboard' do
     if ENV['safari']
       background(:all) do
-        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -120,7 +120,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
       visit ENV['Base_URL']
       sign_out('participant1')
 
-      sign_in_user(ENV['Clinician_Email'], 'participant1',
+      users.sign_in_user(ENV['Clinician_Email'], 'participant1',
                    ENV['Clinician_Password'])
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
       click_on 'Arm 1'
@@ -140,7 +140,7 @@ end
 
 feature 'Super User', :core, sauce: sauce_labs do
   background do
-    sign_in_user(ENV['User_Email'], "#{moderator}",
+    users.sign_in_user(ENV['User_Email'], "#{moderator}",
                  ENV['User_Password'])
   end
 

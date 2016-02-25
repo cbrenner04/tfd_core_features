@@ -4,7 +4,7 @@ feature 'Content Author, Content Modules',
         :superfluous, :core, sauce: sauce_labs do
   background do
     unless ENV['safari']
-      sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
                    ENV['Content_Author_Password'])
     end
 

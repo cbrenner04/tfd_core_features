@@ -3,14 +3,14 @@
 feature 'Coach messaging', :core, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
-      sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
+      users.sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
                    ENV['Clinician_Password'])
     end
   end
 
   background do
     unless ENV['safari']
-      sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
+      users.sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
                    ENV['Clinician_Password'])
     end
 

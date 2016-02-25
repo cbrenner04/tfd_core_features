@@ -3,7 +3,7 @@
 feature 'Super User', :superfluous, :core, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
-      sign_in_user(ENV['User_Email'], "#{moderator}",
+      users.sign_in_user(ENV['User_Email'], "#{moderator}",
                    ENV['User_Password'])
     end
 
@@ -13,7 +13,7 @@ feature 'Super User', :superfluous, :core, sauce: sauce_labs do
 
   else
     background do
-      sign_in_user(ENV['User_Email'], "#{moderator}",
+      users.sign_in_user(ENV['User_Email'], "#{moderator}",
                    ENV['User_Password'])
     end
   end

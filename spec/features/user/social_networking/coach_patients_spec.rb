@@ -4,7 +4,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   feature 'Group 1' do
     background do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -60,7 +60,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   feature 'Group 6' do
     background do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 
@@ -186,7 +186,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   feature 'Terminate Access' do
     scenario 'Coach Terminates Access, checks profile is removed' do
       unless ENV['safari']
-        sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
                      ENV['Clinician_Password'])
       end
 

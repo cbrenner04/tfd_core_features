@@ -3,7 +3,7 @@
 feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
   background do
     unless ENV['safari']
-      sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
                    ENV['Researcher_Password'])
     end
 
