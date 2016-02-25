@@ -1,74 +1,45 @@
 # filename: ./spec/features/participant/incentives/communal_incentives_spec.rb
 
+require './spec/support/participants/communal_incentives_helper'
+
 feature 'Communal incentives', :incentives, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',
-                 ENV['Alt_Participant_Password'])
-    end
-  end
+  background(:all) { participant_3_sob if ENV['safari'] }
 
   background do
-    unless ENV['safari']
-      sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',
-                 ENV['Alt_Participant_Password'])
-    end
-
+    participant_3_sob.sign_in unless ENV['safari']
     visit ENV['Base_URL']
   end
 
   scenario 'Participant views communal incentives list' do
-    find('#communal-plot-btn').click
-    within('.panel-title.panel-unreleased',
-           text: 'comment on 3 feed items 6/7 complete') do
-      expect(page).to have_xpath("//img[@src='/assets/flower2.png']")
-    end
+    incomplete_communal_incentive.open
 
-    page.execute_script('window.scrollBy(0,500)')
-    find('.panel-title.panel-unreleased',
-         text: 'comment on 3 feed items').click
-    expect(page).to have_css('.list-group-item.task-status', count: '7')
+    expect(incomplete_communal_incentive).to have_incomplete_image
 
-    check_completed_behavior(0, "#{Time.now.strftime('%b %d %Y %I')}")
-    check_completed_behavior(1, "#{Time.now.strftime('%b %d %Y %I')}")
-    pt_incentive = page.all('.list-group-item.task-status')
-    within pt_incentive[2] do
-      expect(page).to_not have_css('.fa.fa-check-circle')
+    navigation.scroll_down
+    incomplete_communal_incentive.open_incentives_list
 
-      expect(page).to have_content 'Completed at: ---'
-    end
+    expect(incomplete_communal_incentive).to have_group_incentives_listed
+
+    expect(incomplete_communal_incentive).to be_incomplete
   end
 
   scenario 'Participant completes communal incentive, sees list update' do
-    find('#communal-plot-btn').click
-    find('.panel-title.panel-unreleased',
-         text: 'comment on 3 feed items 6/7 complete')
+    complete_communal_incentive.open
 
-    within('#garden-communal') do
-      expect(page).to_not have_css('#communal-plot-flower-1')
-    end
+    expect(complete_communal_incentive).to_not have_image_in_plot
 
-    comment('Did Not Complete a Goal: p2 alpha', 'great')
-    comment('said what about Bob?', 'cool')
-    comment('Did Not Complete a Goal: p2 gamma', 'wow')
+    pt_3_comment_1.comment
+    pt_3_comment_2.comment
+    pt_3_comment_3.comment
+    navigation.reload
 
-    visit ENV['Base_URL']
-    find('#communal-plot-btn').click
-    expect(page).to have_css('.panel.panel-default.panel-info',
-                             text: 'comment on 3 feed items 7/7 complete')
+    complete_communal_incentive.open
 
-    within('#garden-communal') do
-      expect(page).to have_css('#communal-plot-flower-1')
-    end
+    expect(complete_communal_incentive).to have_image_in_plot
 
-    page.execute_script('window.scroll(0,5000)')
-    within('.panel.panel-default.panel-info',
-           text: 'comment on 3 feed items') do
-      find('.panel-title').click
-    end
+    navigation.scroll_down
+    complete_communal_incentive.open_incentives_list
 
-    (0..2).each do |i|
-      check_completed_behavior(i, "#{Time.now.strftime('%b %d %Y %I')}")
-    end
+    expect(complete_communal_incentive).to be_complete
   end
 end

@@ -90,6 +90,10 @@ class Participants
       has_css?('.modal-content')
     end
 
+    def reload
+      execute_script('window.location.reload()')
+    end
+
     private
 
     def host_app
