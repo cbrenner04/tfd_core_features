@@ -7,12 +7,12 @@ class Participants
     class Reshape
       include Capybara::DSL
 
-      def initialize(reshape_arry)
-        @challenge ||= reshape_arry[:challenge]
-        @action ||= reshape_arry[:action]
-        @num_thoughts ||= reshape_arry[:num_thoughts]
-        @thought ||= reshape_arry[:thought]
-        @pattern ||= reshape_arry[:pattern]
+      def initialize(reshape)
+        @challenge ||= reshape[:challenge]
+        @action ||= reshape[:action]
+        @num_thoughts ||= reshape[:num_thoughts]
+        @thought ||= reshape[:thought]
+        @pattern ||= reshape[:pattern]
       end
 
       def open

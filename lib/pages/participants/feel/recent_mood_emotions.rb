@@ -4,11 +4,11 @@ class Participants
     class RecentMoodsEmotions
       include Capybara::DSL
 
-      def initialize(recent_mood_emotions_arry)
-        @mood_count ||= recent_mood_emotions_arry[:mood_count]
-        @emotions_count ||= recent_mood_emotions_arry[:emotions_count]
-        @mood_type ||= recent_mood_emotions_arry[:mood_type]
-        @emotion_type ||= recent_mood_emotions_arry[:emotion_type]
+      def initialize(recent_mood_emotions)
+        @mood_count ||= recent_mood_emotions[:mood_count]
+        @emotions_count ||= recent_mood_emotions[:emotions_count]
+        @mood_type ||= recent_mood_emotions[:mood_type]
+        @emotion_type ||= recent_mood_emotions[:emotion_type]
       end
 
       def open

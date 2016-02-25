@@ -5,8 +5,8 @@ class Participants
       include RSpec::Matchers
       include Capybara::DSL
 
-      def initialize(background_arry)
-        @image ||= background_arry[:image]
+      def initialize(background)
+        @image ||= background[:image]
       end
 
       def choose_image

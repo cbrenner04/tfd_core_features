@@ -7,10 +7,10 @@ class Participants
     class Achieve
       include Capybara::DSL
 
-      def initialize(achieve_arry)
-        @goal ||= achieve_arry[:goal]
-        @due_date ||= achieve_arry[:due_date]
-        @status ||= achieve_arry[:status]
+      def initialize(achieve)
+        @goal ||= achieve[:goal]
+        @due_date ||= achieve[:due_date]
+        @status ||= achieve[:status]
       end
 
       def landing_page
@@ -99,9 +99,9 @@ class Participants
       def delete
         if ENV['chrome'] || ENV['safari']
           social_networking.confirm_with_js
-          find('.list-group-item', text: "#{@goal}").find('.delete').click
+          find('.list-group-item', text: @goal).find('.delete').click
         else
-          find('.list-group-item', text: "#{@goal}").find('.delete').click
+          find('.list-group-item', text: @goal).find('.delete').click
           accept_alert 'Are you sure you would like to delete this goal? ' \
                        'This action cannot be undone.'
         end

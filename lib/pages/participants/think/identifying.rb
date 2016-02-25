@@ -9,12 +9,12 @@ class Participants
       include RSpec::Matchers
       include Capybara::DSL
 
-      def initialize(think_arry)
-        @first_thought ||= think_arry[:first_thought]
-        @second_thought ||= think_arry[:second_thought]
-        @third_thought ||= think_arry[:third_thought]
-        @feed_item ||= think_arry[:feed_item]
-        @timestamp ||= think_arry[:timestamp]
+      def initialize(think)
+        @first_thought ||= think[:first_thought]
+        @second_thought ||= think[:second_thought]
+        @third_thought ||= think[:third_thought]
+        @feed_item ||= think[:feed_item]
+        @timestamp ||= think[:timestamp]
       end
 
       def open

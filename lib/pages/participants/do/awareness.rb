@@ -7,14 +7,14 @@ class Participants
     class Awareness
       include Capybara::DSL
 
-      def initialize(awareness_arry)
-        @start_time ||= awareness_arry[:start_time]
-        @end_time ||= awareness_arry[:end_time]
-        @num_fields ||= awareness_arry[:num_fields]
-        @activity ||= awareness_arry[:activity]
-        @pleasure ||= awareness_arry[:pleasure]
-        @accomplishment ||= awareness_arry[:accomplishment]
-        @count ||= awareness_arry[:count]
+      def initialize(awareness)
+        @start_time ||= awareness[:start_time]
+        @end_time ||= awareness[:end_time]
+        @num_fields ||= awareness[:num_fields]
+        @activity ||= awareness[:activity]
+        @pleasure ||= awareness[:pleasure]
+        @accomplishment ||= awareness[:accomplishment]
+        @count ||= awareness[:count]
       end
 
       def open

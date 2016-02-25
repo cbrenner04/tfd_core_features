@@ -7,13 +7,13 @@ class Participants
     class Profile
       include Capybara::DSL
 
-      def initialize(profile_arry)
-        @answer ||= profile_arry[:answer]
-        @question ||= profile_arry[:question]
-        @display_name ||= profile_arry[:display_name]
-        @other_pt ||= profile_arry[:other_pt]
-        @last_seen ||= profile_arry[:last_seen]
-        @nudger ||= profile_arry[:nudger]
+      def initialize(profile)
+        @answer ||= profile[:answer]
+        @question ||= profile[:question]
+        @display_name ||= profile[:display_name]
+        @other_pt ||= profile[:other_pt]
+        @last_seen ||= profile[:last_seen]
+        @nudger ||= profile[:nudger]
       end
 
       def visit_profile

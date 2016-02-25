@@ -7,9 +7,9 @@ class Participants
     class Like
       include Capybara::DSL
 
-      def initialize(like_arry)
-        @feed_item ||= like_arry[:feed_item]
-        @participant ||= like_arry[:participant]
+      def initialize(like)
+        @feed_item ||= like[:feed_item]
+        @participant ||= like[:participant]
       end
 
       def like

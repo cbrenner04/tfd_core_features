@@ -6,8 +6,8 @@ class Participants
     class TrackingMood
       include Capybara::DSL
 
-      def initialize(mood_arry)
-        @rating ||= mood_arry[:rating]
+      def initialize(mood)
+        @rating ||= mood[:rating]
       end
 
       def open
@@ -15,7 +15,7 @@ class Participants
       end
 
       def rate_mood
-        select "#{@rating}", from: 'mood[rating]'
+        select @rating, from: 'mood[rating]'
         navigation.next
         find('.alert-success', text: 'Mood saved')
       end

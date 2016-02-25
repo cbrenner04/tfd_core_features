@@ -3,16 +3,16 @@ class Participants
   class Incentives
     include Capybara::DSL
 
-    def initialize(incentive_arry)
-      @incentive ||= incentive_arry[:incentive]
-      @completed ||= incentive_arry[:completed]
-      @total ||= incentive_arry[:total]
-      @image ||= incentive_arry[:image]
-      @plot ||= incentive_arry[:plot]
-      @pt_list_item ||= incentive_arry[:pt_list_item]
-      @date ||= incentive_arry[:date]
-      @flower_count ||= incentive_arry[:flower_count]
-      @participant ||= incentive_arry[:participant]
+    def initialize(incentive)
+      @incentive ||= incentive[:incentive]
+      @completed ||= incentive[:completed]
+      @total ||= incentive[:total]
+      @image ||= incentive[:image]
+      @plot ||= incentive[:plot]
+      @pt_list_item ||= incentive[:pt_list_item]
+      @date ||= incentive[:date]
+      @flower_count ||= incentive[:flower_count]
+      @participant ||= incentive[:participant]
     end
 
     def open_communal_plot

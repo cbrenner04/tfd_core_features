@@ -8,15 +8,15 @@ class Participants
     class Reviewing
       include Capybara::DSL
 
-      def initialize(reviewing_arry)
-        @activity ||= reviewing_arry[:activity]
-        @start_time ||= reviewing_arry[:start_time]
-        @end_time ||= reviewing_arry[:end_time]
-        @pleasure ||= reviewing_arry[:pleasure]
-        @accomplishment ||= reviewing_arry[:accomplishment]
-        @non_compliance_reason ||= reviewing_arry[:non_compliance_reason]
-        @predicted_pleasure ||= reviewing_arry[:predicted_pleasure]
-        @predicted_accomplishment ||= reviewing_arry[:predicted_accomplishment]
+      def initialize(reviewing)
+        @activity ||= reviewing[:activity]
+        @start_time ||= reviewing[:start_time]
+        @end_time ||= reviewing[:end_time]
+        @pleasure ||= reviewing[:pleasure]
+        @accomplishment ||= reviewing[:accomplishment]
+        @non_compliance_reason ||= reviewing[:non_compliance_reason]
+        @predicted_pleasure ||= reviewing[:predicted_pleasure]
+        @predicted_accomplishment ||= reviewing[:predicted_accomplishment]
       end
 
       def open
@@ -40,8 +40,8 @@ class Participants
 
       def review_completed_activity
         find('.btn.btn-success').click
-        select @pleasure.to_s, from: 'activity[actual_pleasure_intensity]'
-        select @accomplishment.to_s,
+        select @pleasure, from: 'activity[actual_pleasure_intensity]'
+        select @accomplishment,
                from: 'activity[actual_accomplishment_intensity]'
         navigation.scroll_down
       end

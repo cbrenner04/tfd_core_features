@@ -8,12 +8,12 @@ class Participants
     class Planning
       include Capybara::DSL
 
-      def initialize(planning_arry)
-        @activity ||= planning_arry[:activity]
-        @pleasure ||= planning_arry[:pleasure]
-        @accomplishment ||= planning_arry[:accomplishment]
-        @entries ||= planning_arry[:entries]
-        @timestamp ||= planning_arry[:timestamp]
+      def initialize(planning)
+        @activity ||= planning[:activity]
+        @pleasure ||= planning[:pleasure]
+        @accomplishment ||= planning[:accomplishment]
+        @entries ||= planning[:entries]
+        @timestamp ||= planning[:timestamp]
       end
 
       def open

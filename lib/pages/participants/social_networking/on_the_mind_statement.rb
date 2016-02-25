@@ -4,8 +4,8 @@ class Participants
     class OnTheMindStatement
       include Capybara::DSL
 
-      def initialize(on_the_mind_arry)
-        @statement ||= on_the_mind_arry[:statement]
+      def initialize(on_the_mind)
+        @statement ||= on_the_mind[:statement]
       end
 
       def create

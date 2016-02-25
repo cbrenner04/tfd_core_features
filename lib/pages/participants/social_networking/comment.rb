@@ -7,10 +7,10 @@ class Participants
     class Comment
       include Capybara::DSL
 
-      def initialize(comment_arry)
-        @feed_item ||= comment_arry[:feed_item]
-        @comment ||= comment_arry[:comment]
-        @participant ||= comment_arry[:participant]
+      def initialize(comment)
+        @feed_item ||= comment[:feed_item]
+        @comment ||= comment[:comment]
+        @participant ||= comment[:participant]
       end
 
       def comment

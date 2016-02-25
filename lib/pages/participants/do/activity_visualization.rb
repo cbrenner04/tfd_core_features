@@ -4,14 +4,14 @@ class Participants
     class ActivityVisualization
       include Capybara::DSL
 
-      def initialize(activity_viz_arry)
-        @start_time ||= activity_viz_arry[:start_time]
-        @end_time ||= activity_viz_arry[:end_time]
-        @activity ||= activity_viz_arry[:activity]
-        @importance ||= activity_viz_arry[:importance]
-        @fun ||= activity_viz_arry[:fun]
-        @accomplishment ||= activity_viz_arry[:accomplishment]
-        @pleasure ||= activity_viz_arry[:pleasure]
+      def initialize(activity_viz)
+        @start_time ||= activity_viz[:start_time]
+        @end_time ||= activity_viz[:end_time]
+        @activity ||= activity_viz[:activity]
+        @importance ||= activity_viz[:importance]
+        @fun ||= activity_viz[:fun]
+        @accomplishment ||= activity_viz[:accomplishment]
+        @pleasure ||= activity_viz[:pleasure]
       end
 
       def open
@@ -55,8 +55,8 @@ class Participants
         within('.panel', text: activity_header) do
           within('.collapse') do
             click_on 'Edit'
-            select "#{@pleasure}", from: 'activity[actual_pleasure_intensity]'
-            select "#{@accomplishment}",
+            select @pleasure, from: 'activity[actual_pleasure_intensity]'
+            select @accomplishment,
                    from: 'activity[actual_accomplishment_intensity]'
             click_on 'Update'
           end

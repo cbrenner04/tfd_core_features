@@ -4,8 +4,8 @@ class Participants
     class ToDoList
       include Capybara::DSL
 
-      def initialize(to_do_list_arry)
-        @task ||= to_do_list_arry[:task]
+      def initialize(to_do_list)
+        @task ||= to_do_list[:task]
       end
 
       def visible?

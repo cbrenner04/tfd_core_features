@@ -8,12 +8,12 @@ class Participants
     class AddNewThought
       include Capybara::DSL
 
-      def initialize(add_new_thought_arry)
-        @thought ||= add_new_thought_arry[:thought]
-        @pattern ||= add_new_thought_arry[:pattern]
-        @challenge ||= add_new_thought_arry[:challenge]
-        @action ||= add_new_thought_arry[:action]
-        @timestamp ||= add_new_thought_arry[:timestamp]
+      def initialize(add_new_thought)
+        @thought ||= add_new_thought[:thought]
+        @pattern ||= add_new_thought[:pattern]
+        @challenge ||= add_new_thought[:challenge]
+        @action ||= add_new_thought[:action]
+        @timestamp ||= add_new_thought[:timestamp]
       end
 
       def open

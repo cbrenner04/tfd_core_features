@@ -4,10 +4,10 @@ class Participants
     class ThoughtVisualization
       include Capybara::DSL
 
-      def initialize(thought_viz_arry)
-        @pattern ||= thought_viz_arry[:pattern]
-        @detail_pattern ||= thought_viz_arry[:detail_pattern]
-        @thought ||= thought_viz_arry[:thought]
+      def initialize(thought_viz)
+        @pattern ||= thought_viz[:pattern]
+        @detail_pattern ||= thought_viz[:detail_pattern]
+        @thought ||= thought_viz[:thought]
       end
 
       def open_viz

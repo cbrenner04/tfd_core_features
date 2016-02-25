@@ -3,12 +3,12 @@ class Participants
   class Messages
     include Capybara::DSL
 
-    def initialize(messages_arry)
-      @message_subject ||= messages_arry[:message_subject]
-      @message_body ||= messages_arry[:message_body]
-      @reply_body ||= messages_arry[:reply_body]
-      @link ||= messages_arry[:link]
-      @link_content ||= messages_arry[:link_content]
+    def initialize(messages)
+      @message_subject ||= messages[:message_subject]
+      @message_body ||= messages[:message_body]
+      @reply_body ||= messages[:reply_body]
+      @link ||= messages[:link]
+      @link_content ||= messages[:link_content]
     end
 
     def landing_page

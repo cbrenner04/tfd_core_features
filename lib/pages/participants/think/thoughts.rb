@@ -4,9 +4,9 @@ class Participants
     class Thoughts
       include Capybara::DSL
 
-      def initialize(thoughts_arry)
-        @thought ||= thoughts_arry[:thought]
-        @pattern ||= thoughts_arry[:pattern]
+      def initialize(thoughts)
+        @thought ||= thoughts[:thought]
+        @pattern ||= thoughts[:pattern]
       end
 
       def open

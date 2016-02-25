@@ -4,8 +4,8 @@ class Participants
     class PlannedActivities
       include Capybara::DSL
 
-      def initialize(planned_activities_arry)
-        @activity ||= planned_activities_arry[:activity]
+      def initialize(planned_activities)
+        @activity ||= planned_activities[:activity]
       end
 
       def open

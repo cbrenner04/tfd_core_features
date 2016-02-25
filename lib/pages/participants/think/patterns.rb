@@ -9,9 +9,9 @@ class Participants
       include RSpec::Matchers
       include Capybara::DSL
 
-      def initialize(pattern_arry)
-        @thought ||= pattern_arry[:thought]
-        @pattern ||= pattern_arry[:pattern]
+      def initialize(pattern)
+        @thought ||= pattern[:thought]
+        @pattern ||= pattern[:pattern]
       end
 
       def open
