@@ -1,6 +1,6 @@
-# filename: ./spec/features/participant/sunnyside/communal_incentives_spec.rb
+# filename: ./spec/features/participant/incentives/communal_incentives_spec.rb
 
-feature 'Communal incentives', :sunnyside, :marigold, sauce: sauce_labs do
+feature 'Communal incentives', :incentives, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant_background',

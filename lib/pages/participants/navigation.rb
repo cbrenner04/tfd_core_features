@@ -86,6 +86,10 @@ class Participants
       find('.navbar-collapse').find('.fa.fa-user.fa-lg').has_text? 'My Profile'
     end
 
+    def has_modal?
+      has_css?('.modal-content')
+    end
+
     private
 
     def host_app

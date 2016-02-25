@@ -1,6 +1,6 @@
-# filename: ./spec/features/user/sunnyside/researcher_groups_spec.rb
+# filename: ./spec/features/user/incentives/researcher_groups_spec.rb
 
-feature 'Incentive, Researcher', :superfluous, :sunnyside, sauce: sauce_labs do
+feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       sign_in_user(ENV['Researcher_Email'], "#{moderator}",
@@ -229,7 +229,7 @@ feature 'Incentive, Researcher', :superfluous, :sunnyside, sauce: sauce_labs do
   end
 end
 
-feature 'Incentives, Coach', :superfluous, :sunnyside, sauce: sauce_labs do
+feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       sign_in_user(ENV['Clinician_Email'], "#{moderator}",

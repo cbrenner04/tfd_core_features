@@ -1,6 +1,6 @@
 class Participants
-  # page object for Sunnyside features
-  class Sunnyside
+  # page object for Incentives features
+  class Incentives
     include Capybara::DSL
 
     def check_completed_behavior(num, date)

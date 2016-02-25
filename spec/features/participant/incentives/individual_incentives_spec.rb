@@ -1,6 +1,6 @@
-# filename: ./spec/features/participant/sunnyside/individual_incentives_spec.rb
+# filename: ./spec/features/participant/incentives/individual_incentives_spec.rb
 
-feature 'Individual incentives', :sunnyside, :marigold, sauce: sauce_labs do
+feature 'Individual incentives', :incentives, sauce: sauce_labs do
   background do
     unless ENV['safari']
       sign_in_pt(ENV['Alt_Participant_Email'], 'participant3',

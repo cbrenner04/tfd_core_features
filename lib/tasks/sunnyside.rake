@@ -97,27 +97,27 @@ end
 namespace :run_sunnyside do
   desc 'Run the test suite for the SunnySide host application on Chrome'
   task :chrome do
-    system('sunnyside=true chrome=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('sunnyside=true chrome=true rspec --tag core --tag social_networking --tag incentives')
   end
 
   desc 'Run the test suite for the SunnySide host application on Safari'
   task :safari do
-    system('sunnyside=true safari=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('sunnyside=true safari=true rspec --tag core --tag social_networking --tag incentives')
   end
 
   desc 'Run the test suite for the SunnySide host application on Firefox'
   task :firefox do
-    system('sunnyside=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('sunnyside=true rspec --tag core --tag social_networking --tag incentives')
   end
 
   desc 'Run the test suite for SunnySide on Chrome without certain example groups to increase speed'
   task :fast do
-    system('sunnyside=true rspec --tag core --tag social_networking --tag sunnyside --tag ~superfluous')
+    system('sunnyside=true rspec --tag core --tag social_networking --tag incentives --tag ~superfluous')
   end
 
   # this requires switching databases on staging
   desc 'Run the test suite for the SunnySide host application on SauceLabs'
   task :sauce do
-    system('sunnyside=true sauce=true rspec --tag core --tag social_networking --tag sunnyside')
+    system('sunnyside=true sauce=true rspec --tag core --tag social_networking --tag incentives')
   end
 end
