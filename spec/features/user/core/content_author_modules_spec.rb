@@ -26,7 +26,7 @@ feature 'Content Author, Content Modules',
   scenario 'Content Author edits a module' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    go_to_next_page('Testing content module')
+    users.go_to_next_page('Testing content module')
     click_on 'Testing content module'
     find('p', text: 'DO')
     click_on 'Edit'
@@ -38,7 +38,7 @@ feature 'Content Author, Content Modules',
   end
 
   scenario 'Content Author destroys a module' do
-    go_to_next_page('Content module for Testing')
+    users.go_to_next_page('Content module for Testing')
     click_on 'Content module for Testing'
     page.driver.execute_script('window.confirm = function() {return true}')
     click_on 'Destroy'
@@ -51,7 +51,7 @@ feature 'Content Author, Content Modules',
   scenario 'Content Author creates a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    go_to_next_page('Home Introduction')
+    users.go_to_next_page('Home Introduction')
     click_on 'Home Introduction'
     click_on 'New Provider'
     find('#content_provider_bit_core_content_module_id',
@@ -74,7 +74,7 @@ feature 'Content Author, Content Modules',
   scenario 'Content Author updates a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    go_to_next_page('Home Introduction')
+    users.go_to_next_page('Home Introduction')
     click_on 'Home Introduction'
     click_on '1 slideshow provider'
     find('p', text: 'Is skippable after first viewing: false')
@@ -89,7 +89,7 @@ feature 'Content Author, Content Modules',
   scenario 'Content Author destroys a provider' do
     find('h1', text: 'Listing Content Modules')
     page.execute_script('window.scrollTo(0,5000)')
-    go_to_next_page('Second test module')
+    users.go_to_next_page('Second test module')
     click_on 'Second test module'
     click_on '1 slideshow provider'
     find('p', text: 'Slideshow: Slideshow for tests')

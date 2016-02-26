@@ -16,12 +16,12 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach views Tool Use table' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
         table_row = page.all('tr:nth-child(1)')
         content = ['Tool Use  Today Last 7 Days Totals', 'Lessons Read 1 1 1']
         (0..1).zip(content) do |i, c|
-          check_data(table_row[i], c)
+          users.check_data(table_row[i], c)
         end
 
         content = ['Moods 1 1 1', 'Thoughts 3 3 3',
@@ -29,13 +29,13 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
                    'Activities Reviewed and Completed 0 1 1',
                    'Activities Reviewed and Incomplete 0 1 1']
         (2..7).zip(content) do |i, c|
-          check_data("tr:nth-child(#{i})", c)
+          users.check_data("tr:nth-child(#{i})", c)
         end
       end
     end
 
     scenario 'Coach uses the links within Tool Use table' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
         ['Lessons Read', 'Moods', 'Thoughts', 'Activities Planned',
          'Activities Monitored', 'Activities Reviewed and Completed',
@@ -46,7 +46,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach uses the links within Social Activity table' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('.table.table-hover', text: 'Social Activity') do
@@ -81,22 +81,22 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach views Social Activity' do
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('.table.table-hover', text: 'Social Activity') do
         table_row = page.all('tr:nth-child(1)')
-        check_data(table_row[0], 'Social Activity Today Last 7 Days Totals')
-        check_data(table_row[1], 'Likes 0 0 1')
+        users.check_data(table_row[0], 'Social Activity Today Last 7 Days Totals')
+        users.check_data(table_row[1], 'Likes 0 0 1')
         num = ['Nudges 1 1 1', 'Comments 0 0 1', 'Goals 0 0 1',
                '"On My Mind" Statements 0 0 1']
 
         (2..5).zip(num) do |i, n|
-          check_data("tr:nth-child(#{i})", "#{n}")
+          users.check_data("tr:nth-child(#{i})", "#{n}")
         end
       end
     end
 
     scenario 'Coach views Likes' do
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('#likes-container', text: 'Item Liked') do
         table_row = page.all('tr:nth-child(1)')
         within table_row[1] do
@@ -110,7 +110,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach views Goals' do
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('#goals-container', text: 'Goals') do
         table_row = page.all('tr:nth-child(1)')
         within table_row[1] do
@@ -130,7 +130,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach views Comments' do
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('#comments-container') do
         table_row = page.all('tr:nth-child(1)')
         within table_row[1] do
@@ -145,7 +145,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach views Nudges Initiated' do
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('.panel.panel-default', text: 'Nudges Initiated') do
         table_row = page.all('tr:nth-child(1)')
         within table_row[1] do
@@ -157,7 +157,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach views Nudges Received' do
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('.panel.panel-default', text: 'Nudges Received') do
         table_row = page.all('tr:nth-child(1)')
         within table_row[1] do
@@ -169,7 +169,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Coach views On-My-Mind Statements' do
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('#on-my-mind-container') do
         table_row = page.all('tr:nth-child(1)')
         within table_row[1] do
@@ -220,7 +220,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
 
       unless ENV['safari']
         visit "#{ENV['Base_URL']}/participants/sign_in"
-        sign_in_pt(ENV['PT61_Email'], 'participant2',
+        users.sign_in_pt(ENV['PT61_Email'], 'participant2',
                    ENV['PT61_Password'])
         find('h1', text: 'HOME')
         expect(page).to_not have_content 'Fifth'

@@ -17,6 +17,23 @@ class Users
     end
   end
 
+  def sign_in(participant, old_participant, password)
+    visit login_page
+    unless page.has_css?('#new_participant')
+      private_sign_out(old_participant)
+    end
+    if page.has_css?('#new_participant')
+      within('#new_participant') do
+        fill_in 'participant_email', with: participant
+        fill_in 'participant_password', with: password
+      end
+      click_on 'Sign in'
+      has_text? 'HOME'
+    else
+      puts 'LOGIN FAILED'
+    end
+  end
+
   def sign_out(display_name)
     tries ||= 2
     within('.navbar-collapse') do
@@ -57,5 +74,15 @@ class Users
 
   def moderator
     'participant2'
+  end
+
+  def host_app
+    if ENV['tfd'] || ENV['tfdso']
+      'ThinkFeelDo'
+    elsif ENV['sunnyside']
+      'Sunnyside'
+    elsif ENV['marigold']
+      'Marigold'
+    end
   end
 end

@@ -14,7 +14,7 @@ feature 'User login', :core, sauce: sauce_labs do
     visit "#{ENV['Base_URL']}/users/sign_in"
 
     if ENV['safari']
-      sign_out('participant2')
+      users.sign_out('participant2')
     end
 
     within('#new_user') do

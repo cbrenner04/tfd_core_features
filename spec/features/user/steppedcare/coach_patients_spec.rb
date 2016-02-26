@@ -30,7 +30,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       click_on 'Group 1'
       click_on 'Patient Dashboard'
       find('h1', text: 'Patient Dashboard')
-      select_patient('TFD-1111')
+      users.select_patient('TFD-1111')
       find('h3', text: 'General Patient Info')
 
       page.execute_script('window.scrollTo(0,5000)')
@@ -43,7 +43,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       click_on 'Group 6'
       click_on 'Patient Dashboard'
       find('h1', text: 'Patient Dashboard')
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('.panel.panel-default', text: 'Login Info') do
         date1 = Date.today - 4
         expect(page).to have_content 'Last Logged In: ' \
@@ -256,7 +256,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     end
 
     scenario 'Coach views PHQ9' do
-      select_patient('PHQ-3')
+      users.select_patient('PHQ-3')
 
       within('#phq9-container') do
         three_weeks_ago = Date.today - 18
@@ -270,7 +270,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     end
 
     scenario 'Coach views PHQ9 management tool' do
-      select_patient('PHQ-4')
+      users.select_patient('PHQ-4')
       within('.list-group') do
         find('a', text: 'PHQ9').click
       end
@@ -280,7 +280,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     end
 
     scenario 'Coach creates a new PHQ9 assessment' do
-      select_patient('PHQ-4')
+      users.select_patient('PHQ-4')
       within('.list-group') do
         find('a', text: 'PHQ9').click
       end
@@ -310,7 +310,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
         end
       end
 
-      select_patient('PHQ-1')
+      users.select_patient('PHQ-1')
       within('.list-group') do
         find('a', text: 'PHQ9').click
       end
@@ -344,7 +344,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     end
 
     scenario 'Coach deletes an existing PHQ9 assessment' do
-      select_patient('PHQ-5')
+      users.select_patient('PHQ-5')
 
       within('.list-group') do
         find('a', text: 'PHQ9').click

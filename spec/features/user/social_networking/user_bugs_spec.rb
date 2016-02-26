@@ -71,7 +71,7 @@ feature 'User Dashboard Bugs', :social_networking, sauce: sauce_labs do
       click_on 'Arm 1'
       click_on 'Group 1'
       click_on 'Patient Dashboard'
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('.table.table-hover', text: 'Tool Use') do
         tool = ['Activities Monitored', 'Activities Planned',
                 'Activities Reviewed and Completed',

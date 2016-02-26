@@ -115,6 +115,6 @@ feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
 
     expect(page).to have_content 'Arms'
 
-    sign_out('participant2')
+    users.sign_out('participant2')
   end
 end

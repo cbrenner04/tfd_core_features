@@ -96,7 +96,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
         end
       end
 
-      select_patient('participant61')
+      users.select_patient('participant61')
       within('.panel.panel-default', text: 'Login Info') do
         date1 = Date.today - 4
         expect(page).to have_content 'Last Logged In: ' \
@@ -109,7 +109,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
 
   feature 'Clincian, Patient Dashboard' do
     scenario 'Clinician sees correct duration calculation' do
-      sign_in_pt(ENV['Participant_Email'], 'participant2',
+      users.sign_in_pt(ENV['Participant_Email'], 'participant2',
                  ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
       click_on 'Do - Awareness Introduction'
@@ -118,7 +118,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
       click_on 'Finish'
       find('h1', text: 'LEARN')
       visit ENV['Base_URL']
-      sign_out('participant1')
+      users.sign_out('participant1')
 
       users.sign_in_user(ENV['Clinician_Email'], 'participant1',
                    ENV['Clinician_Password'])
@@ -126,7 +126,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
       click_on 'Arm 1'
       click_on 'Group 1'
       click_on 'Patient Dashboard'
-      select_patient('TFD-1111')
+      users.select_patient('TFD-1111')
       within('#lessons-container') do
         expect(page.all('tr:nth-child(1)')[1])
           .to have_content 'Do - Awareness Introduction This is just the ' \

@@ -60,7 +60,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views General Patient Info' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('.panel.panel-default', text: 'General Patient Info') do
         if ENV['tfd']
           weeks_later = Date.today + 20 * 7
@@ -81,7 +81,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Login Info' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('.panel.panel-default', text: 'Login Info') do
         expect(page).to have_content 'Last Logged In: ' \
                                      "#{Date.today.strftime('%A, %b %d %Y')}"
@@ -94,7 +94,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach uses the table of contents in the patient report' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('.list-group') do
@@ -127,7 +127,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Mood and Emotions viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('#viz-container') do
         find('.title', text: 'Mood')
         find('.title', text: 'Positive and Negative Emotions')
@@ -136,7 +136,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach navigates to 28 day view in Mood and Emotions viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('#viz-container') do
         find('.title', text: 'Mood')
         one_week_ago = Date.today - 6
@@ -154,7 +154,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach navigates to Previous Period in Mood and Emotions viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('#viz-container') do
         find('.title', text: 'Mood')
         page.execute_script('window.scrollTo(0,5000)')
@@ -167,7 +167,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Mood' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('#mood-container') do
@@ -177,7 +177,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Feelings' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('#feelings-container') do
         expect(page.all('tr:nth-child(1)')[1])
           .to have_content "longing 2 #{Date.today.strftime('%b %d %Y')}"
@@ -185,7 +185,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Logins' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('#logins-container') do
         expect(page.all('tr:nth-child(1)')[1])
           .to have_content Date.today.strftime('%b %d %Y')
@@ -193,7 +193,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Lessons' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('#lessons-container') do
         expect(page.all('tr:nth-child(1)')[1])
           .to have_content 'Do - Awareness Introduction This is just the ' \
@@ -204,7 +204,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Audio Access' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       within('#media-access-container') do
         expect(page.all('tr:nth-child(1)')[1]).to have_content 'Audio! ' \
                                      "#{Date.today.strftime('%m/%d/%Y')}" \
@@ -215,7 +215,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Activities viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('h3', text: 'Activities visualization') do
@@ -227,7 +227,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach collapses Daily Summaries in Activities viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('h3', text: 'Activities visualization') do
@@ -243,7 +243,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach navigates to previous day in Activities viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('h3', text: 'Activities visualization') do
@@ -259,7 +259,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views ratings of an activity in Activity Viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('h3', text: 'Activities visualization') do
@@ -285,7 +285,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach uses the visualization in Activities viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('h3', text: 'Activities visualization') do
@@ -303,7 +303,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Activities - Future' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,5000)')
       within('#activities-future-container') do
@@ -316,7 +316,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Activities - Past' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollBy(0,5500)')
       within('#activities-past-container') do
@@ -329,7 +329,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views noncompliance reason in Activities - Past' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollBy(0,5500)')
       within('#activities-past-container') do
@@ -344,7 +344,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Thoughts viz' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       page.execute_script('window.scrollTo(0,10000)')
       within('h3', text: 'Thoughts visualization') do
@@ -361,7 +361,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Thoughts' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       within('#thoughts-container') do
         within('tr', text: 'Testing negative thought') do
@@ -375,7 +375,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Messages' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       within('#messages-container') do
         within('tr', text: 'Test') do
@@ -386,7 +386,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Tasks' do
-      select_patient('TFD-data')
+      users.select_patient('TFD-data')
       find('h3', text: 'General Patient Info')
       within('#tasks-container') do
         within('tr', text: 'Do - Planning Introduction') do

@@ -77,6 +77,6 @@ feature 'Super User', :superfluous, :core, sauce: sauce_labs do
     find('.alert-success', text: 'User was successfully destroyed.')
     expect(page).to_not have_content 'test_8@example.com'
 
-    sign_out('admin1')
+    users.sign_out('admin1')
   end
 end

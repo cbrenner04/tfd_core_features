@@ -30,7 +30,7 @@ feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
               'likes  1 2 1 0 1 0 0 0']
 
       (2..9).zip(data) do |i, d|
-        check_data("tr:nth-child(#{i})", d)
+        users.check_data("tr:nth-child(#{i})", d)
       end
     end
   end
@@ -50,7 +50,7 @@ feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
               'Third  1 0 1 0 1 0 0 0', 'Fourth  0 6 1 0 0 0 0 0',
               'Fifth  0 0 1 0 0 0 0 0']
       (2..6).zip(data) do |i, d|
-        check_data("tr:nth-child(#{i})", d)
+        users.check_data("tr:nth-child(#{i})", d)
       end
     end
   end

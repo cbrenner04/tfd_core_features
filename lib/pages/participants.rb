@@ -39,10 +39,10 @@ class Participants
 
   def sign_in
     visit login_page
-    unless page.has_css?('#new_participant')
+    unless has_css?('#new_participant')
       private_sign_out(@old_participant)
     end
-    if page.has_css?('#new_participant')
+    if has_css?('#new_participant')
       fill_in_login_form
       submit_login
       has_text? 'HOME'
