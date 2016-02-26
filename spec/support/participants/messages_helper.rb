@@ -8,7 +8,7 @@ def navigation
 end
 
 def messages
-  @messages ||= Participants::Messages.new(reply_text: 'Got it. Thanks!')
+  @messages ||= Participants::Messages.new(reply_body: 'Got it. Thanks!')
 end
 
 def new_message
@@ -22,7 +22,8 @@ end
 def sent_message
   @new_message ||= Participants::Messages.new(
     message_subject: 'I like this app',
-    message_body: 'This app is really helpful!'
+    message_body: 'This app is really helpful!',
+    sender: 'From You'
   )
 end
 

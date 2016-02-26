@@ -13,14 +13,6 @@ def visitor
   )
 end
 
-def participant_1_so2
-  @participant_1_so2 ||= Participants.new(
-    participant: ENV['Participant_Email'],
-    old_participant: 'participant2',
-    password: ENV['Participant_Password']
-  )
-end
-
 def old_participant
   @old_participant ||= Participants.new(
     participant: ENV['Old_Participant_Email'],

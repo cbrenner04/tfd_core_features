@@ -1,11 +1,6 @@
-# filename: ./spec/support/feature_helpers.rb
+# filename: ./spec/support/participants_helper.rb
 
 require './lib/pages/participants'
-require './lib/pages/users'
-
-def users
-  @users ||= Users.new
-end
 
 def participant_1_so1
   @participant_1_so1 ||= Participants.new(
@@ -13,6 +8,14 @@ def participant_1_so1
     old_participant: 'participant1',
     password: ENV['Participant_Password'],
     display_name: 'participant1'
+  )
+end
+
+def participant_1_so2
+  @participant_1_so2 ||= Participants.new(
+    participant: ENV['Participant_Email'],
+    old_participant: 'participant2',
+    password: ENV['Participant_Password']
   )
 end
 

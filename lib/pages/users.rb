@@ -2,15 +2,21 @@
 class Users
   include Capybara::DSL
 
-  def sign_in_user(user, old_user, password)
+  def initialize(users)
+    @user ||= users[:user]
+    @old_user ||= users[:old_user]
+    @password ||= users[:password]
+  end
+
+  def sign_in
     visit "#{ENV['Base_URL']}/users/sign_in"
     unless has_css?('#new_user')
-      sign_out(old_user)
+      sign_out(@old_user)
     end
     if has_css?('#new_user')
       within('#new_user') do
-        fill_in 'user_email', with: user
-        fill_in 'user_password', with: password
+        fill_in 'user_email', with: @user
+        fill_in 'user_password', with: @password
       end
       click_on 'Sign in'
       has_text? 'Home'

@@ -1,7 +1,10 @@
+require './lib/pages/shared/navigation'
+
 class Participants
   # page object for navigation for Participants
   class Navigation
     include Capybara::DSL
+    include SharedNavigation
 
     def next
       click_on 'Next'
@@ -13,14 +16,6 @@ class Participants
       else
         find('a', text: 'Next').click
       end
-    end
-
-    def scroll_to_bottom
-      execute_script('window.scrollTo(0,5000)')
-    end
-
-    def scroll_down
-      execute_script('window.scrollBy(0,500)')
     end
 
     def skip
