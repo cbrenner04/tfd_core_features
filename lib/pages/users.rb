@@ -17,7 +17,7 @@ class Users
     end
   end
 
-  def sign_in(participant, old_participant, password)
+  def sign_in_pt(participant, old_participant, password)
     visit login_page
     unless page.has_css?('#new_participant')
       private_sign_out(old_participant)
