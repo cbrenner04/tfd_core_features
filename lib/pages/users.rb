@@ -4,7 +4,7 @@ class Users
 
   def sign_in_user(user, old_user, password)
     visit "#{ENV['Base_URL']}/users/sign_in"
-    unless page.has_css?('#new_user')
+    unless has_css?('#new_user')
       sign_out(old_user)
     end
     if has_css?('#new_user')
@@ -20,7 +20,7 @@ class Users
   def sign_in_pt(participant, old_participant, password)
     visit "#{ENV['Base_URL']}/participants/sign_in"
     unless has_css?('#new_participant')
-      private_sign_out(old_participant)
+      sign_out(old_participant)
     end
     if has_css?('#new_participant')
       within('#new_participant') do
