@@ -3,14 +3,14 @@
 feature 'Content Author, Lessons', :superfluous, :core, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
-      users.sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
                    ENV['Content_Author_Password'])
     end
   end
 
   background do
     unless ENV['safari']
-      users.sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
                    ENV['Content_Author_Password'])
     end
 

@@ -3,14 +3,14 @@
 feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
-      users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
                    ENV['Researcher_Password'])
     end
   end
 
   background do
     unless ENV['safari']
-      users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
                    ENV['Researcher_Password'])
     end
 

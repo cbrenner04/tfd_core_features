@@ -44,7 +44,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
     expect(page).to have_content 'Message saved'
 
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], "#{moderator}",
+      sign_in_pt(ENV['Participant_Email'], 'participant2',
                  ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Reply: I like this app'
@@ -62,7 +62,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
     expect(page).to have_content 'Message saved'
 
     unless ENV['safari']
-      sign_in_pt(ENV['Participant_Email'], "#{moderator}",
+      sign_in_pt(ENV['Participant_Email'], 'participant2',
                  ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Testing compose functionality'

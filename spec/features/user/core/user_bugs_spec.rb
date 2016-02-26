@@ -4,14 +4,14 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
   feature 'Researcher' do
     if ENV['safari']
       background(:all) do
-        users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Researcher_Email'], 'participant2',
                      ENV['Researcher_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Researcher_Email'], 'participant2',
                      ENV['Researcher_Password'])
       end
 
@@ -66,14 +66,14 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
   feature 'Clinician, Patient Dashboard' do
     if ENV['safari']
       background(:all) do
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
 
@@ -109,7 +109,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
 
   feature 'Clincian, Patient Dashboard' do
     scenario 'Clinician sees correct duration calculation' do
-      sign_in_pt(ENV['Participant_Email'], "#{moderator}",
+      sign_in_pt(ENV['Participant_Email'], 'participant2',
                  ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
       click_on 'Do - Awareness Introduction'
@@ -140,7 +140,7 @@ end
 
 feature 'Super User', :core, sauce: sauce_labs do
   background do
-    users.sign_in_user(ENV['User_Email'], "#{moderator}",
+    users.sign_in_user(ENV['User_Email'], 'participant2',
                  ENV['User_Password'])
   end
 

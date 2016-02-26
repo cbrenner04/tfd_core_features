@@ -4,7 +4,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
   feature 'Patient Dashboard' do
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
 
@@ -60,7 +60,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
   feature 'Patient Dashboard, PHQ Group' do
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
 

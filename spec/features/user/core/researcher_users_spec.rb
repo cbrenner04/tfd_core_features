@@ -3,7 +3,7 @@
 feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
   background do
     unless ENV['safari']
-      users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
                    ENV['Researcher_Password'])
     end
 
@@ -115,6 +115,6 @@ feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
 
     expect(page).to have_content 'Arms'
 
-    sign_out("#{moderator}")
+    sign_out('participant2')
   end
 end

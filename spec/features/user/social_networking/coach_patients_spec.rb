@@ -4,7 +4,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   feature 'Group 1' do
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
 
@@ -60,7 +60,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   feature 'Group 6' do
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
 
@@ -186,7 +186,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   feature 'Terminate Access' do
     scenario 'Coach Terminates Access, checks profile is removed' do
       unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
 
@@ -220,7 +220,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
 
       unless ENV['safari']
         visit "#{ENV['Base_URL']}/participants/sign_in"
-        sign_in_pt(ENV['PT61_Email'], "#{moderator}",
+        sign_in_pt(ENV['PT61_Email'], 'participant2',
                    ENV['PT61_Password'])
         find('h1', text: 'HOME')
         expect(page).to_not have_content 'Fifth'

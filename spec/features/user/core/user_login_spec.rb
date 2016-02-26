@@ -6,7 +6,7 @@ require './lib/content/super_user_dash_buttons'
 
 feature 'User login', :core, sauce: sauce_labs do
   scenario 'User signs in' do
-    users.sign_in_user(ENV['User_Email'], "#{moderator}", ENV['User_Password'])
+    users.sign_in_user(ENV['User_Email'], 'participant2', ENV['User_Password'])
     expect(page).to have_content 'Signed in successfully'
   end
 
@@ -14,7 +14,7 @@ feature 'User login', :core, sauce: sauce_labs do
     visit "#{ENV['Base_URL']}/users/sign_in"
 
     if ENV['safari']
-      sign_out("#{moderator}")
+      sign_out('participant2')
     end
 
     within('#new_user') do
@@ -59,7 +59,7 @@ feature 'User login', :core, sauce: sauce_labs do
     if ENV['safari']
       visit "#{ENV['Base_URL']}/users/sign_in"
     else
-      users.sign_in_user(ENV['User_Email'], "#{moderator}",
+      users.sign_in_user(ENV['User_Email'], 'participant2',
                    ENV['User_Password'])
     end
 
@@ -78,14 +78,14 @@ feature 'Authorization', :core, sauce: sauce_labs do
   feature 'Clinician' do
     if ENV['safari']
       background(:all) do
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
                      ENV['Clinician_Password'])
       end
 
@@ -142,14 +142,14 @@ feature 'Authorization', :core, sauce: sauce_labs do
   feature 'Researcher' do
     if ENV['safari']
       background(:all) do
-        users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Researcher_Email'], 'participant2',
                      ENV['Researcher_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Researcher_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Researcher_Email'], 'participant2',
                      ENV['Researcher_Password'])
       end
 
@@ -208,14 +208,14 @@ feature 'Authorization', :core, sauce: sauce_labs do
   feature 'Content Author' do
     if ENV['safari']
       background(:all) do
-        users.sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
                      ENV['Content_Author_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['Content_Author_Email'], "#{moderator}",
+        users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
                      ENV['Content_Author_Password'])
       end
 
@@ -252,14 +252,14 @@ feature 'Authorization', :core, sauce: sauce_labs do
   feature 'Super User' do
     if ENV['safari']
       background(:all) do
-        users.sign_in_user(ENV['User_Email'], "#{moderator}",
+        users.sign_in_user(ENV['User_Email'], 'participant2',
                      ENV['User_Password'])
       end
     end
 
     background do
       unless ENV['safari']
-        users.sign_in_user(ENV['User_Email'], "#{moderator}",
+        users.sign_in_user(ENV['User_Email'], 'participant2',
                      ENV['User_Password'])
       end
 
