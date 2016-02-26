@@ -184,14 +184,11 @@ feature 'Super User', :core, sauce: sauce_labs do
   end
 end
 
-require 'selenium-webdriver'
-require 'rspec/expectations'
-include RSpec::Matchers
 require 'uuid'
 require 'fileutils'
 
 feature 'CSV Exports', :core, type: :feature do
-  scenario do
+  background do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
 

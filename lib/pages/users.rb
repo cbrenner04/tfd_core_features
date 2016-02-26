@@ -18,11 +18,11 @@ class Users
   end
 
   def sign_in_pt(participant, old_participant, password)
-    visit login_page
-    unless page.has_css?('#new_participant')
+    visit "#{ENV['Base_URL']}/participants/sign_in"
+    unless has_css?('#new_participant')
       private_sign_out(old_participant)
     end
-    if page.has_css?('#new_participant')
+    if has_css?('#new_participant')
       within('#new_participant') do
         fill_in 'participant_email', with: participant
         fill_in 'participant_password', with: password
@@ -58,9 +58,7 @@ class Users
   end
 
   def check_data(item, data)
-    within(item) do
-      expect(page).to have_content data
-    end
+    within(item) { has_text? data }
   end
 
   def go_to_next_page(module_text)
@@ -70,10 +68,6 @@ class Users
         click_on 'Next'
       end
     end
-  end
-
-  def moderator
-    'participant2'
   end
 
   def host_app

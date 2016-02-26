@@ -34,7 +34,7 @@ feature 'User login', :core, sauce: sauce_labs do
 
   scenario 'Visitor views the intro slideshow' do
     visit "#{ENV['Base_URL']}/users/sign_in"
-    click_on "Introduction to #{host_app}"
+    click_on "Introduction to #{users.host_app}"
     click_on 'Done'
     expect(page).to have_content 'You need to sign in or sign up before ' \
                                  'continuing.'
