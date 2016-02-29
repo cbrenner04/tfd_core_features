@@ -1,6 +1,6 @@
 # filename: ./spec/features/user/core/coach_messages_spec.rb
 
-require './spec/support/users/messages_helper'
+require './spec/support/users/coach_messages_helper'
 
 feature 'Coach messaging', :core, sauce: sauce_labs do
   background(:all) { clinician_som.sign_in if ENV['safari'] }

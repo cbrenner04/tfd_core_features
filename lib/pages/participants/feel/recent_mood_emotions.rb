@@ -1,8 +1,11 @@
+require './lib/pages/shared/mood_emotions_viz'
+
 class Participants
   class Feel
     # page object for Your Recent Moods & Emotions module
     class RecentMoodsEmotions
       include Capybara::DSL
+      include SharedMoodEmotionsViz
 
       def initialize(recent_mood_emotions)
         @mood_count ||= recent_mood_emotions[:mood_count]
@@ -25,34 +28,6 @@ class Participants
         find('#emotions')
           .find('.title', text: 'Positive and Negative Emotions*')
         has_css?(".#{@emotion_type}", count: @emotions_count)
-      end
-
-      def has_week_view_visible?
-        has_css?('#date-range',
-                 text: "#{(Date.today - 6).strftime('%b %d %Y')} - " \
-                       "#{Date.today.strftime('%b %d %Y')}")
-      end
-
-      def switch_to_28_day_view
-        find('.btn.btn-default', text: '28').click
-      end
-
-      def has_28_day_view_visible?
-        has_text? "#{(Date.today - 27).strftime('%b %d %Y')} - " \
-                  "#{Date.today.strftime('%b %d %Y')}"
-      end
-
-      def switch_to_7_day_view
-        find('.btn.btn-default', text: '7').click
-      end
-
-      def switch_to_previous_period
-        click_on 'Previous Period'
-      end
-
-      def has_previous_period_visible?
-        has_text? "#{(Date.today - 13).strftime('%b %d %Y')} - " \
-                  "#{(Date.today - 7).strftime('%b %d %Y')}"
       end
     end
   end

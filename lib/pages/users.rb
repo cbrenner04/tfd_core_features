@@ -57,12 +57,6 @@ class Users
     retry unless (tries -= 1).zero?
   end
 
-  def select_patient(patient)
-    within('#patients', text: patient) do
-      click_on patient
-    end
-  end
-
   def check_data(item, data)
     within(item) { has_text? data }
   end

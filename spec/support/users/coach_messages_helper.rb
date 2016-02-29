@@ -1,4 +1,4 @@
-# filename: ./spec/support/users/messages_helper.rb
+# filename: ./spec/support/users/coach_messages_helper.rb
 
 require './lib/pages/participants/messages'
 require './lib/pages/users/messages'
