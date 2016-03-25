@@ -19,7 +19,7 @@ class Participants
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Comment'
           has_text? 'What do you think?'
-          fill_in 'comment-text', with: @comment
+          find('input[type = text]').set(@comment)
           navigation.scroll_down
           click_on 'Save'
           has_text? 'Comment (1)'
