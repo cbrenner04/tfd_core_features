@@ -44,6 +44,33 @@ class Participants
       has_text? 'nudged participant1'
     end
 
+    def has_1000_characters_left?
+      has_text? '1000 characters left'
+    end
+
+    def has_1_character_left?
+      has_text? '1 character left'
+    end
+
+    def one_less_than_1000_characters_of_lorem
+      @one_less_than_1000_characters_of_lorem ||=
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in ' \
+        'nunc metus. Praesent aliquam faucibus metus. Sed cursus porta dictu' \
+        'm. Duis id ornare metus. Nam consectetur mauris quis nibh accumsan ' \
+        'tempus. Quisque at viverra quam. Pellentesque dapibus nisi sit amet' \
+        ' mauris gravida, ac blandit ante imperdiet. Maecenas purus felis, c' \
+        'ondimentum eu venenatis in, faucibus ac erat. Fusce vestibulum libe' \
+        'ro vel libero aliquet aliquam. Pellentesque rhoncus et tortor nec c' \
+        'onsectetur. Aenean auctor massa molestie est vehicula, ac faucibus ' \
+        'arcu tincidunt. Vestibulum molestie metus orci, vel scelerisque dia' \
+        'm consectetur eu. Donec risus neque, consequat iaculis metus vehicu' \
+        'la, mattis porta diam. Cum sociis natoque penatibus et magnis dis p' \
+        'arturient montes, nascetur ridiculus mus. In efficitur mollis risus' \
+        ' non fringilla. Vivamus imperdiet mi in libero malesuada ultricies.' \
+        ' Vestibulum augue mi, pulvinar sed condimentum eget, cursus et null' \
+        'a. Suspendisse cursus, quam nec iaculis faucibus, purus nulla'
+    end
+
     private
 
     def navigation

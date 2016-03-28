@@ -5,6 +5,7 @@ class Participants
   class SocialNetworking
     # page object for the profile page
     class Profile
+      include RSpec::Matchers
       include Capybara::DSL
 
       def initialize(profile)
@@ -38,11 +39,27 @@ class Participants
         find('a', text: @other_pt).click
       end
 
-      def create
-        visit_profile
+      def incomplete?
         has_text? 'Fill out your profile so other group members can get ' \
                   'to know you!'
+      end
 
+      def check_for_character_count
+        within profile_question('What are your hobbies?') do
+          find('input[type = text]').click
+          expect(social_networking).to have_1000_characters_left
+        end
+      end
+
+      def check_for_updated_character_count
+        within profile_question('What are your hobbies?') do
+          enter_profile_answer(social_networking
+                                 .one_less_than_1000_characters_of_lorem)
+          expect(social_networking).to have_1_character_left
+        end
+      end
+
+      def create
         question = ['What are your hobbies?', 'What is your favorite color?',
                     'Animal, vegetable or mineral?', 'Group 1 profile question']
         question.zip(@answer) do |q, a|
@@ -56,8 +73,7 @@ class Participants
 
       def create_group_3_profile
         visit_profile
-        has_text? 'Fill out your profile so other group members can get ' \
-                  'to know you!'
+        incomplete?
         2.times { navigation.scroll_down }
         answer_profile_question('What are your hobbies?', @answer)
         has_no_text? 'Fill out your profile so other group members can get ' \
@@ -105,19 +121,24 @@ class Participants
       end
 
       def answer_profile_question(question, answer)
-        within(".panel.panel-#{profile_class}.ng-scope", text: question) do
-          find('input[type = text]').set(answer)
+        within profile_question(question) do
+          set_profile_answer(answer)
           social_networking.confirm_with_js
           navigation.save
         end
       end
 
+      def profile_question(question)
+        find(".panel.panel-#{profile_class}.ng-scope", text: question)
+      end
+
+      def enter_profile_answer(answer)
+        find('input[type = text]').set(answer)
+      end
+
       def profile_class
-        if ENV['tfd'] || ENV['tfdso']
-          'default'
-        elsif ENV['sunnyside'] || ENV['marigold']
-          'success'
-        end
+        @profile_class ||=
+          ENV['sunnyside'] || ENV['marigold'] ? 'success' : 'default'
       end
     end
   end

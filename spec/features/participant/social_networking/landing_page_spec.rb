@@ -17,6 +17,15 @@ feature 'SocialNetworking Landing Page',
 
       expect(participant_1_to_do_list).to have_profile_task
 
+      participant_1_profile_1.visit_profile
+
+      expect(participant_1_profile_1).to be_incomplete
+
+      # check for character count when responding to profile question
+      participant_1_profile_1.check_for_character_count
+      participant_1_profile_1.check_for_updated_character_count
+
+      # create profile
       participant_1_profile_1.create
 
       expect(participant_1_profile_1).to be_able_to_edit_question
