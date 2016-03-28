@@ -226,7 +226,7 @@ feature 'Shared items, Social arm',
   end
 
   scenario 'Participant reads Lesson 1 and finds the related feed item' do
-    visit learn.landing_page
+    visit learn_2.landing_page
     pt_5_lesson.read_lesson
 
     expect(pt_5_lesson).to have_read_record
@@ -249,11 +249,13 @@ feature 'Shared items, Social arm',
     visit think.landing_page
     pt_5_pattern.open
     pt_5_pattern.move_to_pattern_entry_form
-    pt_5_pattern.complete_two_thoughts unless pt_5_pattern.has_nothing_to_do?
-    visit ENV['Base_URL']
-    social_networking.find_feed_item('Assigned a pattern to a Thought: ARG!')
+    unless pt_5_pattern.has_nothing_to_do?
+      pt_5_pattern.complete_two_thoughts
+      visit ENV['Base_URL']
+      social_networking.find_feed_item('Assigned a pattern to a Thought: ARG!')
 
-    expect(pt_5_pattern).to have_feed_detail
+      expect(pt_5_pattern).to have_feed_detail
+    end
   end
 
   scenario 'Participant completes Reshape module responses' do

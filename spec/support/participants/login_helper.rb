@@ -40,8 +40,8 @@ def navigation
   @navigation ||= Participants::Navigation.new
 end
 
-def learn
-  @learn ||= Participants::Learn.new(lesson_title: 'Introduction')
+def learn_1
+  @learn_1 ||= Participants::Learn.new(lesson_title: 'Introduction')
 end
 
 def think

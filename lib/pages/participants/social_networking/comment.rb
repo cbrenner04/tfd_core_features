@@ -5,6 +5,7 @@ class Participants
   class SocialNetworking
     # page object for comments
     class Comment
+      include RSpec::Matchers
       include Capybara::DSL
 
       def initialize(comment)
@@ -18,8 +19,22 @@ class Participants
         navigation.scroll_to_bottom
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Comment'
-          has_text? 'What do you think?'
           find('input[type = text]').set(@comment)
+          navigation.scroll_down
+          click_on 'Save'
+          has_text? 'Comment (1)'
+        end
+      end
+
+      def comment_and_check_for_character_count
+        social_networking.find_feed_item(@feed_item)
+        navigation.scroll_to_bottom
+        within first('.list-group-item.ng-scope', text: @feed_item) do
+          click_on 'Comment'
+          find('input[type = text]').click
+          expect(social_networking).to have_1000_characters_left
+          find('input[type = text]').set(@comment)
+          expect(social_networking).to have_updated_character_count(@comment)
           navigation.scroll_down
           click_on 'Save'
           has_text? 'Comment (1)'

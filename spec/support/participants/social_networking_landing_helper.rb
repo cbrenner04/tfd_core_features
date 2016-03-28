@@ -5,7 +5,7 @@ require './lib/pages/participants/do'
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 require './lib/pages/participants/think'
-require './lib/pages/participants/think/thoughts'
+require './lib/pages/participants/think/thought_visualization'
 Dir['./lib/pages/participants/social_networking/*.rb'].each { |f| require f }
 
 def participant_1_sog4

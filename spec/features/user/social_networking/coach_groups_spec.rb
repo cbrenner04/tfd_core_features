@@ -20,6 +20,7 @@ feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
     click_on 'Group Dashboard'
   end
 
+  # need to add a membership that is older and make sure this data is valid
   scenario 'Coach views Group Summary' do
     within('.panel.panel-default', text: 'Group Summary') do
       data = ['logins  7 10 4 3 5 0 0 0', 'thoughts  1 0 1 1 1 0 0 0',
@@ -29,9 +30,7 @@ feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
               'comments  0 0 2 0 1 0 0 0', 'goals  1 2 0 0 0 0 0 0',
               'likes  1 2 1 0 1 0 0 0']
 
-      (2..9).zip(data) do |i, d|
-        users.check_data("tr:nth-child(#{i})", d)
-      end
+      (2..9).zip(data) { |i, d| users.check_data("tr:nth-child(#{i})", d) }
     end
   end
 

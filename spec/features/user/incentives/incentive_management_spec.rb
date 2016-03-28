@@ -61,10 +61,13 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     end
 
     within('.form-group', text: 'Scope') do
-      expect { select 'Group', from: "#{app}_incentive[scope]" }.to raise_error
+      expect { select 'Group', from: "#{app}_incentive[scope]" }
+        .to raise_error # need to specify error
       expect(page).to have_content 'this field is no longer editable'
     end
   end
+
+  scenario 'Researcher can only choose valid options when creating behavior'
 
   scenario 'Researcher adds a behavior to an incentive' do
     click_on 'Group 9'
@@ -162,6 +165,8 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     expect(page).to have_content "Description: read something\nScope: " \
                                  "Group\nRepeatable: No"
   end
+
+  scenario 'Researcher adds a partial group incentive'
 
   scenario 'Researcher adds a behavior to a group incentive' do
     click_on 'Group 9'

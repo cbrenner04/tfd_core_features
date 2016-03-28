@@ -11,9 +11,9 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
 
   scenario 'Participant uses brand link to get to home page' do
     participant_1_so1.sign_in unless ENV['safari']
-    visit learn.landing_page
+    visit learn_1.landing_page
 
-    expect(learn).to be_visible
+    expect(learn_1).to be_visible
 
     navigation.click_brand
 
@@ -21,11 +21,7 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
   end
 
   scenario 'Participant signs out' do
-    if ENV['safari']
-      visit ENV['Base_URL']
-    else
-      participant_1_so1.sign_in
-    end
+    ENV['safari'] ? visit(ENV['Base_URL']) : participant_1_so1.sign_in
     participant_1_so1.sign_out
 
     expect(navigation).to have_sign_up_alert

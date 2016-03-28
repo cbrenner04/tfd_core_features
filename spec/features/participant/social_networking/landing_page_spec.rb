@@ -70,7 +70,7 @@ feature 'SocialNetworking Landing Page',
     end
 
     scenario 'Participant comments on a nudge post' do
-      nudge_feed_item.comment
+      nudge_feed_item.comment_and_check_for_character_count
 
       expect(nudge_feed_item).to have_comment_detail
     end

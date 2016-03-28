@@ -42,4 +42,9 @@ feature 'Communal incentives', :incentives, sauce: sauce_labs do
 
     expect(complete_communal_incentive).to be_complete
   end
+
+  scenario 'Participant completes partial community incentive'
+  # create communal incentive with fixture data where only partial group
+  # needs to complete. All but one of those participants should have completed.
+  # Last participant completes - list updates
 end

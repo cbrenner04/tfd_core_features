@@ -174,6 +174,10 @@ def pt_5_reviewing_2
   )
 end
 
+def learn_2
+  @learn_2 ||= Participants::Learn.new(lesson_title: 'fake')
+end
+
 def pt_5_lesson
   @pt_5_lesson ||= Participants::Learn.new(
     lesson_title: 'Do - Awareness Introduction'

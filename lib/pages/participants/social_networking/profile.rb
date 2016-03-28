@@ -53,9 +53,9 @@ class Participants
 
       def check_for_updated_character_count
         within profile_question('What are your hobbies?') do
-          enter_profile_answer(social_networking
-                                 .one_less_than_1000_characters_of_lorem)
-          expect(social_networking).to have_1_character_left
+          response = one_less_than_1000_characters_of_lorem
+          enter_profile_answer(response)
+          expect(social_networking).to have_updated_character_count(response)
         end
       end
 
@@ -122,7 +122,7 @@ class Participants
 
       def answer_profile_question(question, answer)
         within profile_question(question) do
-          set_profile_answer(answer)
+          enter_profile_answer(answer)
           social_networking.confirm_with_js
           navigation.save
         end
@@ -139,6 +139,26 @@ class Participants
       def profile_class
         @profile_class ||=
           ENV['sunnyside'] || ENV['marigold'] ? 'success' : 'default'
+      end
+
+      def one_less_than_1000_characters_of_lorem
+        @one_less_than_1000_characters_of_lorem ||=
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean i' \
+          'n nunc metus. Praesent aliquam faucibus metus. Sed cursus porta d' \
+          'ictum. Duis id ornare metus. Nam consectetur mauris quis nibh acc' \
+          'umsan tempus. Quisque at viverra quam. Pellentesque dapibus nisi ' \
+          'sit amet mauris gravida, ac blandit ante imperdiet. Maecenas puru' \
+          's felis, condimentum eu venenatis in, faucibus ac erat. Fusce ves' \
+          'tibulum libero vel libero aliquet aliquam. Pellentesque rhoncus e' \
+          't tortor nec consectetur. Aenean auctor massa molestie est vehicu' \
+          'la, ac faucibus arcu tincidunt. Vestibulum molestie metus orci, v' \
+          'el scelerisque diam consectetur eu. Donec risus neque, consequat ' \
+          'iaculis metus vehicula, mattis porta diam. Cum sociis natoque pen' \
+          'atibus et magnis dis parturient montes, nascetur ridiculus mus. I' \
+          'n efficitur mollis risus non fringilla. Vivamus imperdiet mi in l' \
+          'ibero malesuada ultricies. Vestibulum augue mi, pulvinar sed cond' \
+          'imentum eget, cursus et nulla. Suspendisse cursus, quam nec iacul' \
+          'is faucibus, purus nulla'
       end
     end
   end
