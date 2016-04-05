@@ -65,9 +65,7 @@ class Participants
         within first('.list-group-item.ng-scope',
                      text: "Assigned a pattern to a Thought: #{@thought}") do
           2.times { navigation.scroll_down }
-          puts "in feed item"
           social_networking.open_detail
-          puts "opened detail"
           has_text? "this thought is: #{@thought}\nthought pattern: #{@pattern}"
         end
       end
