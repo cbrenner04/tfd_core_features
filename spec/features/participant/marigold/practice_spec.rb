@@ -89,4 +89,66 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
     expect(positive_events_2).to have_questions
   end
+
+  scenario 'Participant sees encouragement suggestions' do
+    activation_1.open
+    activation_1.show_suggestions
+
+    expect(activation_1).to have_suggestions
+  end
+
+  scenario 'Participant must select activity to submit Activation' do
+    activation_1.open
+    activation_1.choose_pleasure
+    activation_1.choose_accomplishment
+    activation_1.complete_reminder_and_encouragement_fields
+    navigation.next
+
+    expect(activation_1).to have_activity_alert
+  end
+
+  scenario 'Participant must select pleasure to submit Activation' do
+    activation_1.open
+    activation_1.enter_activity_type
+    activation_1.choose_accomplishment
+    activation_1.complete_reminder_and_encouragement_fields
+    navigation.next
+
+    expect(activation_1).to be_on_new_activity_form
+  end
+
+  scenario 'Participant must select accomplishment to submit Activation' do
+    activation_1.open
+    activation_1.enter_activity_type
+    activation_1.choose_pleasure
+    activation_1.complete_reminder_and_encouragement_fields
+    navigation.next
+
+    expect(activation_1).to be_on_new_activity_form
+  end
+
+  scenario 'Participant completes Activation' do
+    activation_1.open
+    activation_1.complete_new_activity
+    navigation.next
+    activation_2.complete_completed_activity
+    social_networking.accept_social
+    activation_3.complete_incomplete_activity
+    social_networking.accept_social
+
+    expect(practice).to be_visible
+    expect(activation_1).to be_saved
+
+    activation_1.open_review
+
+    expect(activation_1).to have_planned_activity
+    expect(activation_2).to have_completed_activity
+    expect(activation_3).to have_incomplete_activity
+  end
+
+  scenario 'Participant views past Activation activities' do
+    activation_4.open_review
+
+    expect(activation_4).to have_completed_activity
+  end
 end

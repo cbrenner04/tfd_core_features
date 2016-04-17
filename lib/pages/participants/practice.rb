@@ -14,5 +14,9 @@ class Participants
     def has_past_practice?
       all('.col-md-6')[1].has_css?('h3', text: 'Past Practice')
     end
+
+    def visible?
+      has_css?('small', text: 'Practice')
+    end
   end
 end
