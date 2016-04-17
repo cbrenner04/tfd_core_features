@@ -39,6 +39,10 @@ class Participants
       click_on 'Save'
     end
 
+    def create_new
+      click_on 'New'
+    end
+
     def has_new_assignment_in_feel?
       find('.dropdown-toggle', text: 'FEEL').has_text?('New!')
     end

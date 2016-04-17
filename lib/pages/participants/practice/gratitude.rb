@@ -15,7 +15,7 @@ class Participants
       end
 
       def open_review
-        click_on 'Gratitude Recordings'
+        click_on 'View Gratitude Recordings'
       end
 
       def has_question?
@@ -40,13 +40,9 @@ class Participants
         has_css?('.alert', text: 'Gratitude Recording saved')
       end
 
-      def has_previous_recording?
+      def has_recording?
         has_css?('.list-group-item',
                  text: "#{@response_date.strftime('%b %d %Y')} #{@response}")
-      end
-
-      def create_new
-        click_on 'New'
       end
 
       private

@@ -8,6 +8,11 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     visit practice.landing_page
   end
 
+  scenario 'Participant sees two columns with Practice modules' do
+    expect(practice).to have_practice_for_this_week
+    expect(practice).to have_past_practice
+  end
+
   scenario 'Participant views examples of Gratitude recordings' do
     gratitude_1.open
 
@@ -27,18 +32,61 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     navigation.next
 
     expect(gratitude_1).to be_saved
+
+    gratitude_1.open_review
+
+    expect(gratitude_1).to have_recording
   end
 
   scenario 'Participant views past Gratitude entries' do
     gratitude_2.open_review
 
-    expect(gratitude_2).to have_previous_recording
+    expect(gratitude_2).to have_recording
   end
 
-  scenario 'Participant records new Gratitude entry from index page' do
-    gratitude_2.open_review
-    gratitude_2.create_new
+  scenario 'Participant view examples of Positive events' do
+    positive_events_1.open
 
-    expect(gratitude_2).to have_question
+    expect(positive_events_1).to have_questions
+
+    positive_events_1.show_examples
+
+    expect(positive_events_1).to have_examples
+
+    positive_events_1.show_amplifying_examples
+
+    expect(positive_events_1).to have_amplifying_examples
+  end
+
+  scenario 'Participant must submit New Positive events with description' do
+    positive_events_1.open
+    navigation.next
+
+    expect(positive_events_1).to have_description_alert
+  end
+
+  scenario 'Participant creates New Positive events' do
+    positive_events_1.open
+    positive_events_1.complete
+    navigation.next
+
+    expect(positive_events_1).to be_saved
+
+    positive_events_1.open_review
+
+    expect(positive_events_1).to have_events
+  end
+
+  scenario 'Participant views past Positive events' do
+    positive_events_2.open_review
+
+    expect(positive_events_2).to have_events
+  end
+
+  scenario 'Participant creates new Positive event from index page' do
+    positive_events_2.open_review
+    navigation.create_new
+
+    expect(positive_events_2).to have_questions
   end
 end

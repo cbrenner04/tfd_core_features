@@ -14,23 +14,44 @@ def marigold_participant_so3
   )
 end
 
+def navigation
+  @navigation ||= Participants::Navigation.new
+end
+
 def practice
   @practice ||= Participants::Practice.new
 end
 
 def gratitude_1
   @gratitude_1 ||= Participants::Practice::Gratitude.new(
-    response: 'I am grateful for nothing'
+    response: 'I am grateful for nothing',
+    response_date: DateTime.now
   )
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def gratitude_2
   @gratitude_2 ||= Participants::Practice::Gratitude.new(
     response: 'My first gratitude recording',
     response_date: DateTime.now - 1
+  )
+end
+
+def positive_events_1
+  @positive_events_1 ||= Participants::Practice::PositiveEvents.new(
+    description: 'new positive event',
+    emotions: 'new emotions',
+    thoughts: 'new thoughts',
+    body_feelings: 'new body feelings',
+    challenging_amplification: 'new challenging amplification'
+  )
+end
+
+def positive_events_2
+  @positive_events_2 ||= Participants::Practice::PositiveEvents.new(
+    description: 'Past description',
+    emotions: 'Past emotion',
+    thoughts: 'Past thought',
+    body_feelings: 'Past body feeling',
+    challenging_amplification: 'Past challenging amplification'
   )
 end
