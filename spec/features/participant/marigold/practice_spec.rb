@@ -151,4 +151,34 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
     expect(activation_4).to have_completed_activity
   end
+
+  scenario 'Participant views Meditation exercises' do
+    meditation_1.open
+
+    expect(meditation_1).to have_exercises
+  end
+
+  scenario 'Participant must enter comments to submit Meditation activity' do
+    meditation_1.open
+
+    expect(meditation_1).to have_exercises
+
+    navigation.next
+
+    expect(meditation_1).to have_comments_alert
+  end
+
+  scenario 'Participant completes new Meditation activity' do
+    meditation_1.open
+    meditation_1.complete
+    navigation.next
+
+    expect(meditation_1).to have_activity
+  end
+
+  scenario 'Participant views past Mediation activities' do
+    meditation_2.open_review
+
+    expect(meditation_2).to have_activity
+  end
 end

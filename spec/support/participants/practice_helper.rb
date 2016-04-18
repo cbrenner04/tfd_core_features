@@ -122,3 +122,18 @@ def activation_4
     notes: 'The best notes'
   )
 end
+
+def meditation_1
+  @meditation_1 ||= Participants::Practice::Meditation.new(
+    comment: 'new meditation comment',
+    activity_time: Time.now
+  )
+end
+
+def meditation_2
+  @meditation_2 ||= Participants::Practice::Meditation.new(
+    type: 'Guided-Breathing Meditation',
+    comment: 'What an experience',
+    activity_time: Time.now - (2 * 60 * 60)
+  )
+end
