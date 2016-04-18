@@ -1,19 +1,9 @@
 # filename: ./spec/support/participants/practice_helper.rb
 
-require './lib/pages/participants'
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/practice'
 Dir['./lib/pages/participants/practice/*.rb'].each { |file| require file }
 require './lib/pages/participants/social_networking'
-
-def marigold_participant_so3
-  @marigold_participant_so3 ||= Participants.new(
-    participant: ENV['Marigold_Participant_Email'],
-    old_participant: 'participant3',
-    password: ENV['Marigold_Participant_Password'],
-    display_name: 'marigold_1'
-  )
-end
 
 def navigation
   @navigation ||= Participants::Navigation.new
