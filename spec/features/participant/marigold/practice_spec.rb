@@ -225,4 +225,121 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
     expect(mindfulness_4).to have_completed_activity
   end
+
+  scenario 'Participant must enter journal entry to submit Kindness Journal' do
+    kindness_1.open
+    navigation.next
+
+    expect(kindness_1).to have_entry_alert
+  end
+
+  scenario 'Participant completes Kindness Journal' do
+    kindness_1.open
+    kindness_1.complete
+    navigation.next
+
+    expect(kindness_1).to have_journal_entry
+  end
+
+  scenario 'Participant views past Kindness Journal entries' do
+    kindness_2.open_review
+
+    expect(kindness_2).to have_journal_entry
+  end
+
+  scenario 'Participant must enter description to submit Strengths journal' do
+    strengths_1.open
+    strengths_1.enter_challenges
+    navigation.next
+
+    expect(strengths_1).to have_description_alert
+  end
+
+  scenario 'Participant must enter challenges to submit Strengths journal' do
+    strengths_1.open
+    strengths_1.enter_description
+    navigation.next
+
+    expect(strengths_1).to have_challenges_alert
+  end
+
+  scenario 'Participant completes Strengths journal' do
+    strengths_1.open
+    strengths_1.enter_description
+    strengths_1.enter_challenges
+    navigation.next
+
+    expect(strengths_1).to have_journal_entry
+  end
+
+  scenario 'Participant views previous Strengths journal entries' do
+    strengths_2.open_review
+
+    expect(strengths_2).to have_journal_entry
+  end
+
+  scenario 'Participant views Reappraisal examples' do
+    reappraisal_1.open
+    reappraisal_1.view_perspective_examples
+    reappraisal_1.view_it_could_be_worse_examples
+    reappraisal_1.view_got_through_it_examples
+
+    expect(reappraisal_1).to have_perspective_examples
+    expect(reappraisal_1).to have_it_could_be_worse_examples
+    expect(reappraisal_1).to have_got_through_it_examples
+  end
+
+  scenario 'Participant must enter description to submit Reappraisal' do
+    reappraisal_1.open
+    reappraisal_1.enter_stressor
+    reappraisal_1.enter_reappraisals
+    reappraisal_1.enter_reflection
+    navigation.next
+
+    expect(reappraisal_1).to have_description_alert
+  end
+
+  scenario 'Participant must enter stressor to submit Reappraisal' do
+    reappraisal_1.open
+    reappraisal_1.enter_description
+    reappraisal_1.enter_reappraisals
+    reappraisal_1.enter_reflection
+    navigation.next
+
+    expect(reappraisal_1).to have_stressor_alert
+  end
+
+  scenario 'Participant must enter reappraisal to submit Reappraisal' do
+    reappraisal_1.open
+    reappraisal_1.enter_description
+    reappraisal_1.enter_stressor
+    reappraisal_1.enter_reflection
+    navigation.next
+
+    expect(reappraisal_1).to have_reappraisal_alert
+  end
+
+  scenario 'Participant must enter reflection to submit Reappraisal' do
+    reappraisal_1.open
+    reappraisal_1.enter_description
+    reappraisal_1.enter_stressor
+    reappraisal_1.enter_reappraisals
+    navigation.next
+
+    expect(reappraisal_1).to have_reflection_alert
+  end
+
+  scenario 'Participant completes Reappraisal' do
+    reappraisal_1.open
+    reappraisal_1.complete
+    navigation.next
+
+    expect(reappraisal_1).to have_reappraisal
+  end
+
+  scenario 'Participant views past Reappraisals' do
+    reappraisal_2.open_review
+
+    expect(reappraisal_2).to have_reappraisal
+  end
 end

@@ -176,3 +176,53 @@ def mindfulness_4
     notes: 'Parkour notes'
   )
 end
+
+def kindness_1
+  @kindness_1 ||= Participants::Practice::Kindness.new(
+    kindness: 'New kindness entry',
+    created_at: Time.now
+  )
+end
+
+def kindness_2
+  @kindness_2 ||= Participants::Practice::Kindness.new(
+    kindness: 'Old kindness',
+    created_at: Time.now - (2 * 60 * 60)
+  )
+end
+
+def strengths_1
+  @strengths_1 ||= Participants::Practice::Strengths.new(
+    description: 'New strengths entry',
+    challenges: 'New strengths challenges',
+    created_at: Time.now
+  )
+end
+
+def strengths_2
+  @strengths_2 ||= Participants::Practice::Strengths.new(
+    description: 'Strengths description',
+    challenges: 'Strengths challenges',
+    created_at: Time.now - (2 * 60 * 60)
+  )
+end
+
+def reappraisal_1
+  @reappraisal_1 ||= Participants::Practice::Reappraisals.new(
+    description: 'New description',
+    stressor: 'New stressor',
+    reappraisal: 'New reappraisal',
+    reflection: 'New reflection',
+    created_at: Time.now
+  )
+end
+
+def reappraisal_2
+  @reappraisal_2 ||= Participants::Practice::Reappraisals.new(
+    description: 'Reappraisal description',
+    stressor: 'Reappraisal stressor',
+    reappraisal: 'Reappraisal reappraisal',
+    reflection: 'Reappraisal reflection',
+    created_at: Time.now - (2 * 60 * 60)
+  )
+end
