@@ -137,3 +137,52 @@ def meditation_2
     activity_time: Time.now - (2 * 60 * 60)
   )
 end
+
+def mindfulness_1
+  @mindfulness_1 ||= Participants::Practice::Mindfulness.new(
+    activity: 'Speech',
+    planned_for: Time.now - ((1 * 60 * 60 * 24) + (2 * 60 * 60)),
+    reviewed: 'Yes',
+    encouragement: 'Speech encouragement',
+    reminder: 'Speech reminder',
+    challenges: 'Speech challenges',
+    noncompliance_reason: 'Speech noncompliance reason'
+  )
+end
+
+def mindfulness_2
+  @mindfulness_2 ||= Participants::Practice::Mindfulness.new(
+    activity: 'Jogging',
+    planned_for: Time.now - ((1 * 60 * 60 * 24) + (1 * 60 * 60)),
+    reviewed: 'Yes',
+    encouragement: 'Mindfulness encouragement',
+    reminder: 'Mindfulness reminder',
+    challenges: 'Mindfulness challenges',
+    emotions: 'Mindfulness emotions',
+    notes: 'Mindfulness notes'
+  )
+end
+
+def mindfulness_3
+  @mindfulness_3 ||= Participants::Practice::Mindfulness.new(
+    activity: 'New mindfulness activity',
+    planned_for: Time.now,
+    reviewed: 'No',
+    encouragement: 'New mindfulness encouragement',
+    reminder: 'New mindfulness reminder',
+    challenges: 'New mindfulness challenges'
+  )
+end
+
+def mindfulness_4
+  @mindfulness_4 ||= Participants::Practice::Mindfulness.new(
+    activity: 'Parkour',
+    planned_for: Time.now - ((1 * 60 * 60 * 24) + (3 * 60 * 60)),
+    reviewed: 'Yes',
+    encouragement: 'Parkour encouragement',
+    reminder: 'Parkour reminder',
+    challenges: 'Parkour challenges',
+    emotions: 'Parkour emotions',
+    notes: 'Parkour notes'
+  )
+end

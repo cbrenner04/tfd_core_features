@@ -1,6 +1,6 @@
 class Participants
   class Practice
-    # page object for the Mediation Module
+    # page object for the Meditation Module
     class Meditation
       include RSpec::Matchers
       include Capybara::DSL

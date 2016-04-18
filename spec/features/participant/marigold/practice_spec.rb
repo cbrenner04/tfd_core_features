@@ -181,4 +181,48 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
     expect(meditation_2).to have_activity
   end
+
+  scenario 'Participant reviews past Mindfulness activity' do
+    mindfulness_1.open_review
+    mindfulness_1.review_incomplete_activity
+    navigation.next
+    mindfulness_2.review_completed_activity
+    navigation.next
+    mindfulness_2.open_view
+
+    expect(mindfulness_1).to have_incomplete_activity
+    expect(mindfulness_2).to have_completed_activity
+  end
+
+  scenario 'Participant sees examples for Mindfulness activities' do
+    mindfulness_3.open
+    mindfulness_3.view_simple_examples
+
+    expect(mindfulness_3).to have_simple_examples
+
+    mindfulness_3.view_elaborate_examples
+
+    expect(mindfulness_3).to have_elaborate_examples
+  end
+
+  scenario 'Participant must enter activity to submit Mindfulness activity' do
+    mindfulness_3.open
+    navigation.next
+
+    expect(mindfulness_3).to have_activity_alert
+  end
+
+  scenario 'Participant enters new Mindfulness activity' do
+    mindfulness_3.open
+    mindfulness_3.complete
+    navigation.next
+
+    expect(mindfulness_3).to have_planned_activity
+  end
+
+  scenario 'Participant views past Mindfulness activities' do
+    mindfulness_4.open_view
+
+    expect(mindfulness_4).to have_completed_activity
+  end
 end
