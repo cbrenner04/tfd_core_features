@@ -65,3 +65,12 @@ def nonsocial_pt
     display_name: 'nonsocialpt'
   )
 end
+
+def marigold_participant_so3
+  @marigold_participant_so3 ||= Participants.new(
+    participant: ENV['Marigold_Participant_Email'],
+    old_participant: 'participant3',
+    password: ENV['Marigold_Participant_Password'],
+    display_name: 'marigold_1'
+  )
+end
