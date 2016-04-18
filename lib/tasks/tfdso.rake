@@ -7,6 +7,7 @@ namespace :tfdso do
   desc 'Set and start think_feel_do_so for full suite testing locally'
   task :load_app_local do
     Dir.chdir(ENV['tfdso_path']) do
+      system('tfdso=true')
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('rake selenium_seed:with_fixtures')
