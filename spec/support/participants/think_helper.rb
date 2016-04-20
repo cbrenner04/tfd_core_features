@@ -1,12 +1,7 @@
 # filename: ./spec/support/participants/think_helper.rb
 
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/think'
 Dir['./lib/pages/participants/think/*.rb'].each { |file| require file }
-
-def navigation
-  @navigation ||= Participants::Navigation.new
-end
 
 def think
   @think ||= Participants::Think.new

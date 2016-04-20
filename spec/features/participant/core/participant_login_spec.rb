@@ -4,13 +4,13 @@ require './spec/support/participants/login_helper'
 
 feature 'Login', :core, :marigold, sauce: sauce_labs do
   scenario 'Participant signs in' do
-    participant_1_so2.sign_in
+    participant_1.sign_in
 
     expect(navigation).to have_successful_login_alert
   end
 
   scenario 'Participant uses brand link to get to home page' do
-    participant_1_so1.sign_in unless ENV['safari']
+    participant_1.sign_in unless ENV['safari']
     visit learn_1.landing_page
 
     expect(learn_1).to be_visible
@@ -21,8 +21,8 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
   end
 
   scenario 'Participant signs out' do
-    ENV['safari'] ? visit(ENV['Base_URL']) : participant_1_so1.sign_in
-    participant_1_so1.sign_out
+    ENV['safari'] ? visit(ENV['Base_URL']) : participant_1.sign_in
+    participant_1.sign_out
 
     expect(navigation).to have_sign_up_alert
   end
@@ -59,8 +59,8 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
 
   scenario 'Participant uses the forgot password functionality' do
     visit ENV['Base_URL']
-    participant_1_so1.select_forgot_password
-    participant_1_so1.submit_forgot_password
+    participant_1.select_forgot_password
+    participant_1.submit_forgot_password
 
     expect(navigation).to have_password_reset_alert
   end

@@ -19,7 +19,7 @@ end
 
 feature 'SKILLS tool', :marigold, sauce: sauce_labs do
   scenario 'Participant reads a lesson, completes the feedback at the end' do
-    marigold_participant_so3.sign_in
+    marigold_participant.sign_in
     visit skills.landing_page
 
     # second lesson should not be available to read until after first is read

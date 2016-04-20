@@ -2,35 +2,20 @@
 
 require './lib/pages/participants'
 require './lib/pages/participants/do'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 require './lib/pages/participants/think'
 require './lib/pages/participants/think/thought_visualization'
 Dir['./lib/pages/participants/social_networking/*.rb'].each { |f| require f }
 
-def participant_1_sog4
-  @participant_1_sog4 ||= Participants.new(
-    participant: ENV['Participant_Email'],
-    old_participant: 'goal_4',
-    password: ENV['Participant_Password']
-  )
-end
-
-def participant_4_so1
-  @participant_4_so1 ||= Participants.new(
+def participant_4
+  @participant_4 ||= Participants.new(
     participant: ENV['Participant_4_Email'],
-    old_participant: 'participant1',
-    password: ENV['Participant_4_Password'],
-    display_name: 'participant4'
+    password: ENV['Participant_4_Password']
   )
 end
 
 def do_tool
   @do_tool ||= Participants::DoTool.new
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def social_networking

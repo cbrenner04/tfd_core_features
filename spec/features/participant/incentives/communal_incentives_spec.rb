@@ -3,10 +3,10 @@
 require './spec/support/participants/communal_incentives_helper'
 
 feature 'Communal incentives', :incentives, sauce: sauce_labs do
-  background(:all) { participant_3_sob.sign_in if ENV['safari'] }
+  background(:all) { participant_3.sign_in if ENV['safari'] }
 
   background do
-    participant_3_sob.sign_in unless ENV['safari']
+    participant_3.sign_in unless ENV['safari']
     visit ENV['Base_URL']
   end
 

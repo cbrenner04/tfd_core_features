@@ -3,10 +3,10 @@
 require './spec/support/participants/goal_helper.rb'
 
 feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
-  background(:all) { participant_1_so1.sign_in if ENV['safari'] }
+  background(:all) { participant_1.sign_in if ENV['safari'] }
 
   background do
-    participant_1_so1.sign_in unless ENV['safari']
+    participant_1.sign_in unless ENV['safari']
     visit achieve.landing_page
   end
 

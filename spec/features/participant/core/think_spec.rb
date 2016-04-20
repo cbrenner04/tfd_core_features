@@ -4,7 +4,7 @@ require './spec/support/participants/think_helper.rb'
 
 feature 'THINK tool', :core, sauce: sauce_labs do
   background do
-    participant_1_so1.sign_in unless ENV['safari']
+    participant_1.sign_in unless ENV['safari']
     visit think.landing_page
 
     expect(think).to be_visible
@@ -83,7 +83,7 @@ end
 
 feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
   background do
-    participant_5_so1.sign_in
+    participant_5.sign_in
     visit think.landing_page
   end
 
@@ -99,6 +99,6 @@ feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
 
     expect(thought_viz).to be_visible
 
-    participant_5_so1.sign_out
+    participant_5.sign_out
   end
 end

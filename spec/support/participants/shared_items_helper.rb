@@ -1,6 +1,5 @@
 # filename: ./spec/support/participants/shared_items_helper.rb
 
-require './lib/pages/participants'
 require './lib/pages/participants/do'
 require './lib/pages/participants/do/awareness'
 require './lib/pages/participants/do/planning'
@@ -8,7 +7,6 @@ require './lib/pages/participants/do/plan_new_activity'
 require './lib/pages/participants/do/reviewing'
 require './lib/pages/participants/learn'
 require './lib/pages/participants/relax'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 require './lib/pages/participants/think'
 require './lib/pages/participants/think/identifying'
@@ -16,42 +14,12 @@ require './lib/pages/participants/think/add_new_thought'
 require './lib/pages/participants/think/patterns'
 require './lib/pages/participants/think/reshape'
 
-def participant_1_somc
-  @participant_1_somc ||= Participants.new(
-    participant: ENV['Participant_Email'],
-    old_participant: 'mobilecompleter',
-    password: ENV['Participant_Password']
-  )
-end
-
-def participant_5_sons
-  @participant_5_sons ||= Participants.new(
-    participant: ENV['Participant_5_Email'],
-    old_participant: 'nonsocialpt',
-    password: ENV['Participant_5_Password'],
-    display_name: 'participant5'
-  )
-end
-
-def nonsocial_pt_sons
-  @nonsocial_pt ||= Participants.new(
-    participant: ENV['NS_Participant_Email'],
-    old_participant: 'nonsocialpt',
-    password: ENV['NS_Participant_Password'],
-    display_name: 'nonsocialpt'
-  )
-end
-
 def think
   @think ||= Participants::Think.new
 end
 
 def do_tool
   @do_tool ||= Participants::DoTool.new
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def social_networking

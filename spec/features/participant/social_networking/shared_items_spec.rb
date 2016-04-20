@@ -5,10 +5,10 @@ require './spec/support/participants/shared_items_helper'
 feature 'Shared items, Social arm',
         :social_networking, :marigold, sauce: sauce_labs do
   feature 'THINK tool' do
-    background(:all) { participant_1_somc.sign_in if ENV['safari'] }
+    background(:all) { participant_1.sign_in if ENV['safari'] }
 
     background do
-      participant_1_somc.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit think.landing_page
     end
 
@@ -68,7 +68,7 @@ feature 'Shared items, Social arm',
 
   feature 'DO tool' do
     background do
-      participant_1_so1.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit do_tool.landing_page
     end
 
@@ -168,7 +168,7 @@ feature 'Shared items, Mobile arm',
 
   feature 'DO tool' do
     background do
-      nonsocial_pt_sons.sign_in unless ENV['safari']
+      nonsocial_pt.sign_in unless ENV['safari']
       visit do_tool.landing_page
     end
 
@@ -201,8 +201,8 @@ end
 
 feature 'Shared items, Social arm',
         :social_networking, :marigold, sauce: sauce_labs do
-  background(:all) { participant_5_sons.sign_in if ENV['safari'] }
-  background { participant_5_sons.sign_in unless ENV['safari'] }
+  background(:all) { participant_5.sign_in if ENV['safari'] }
+  background { participant_5.sign_in unless ENV['safari'] }
 
   scenario 'Participant shared DO > Reviewing responses' do
     visit do_tool.landing_page
@@ -269,6 +269,6 @@ feature 'Shared items, Social arm',
 
     expect(pt_5_reshape).to have_feed_details
 
-    participant_5_sons.sign_out
+    participant_5.sign_out
   end
 end

@@ -5,7 +5,7 @@ require './spec/support/users/coach_patients_helper'
 feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
   feature 'Group 1' do
     background do
-      clinician_sopt2.sign_in unless ENV['safari']
+      clinician.sign_in unless ENV['safari']
       visit navigation.arms_page
       patient_dashboard.navigate_to_patient_dashboard
     end
@@ -45,7 +45,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
 
   feature 'Participant \'TFD-Data\'' do
     background do
-      clinician_sopt2.sign_in unless ENV['safari']
+      clinician.sign_in unless ENV['safari']
       visit navigation.arms_page
       patient_dashboard.navigate_to_patient_dashboard
       data_dashboard.select_patient

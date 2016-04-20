@@ -1,7 +1,6 @@
 # filename: ./spec/support/participants/background_helper.rb
 
 require './lib/pages/participants'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/think'
 require './lib/pages/participants/incentives/background'
 require './lib/pages/participants/social_networking/profile'
@@ -9,13 +8,8 @@ require './lib/pages/participants/social_networking/profile'
 def background_participant
   @background_participant ||= Participants.new(
     participant: ENV['PTBackground_Email'],
-    old_participants: 'participant5',
     password: ENV['PTBackground_Password']
   )
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def think

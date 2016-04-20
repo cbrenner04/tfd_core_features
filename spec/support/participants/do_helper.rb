@@ -1,16 +1,11 @@
 # filename: ./spec/support/particiapnts/do_helper.rb
 
-require './lib/pages/participants'
 require './lib/pages/participants/do'
 require './lib/pages/participants/social_networking'
 Dir['./lib/pages/participants/do/*.rb'].each { |file| require file }
 
 def do_tool
   @do_tool ||= Participants::DoTool.new
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def awareness

@@ -1,13 +1,8 @@
 # filename: ./spec/support/participants/practice_helper.rb
 
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/practice'
 Dir['./lib/pages/participants/practice/*.rb'].each { |file| require file }
 require './lib/pages/participants/social_networking'
-
-def navigation
-  @navigation ||= Participants::Navigation.new
-end
 
 def practice
   @practice ||= Participants::Practice.new

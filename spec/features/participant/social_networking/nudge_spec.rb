@@ -5,11 +5,11 @@ require './spec/support/participants/nudge_helper'
 feature 'Nudge', :social_networking, :marigold, sauce: sauce_labs do
   if ENV['safari']
     if ENV['sunnyside'] || ENV['marigold']
-      background(:all) { participant_1_so4.sign_in }
+      background(:all) { participant_1.sign_in }
     end
   else
     background do
-      participant_1_so1.sign_in
+      participant_1.sign_in
       visit ENV['Base_URL']
 
       expect(navigation).to have_home_page_visible

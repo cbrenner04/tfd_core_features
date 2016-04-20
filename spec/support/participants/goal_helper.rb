@@ -38,7 +38,6 @@ end
 def goal_participant_1
   @goal_participant_1 ||= Participants.new(
     participant: ENV['PTGoal1_Email'],
-    old_participant: 'participant1',
     password: ENV['PTGoal1_Password']
   )
 end
@@ -46,7 +45,6 @@ end
 def goal_participant_2
   @goal_participant_2 ||= Participants.new(
     participant: ENV['PTGoal2_Email'],
-    old_participant: 'goal_1',
     password: ENV['PTGoal2_Password']
   )
 end
@@ -54,7 +52,6 @@ end
 def goal_participant_3
   @goal_participant_3 ||= Participants.new(
     participant: ENV['PTGoal3_Email'],
-    old_participant: 'goal_2',
     password: ENV['PTGoal3_Password']
   )
 end
@@ -62,7 +59,6 @@ end
 def goal_participant_4
   @goal_participant_4 ||= Participants.new(
     participant: ENV['PTGoal4_Email'],
-    old_participant: 'goal_3',
     password: ENV['PTGoal4_Password']
   )
 end
@@ -70,8 +66,6 @@ end
 def completer_participant
   @completer_participant ||= Participants.new(
     participant: ENV['Completed_Pt_Email'],
-    old_participant: 'goal_4',
-    password: ENV['Completed_Pt_Password'],
-    display_name: 'completer'
+    password: ENV['Completed_Pt_Password']
   )
 end

@@ -4,10 +4,10 @@ require './spec/support/participants/core_bugs_helper.rb'
 
 feature 'Participant Bugs', :core, sauce: sauce_labs do
   feature 'DO tool' do
-    background(:all) { participant_1_so3.sign_in if ENV['safari'] }
+    background(:all) { participant_1.sign_in if ENV['safari'] }
 
     background do
-      participant_1_so3.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit do_tool.landing_page
     end
 
@@ -62,7 +62,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
   feature 'FEEL tool, Your Recent Mood & Emotions' do
     scenario 'Participant is able to switch view back to 7 Day' do
-      participant_1_so3.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit feel.landing_page
       recent_moods_emotions.open
 
@@ -80,7 +80,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
   feature 'Participant 2 signs in,', :core, :marigold do
     scenario 'Participant completes a module, it appears complete' do
-      participant_2_so1.sign_in
+      participant_2.sign_in
       expect(navigation).to have_new_assignment_in_feel
 
       visit feel.landing_page
@@ -101,7 +101,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       expect(navigation).to_not have_new_assignment_in_feel
 
-      participant_2_so1.sign_out
+      participant_2.sign_out
     end
   end
 end

@@ -4,7 +4,7 @@ require './spec/support/participants/practice_helper'
 
 feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   background do
-    marigold_participant_so3.sign_in
+    marigold_participant.sign_in
     visit practice.landing_page
   end
 

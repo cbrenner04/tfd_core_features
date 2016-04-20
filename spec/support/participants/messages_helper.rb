@@ -1,11 +1,6 @@
 # filename: ./spec/support/participants/messages_helper.rb
 
 require './lib/pages/participants/messages'
-require './lib/pages/participants/navigation'
-
-def navigation
-  @navigation ||= Participants::Navigation.new
-end
 
 def messages
   @messages ||= Participants::Messages.new(reply_body: 'Got it. Thanks!')

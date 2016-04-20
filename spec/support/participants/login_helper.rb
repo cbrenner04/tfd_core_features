@@ -1,7 +1,6 @@
 # filename: ./spec/support/participants/login_helper.rb
 
 require './lib/pages/participants'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/learn'
 require './lib/pages/participants/think'
 require './lib/pages/participants/messages'
@@ -23,13 +22,8 @@ end
 def completed_participant
   @completed_participant ||= Participants.new(
     participant: ENV['Completed_Pt_Email'],
-    password: ENV['Completed_Pt_Password'],
-    old_participant: 'participant1'
+    password: ENV['Completed_Pt_Password']
   )
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def learn_1

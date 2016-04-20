@@ -3,10 +3,10 @@
 require './spec/support/users/coach_messages_helper'
 
 feature 'Coach messaging', :core, sauce: sauce_labs do
-  background(:all) { clinician_som.sign_in if ENV['safari'] }
+  background(:all) { clinician.sign_in if ENV['safari'] }
 
   background do
-    clinician_som.sign_in unless ENV['safari']
+    clinician.sign_in unless ENV['safari']
     visit navigation.arms_page
     user_messages.navigate_to_messages
   end
@@ -36,7 +36,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
     expect(user_message_3).to have_saved_alert
 
     unless ENV['safari']
-      participant_1_so2.sign_in
+      participant_1.sign_in
       visit participant_message_1.landing_page
       expect(participant_message_1).to have_message
     end
@@ -52,7 +52,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
     expect(user_message_4).to have_saved_alert
 
     unless ENV['safari']
-      participant_1_so2.sign_in
+      participant_1.sign_in
       visit participant_message_2.landing_page
 
       expect(participant_message_2).to have_message

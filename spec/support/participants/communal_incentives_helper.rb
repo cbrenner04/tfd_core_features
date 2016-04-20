@@ -1,21 +1,7 @@
 # filename: ./spec/support/participants/communal_incentives_helper.rb
 
-require './lib/pages/participants'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/incentives'
 require './lib/pages/participants/social_networking/comment'
-
-def navigation
-  @navigation ||= Participants::Navigation.new
-end
-
-def participant_3_sob
-  @participant_3_sob ||= Participants.new(
-    participant: ENV['Alt_Participant_Email'],
-    old_participant: 'participant_background',
-    password: ENV['Alt_Participant_Password']
-  )
-end
 
 def incomplete_communal_incentive
   @incomplete_communal_incentive ||= Participants::Incentives.new(

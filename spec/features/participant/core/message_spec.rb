@@ -3,10 +3,10 @@
 require './spec/support/participants/messages_helper'
 
 feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
-  background(:all) { participant_1_so5.sign_in if ENV['safari'] }
+  background(:all) { participant_1.sign_in if ENV['safari'] }
 
   background do
-    participant_1_so5.sign_in unless ENV['safari']
+    participant_1.sign_in unless ENV['safari']
     visit messages.landing_page
   end
 
@@ -73,7 +73,7 @@ end
 
 feature 'MESSAGES tool, with link', :core, :marigold, sauce: sauce_labs do
   scenario 'Participant accesses a link from a message in inbox' do
-    participant_3_so1.sign_in
+    participant_3.sign_in
     visit messages.landing_page
     linked_message.open_message
 

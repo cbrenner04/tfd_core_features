@@ -13,7 +13,7 @@ end
 
 feature 'FEEL tool', :marigold, sauce: sauce_labs do
   scenario 'Participant tracks their emotions for the day' do
-    marigold_participant_so3.sign_in
+    marigold_participant.sign_in
     visit feel.landing_page
     emotions.open
 

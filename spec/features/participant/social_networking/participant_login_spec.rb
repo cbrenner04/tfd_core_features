@@ -5,7 +5,7 @@ require './spec/support/participants/social_networking_login_helper'
 feature 'Social Networking login', :social_networking, :marigold,
         sauce: sauce_labs do
   scenario 'Completed participant in a social arm sends message' do
-    completer_sons.sign_in
+    completer.sign_in
 
     expect(navigation).to have_home_page_visible
 
@@ -19,7 +19,7 @@ feature 'Social Networking login', :social_networking, :marigold,
 
     expect(completer_message).to have_saved_alert
 
-    completer_sons.sign_out
+    completer.sign_out
   end
 
   scenario 'Completed participant in a mobile arm cannot compose a message' do

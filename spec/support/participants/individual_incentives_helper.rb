@@ -1,30 +1,9 @@
 # filename: ./spec/support/participants/individual_incentives_helper.rb
 
-require './lib/pages/participants'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/incentives'
 require './lib/pages/participants/social_networking/profile'
 require './lib/pages/participants/social_networking/like'
 require './lib/pages/participants/social_networking/achieve'
-
-def navigation
-  @navigation ||= Participants::Navigation.new
-end
-
-def participant_3_so3
-  @participant_3_so3 ||= Participants.new(
-    participant: ENV['Alt_Participant_Email'],
-    old_participant: 'participant3',
-    password: ENV['Alt_Participant_Password'],
-    display_name: 'participant3'
-  )
-end
-
-def participant_3_profile
-  @participant_3_profile ||= Participants::SocialNetworking::Profile.new(
-    display_name: 'participant3'
-  )
-end
 
 def pt_3_incentive_1
   @pt_3_incentive_1 ||= Participants::Incentives.new(

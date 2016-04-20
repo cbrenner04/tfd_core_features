@@ -1,6 +1,5 @@
 # filename: ./spec/support/users/coach_patients_helper.rb
 
-require './lib/pages/users/navigation'
 require './lib/pages/users/patient_dashboard'
 
 def patient_dashboard
