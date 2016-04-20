@@ -123,7 +123,7 @@ class Participants
       def answer_profile_question(question, answer)
         within profile_question(question) do
           enter_profile_answer(answer)
-          social_networking.confirm_with_js
+          navigation.confirm_with_js
           navigation.save
         end
       end

@@ -4,14 +4,14 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                   ENV['Researcher_Password'])
+                         ENV['Researcher_Password'])
     end
   end
 
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                   ENV['Researcher_Password'])
+                         ENV['Researcher_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/groups"
@@ -74,16 +74,13 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
     find('.list-group-item', text: 'Individual, like 3 feed items').click
-    within('.well') do
-      click_on 'New'
-    end
-
-    select 'Like', from: "#{app}_behavior[action_type]"
-    select 'Complete', from: "#{app}_behavior[condition]"
+    within('.well') { click_on 'New' }
+    select 'Like an Item', from: 'Action Behavior and Condition'
     click_on 'Create'
     find('.alert-success', text: 'Behavior was successfully created.')
+
     expect(page).to have_content 'Action: SocialNetworking::Like' \
-                                 "\nCondition: complete"
+                                 "\nCondition: create"
   end
 
   scenario 'Researcher adds a repeatable individual incentive' do
@@ -123,13 +120,11 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
     find('.list-group-item', text: 'Individual, comment on 3 feed items').click
-    within('.well') do
-      click_on 'New'
-    end
-
-    select 'Comment', from: "#{app}_behavior[action_type]"
+    within('.well') { click_on 'New' }
+    select 'Comment on an Item', from: 'Action Behavior and Condition'
     click_on 'Create'
     find('.alert-success', text: 'Behavior was successfully created.')
+
     expect(page).to have_content 'Action: SocialNetworking::Comment' \
                                  "\nCondition: create"
   end
@@ -173,12 +168,8 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     click_on 'Manage Incentives'
     find('h1', text: 'Group 9 Incentives')
     find('.list-group-item', text: 'Group, read a lesson').click
-    within('.well') do
-      click_on 'New'
-    end
-
-    select 'Lesson', from: "#{app}_behavior[action_type]"
-    select 'Complete', from: "#{app}_behavior[condition]"
+    within('.well') { click_on 'New' }
+    select 'Complete a Lesson', from: 'Action Behavior and Condition'
     click_on 'Create'
     find('.alert-success', text: 'Behavior was successfully created.')
     expect(page).to have_content "Action: TaskStatus\nCondition: complete"
@@ -238,14 +229,14 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
     end
   end
 
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
     end
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
     click_on 'Arm 1'
@@ -299,16 +290,12 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
 
   scenario 'Coach adds a behavior to an incentive' do
     find('.list-group-item', text: 'Individual, like 3 feed items').click
-    within('.well') do
-      click_on 'New'
-    end
-
-    select 'Like', from: "#{app}_behavior[action_type]"
-    select 'Complete', from: "#{app}_behavior[condition]"
+    within('.well') { click_on 'New' }
+    select 'Like an Item', from: 'Action Behavior and Condition'
     click_on 'Create'
     find('.alert-success', text: 'Behavior was successfully created.')
     expect(page).to have_content 'Action: SocialNetworking::Like' \
-                                 "\nCondition: complete"
+                                 "\nCondition: create"
   end
 
   scenario 'Coach adds a repeatable individual incentive' do
@@ -342,11 +329,8 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
 
   scenario 'Coach adds a behavior to a repeatable incentive' do
     find('.list-group-item', text: 'Individual, comment on 3 feed items').click
-    within('.well') do
-      click_on 'New'
-    end
-
-    select 'Comment', from: "#{app}_behavior[action_type]"
+    within('.well') { click_on 'New' }
+    select 'Comment on an Item', from: 'Action Behavior and Condition'
     click_on 'Create'
     find('.alert-success', text: 'Behavior was successfully created.')
     expect(page).to have_content 'Action: SocialNetworking::Comment' \
@@ -384,12 +368,8 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
 
   scenario 'Coach adds a behavior to a group incentive' do
     find('.list-group-item', text: 'Group, read a lesson').click
-    within('.well') do
-      click_on 'New'
-    end
-
-    select 'Lesson', from: "#{app}_behavior[action_type]"
-    select 'Complete', from: "#{app}_behavior[condition]"
+    within('.well') { click_on 'New' }
+    select 'Complete a Lesson', from: 'Action Behavior and Condition'
     click_on 'Create'
     find('.alert-success', text: 'Behavior was successfully created.')
     expect(page).to have_content "Action: TaskStatus\nCondition: complete"

@@ -5,14 +5,14 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
     if ENV['safari']
       background(:all) do
         users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                     ENV['Researcher_Password'])
+                           ENV['Researcher_Password'])
       end
     end
 
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                     ENV['Researcher_Password'])
+                           ENV['Researcher_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
@@ -67,14 +67,14 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
     if ENV['safari']
       background(:all) do
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
     end
 
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
@@ -110,7 +110,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
   feature 'Clincian, Patient Dashboard' do
     scenario 'Clinician sees correct duration calculation' do
       users.sign_in_pt(ENV['Participant_Email'], 'participant2',
-                 ENV['Participant_Password'])
+                       ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/LEARN"
       click_on 'Do - Awareness Introduction'
       sleep(60 * 2)
@@ -121,7 +121,7 @@ feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
       users.sign_out('participant1')
 
       users.sign_in_user(ENV['Clinician_Email'], 'participant1',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
       click_on 'Arm 1'
       click_on 'Group 1'
@@ -141,7 +141,7 @@ end
 feature 'Super User', :core, sauce: sauce_labs do
   background do
     users.sign_in_user(ENV['User_Email'], 'participant2',
-                 ENV['User_Password'])
+                       ENV['User_Password'])
   end
 
   scenario 'Super User cannot access Lesson Modules or Slideshows' \
@@ -154,8 +154,7 @@ feature 'Super User', :core, sauce: sauce_labs do
 
     click_on 'Manage Content'
     if ENV['chrome'] || ENV['safari']
-      page.driver
-        .execute_script('window.confirm = function() {return true}')
+      execute_script('window.confirm = function() {return true}')
     end
 
     click_on 'Lesson Modules'
@@ -169,8 +168,7 @@ feature 'Super User', :core, sauce: sauce_labs do
 
     click_on 'Manage Content'
     if ENV['chrome'] || ENV['safari']
-      page.driver
-        .execute_script('window.confirm = function() {return true}')
+      execute_script('window.confirm = function() {return true}')
     end
 
     click_on 'Slideshows'
@@ -201,8 +199,8 @@ feature 'CSV Exports', :core, type: :feature do
 
     @driver.get "#{ENV['Base_URL']}/users/sign_in"
     @driver.find_element(id: 'user_email').send_keys(ENV['Researcher_Email'])
-    @driver.find_element(id: 'user_password').send_keys(ENV['Researcher_Passw' \
-                                                        'ord'])
+    @driver.find_element(id: 'user_password')
+      .send_keys(ENV['Researcher_Password'])
     @driver.find_element(css: '.btn.btn-default').submit
   end
 

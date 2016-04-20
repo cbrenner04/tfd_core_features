@@ -5,7 +5,7 @@ feature 'Content Author, Slideshows',
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
-                   ENV['Content_Author_Password'])
+                         ENV['Content_Author_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"

@@ -220,9 +220,10 @@ feature 'Shared items, Social arm',
 
     visit ENV['Base_URL']
     pt_5_reviewing_1.find_in_feed
-    expect(pt_5_reviewing_1).to have_feed_item_detail
 
-    expect(pt_5_reviewing_2).to_not be_visible
+    # this fails in marigold
+    expect(pt_5_reviewing_1).to have_feed_item_detail
+    expect(pt_5_reviewing_2).to have_nonsocial_incomplete_item
   end
 
   scenario 'Participant reads Lesson 1 and finds the related feed item' do

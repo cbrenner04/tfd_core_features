@@ -92,7 +92,6 @@ def activation_3
     encouragement: 'Incentives, duh',
     actual_pleasure: 'Not Rated',
     actual_accomplishment: 'Not Rated',
-    mood_rating: 0,
     noncompliance_reason: 'i didn\'t feel like it'
   )
 end

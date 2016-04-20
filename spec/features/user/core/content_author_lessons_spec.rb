@@ -4,14 +4,14 @@ feature 'Content Author, Lessons', :superfluous, :core, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
-                   ENV['Content_Author_Password'])
+                         ENV['Content_Author_Password'])
     end
   end
 
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
-                   ENV['Content_Author_Password'])
+                         ENV['Content_Author_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -23,7 +23,6 @@ feature 'Content Author, Lessons', :superfluous, :core, sauce: sauce_labs do
   scenario 'Content Author creates a new lesson' do
     click_on 'New'
     fill_in 'lesson_title', with: 'Test lesson'
-    fill_in 'lesson_position', with: '19'
     click_on 'Create'
     expect(page).to have_content 'Successfully created lesson'
   end

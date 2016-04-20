@@ -1,3 +1,5 @@
+require './lib/pages/participants/navigation'
+
 class Participants
   class Feel
     # page object for Emotions Tracking specific to Marigold
@@ -12,14 +14,22 @@ class Participants
       def has_emotions?
         find('tr', match: :first)
         actual = (1..23).map { |i| all('tr')[i].find('th').text }
-        expect(actual).to eq(emotions)
+        actual.should =~ emotions
       end
 
-      def rate_emotions
+      def rate
         emotions_to_rate = emotions.sample(5)
         emotions_to_rate.each do |emotion|
           find('tr', text: emotion)
             .find("input[value = '#{(0..4).to_a.sample}']").click
+        end
+        navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
+        navigation.next
+        unless ENV['chrome'] || ENV['safari']
+          accept_alert 'Looks like you have not answered all the questions. ' \
+                       'Please choose \'Cancel\' if you\'d like to go back ' \
+                       'and respond. If you\'d like to proceed without ' \
+                       'answering the questions please choose \'OK\'.'
         end
       end
 
@@ -28,6 +38,10 @@ class Participants
       end
 
       private
+
+      def navigation
+        @navigation ||= Participants::Navigation.new
+      end
 
       def emotions
         @emotions ||= [

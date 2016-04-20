@@ -7,7 +7,6 @@ namespace :sunnyside do
   desc 'Set and start sunnyside for full suite testing locally'
   task :load_app_local do
     Dir.chdir(ENV['sunnyside_path']) do
-      system('sunnyside=true')
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('rake selenium_seed:with_fixtures')

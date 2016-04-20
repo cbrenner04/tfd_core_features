@@ -5,7 +5,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -61,7 +61,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -84,13 +84,14 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
       users.select_patient('participant61')
       within('.table.table-hover', text: 'Social Activity') do
         table_row = page.all('tr:nth-child(1)')
-        users.check_data(table_row[0], 'Social Activity Today Last 7 Days Totals')
+        users.check_data(table_row[0],
+                         'Social Activity Today Last 7 Days Totals')
         users.check_data(table_row[1], 'Likes 0 0 1')
         num = ['Nudges 1 1 1', 'Comments 0 0 1', 'Goals 0 0 1',
                '"On My Mind" Statements 0 0 1']
 
         (2..5).zip(num) do |i, n|
-          users.check_data("tr:nth-child(#{i})", "#{n}")
+          users.check_data("tr:nth-child(#{i})", n)
         end
       end
     end
@@ -120,11 +121,11 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
           expect(page).to have_content 'do something  Incomplete ' \
                                        "#{deleted_date.strftime('%b %d %Y')} "
 
-          expect(page).to have_content "#{due_date.strftime('%m/%d/%Y')} "
+          expect(page).to have_content due_date.strftime('%m/%d/%Y')
 
-          expect(page).to have_content "#{created_date.strftime('%b %d %Y')}"
+          expect(page).to have_content created_date.strftime('%b %d %Y')
 
-          expect(page).to have_content ' 1 0 0'
+          expect(page).to have_content '1 0 0'
         end
       end
     end
@@ -187,7 +188,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
     scenario 'Coach Terminates Access, checks profile is removed' do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -197,8 +198,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
       within('#patients', text: 'participant65') do
         within('table#patients tr', text: 'participant65') do
           if ENV['safari'] || ENV['chrome']
-            page.driver
-              .execute_script('window.confirm = function() {return true}')
+            execute_script('window.confirm = function() {return true}')
           end
 
           click_on 'Terminate Access'
@@ -221,7 +221,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
       unless ENV['safari']
         visit "#{ENV['Base_URL']}/participants/sign_in"
         users.sign_in_pt(ENV['PT61_Email'], 'participant2',
-                   ENV['PT61_Password'])
+                         ENV['PT61_Password'])
         find('h1', text: 'HOME')
         expect(page).to_not have_content 'Fifth'
       end

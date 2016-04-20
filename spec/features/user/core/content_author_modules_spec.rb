@@ -5,7 +5,7 @@ feature 'Content Author, Content Modules',
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
-                   ENV['Content_Author_Password'])
+                         ENV['Content_Author_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -56,7 +56,8 @@ feature 'Content Author, Content Modules',
     click_on 'New Provider'
     find('#content_provider_bit_core_content_module_id',
          text: 'LEARN: Home Introduction')
-    select 'slideshow provider', from: 'content_provider_type'
+    select 'BitCore::ContentProviders::SlideshowProvider',
+           from: 'content_provider_type'
     select 'BitCore::Slideshow', from: 'content_provider_source_content_type'
     select 'Home Intro', from: 'content_provider_source_content_id'
     fill_in 'content_provider_position', with: '4'

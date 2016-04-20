@@ -4,14 +4,14 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       users.sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
     end
   end
 
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -45,7 +45,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
 
     unless ENV['safari']
       users.sign_in_pt(ENV['Participant_Email'], 'participant2',
-                 ENV['Participant_Password'])
+                       ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Reply: I like this app'
     end
@@ -63,7 +63,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
 
     unless ENV['safari']
       users.sign_in_pt(ENV['Participant_Email'], 'participant2',
-                 ENV['Participant_Password'])
+                       ENV['Participant_Password'])
       visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
       expect(page).to have_content 'Testing compose functionality'
     end

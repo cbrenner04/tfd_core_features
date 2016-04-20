@@ -43,6 +43,10 @@ class Participants
       click_on 'New'
     end
 
+    def confirm_with_js
+      execute_script('window.confirm = function() {return true}')
+    end
+
     def has_new_assignment_in_feel?
       find('.dropdown-toggle', text: 'FEEL').has_text?('New!')
     end
@@ -99,6 +103,7 @@ class Participants
     end
 
     def has_modal?
+      sleep(1)
       has_css?('.modal-content')
     end
 

@@ -4,7 +4,7 @@ feature 'Site Messaging', :core, sauce: sauce_labs do
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -16,7 +16,7 @@ feature 'Site Messaging', :core, sauce: sauce_labs do
 
   scenario 'Coach creates and sends a new site message' do
     click_on 'New'
-    find('p', text: "#{app_email}")
+    find('p', text: app_email)
     select 'TFD-1111', from: 'site_message_participant_id'
     fill_in 'site_message_subject', with: 'Testing site messaging'
     fill_in 'site_message_body',

@@ -83,13 +83,6 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     expect(positive_events_2).to have_events
   end
 
-  scenario 'Participant creates new Positive event from index page' do
-    positive_events_2.open_review
-    navigation.create_new
-
-    expect(positive_events_2).to have_questions
-  end
-
   scenario 'Participant sees encouragement suggestions' do
     activation_1.open
     activation_1.show_suggestions

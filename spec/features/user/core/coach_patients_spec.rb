@@ -5,7 +5,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -32,8 +32,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     scenario 'Coach selects Terminate Access' do
       within('tr', text: 'TFD-Withdraw') do
         if ENV['safari'] || ENV['chrome']
-          page.driver
-            .execute_script('window.confirm = function() {return true}')
+          execute_script('window.confirm = function() {return true}')
         end
 
         click_on 'Terminate Access'
@@ -323,7 +322,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
         within('tr', text: 'Parkour') do
           expect(page).to have_content '9 4'
           prev_day = Date.today - 1
-          expect(page).to have_content "#{prev_day.strftime('%b %d %Y')}"
+          expect(page).to have_content prev_day.strftime('%b %d %Y')
         end
       end
     end
@@ -411,7 +410,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"

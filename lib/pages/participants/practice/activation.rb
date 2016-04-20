@@ -121,8 +121,8 @@ class Participants
                                "#{@pleasure} Actual: " \
                                "#{@actual_accomplishment} Predicted: " \
                                "#{@accomplishment} #{@reviewed} " \
-                               "#{@encouragement} #{@mood_rating} " \
-                               "#{@reminder} #{@noncompliance_reason}")
+                               "#{@encouragement} #{@reminder} " \
+                               "#{@noncompliance_reason}")
       end
 
       private

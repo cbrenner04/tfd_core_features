@@ -80,7 +80,7 @@ class Participants
 
       def complete
         within('.list-group-item', text: @goal) do
-          social_networking.confirm_with_js if ENV['chrome'] || ENV['safari']
+          navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
           click_on 'Complete'
         end
 
@@ -95,7 +95,7 @@ class Participants
 
       def delete
         if ENV['chrome'] || ENV['safari']
-          social_networking.confirm_with_js
+          navigation.confirm_with_js
           find('.list-group-item', text: @goal).find('.delete').click
         else
           find('.list-group-item', text: @goal).find('.delete').click

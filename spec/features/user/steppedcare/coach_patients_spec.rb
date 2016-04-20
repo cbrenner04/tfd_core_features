@@ -5,7 +5,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -61,7 +61,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -226,8 +226,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       within('#patients') do
         within('table#patients tr', text: 'PHQ-2') do
           if ENV['chrome'] || ENV['safari']
-            page.driver
-              .execute_script('window.confirm = function() {return true}')
+            execute_script('window.confirm = function() {return true}')
           end
 
           click_on 'Step'
@@ -295,7 +294,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Create Phq assessment'
       find('.alert-success', text: 'Phq assessment was successfully created.')
-      within('tr', text: "#{Date.today.strftime('%Y-%m-%d')}") do
+      within('tr', text: Date.today.strftime('%Y-%m-%d')) do
         expect(page).to have_content '2 2 2 2 2 2 2 2 2 Edit Delete'
 
         expect(page).to have_css('.fa.fa-flag', count: '9')
@@ -318,7 +317,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       click_on 'Manage'
       find('h2', text: 'PHQ assessments for PHQ-1')
       three_weeks_ago = Date.today - 18
-      within('tr', text: "#{three_weeks_ago.strftime('%Y-%m-%d')}") do
+      within('tr', text: three_weeks_ago.strftime('%Y-%m-%d')) do
         click_on 'Edit'
       end
 
@@ -327,7 +326,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       page.execute_script('window.scrollTo(0,5000)')
       click_on 'Update Phq assessment'
       find('.alert-success', text: 'Phq assessment was successfully updated.')
-      within('tr', text: "#{three_weeks_ago.strftime('%Y-%m-%d')}") do
+      within('tr', text: three_weeks_ago.strftime('%Y-%m-%d')) do
         expect(page).to have_content '1 2 2 1 2 1 1 1 2 Edit Delete'
 
         expect(page).to have_css('.fa.fa-flag', count: '2')
@@ -354,7 +353,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       expect(page).to have_css('h2', text: 'PHQ assessments for PHQ-5')
 
       four_weeks_ago = Date.today - 25
-      within('tr', text: "#{four_weeks_ago.strftime('%Y-%m-%d')}") do
+      within('tr', text: four_weeks_ago.strftime('%Y-%m-%d')) do
         page.driver.execute_script('window.confirm = function() {return true}')
         click_on 'Delete'
       end
@@ -362,7 +361,7 @@ feature 'Coach', :tfd, sauce: sauce_labs do
       expect(page).to have_content 'Phq assessment was successfully destroyed.'
 
       expect(page)
-        .to_not have_css('tr', text: "#{four_weeks_ago.strftime('%Y-%m-%d')}")
+        .to_not have_css('tr', text: four_weeks_ago.strftime('%Y-%m-%d'))
     end
   end
 end

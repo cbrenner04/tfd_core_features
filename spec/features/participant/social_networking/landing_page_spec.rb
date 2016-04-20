@@ -142,7 +142,7 @@ feature 'SocialNetworking Landing Page',
       participant_4_profile.create_group_3_profile
 
       visit ENV['Base_URL']
-      social_networking.confirm_with_js
+      navigation.confirm_with_js
 
       expect(participant_4_to_do_list).to_not have_profile_task
 

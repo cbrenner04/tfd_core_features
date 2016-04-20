@@ -5,16 +5,12 @@ class Participants
   class SocialNetworking
     include Capybara::DSL
 
-    def confirm_with_js
-      execute_script('window.confirm = function() {return true}')
-    end
-
     def has_share_options?
       has_text? 'Share the content of this thought?'
     end
 
     def accept_social
-      confirm_with_js
+      navigation.confirm_with_js
       navigation.next
     end
 

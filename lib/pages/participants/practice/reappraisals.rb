@@ -75,7 +75,7 @@ class Participants
       end
 
       def enter_stressor
-        fill_in 'reappraisal[reappraisal_action]', with: @stressor
+        fill_in 'reappraisal[stressful_cause]', with: @stressor
       end
 
       def has_stressor_alert?
@@ -83,15 +83,15 @@ class Participants
       end
 
       def enter_reappraisals
-        fill_in 'reappraisal[reflection]', with: @reappraisal
+        fill_in 'reappraisal[reappraisal_action]', with: @reappraisal
       end
 
-      def has_reappraisals_alert?
+      def has_reappraisal_alert?
         has_css?('.alert', text: 'Reappraisal action can\'t be blank')
       end
 
       def enter_reflection
-        fill_in 'reappraisal[stressful_cause]', with: @reflection
+        fill_in 'reappraisal[reflection]', with: @reflection
       end
 
       def has_reflection_alert?

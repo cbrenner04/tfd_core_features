@@ -78,6 +78,14 @@ class Participants
         end
       end
 
+      def has_nonsocial_incomplete_item?
+        social_networking
+          .find_feed_item('Reviewed and did not complete an Activity')
+        find('.list-group-item',
+             text: 'Reviewed and did not complete an Activity')
+          .has_no_css?('a', text: 'More')
+      end
+
       private
 
       def do_tool

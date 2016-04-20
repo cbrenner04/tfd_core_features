@@ -5,14 +5,14 @@ feature 'User Dashboard Bugs', :social_networking, sauce: sauce_labs do
     if ENV['safari']
       background(:all) do
         users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                     ENV['Researcher_Password'])
+                           ENV['Researcher_Password'])
       end
     end
 
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                     ENV['Researcher_Password'])
+                           ENV['Researcher_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
@@ -51,14 +51,14 @@ feature 'User Dashboard Bugs', :social_networking, sauce: sauce_labs do
     if ENV['safari']
       background(:all) do
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
     end
 
     background do
       unless ENV['safari']
         users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                     ENV['Clinician_Password'])
+                           ENV['Clinician_Password'])
       end
 
       visit "#{ENV['Base_URL']}/think_feel_do_dashboard"

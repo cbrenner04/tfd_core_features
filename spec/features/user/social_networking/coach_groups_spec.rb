@@ -4,14 +4,14 @@ feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
   if ENV['safari']
     background(:all) do
       users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
     end
   end
 
   background do
     unless ENV['safari']
       users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                   ENV['Clinician_Password'])
+                         ENV['Clinician_Password'])
     end
 
     visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
@@ -226,11 +226,11 @@ feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
                    "#{date_1.strftime('%b %d %Y')} ", 'Third Get crazy ' \
                    "incomplete not deleted #{date_4.strftime('%m/%d/%Y')} ",
                    "Fifth go to work #{date_6.strftime('%b %d %Y')} "]
-      content_2 = ["#{date_2.strftime('%m/%d/%Y')}", '', 'not deleted ' \
-                   "#{date_7.strftime('%m/%d/%Y')} "]
-      content_3 = ["#{date_3.strftime('%b %d %Y')}",
-                   "#{date_2.strftime('%b %d %Y')}",
-                   "#{date_8.strftime('%b %d %Y')}"]
+      content_2 = [date_2.strftime('%m/%d/%Y'), '',
+                   "not deleted #{date_7.strftime('%m/%d/%Y')}"]
+      content_3 = [date_3.strftime('%b %d %Y'),
+                   date_2.strftime('%b %d %Y'),
+                   date_8.strftime('%b %d %Y')]
       num = ['1 0 0', '2 1 0', '2 1 0']
       row.zip(content_1, content_2, content_3, num) do |r, c1, c2, c3, n|
         within(r) do
