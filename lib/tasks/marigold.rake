@@ -113,10 +113,20 @@ namespace :run_marigold do
     system('marigold=true rspec ./spec/features/user --tag core --tag social_networking --tag incentives --tag marigold')
   end
 
-  desc 'Run the test suite for Marigold on Chrome without certain example groups to increase speed'
+  desc 'Run the test suite for Marigold on Firefox without certain example groups to increase speed'
   task :fast do
     system('marigold=true rspec ./spec/features/participant --tag marigold --tag incentives --tag ~superfluous')
     system('marigold=true rspec ./spec/features/user --tag core --tag social_networking --tag incentives --tag marigold --tag ~superfluous')
+  end
+
+  desc 'Run the participants test suite for Marigold on Firefox'
+  task :participants do
+    system('marigold=true rspec ./spec/features/participant --tag marigold --tag incentives')
+  end
+
+  desc 'Run the users test suite for Marigold on Firefox'
+  task :users do
+    system('marigold=true rspec ./spec/features/user --tag core --tag social_networking --tag incentives --tag marigold')
   end
 
   # this requires switching databases on staging

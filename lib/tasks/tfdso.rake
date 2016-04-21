@@ -104,6 +104,16 @@ namespace :run_tfdso do
     system('tfdso=true rspec --tag core --tag social_networking --tag tfdso --tag ~superfluous')
   end
 
+  desc 'Run the participants test suite for MoodTech on Firefox'
+  task :participants do
+    system('tfdso=true rspec ./spec/features/participant/ --tag core --tag social_networking --tag tfdso --tag ~superfluous')
+  end
+
+  desc 'Run the users test suite for MoodTech on Firefox'
+  task :users do
+    system('tfdso=true rspec ./spec/features/user/ --tag core --tag social_networking --tag tfdso --tag ~superfluous')
+  end
+
   # this requires switching databases on staging
   desc 'Run the test suite for the MoodTech host application on SauceLabs'
   task :sauce do
