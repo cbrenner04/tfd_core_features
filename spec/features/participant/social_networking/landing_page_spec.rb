@@ -92,7 +92,6 @@ feature 'SocialNetworking Landing Page',
       social_networking.scroll_to_bottom_of_feed
 
       expect(two_day_old_incomplete_goal).to_not be_visible_in_feed
-
       expect(goal_due_two_days_ago).to be_visible_in_feed
     end
   end
@@ -125,6 +124,7 @@ feature 'SocialNetworking Landing Page',
       navigation.navigate_home
 
       expect(to_do_list).to be_visible
+
       social_networking.scroll_to_bottom_of_feed
 
       expect(social_networking).to have_last_feed_item
@@ -136,19 +136,16 @@ feature 'SocialNetworking Landing Page',
       participant_4.sign_in
 
       expect(participant_4_to_do_list).to have_profile_task
-
       expect(participant_4_to_do_list).to_not be_complete
 
       participant_4_profile.create_group_3_profile
-
       visit ENV['Base_URL']
       navigation.confirm_with_js
 
       expect(participant_4_to_do_list).to_not have_profile_task
-
       expect(participant_4_to_do_list).to be_complete
 
-      participant_4.sign_out
+      participant_4.sign_out # necessary?
     end
   end
 end

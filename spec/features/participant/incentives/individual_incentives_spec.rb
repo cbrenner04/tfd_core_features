@@ -44,7 +44,6 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
     pt_3_incentive_3.open_incentives_list
 
     expect(pt_3_behavior_2).to be_complete
-
     expect(pt_3_behavior_3).to be_complete
   end
 
@@ -52,7 +51,6 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
     participant_3_profile.visit_profile
 
     expect(pt_3_repeatable_incentive_1).to have_image_in_plot
-
     expect(pt_3_repeatable_incentive_1).to have_num_completed
 
     visit pt_3_goal.landing_page
@@ -64,7 +62,6 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
     participant_3_profile.visit_profile
 
     expect(pt_3_repeatable_incentive_2).to have_correct_num_of_flowers_in_plot
-
     expect(pt_3_repeatable_incentive_2).to have_num_completed
   end
 
@@ -74,16 +71,13 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
     participant_2_incentive.visit_another_pt_incentives
 
     expect(participant_2_incentive).to be_visible
-
     expect(participant_2_incentive).to have_image_in_plot
 
     navigation.scroll_down
     participant_2_incentive.open_incentives_list
 
     expect(pt_2_behavior_1).to be_complete
-
     expect(pt_2_behavior_2).to be_complete
-
     expect(pt_2_behavior_2).to be_complete
 
     participant_2_incentive.close_incentive_alerts

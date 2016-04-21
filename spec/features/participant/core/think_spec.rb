@@ -33,6 +33,7 @@ feature 'THINK tool', :core, sauce: sauce_labs do
   scenario 'Participant completes Add a New Harmful Thought module' do
     add_new_thought.open
     add_new_thought.complete
+
     expect(think).to be_visible
   end
 
@@ -96,9 +97,8 @@ feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
     thought_viz.open_detail
 
     expect(thought_viz).to have_detail
-
     expect(thought_viz).to be_visible
 
-    participant_5.sign_out
+    participant_5.sign_out # is this even necessary?
   end
 end

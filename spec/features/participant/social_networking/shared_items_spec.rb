@@ -32,9 +32,7 @@ feature 'Shared items, Social arm',
       pt_1_identify_thought_1.find_in_feed
 
       expect(pt_1_identify_thought_2).to_not be_visible
-
       expect(pt_1_identify_thought_1).to be_visible
-
       expect(pt_1_identify_thought_1).to have_timestamp
     end
 
@@ -42,7 +40,6 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_1.open
       pt_1_add_new_thought_1.complete
       visit ENV['Base_URL']
-
       pt_1_add_new_thought_1.find_in_feed
 
       expect(pt_1_add_new_thought_1).to have_timestamp
@@ -61,7 +58,6 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_1.find_in_feed
 
       expect(pt_1_add_new_thought_2).to_not be_visible
-
       expect(pt_1_add_new_thought_1).to be_visible
     end
   end
@@ -92,14 +88,11 @@ feature 'Shared items, Social arm',
 
       navigation.scroll_down
       pt_1_planning_2.finish
-
       visit ENV['Base_URL']
       pt_1_planning_1.find_in_feed
 
       expect(pt_1_planning_2).to_not be_visible
-
       expect(pt_1_planning_1).to be_visible
-
       expect(pt_1_planning_1).to have_timestamp
     end
 
@@ -109,14 +102,12 @@ feature 'Shared items, Social arm',
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
-
       expect(do_tool).to have_landing_visible
 
       visit ENV['Base_URL']
       pt_1_plan_new_1.find_in_feed
 
       expect(pt_1_plan_new_1).to be_visible
-
       expect(pt_1_plan_new_1).to have_timestamp
     end
 
@@ -126,11 +117,11 @@ feature 'Shared items, Social arm',
       social_networking.decline_social
 
       expect(do_tool).to have_success_alert
+
       visit ENV['Base_URL']
       pt_1_plan_new_1.find_in_feed
 
       expect(pt_1_plan_new_2).to_not be_visible
-
       expect(pt_1_plan_new_1).to be_visible
     end
   end
@@ -185,7 +176,6 @@ feature 'Shared items, Mobile arm',
       navigation.next
 
       expect(ns_pt_planning).to have_planning_form_visible
-
       expect(social_networking).to_not have_share_options
     end
 
@@ -193,7 +183,6 @@ feature 'Shared items, Mobile arm',
       ns_pt_add_new_activity.open
 
       expect(ns_pt_add_new_activity).to be_on_form
-
       expect(social_networking).to_not have_share_options
     end
   end
@@ -241,7 +230,6 @@ feature 'Shared items, Social arm',
     relax.open_autogenic_exercises
     relax.play_audio
     relax.finish
-
     visit ENV['Base_URL']
     relax.find_in_feed
   end
@@ -269,6 +257,6 @@ feature 'Shared items, Social arm',
 
     expect(pt_5_reshape).to have_feed_details
 
-    participant_5.sign_out
+    participant_5.sign_out # necessary?
   end
 end

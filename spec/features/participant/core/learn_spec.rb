@@ -26,7 +26,6 @@ feature 'LEARN tool', :core, :marigold, sauce: sauce_labs do
     learn.read_lesson
 
     expect(learn).to have_read_record
-
     expect(learn).to have_printable_link_visible
   end
 

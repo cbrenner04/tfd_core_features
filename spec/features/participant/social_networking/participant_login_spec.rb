@@ -19,7 +19,7 @@ feature 'Social Networking login', :social_networking, :marigold,
 
     expect(completer_message).to have_saved_alert
 
-    completer.sign_out
+    completer.sign_out # necessary?
   end
 
   scenario 'Completed participant in a mobile arm cannot compose a message' do
@@ -30,9 +30,8 @@ feature 'Social Networking login', :social_networking, :marigold,
     visit mobile_completer_message.landing_page
 
     expect(mobile_completer_message).to have_inbox_visible
-
     expect(mobile_completer_message).to_not have_compose_button
 
-    mobile_completer.sign_out
+    mobile_completer.sign_out # necessary?
   end
 end

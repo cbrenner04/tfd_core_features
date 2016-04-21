@@ -72,7 +72,6 @@ feature 'Login', :tfd, sauce: sauce_labs do
     visit messages.landing_page
 
     expect(messages).to have_inbox_visible
-
     expect(messages).to_not have_compose_button
   end
 end

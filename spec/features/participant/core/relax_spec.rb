@@ -19,6 +19,7 @@ feature 'RELAX tool', :core, :marigold, sauce: sauce_labs do
   background do
     participant_1_soc.sign_in
     visit relax.landing_page
+
     expect(relax).to be_visible
   end
 

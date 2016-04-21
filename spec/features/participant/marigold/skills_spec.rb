@@ -36,7 +36,6 @@ feature 'SKILLS tool', :marigold, sauce: sauce_labs do
     navigation.next
 
     expect(skills).to have_feedback_saved
-
     expect(skills_2).to be_available
   end
 end

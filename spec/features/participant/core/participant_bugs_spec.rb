@@ -39,7 +39,6 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
-
       expect(plan_new_activity).to have_activity
     end
 
@@ -56,6 +55,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
       activity_viz.open
       navigation.scroll_to_bottom
       activity_viz.go_to_previous_day
+
       expect(activity_viz).to have_previous_day_visible
     end
   end
@@ -74,6 +74,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       recent_moods_emotions.switch_to_7_day_view
       recent_moods_emotions.switch_to_previous_period
+
       expect(recent_moods_emotions).to have_previous_period_visible
     end
   end
@@ -81,6 +82,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
   feature 'Participant 2 signs in,', :core, :marigold do
     scenario 'Participant completes a module, it appears complete' do
       participant_2.sign_in
+
       expect(navigation).to have_new_assignment_in_feel
 
       visit feel.landing_page
@@ -89,7 +91,6 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       tracking_mood_emotions.open
       tracking_mood_emotions.rate_mood
-
       tracking_mood_emotions.rate_emotion
       navigation.scroll_to_bottom
       tracking_mood_emotions.submit
@@ -101,7 +102,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       expect(navigation).to_not have_new_assignment_in_feel
 
-      participant_2.sign_out
+      participant_2.sign_out # within example b/c of derailment issues, move?
     end
   end
 end

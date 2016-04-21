@@ -3,17 +3,13 @@
 require './spec/support/participants/nudge_helper'
 
 feature 'Nudge', :social_networking, :marigold, sauce: sauce_labs do
-  if ENV['safari']
-    if ENV['sunnyside'] || ENV['marigold']
-      background(:all) { participant_1.sign_in }
-    end
-  else
-    background do
-      participant_1.sign_in
-      visit ENV['Base_URL']
+  background(:all) { participant_1.sign_in } if ENV['safari']
 
-      expect(navigation).to have_home_page_visible
-    end
+  background do
+    participant_1.sign_in unless ENV['safari']
+    visit ENV['Base_URL']
+
+    expect(navigation).to have_home_page_visible
   end
 
   scenario 'Participant nudges another participant' do

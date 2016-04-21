@@ -26,7 +26,6 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
     sent_message.open_message
 
     expect(sent_message).to have_sender
-
     expect(sent_message).to have_message_visible
   end
 

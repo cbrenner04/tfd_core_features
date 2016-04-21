@@ -13,6 +13,6 @@ feature 'Social Networking Bugs, Non-social Participant',
 
     expect(navigation).to_not have_profile_link_in_dropdown
 
-    nonsocial_pt.sign_out
+    nonsocial_pt.sign_out # necessary?
   end
 end

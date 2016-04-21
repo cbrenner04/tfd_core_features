@@ -25,7 +25,6 @@ feature 'DO tool', :core, sauce: sauce_labs do
     awareness.move_to_time_period_selection
 
     expect(awareness).to_not have_start_time('7 AM')
-
     expect(awareness).to_not have_end_time('10 PM')
   end
 
@@ -85,7 +84,6 @@ feature 'DO tool', :core, sauce: sauce_labs do
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
-
     expect(plan_new_activity).to have_activity
   end
 
@@ -138,7 +136,6 @@ feature 'DO tool', :core, sauce: sauce_labs do
     planned_activities.open
 
     expect(planned_activities).to be_visible
-
     expect(planned_activities).to have_activity
   end
 
@@ -174,6 +171,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
     reviewing.open
     reviewing.has_first_slide_visible?
     navigation.skip
+
     unless reviewing.has_another_activity_to_review?
       expect(reviewing).to have_nothing_to_do_message
     end
@@ -199,7 +197,6 @@ feature 'DO Tool, Participant 3', :core, sauce: sauce_labs do
     awareness_complete_entry.complete_multiple_hour_review
 
     expect(awareness_complete_entry).to have_entries
-
     expect(do_tool).to have_landing_visible
   end
 
