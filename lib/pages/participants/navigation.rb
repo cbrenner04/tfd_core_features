@@ -6,10 +6,6 @@ class Participants
     include Capybara::DSL
     include SharedNavigation
 
-    def next
-      click_on 'Next'
-    end
-
     def alt_next
       if has_css?('a', text: 'Next', count: 2)
         all('a', text: 'Next')[1].click
@@ -36,10 +32,6 @@ class Participants
 
     def create_new
       click_on 'New'
-    end
-
-    def confirm_with_js
-      execute_script('window.confirm = function() {return true}')
     end
 
     def has_new_assignment_in_feel?

@@ -2,11 +2,6 @@
 
 require './lib/pages/participants/messages'
 require './lib/pages/users/messages'
-require './lib/pages/users/navigation'
-
-def navigation
-  @navigation ||= Users::Navigation.new
-end
 
 def user_messages
   @user_messages ||= Users::Messages.new(message_subject: 'fake')

@@ -1,73 +1,53 @@
 # filename: ./spec/features/user/core/coach_site_messages_spec.rb
 
+require './lib/pages/users/messages'
+
+def site_messaging_1
+  @site_messaging_1 ||= Users::Messages.new(
+    message_subject: 'Testing site messaging',
+    message_body: 'This message is intended to test the functionality of ' \
+                  'site messaging.',
+    participant: 'TFD-1111'
+  )
+end
+
+def site_messaging_2
+  @site_messaging_2 ||= Users::Messages.new(
+    message_subject: 'message subject',
+    message_body: 'message body',
+    participant: 'TFD-1111'
+  )
+end
+
 feature 'Site Messaging', :core, sauce: sauce_labs do
   background do
-    unless ENV['safari']
-      users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                         ENV['Clinician_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-    click_on 'Arm 1'
-    click_on 'Group 1'
-    click_on 'Messaging'
-    click_on 'Site Messaging'
+    clinician.sign_in unless ENV['safari']
+    visit navigation.arms_page
+    site_messaging_1.navigate_to_site_messages
   end
 
   scenario 'Coach creates and sends a new site message' do
-    click_on 'New'
-    find('p', text: app_email)
-    select 'TFD-1111', from: 'site_message_participant_id'
-    fill_in 'site_message_subject', with: 'Testing site messaging'
-    fill_in 'site_message_body',
-            with: 'This message is intended to test the functionality of ' \
-            'site messaging.'
-    click_on 'Send'
-    expect(page).to have_content 'Site message was successfully created.' \
-                                 "\nParticipant: TFD-1111" \
-                                 "\nSubject: Testing site messaging" \
-                                 "\nBody: This message is intended to test " \
-                                 'the functionality of site messaging.'
+    site_messaging_1.send_new_site_message
 
-    click_on 'Back'
-    within('tr:nth-child(2)') do
-      expect(page).to have_content 'TFD-1111  Testing site messaging  ' \
-                                   'This message is intended to test the ' \
-                                   'functionality of site messaging. ' \
-                                   "#{Date.today.strftime('%b %d %Y')}"
-    end
+    expect(site_messaging_1).to have_site_message_successfully_sent
+
+    site_messaging_1.return_to_site_messaging
+
+    expect(site_messaging_1).to have_site_message
   end
 
   scenario 'Coach reviews a previously sent site message' do
-    within('tr', text: 'message subject') do
-      click_on 'Show'
-    end
+    site_messaging_2.show_site_message
 
-    expect(page).to have_content 'Participant: TFD-1111' \
-                                 "\nSubject: message subject" \
-                                 "\nBody: message body"
+    expect(site_messaging_2).to have_site_message_visible
   end
 
   scenario 'Coach uses breadcrumbs to return to home' do
-    click_on 'Group'
-    within('.breadcrumb') do
-      click_on 'Home'
-    end
+    navigation.go_back_to_group_page
+    navigation.go_back_to_home_page
 
-    expect(page).to have_content 'Arms'
+    expect(navigation).to have_home_visible
 
-    users.sign_out('participant2')
-  end
-end
-
-def app_email
-  if ENV['tfd']
-    'localhost'
-  elsif ENV['tfdso']
-    'localhost'
-  elsif ENV['sunnyside']
-    'sunnyside.northwestern.edu'
-  elsif ENV['marigold']
-    'marigold.northwestern.edu'
+    clinician.sign_out
   end
 end

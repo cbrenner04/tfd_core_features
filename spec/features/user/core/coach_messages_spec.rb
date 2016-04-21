@@ -15,7 +15,6 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
     user_message_1.open_message
 
     expect(user_message_1).to have_sender
-
     expect(user_message_1).to have_message_visible
   end
 

@@ -9,4 +9,12 @@ module SharedNavigation
   def scroll_down
     execute_script('window.scrollBy(0,500)')
   end
+
+  def confirm_with_js
+    execute_script('window.confirm = function() {return true}')
+  end
+
+  def next
+    click_on 'Next'
+  end
 end

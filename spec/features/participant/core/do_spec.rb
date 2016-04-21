@@ -90,7 +90,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant navigates to Your Activities viz' do
     activity_viz.open
 
-    expect(activity_viz).to be_visible
+    expect(activity_viz).to have_current_day_visible
   end
 
   scenario 'Participant collapses Daily Summaries in Your Activities viz' do

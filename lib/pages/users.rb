@@ -4,30 +4,27 @@ class Users
 
   def initialize(users)
     @user ||= users[:user]
-    @old_user ||= users[:old_user]
     @password ||= users[:password]
   end
 
   def sign_in
     visit "#{ENV['Base_URL']}/users/sign_in"
-    unless has_css?('#new_user')
-      sign_out(@old_user)
-    end
+    sign_out unless has_css?('#new_user')
     if has_css?('#new_user')
       within('#new_user') do
         fill_in 'user_email', with: @user
         fill_in 'user_password', with: @password
       end
       click_on 'Sign in'
-      has_text? 'Home'
+      find('h1', text: 'Home')
     end
   end
 
-  def sign_in_pt(participant, old_participant, password)
+  # this needs to be removed and anything that references it needs to be
+  # updated to use the Participants object
+  def sign_in_pt(participant, password)
     visit "#{ENV['Base_URL']}/participants/sign_in"
-    unless has_css?('#new_participant')
-      sign_out(old_participant)
-    end
+    sign_out unless has_css?('#new_participant')
     if has_css?('#new_participant')
       within('#new_participant') do
         fill_in 'participant_email', with: participant
@@ -40,34 +37,19 @@ class Users
     end
   end
 
-  def sign_out(display_name)
+  def sign_out
     tries ||= 2
     within('.navbar-collapse') do
-      unless has_text?('Sign Out')
-        if has_css?('a', text: display_name)
-          find('a', text: display_name).click
-        else
-          find('.fa.fa-user.fa-lg').click
-        end
-      end
+      all('.dropdown-toggle').last.click unless has_text?('Sign Out')
       click_on 'Sign Out'
     end
-    find('#participant_email')
+    find('#new_user')
   rescue Capybara::ElementNotFound
     retry unless (tries -= 1).zero?
   end
 
   def check_data(item, data)
     within(item) { has_text? data }
-  end
-
-  def go_to_next_page(module_text)
-    unless has_text? module_text
-      execute_script('window.scrollTo(0,5000)')
-      within('.pagination') do
-        click_on 'Next'
-      end
-    end
   end
 
   def host_app

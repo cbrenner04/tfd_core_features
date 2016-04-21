@@ -40,7 +40,7 @@ class Participants
     if has_css?('#new_participant')
       fill_in_login_form
       submit_login
-      has_text? 'HOME'
+      find('h1', text: 'HOME')
     else
       puts 'LOGIN FAILED'
     end
@@ -52,7 +52,7 @@ class Participants
       all('.dropdown-toggle').last.click unless has_text?('Sign Out')
       click_on 'Sign Out'
     end
-    find('#participant_email')
+    find('#new_participant')
   rescue Capybara::ElementNotFound
     retry unless (tries -= 1).zero?
   end
