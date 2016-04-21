@@ -5,6 +5,12 @@ require './lib/pages/participants/social_networking/profile'
 require './lib/pages/participants/social_networking/like'
 require './lib/pages/participants/social_networking/achieve'
 
+def participant_3_profile
+  @participant_3_profile ||= Participants::SocialNetworking::Profile.new(
+    display_name: 'participant3'
+  )
+end
+
 def pt_3_incentive_1
   @pt_3_incentive_1 ||= Participants::Incentives.new(
     incentive: 'like 3 feed items',

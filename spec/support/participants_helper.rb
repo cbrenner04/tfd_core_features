@@ -1,7 +1,7 @@
 # filename: ./spec/support/participants_helper.rb
 
 require './lib/pages/participants'
-require './lib/pages/particiapnts/navigation'
+require './lib/pages/participants/navigation'
 
 def navigation
   @navigation ||= Participants::Navigation.new
