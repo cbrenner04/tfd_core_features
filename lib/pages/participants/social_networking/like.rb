@@ -5,6 +5,7 @@ class Participants
   class SocialNetworking
     # page object for likes
     class Like
+      include RSpec::Matchers
       include Capybara::DSL
 
       def initialize(like)
@@ -17,7 +18,7 @@ class Participants
         participant_navigation.scroll_to_bottom
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Like' unless has_text?('Like (1)')
-          find('a', text: 'Like (1)')
+          expect(page).to have_content 'Like (1)'
         end
       end
 

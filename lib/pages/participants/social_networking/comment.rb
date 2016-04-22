@@ -22,7 +22,7 @@ class Participants
           find('input[type = text]').set(@comment)
           participant_navigation.scroll_down
           click_on 'Save'
-          find('a', text: 'Comment (1)')
+          expect(page).to have_content 'Comment (1)'
         end
       end
 
@@ -37,7 +37,7 @@ class Participants
           expect(social_networking).to have_updated_character_count(@comment)
           participant_navigation.scroll_down
           click_on 'Save'
-          find('a', text: 'Comment (1)')
+          expect(page).to have_content 'Comment (1)'
         end
       end
 

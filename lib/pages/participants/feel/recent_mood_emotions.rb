@@ -1,3 +1,5 @@
+require './lib/pages/shared/mood_emotions_viz'
+
 class Participants
   class Feel
     # page object for Your Recent Moods & Emotions module

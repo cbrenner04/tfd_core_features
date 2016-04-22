@@ -49,7 +49,7 @@ class Users
     end
 
     def update
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       click_on @title
       all('.btn-default')[5].click
       fill_in 'slideshow_title', with: @new_title
@@ -62,15 +62,21 @@ class Users
     end
 
     def destroy
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       click_on @title
-      navigation.confirm_with_js
+      user_navigation.confirm_with_js
       click_on 'Delete'
     end
 
     def destroyed_successfully?
       has_css?('.alert', text: 'Slideshow deleted') &&
         has_no_text?(@title)
+    end
+
+    private
+
+    def user_navigation
+      @user_navigation ||= Users::Navigation.new
     end
   end
 end

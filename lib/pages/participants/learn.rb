@@ -59,7 +59,7 @@ class Participants
 
     def return_to_lessons
       click_on 'Return to Lessons'
-      find('h3', txt: 'Week 1')
+      find('h3', text: 'Week 1')
     end
 
     def find_in_feed

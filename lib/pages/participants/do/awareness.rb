@@ -41,7 +41,7 @@ class Participants
         select @start_time, from: 'awake_period_start_time'
         select @end_time, from: 'awake_period_end_time'
         click_on 'Create'
-        find('.alert-success', text: 'Activity saved')
+        find('.alert', text: 'Activity Period saved')
       end
 
       def choose_to_complete_time_period

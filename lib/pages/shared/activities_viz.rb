@@ -1,3 +1,5 @@
+require './lib/pages/participants/navigation'
+
 # module for shared Activities viz functionality
 module SharedActivitiesViz
   include Capybara::DSL
@@ -8,7 +10,7 @@ module SharedActivitiesViz
 
   def go_to_previous_day
     find('h3', text: 'Daily Averages')
-    navigation.scroll_down
+    participant_navigation.scroll_down
     click_on 'Previous Day'
   end
 
@@ -43,5 +45,11 @@ module SharedActivitiesViz
 
   def has_date_picker?
     has_css? '#datepicker'
+  end
+
+  private
+
+  def participant_navigation
+    @participant_navigation ||= Participants::Navigation.new
   end
 end
