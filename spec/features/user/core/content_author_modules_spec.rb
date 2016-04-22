@@ -56,7 +56,7 @@ feature 'Content Author, Content Modules',
     click_on 'New Provider'
     find('#content_provider_bit_core_content_module_id',
          text: 'LEARN: Home Introduction')
-    select 'BitCore::ContentProviders::SlideshowProvider',
+    select 'Bit Core Content Providers Slideshow Provider',
            from: 'content_provider_type'
     select 'BitCore::Slideshow', from: 'content_provider_source_content_type'
     select 'Home Intro', from: 'content_provider_source_content_id'
