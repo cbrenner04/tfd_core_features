@@ -5,6 +5,7 @@ class Users
 
     def initialize(slideshows)
       @title ||= slideshows[:title]
+      @new_title ||= slideshows[:new_title]
     end
 
     def navigate_to_slideshows
@@ -34,6 +35,42 @@ class Users
 
     def destroy_table_of_contents
       click_on 'Destroy Table of Contents'
+    end
+
+    def create
+      click_on 'New'
+      fill_in 'slideshow_title', with: @title
+      click_on 'Create'
+    end
+
+    def created_successfully?
+      has_css?('.alert', text: 'Successfully created slideshow') &&
+        has_text?(@title)
+    end
+
+    def update
+      navigation.scroll_to_bottom
+      click_on @title
+      all('.btn-default')[5].click
+      fill_in 'slideshow_title', with: @new_title
+      click_on 'Update'
+    end
+
+    def updated_successfully?
+      has_css?('.alert', text: 'Successfully updated slideshow') &&
+        has_css?('a', text: @new_title)
+    end
+
+    def destroy
+      navigation.scroll_to_bottom
+      click_on @title
+      navigation.confirm_with_js
+      click_on 'Delete'
+    end
+
+    def destroyed_successfully?
+      has_css?('.alert', text: 'Slideshow deleted') &&
+        has_no_text?(@title)
     end
   end
 end

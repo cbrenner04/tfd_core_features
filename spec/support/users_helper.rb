@@ -20,3 +20,10 @@ def content_author
     password: ENV['Content_Author_Password']
   )
 end
+
+def researcher
+  @researcher ||= Users.new(
+    user: ENV['Researcher_Email'],
+    password: ENV['Researcher_Password']
+  )
+end

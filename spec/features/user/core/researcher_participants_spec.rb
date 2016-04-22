@@ -1,20 +1,11 @@
 # filename: researcher_participants_spec.rb
 
 feature 'Researcher, Participants', :core, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                         ENV['Researcher_Password'])
-    end
-  end
+  background(:all) { researcher.sign_in } if ENV['safari']
 
   background do
-    unless ENV['safari']
-      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                         ENV['Researcher_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/think_feel_do_dashboard/participants"
+    researcher.sign_in unless ENV['safari']
+    visit researcher_participants.landing_page
   end
 
   scenario 'Researcher creates a participant' do
