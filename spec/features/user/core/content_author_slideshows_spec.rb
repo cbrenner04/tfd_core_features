@@ -21,7 +21,7 @@ feature 'Content Author, Slideshows',
         :superfluous, :core, sauce: sauce_labs do
   background do
     content_author.sign_in unless ENV['safari']
-    visit navigation.arms_page
+    visit user_navigation.arms_page
     test_slideshow.navigate_to_slideshows
   end
 
@@ -44,10 +44,10 @@ feature 'Content Author, Slideshows',
   end
 
   scenario 'Content Author uses breadcrumbs to return home' do
-    navigation.return_to_arm
-    navigation.go_back_to_arms_page
-    navigation.go_back_to_home_page
+    user_navigation.return_to_arm
+    user_navigation.go_back_to_arms_page
+    user_navigation.go_back_to_home_page
 
-    expect(navigation).to have_home_visible
+    expect(user_navigation).to have_home_visible
   end
 end

@@ -39,8 +39,8 @@ feature 'THINK tool', :core, sauce: sauce_labs do
 
   scenario 'Participant cancels Add a New Harmful Thought' do
     add_new_thought.open
-    navigation.scroll_down
-    navigation.cancel
+    participant_navigation.scroll_down
+    participant_navigation.cancel
 
     expect(think).to be_visible
   end
@@ -57,21 +57,21 @@ feature 'THINK tool', :core, sauce: sauce_labs do
 
   scenario 'Participant uses the skip functionality in Identifying' do
     identifying.open
-    navigation.skip
+    participant_navigation.skip
 
     expect(identifying).to have_thought_entry_form
   end
 
   scenario 'Participant uses the skip functionality in Patterns' do
     patterns.open
-    navigation.skip
+    participant_navigation.skip
 
     expect(patterns).to have_pattern_entry_form
   end
 
   scenario 'Participant uses the skip functionality in Reshape' do
     reshape.open
-    navigation.skip
+    participant_navigation.skip
 
     expect(reshape).to have_reshape_form
   end
@@ -89,7 +89,7 @@ feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
   end
 
   scenario 'Participant uses the visualization' do
-    2.times { navigation.scroll_down }
+    2.times { participant_navigation.scroll_down }
     thought_viz.open_viz
 
     expect(thought_viz).to be_visible
@@ -97,6 +97,9 @@ feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
     thought_viz.open_detail
 
     expect(thought_viz).to have_detail
+
+    thought_viz.close_modal
+
     expect(thought_viz).to be_visible
 
     participant_5.sign_out # is this even necessary?

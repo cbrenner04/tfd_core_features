@@ -10,13 +10,13 @@ class Participants
     end
 
     def accept_social
-      navigation.confirm_with_js
-      navigation.next
+      participant_navigation.confirm_with_js
+      participant_navigation.next
     end
 
     def decline_social
       within('.form-group', text: 'Share the content') { choose 'No' }
-      navigation.next
+      participant_navigation.next
     end
 
     def open_detail
@@ -47,13 +47,13 @@ class Participants
     def has_updated_character_count?(response)
       count = 1000 - response.length
       plural = count > 1 ? 's' : ''
-      has_text? "#{count} character#{plural} left"
+      find('.status', text: "#{count} character#{plural} left")
     end
 
     private
 
-    def navigation
-      @navigation ||= Participants::Navigation.new
+    def participant_navigation
+      @participant_navigation ||= Participants::Navigation.new
     end
   end
 end

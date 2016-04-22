@@ -33,9 +33,9 @@ class Participants
       end
 
       def move_to_review
-        navigation.next
+        participant_navigation.next
         find('h1', text: 'Let\'s do this...')
-        navigation.next
+        participant_navigation.next
       end
 
       def review_completed_activity
@@ -43,7 +43,7 @@ class Participants
         select @pleasure, from: 'activity[actual_pleasure_intensity]'
         select @accomplishment,
                from: 'activity[actual_accomplishment_intensity]'
-        navigation.scroll_down
+        participant_navigation.scroll_down
       end
 
       def has_another_activity_to_review?
@@ -67,14 +67,14 @@ class Participants
       def has_feed_item_detail?
         within('.list-group-item.ng-scope',
                text: "Reviewed & Completed an Activity: #{@activity}") do
-          2.times { navigation.scroll_down }
+          2.times { participant_navigation.scroll_down }
           social_networking.open_detail
-          has_text? "start: #{@start_time.strftime('%b. %-d, %Y at %-l')}"
-          has_text? "end: #{@end_time.strftime('%b. %-d, %Y at %-l')}"
-          has_text? "predicted accomplishment: #{@predicted_accomplishment}\n" \
-                    "predicted pleasure: #{@predicted_pleasure}\n" \
-                    "actual accomplishment: #{@accomplishment}\n" \
-                    "actual pleasure: #{@pleasure}"
+          has_text?("start: #{@start_time.strftime('%b. %-d, %Y at %-l')}") &&
+            has_text?("end: #{@end_time.strftime('%b. %-d, %Y at %-l')}") &&
+            has_text?("predicted accomplishment: #{@predicted_accomplishment}" \
+                      "\npredicted pleasure: #{@predicted_pleasure}" \
+                      "\nactual accomplishment: #{@accomplishment}" \
+                      "\nactual pleasure: #{@pleasure}")
         end
       end
 
@@ -92,8 +92,8 @@ class Participants
         @do_tool ||= Participants::DoTool.new
       end
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def social_networking

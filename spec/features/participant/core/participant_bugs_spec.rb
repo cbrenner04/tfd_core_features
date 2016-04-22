@@ -13,13 +13,13 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
     scenario 'Participant completes Planning without multiple alerts' do
       planning.open
-      navigation.next
+      participant_navigation.next
       first_planned_activity.plan
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
 
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       second_planned_activity.plan
       social_networking.accept_social
 
@@ -29,7 +29,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       expect(planning).to have_review_page_visible
 
-      navigation.scroll_down
+      participant_navigation.scroll_down
       planning.finish
     end
 
@@ -51,9 +51,9 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       expect(awareness).to have_review_tables
 
-      navigation.next
+      participant_navigation.next
       activity_viz.open
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       activity_viz.go_to_previous_day
 
       expect(activity_viz).to have_previous_day_visible
@@ -83,7 +83,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
     scenario 'Participant completes a module, it appears complete' do
       participant_2.sign_in
 
-      expect(navigation).to have_new_assignment_in_feel
+      expect(participant_navigation).to have_new_assignment_in_feel
 
       visit feel.landing_page
 
@@ -92,7 +92,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
       tracking_mood_emotions.open
       tracking_mood_emotions.rate_mood
       tracking_mood_emotions.rate_emotion
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       tracking_mood_emotions.submit
       visit feel.landing_page
 
@@ -100,7 +100,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       recent_moods_emotions.open
 
-      expect(navigation).to_not have_new_assignment_in_feel
+      expect(participant_navigation).to_not have_new_assignment_in_feel
 
       participant_2.sign_out # within example b/c of derailment issues, move?
     end

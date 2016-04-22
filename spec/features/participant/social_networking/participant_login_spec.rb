@@ -7,7 +7,7 @@ feature 'Social Networking login', :social_networking, :marigold,
   scenario 'Completed participant in a social arm sends message' do
     completer.sign_in
 
-    expect(navigation).to have_home_page_visible
+    expect(participant_navigation).to have_home_page_visible
 
     visit completer_message.landing_page
     completer_message.open_new_message
@@ -25,7 +25,7 @@ feature 'Social Networking login', :social_networking, :marigold,
   scenario 'Completed participant in a mobile arm cannot compose a message' do
     mobile_completer.sign_in
 
-    expect(navigation).to have_home_page_visible
+    expect(participant_navigation).to have_home_page_visible
 
     visit mobile_completer_message.landing_page
 

@@ -1,3 +1,4 @@
+
 require './lib/pages/participants/do'
 require './lib/pages/participants/navigation'
 
@@ -27,9 +28,9 @@ class Participants
       end
 
       def move_to_time_period_selection
-        navigation.next
+        participant_navigation.next
         find('h1', text: 'Just a slide')
-        navigation.next
+        participant_navigation.next
       end
 
       def has_time_period_selection_form_visible?
@@ -40,7 +41,7 @@ class Participants
         select @start_time, from: 'awake_period_start_time'
         select @end_time, from: 'awake_period_end_time'
         click_on 'Create'
-        do_tool.has_success_alert?
+        find('.alert-success', text: 'Activity saved')
       end
 
       def choose_to_complete_time_period
@@ -61,15 +62,14 @@ class Participants
         @num_fields.zip(@activity, @pleasure, @accomplishment) do |a, b, c, d|
           complete_one_hour_review(a, b, c, d)
         end
-
-        navigation.next
+        participant_navigation.next
       end
 
       def complete_one_hour_review(a, b, c, d)
         fill_in "activity_type_#{a}", with: b
         do_tool.choose_rating("pleasure_#{a}", c)
         do_tool.choose_rating("accomplishment_#{a}", d)
-        navigation.scroll_down
+        participant_navigation.scroll_down
       end
 
       def copy(previous_entry)
@@ -79,8 +79,8 @@ class Participants
       def has_entries?
         %w(recent fun accomplished).zip(@count) do |x, y|
           find("##{x}_activities").has_css?('tr', count: y)
-          navigation.scroll_to_bottom
-          navigation.next
+          participant_navigation.scroll_to_bottom
+          participant_navigation.next
         end
         has_css?('h1', text: 'Do Landing')
       end
@@ -98,8 +98,8 @@ class Participants
         @do_tool ||= Participants::DoTool.new
       end
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
     end
   end

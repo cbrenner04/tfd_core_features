@@ -32,7 +32,7 @@ class Users
 
     def terminate_access
       within('tr', text: @participant) do
-        navigation.confirm_with_js if ENV['safari'] || ENV['chrome']
+        user_navigation.confirm_with_js if ENV['safari'] || ENV['chrome']
         click_on 'Terminate Access'
       end
       unless ENV['safari'] || ENV['chrome']
@@ -55,7 +55,7 @@ class Users
 
     def select_patient
       within('#patients', text: @participant) { click_on @participant }
-      visible?
+      find('h3', text: 'General Patient Info')
     end
 
     def has_inactive_label?
@@ -113,14 +113,14 @@ class Users
 
     def has_mood_emotions_viz_visible?
       within(mood_emotions_viz) do
-        has_css?('.title', text: 'Mood')
-        has_css?('.title', text: 'Positive and Negative Emotions')
-        has_css?('.bar', count: 2)
+        has_css?('.title', text: 'Mood') &&
+          has_css?('.title', text: 'Positive and Negative Emotions') &&
+          has_css?('.bar', count: 2)
       end
     end
 
     def select_mood_from_toc
-      navigation.scroll_down
+      user_navigation.scroll_down
       find('.list-group').all('a', text: 'Mood')[1].click
     end
 
@@ -185,7 +185,7 @@ class Users
     end
 
     def select_activity_viz_from_body
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       within('h3', text: 'Activities visualization') do
         click_on 'Activities visualization'
       end
@@ -246,7 +246,7 @@ class Users
     end
 
     def select_thoughts_viz_from_body
-      2.times { navigation.scroll_down }
+      2.times { user_navigation.scroll_down }
       within('h3', text: 'Thoughts visualization') do
         click_on 'Thoughts visualization'
       end
@@ -258,7 +258,7 @@ class Users
     end
 
     def select_thoughts_from_toc
-      navigation.scroll_down
+      user_navigation.scroll_down
       find('.list-group').all('a', text: 'Thoughts')[1].click
     end
 
@@ -292,12 +292,12 @@ class Users
 
     private
 
-    def navigation
-      @navigation ||= Users::Navigation.new
+    def user_navigation
+      @user_navigation ||= Users::Navigation.new
     end
 
     def select_from_toc(link)
-      navigation.scroll_down
+      user_navigation.scroll_down
       find('.list-group').find('a', text: link).click
     end
   end

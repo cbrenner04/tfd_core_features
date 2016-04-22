@@ -39,7 +39,7 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
     expect(messages).to have_coach_as_recipient
 
     messages.enter_reply_message
-    navigation.scroll_down
+    participant_navigation.scroll_down
     messages.send
 
     expect(messages).to have_saved_alert
@@ -57,7 +57,7 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
 
   scenario 'Participant uses the cancel button within compose message' do
     messages.open_new_message
-    navigation.cancel
+    participant_navigation.cancel
 
     expect(messages).to have_inbox_visible
   end

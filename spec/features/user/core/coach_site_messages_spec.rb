@@ -22,7 +22,7 @@ end
 feature 'Site Messaging', :core, sauce: sauce_labs do
   background do
     clinician.sign_in unless ENV['safari']
-    visit navigation.arms_page
+    visit user_navigation.arms_page
     site_messaging_1.navigate_to_site_messages
   end
 
@@ -43,10 +43,10 @@ feature 'Site Messaging', :core, sauce: sauce_labs do
   end
 
   scenario 'Coach uses breadcrumbs to return to home' do
-    navigation.go_back_to_group_page
-    navigation.go_back_to_home_page
+    user_navigation.go_back_to_group_page
+    user_navigation.go_back_to_home_page
 
-    expect(navigation).to have_home_visible
+    expect(user_navigation).to have_home_visible
 
     clinician.sign_out
   end

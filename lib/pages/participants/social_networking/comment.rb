@@ -16,28 +16,28 @@ class Participants
 
       def comment
         social_networking.find_feed_item(@feed_item)
-        navigation.scroll_to_bottom
+        participant_navigation.scroll_to_bottom
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Comment'
           find('input[type = text]').set(@comment)
-          navigation.scroll_down
+          participant_navigation.scroll_down
           click_on 'Save'
-          has_text? 'Comment (1)'
+          find('a', text: 'Comment (1)')
         end
       end
 
       def comment_and_check_for_character_count
         social_networking.find_feed_item(@feed_item)
-        navigation.scroll_to_bottom
+        participant_navigation.scroll_to_bottom
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Comment'
           find('input[type = text]').click
           expect(social_networking).to have_1000_characters_left
           find('input[type = text]').set(@comment)
           expect(social_networking).to have_updated_character_count(@comment)
-          navigation.scroll_down
+          participant_navigation.scroll_down
           click_on 'Save'
-          has_text? 'Comment (1)'
+          find('a', text: 'Comment (1)')
         end
       end
 
@@ -50,8 +50,8 @@ class Participants
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def social_networking

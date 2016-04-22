@@ -6,7 +6,7 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
   scenario 'Participant signs in' do
     participant_1.sign_in
 
-    expect(navigation).to have_successful_login_alert
+    expect(participant_navigation).to have_successful_login_alert
   end
 
   scenario 'Participant uses brand link to get to home page' do
@@ -15,16 +15,16 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
 
     expect(learn_1).to be_visible
 
-    navigation.click_brand
+    participant_navigation.click_brand
 
-    expect(navigation).to have_home_page_visible
+    expect(participant_navigation).to have_home_page_visible
   end
 
   scenario 'Participant signs out' do
     ENV['safari'] ? visit(ENV['Base_URL']) : participant_1.sign_in
     participant_1.sign_out
 
-    expect(navigation).to have_sign_up_alert
+    expect(participant_navigation).to have_sign_up_alert
   end
 
   scenario 'Visitor is not able to log in with invalid creds' do
@@ -32,7 +32,7 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
     visitor.fill_in_login_form
     visitor.submit_login
 
-    expect(navigation).to have_unsuccessful_login_alert
+    expect(participant_navigation).to have_unsuccessful_login_alert
   end
 
   scenario 'Participant who has withdrawn cannot sign in' do
@@ -40,21 +40,21 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
     old_participant.fill_in_login_form
     old_participant.submit_login
 
-    expect(navigation).to have_no_active_membership_alert
+    expect(participant_navigation).to have_no_active_membership_alert
   end
 
   scenario 'Visitor tries to visit a specific page, is redirected to login' do
     visit think.landing_page
 
-    expect(navigation).to have_sign_up_alert
+    expect(participant_navigation).to have_sign_up_alert
   end
 
   scenario 'Visitor views the intro slideshow' do
     visit ENV['Base_URL']
-    navigation.click_on_login_page_slideshow
-    navigation.done
+    participant_navigation.click_on_login_page_slideshow
+    participant_navigation.done
 
-    expect(navigation).to have_sign_up_alert
+    expect(participant_navigation).to have_sign_up_alert
   end
 
   scenario 'Participant uses the forgot password functionality' do
@@ -62,7 +62,7 @@ feature 'Login', :core, :marigold, sauce: sauce_labs do
     participant_1.select_forgot_password
     participant_1.submit_forgot_password
 
-    expect(navigation).to have_password_reset_alert
+    expect(participant_navigation).to have_password_reset_alert
   end
 end
 

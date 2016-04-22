@@ -23,8 +23,8 @@ class Participants
           find('tr', text: emotion)
             .find("input[value = '#{(0..4).to_a.sample}']").click
         end
-        navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
-        navigation.next
+        participant_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
+        participant_navigation.next
         unless ENV['chrome'] || ENV['safari']
           accept_alert 'Looks like you have not answered all the questions. ' \
                        'Please choose \'Cancel\' if you\'d like to go back ' \
@@ -39,8 +39,8 @@ class Participants
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def emotions

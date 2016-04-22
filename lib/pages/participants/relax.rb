@@ -27,8 +27,8 @@ class Participants
     end
 
     def finish
-      navigation.next
-      visible?
+      participant_navigation.next
+      find('h1', text: 'RELAX Home')
     end
 
     def find_in_feed
@@ -38,8 +38,8 @@ class Participants
 
     private
 
-    def navigation
-      @navigation ||= Participants::Navigation.new
+    def participant_navigation
+      @participant_navigation ||= Participants::Navigation.new
     end
 
     def social_networking

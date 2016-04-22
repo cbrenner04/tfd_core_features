@@ -7,7 +7,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
 
   background do
     clinician.sign_in unless ENV['safari']
-    visit navigation.arms_page
+    visit user_navigation.arms_page
     user_messages.navigate_to_messages
   end
 
@@ -29,7 +29,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
     user_message_3.open_message
     user_message_3.reply
     user_message_3.enter_reply_message
-    navigation.scroll_down
+    user_navigation.scroll_down
     user_message_3.send
 
     expect(user_message_3).to have_saved_alert
@@ -71,9 +71,9 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
   end
 
   scenario 'Coach uses breadcrumbs to return to home' do
-    navigation.go_back_to_group_page
-    navigation.go_back_to_home_page
+    user_navigation.go_back_to_group_page
+    user_navigation.go_back_to_home_page
 
-    expect(navigation).to have_home_visible
+    expect(user_navigation).to have_home_visible
   end
 end

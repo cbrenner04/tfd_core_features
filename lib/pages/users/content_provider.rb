@@ -1,3 +1,5 @@
+require './lib/pages/users/navigation'
+
 class Users
   # page object for content providers
   class ContentProvider
@@ -21,10 +23,10 @@ class Users
       select @content_type, from: 'content_provider_source_content_type'
       select @provider_content, from: 'content_provider_source_content_id'
       fill_in 'content_provider_position', with: @position
-      navigation.scroll_down
+      user_navigation.scroll_down
       check 'content_provider_show_next_nav'
       check 'content_provider_is_skippable_after_first_viewing'
-      navigation.scroll_down
+      user_navigation.scroll_down
       click_on 'Create'
     end
 
@@ -43,7 +45,7 @@ class Users
       find('p', text: 'Is skippable after first viewing:')
       click_on 'Edit'
       fill_in 'content_provider_position', with: @position
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       click_on 'Update'
     end
 
@@ -56,7 +58,7 @@ class Users
       find('strong', text: 'Tool:')
       click_on @title
       find('p', text: 'Slideshow:')
-      navigation.confirm_with_js
+      user_navigation.confirm_with_js
       click_on 'Destroy'
     end
 
@@ -66,8 +68,8 @@ class Users
 
     private
 
-    def navigation
-      @navigation ||= Users::Navigation.new
+    def user_navigation
+      @user_navigation ||= Users::Navigation.new
     end
   end
 end

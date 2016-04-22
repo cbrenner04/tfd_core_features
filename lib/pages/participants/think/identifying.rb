@@ -23,12 +23,12 @@ class Participants
       end
 
       def move_to_thought_input
-        navigation.next
+        participant_navigation.next
         ['Helpful thoughts are...', 'Harmful thoughts are:',
          'Some quick examples...'].each do |s|
           find('h1', text: s)
-          navigation.scroll_down
-          navigation.next
+          participant_navigation.scroll_down
+          participant_navigation.next
         end
       end
 
@@ -39,10 +39,10 @@ class Participants
         heading.zip(response) do |h, r|
           enter_thought(h, r)
           social_networking.accept_social
-          think.has_success_alert?
+          expect(think).to have_success_alert
         end
         find('h1', text: 'Good work')
-        navigation.next
+        participant_navigation.next
         expect(think).to be_visible
       end
 
@@ -73,8 +73,8 @@ class Participants
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def social_networking

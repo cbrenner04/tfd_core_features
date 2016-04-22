@@ -25,7 +25,7 @@ class Participants
         enter_thought
         social_networking.accept_social
         think.has_success_alert?
-        navigation.scroll_to_bottom
+        participant_navigation.scroll_to_bottom
         find('.btn.btn-primary.pull-right').click
       end
 
@@ -34,7 +34,7 @@ class Participants
         select @pattern, from: 'thought_pattern_id'
         fill_in 'thought_challenging_thought', with: @challenge
         fill_in 'thought_act_as_if', with: @action
-        navigation.scroll_to_bottom
+        participant_navigation.scroll_to_bottom
       end
 
       def find_in_feed
@@ -52,8 +52,8 @@ class Participants
 
       private
 
-      def navigation
-        @navtigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def social_networking

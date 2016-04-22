@@ -7,9 +7,9 @@ feature 'Content Author, Slides,',
   feature 'Lesson Modules' do
     background do
       content_author.sign_in unless ENV['safari']
-      visit navigation.arms_page
+      visit user_navigation.arms_page
       slide_test_lesson.navigate_to_lessons
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       slide_test_lesson.open
     end
 
@@ -89,9 +89,9 @@ feature 'Content Author, Slides,',
   feature 'Slideshows' do
     background do
       content_author.sign_in unless ENV['safari']
-      visit navigation.arms_page
+      visit user_navigation.arms_page
       slide_test_slideshow.navigate_to_slideshows
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       slide_test_slideshow.open
     end
 

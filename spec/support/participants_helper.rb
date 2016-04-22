@@ -3,8 +3,8 @@
 require './lib/pages/participants'
 require './lib/pages/participants/navigation'
 
-def navigation
-  @navigation ||= Participants::Navigation.new
+def participant_navigation
+  @participant_navigation ||= Participants::Navigation.new
 end
 
 def participant_1

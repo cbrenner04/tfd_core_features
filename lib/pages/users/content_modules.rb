@@ -33,8 +33,8 @@ class Users
       tries ||= 4
       click_on @title
     rescue Capybara::ElementNotFound
-      navigation.scroll_to_bottom
-      within('.pagination') { navigation.next }
+      user_navigation.scroll_to_bottom
+      within('.pagination') { user_navigation.next }
       retry unless (tries -= 1).zero?
     end
 
@@ -54,7 +54,7 @@ class Users
 
     def destroy
       open_module
-      navigation.confirm_with_js
+      user_navigation.confirm_with_js
       click_on 'Destroy'
     end
 
@@ -67,8 +67,8 @@ class Users
 
     private
 
-    def navigation
-      @navigation ||= Users::Navigation.new
+    def user_navigation
+      @user_navigation ||= Users::Navigation.new
     end
 
     def complete_content_module_form(tool)

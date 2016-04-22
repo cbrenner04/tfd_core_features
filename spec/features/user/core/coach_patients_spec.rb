@@ -6,7 +6,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
   feature 'Group 1' do
     background do
       clinician.sign_in unless ENV['safari']
-      visit navigation.arms_page
+      visit user_navigation.arms_page
       patient_dashboard_group_1.navigate_to_patient_dashboard
     end
 
@@ -33,17 +33,17 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach uses breadcrumbs to return to home' do
-      navigation.go_back_to_group_page
-      navigation.go_back_to_home_page
+      user_navigation.go_back_to_group_page
+      user_navigation.go_back_to_home_page
 
-      expect(navigation).to have_home_visible
+      expect(user_navigation).to have_home_visible
     end
   end
 
   feature 'Participant \'TFD-Data\'' do
     background do
       clinician.sign_in unless ENV['safari']
-      visit navigation.arms_page
+      visit user_navigation.arms_page
       patient_dashboard_group_1.navigate_to_patient_dashboard
       data_dashboard.select_patient
     end
@@ -229,7 +229,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
   feature 'Group 2' do
     scenario 'Coach sees data for a patient who has been withdrawn' do
       clinician.sign_in unless ENV['safari']
-      visit navigation.arms_page
+      visit user_navigation.arms_page
       patient_dashboard_group_2.navigate_to_patient_dashboard
       patient_dashboard_group_2.navigate_to_inactive_patients
       inactive_dashboard.select_patient

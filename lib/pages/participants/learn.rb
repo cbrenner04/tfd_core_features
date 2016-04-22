@@ -29,7 +29,7 @@ class Participants
 
     def read_lesson
       click_on @lesson_title
-      navigation.next
+      patient_navigation.next
       click_on 'Finish'
     end
 
@@ -59,7 +59,7 @@ class Participants
 
     def return_to_lessons
       click_on 'Return to Lessons'
-      has_text? 'Week 1'
+      find('h3', txt: 'Week 1')
     end
 
     def find_in_feed
@@ -68,8 +68,8 @@ class Participants
 
     private
 
-    def navigation
-      @navigation ||= Participants::Navigation.new
+    def patient_navigation
+      @patient_navigation ||= Participants::Navigation.new
     end
 
     def social_networking

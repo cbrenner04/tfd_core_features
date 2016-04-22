@@ -24,8 +24,8 @@ class Participants
       end
 
       def move_to_pattern_entry_form
-        navigation.next
-        has_pattern_entry_form?
+        participant_navigation.next
+        find('p', text: 'Let\'s start by')
       end
 
       def complete_for_five_thoughts
@@ -37,7 +37,7 @@ class Participants
         end
         compare_thought(thought_value)
         select_pattern('Personalization')
-        navigation.scroll_down
+        participant_navigation.scroll_down
         social_networking.accept_social
         think.has_success_alert?
         expect(think).to be_visible
@@ -48,9 +48,9 @@ class Participants
         select_pattern('Personalization')
         compare_thought(thought_value)
         select_pattern('Magnification or Catastrophizing')
-        navigation.scroll_down
+        participant_navigation.scroll_down
         social_networking.accept_social
-        think.has_success_alert?
+        expect(think).to have_success_alert
       end
 
       def has_nothing_to_do?
@@ -64,7 +64,7 @@ class Participants
       def has_feed_detail?
         within first('.list-group-item.ng-scope',
                      text: "Assigned a pattern to a Thought: #{@thought}") do
-          2.times { navigation.scroll_down }
+          2.times { participant_navigation.scroll_down }
           social_networking.open_detail
           has_text? "this thought is: #{@thought}\nthought pattern: #{@pattern}"
         end
@@ -72,8 +72,8 @@ class Participants
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def social_networking
@@ -89,7 +89,7 @@ class Participants
       end
 
       def compare_thought(thought)
-        navigation.scroll_down
+        participant_navigation.scroll_down
         social_networking.accept_social
         think.has_success_alert?
         within('.adjusted-list-group-item') { has_no_content? thought }

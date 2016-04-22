@@ -13,7 +13,7 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
 
     expect(pt_3_incentive_1).to have_incomplete_image
 
-    navigation.scroll_down
+    participant_navigation.scroll_down
     pt_3_incentive_1.open_incentives_list
 
     expect(pt_3_incentive_1).to have_incentives_listed
@@ -25,9 +25,9 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
 
     expect(pt_3_incentive_2).to be_visible
 
-    navigation.scroll_down
+    participant_navigation.scroll_down
     pt_3_incentive_2.open_incentives_list
-    navigation.scroll_down
+    participant_navigation.scroll_down
 
     expect(pt_3_behavior_1).to be_complete
   end
@@ -40,7 +40,7 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
 
     expect(pt_3_incentive_3).to have_image_in_plot
 
-    navigation.scroll_down
+    participant_navigation.scroll_down
     pt_3_incentive_3.open_incentives_list
 
     expect(pt_3_behavior_2).to be_complete
@@ -73,7 +73,7 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
     expect(participant_2_incentive).to be_visible
     expect(participant_2_incentive).to have_image_in_plot
 
-    navigation.scroll_down
+    participant_navigation.scroll_down
     participant_2_incentive.open_incentives_list
 
     expect(pt_2_behavior_1).to be_complete

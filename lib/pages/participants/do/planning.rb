@@ -30,10 +30,10 @@ class Participants
 
       def plan
         find('#new_activity_radio')
-        navigation.scroll_down
+        participant_navigation.scroll_down
         find('#new_activity_radio').click
         fill_in 'activity_activity_type_new_title', with: @activity
-        navigation.scroll_down
+        participant_navigation.scroll_down
         find('.fa.fa-calendar').click
         pick_tomorrow
         do_tool.choose_rating('pleasure_0', @pleasure)
@@ -54,8 +54,8 @@ class Participants
       end
 
       def finish
-        navigation.next
-        do_tool.has_landing_visible?
+        participant_navigation.next
+        find('h1', text: 'Do Landing')
       end
 
       def find_in_feed
@@ -76,8 +76,8 @@ class Participants
         @do_tool ||= Participants::DoTool.new
       end
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def social_networking

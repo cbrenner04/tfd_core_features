@@ -23,10 +23,11 @@ class Participants
       end
 
       def has_detail?
-        within('.modal-dialog') do
-          has_text? @thought
-          find('.close').click
-        end
+        find('.modal-dialog').has_text? @thought
+      end
+
+      def close_modal
+        find('.modal-dialog').find('.close').click
       end
     end
   end

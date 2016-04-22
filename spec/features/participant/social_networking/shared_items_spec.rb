@@ -14,7 +14,7 @@ feature 'Shared items, Social arm',
 
     scenario 'Participant shares THINK > Identifying responses' do
       pt_1_identify_thought_1.open
-      navigation.skip
+      participant_navigation.skip
       pt_1_identify_thought_1
         .enter_thought('Now, your turn...', 'Public thought 1')
       social_networking.accept_social
@@ -50,7 +50,7 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_2.open
       pt_1_add_new_thought_2.enter_thought
       social_networking.decline_social
-      navigation.alt_next
+      participant_navigation.alt_next
 
       expect(think).to have_success_alert
 
@@ -70,13 +70,13 @@ feature 'Shared items, Social arm',
 
     scenario 'Participant shares DO > Planning responses' do
       pt_1_planning_1.open
-      navigation.next
+      participant_navigation.next
       pt_1_planning_1.plan
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
 
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       pt_1_planning_2.plan
       social_networking.decline_social
 
@@ -86,7 +86,7 @@ feature 'Shared items, Social arm',
 
       expect(pt_1_planning_2).to have_review_page_visible
 
-      navigation.scroll_down
+      participant_navigation.scroll_down
       pt_1_planning_2.finish
       visit ENV['Base_URL']
       pt_1_planning_1.find_in_feed
@@ -140,12 +140,12 @@ feature 'Shared items, Mobile arm',
     scenario 'Participant cannot create a shared item in Identifying' do
       ns_pt_identifying.open
       ns_pt_identifying.move_to_thought_input
-      navigation.next
+      participant_navigation.next
 
       expect(social_networking).to_not have_share_options
 
       ns_pt_identifying.enter_thought('Now list another', 'Test thought 1')
-      navigation.next
+      participant_navigation.next
 
       expect(ns_pt_identifying).to have_final_slide
     end
@@ -165,7 +165,7 @@ feature 'Shared items, Mobile arm',
 
     scenario 'Participant cannot create a shared item in Awareness' do
       ns_pt_awareness.open
-      navigation.next
+      participant_navigation.next
       ns_pt_awareness.create_time_period
 
       expect(social_networking).to_not have_share_options
@@ -173,7 +173,7 @@ feature 'Shared items, Mobile arm',
 
     scenario 'Participant cannot create a shared item in Planning' do
       ns_pt_planning.open
-      navigation.next
+      participant_navigation.next
 
       expect(ns_pt_planning).to have_planning_form_visible
       expect(social_networking).to_not have_share_options

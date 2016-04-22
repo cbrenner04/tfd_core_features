@@ -1,3 +1,4 @@
+require './lib/pages/participants/do/planning'
 require './lib/pages/participants/social_networking'
 
 class Participants
@@ -18,7 +19,7 @@ class Participants
       end
 
       def plan_activity
-        planning.plan
+        local_planning.plan
       end
 
       def on_form?
@@ -43,8 +44,8 @@ class Participants
 
       private
 
-      def planning
-        @planning ||= Participants::DoTool::Planning.new(
+      def local_planning
+        @local_planning ||= Participants::DoTool::Planning.new(
           activity: @activity,
           pleasure: @pleasure,
           accomplishment: @accomplishment

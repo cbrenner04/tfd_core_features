@@ -3,8 +3,8 @@
 require './lib/pages/users'
 require './lib/pages/users/navigation'
 
-def navigation
-  @navigation ||= Users::Navigation.new
+def user_navigation
+  @user_navigation ||= Users::Navigation.new
 end
 
 def clinician

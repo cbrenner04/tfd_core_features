@@ -1,6 +1,7 @@
 class Participants
   # page object for the Feel tool
   class Feel
+    include RSpec::Matchers
     include Capybara::DSL
 
     def landing_page
@@ -19,7 +20,7 @@ class Participants
       tool.zip(content) do |t, c|
         click_on 'FEEL'
         click_on t
-        has_text? c
+        expect(page).to have_content c
       end
     end
   end

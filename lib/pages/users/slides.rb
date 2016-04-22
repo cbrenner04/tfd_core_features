@@ -27,7 +27,7 @@ class Users
               with: ENV['Audio_File'] if @type == 'audio'
       uncheck 'slide[is_title_visible]'
       find('.md-input').set @body
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       click_on 'Create'
     end
 
@@ -38,7 +38,7 @@ class Users
     def update
       find('li', text: @title).find('.btn-default').click
       check 'slide[is_title_visible]'
-      navigation.scroll_to_bottom
+      user_navigation.scroll_to_bottom
       click_on 'Update'
     end
 
@@ -56,7 +56,7 @@ class Users
     end
 
     def destroy
-      navigation.confirm_with_js
+      user_navigation.confirm_with_js
       find('li', text: @title).find('.btn-danger').click
     end
 
@@ -74,8 +74,8 @@ class Users
 
     private
 
-    def navigation
-      @navigation ||= Users::Navigation.new
+    def user_navigation
+      @user_navigation ||= Users::Navigation.new
     end
   end
 end

@@ -1,5 +1,3 @@
-require './lib/pages/shared/mood_emotions_viz'
-
 class Participants
   class Feel
     # page object for Your Recent Moods & Emotions module
@@ -20,14 +18,14 @@ class Participants
       end
 
       def has_moods?
-        find('#mood').find('.title', text: 'Mood*')
-        has_css?(".#{@mood_type}", count: @mood_count)
+        find('#mood').has_css?('.title', text: 'Mood*') &&
+          has_css?(".#{@mood_type}", count: @mood_count)
       end
 
       def has_emotions?
         find('#emotions')
-          .find('.title', text: 'Positive and Negative Emotions*')
-        has_css?(".#{@emotion_type}", count: @emotions_count)
+          .has_css?('.title', text: 'Positive and Negative Emotions*') &&
+          has_css?(".#{@emotion_type}", count: @emotions_count)
       end
     end
   end

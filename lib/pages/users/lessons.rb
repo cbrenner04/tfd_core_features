@@ -1,3 +1,5 @@
+require './lib/pages/users/navigation'
+
 class Users
   # page object for Lessons
   class Lessons
@@ -47,7 +49,7 @@ class Users
 
     def destory
       within('tr', text: 'Lesson for tests') do
-        navigation.confirm_with_js
+        user_navigation.confirm_with_js
         find('.btn-danger').click
       end
     end
@@ -55,6 +57,12 @@ class Users
     def destroyed_successfully?
       has_css?('.alert-success', text: 'Lesson deleted.') &&
         has_no_text?('Lessons for tests')
+    end
+
+    private
+
+    def user_navigation
+      @user_navigation ||= Users::Navigation.new
     end
   end
 end

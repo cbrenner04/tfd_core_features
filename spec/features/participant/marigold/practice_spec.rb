@@ -29,7 +29,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     expect(gratitude_1).to have_question
 
     gratitude_1.enter_response
-    navigation.next
+    participant_navigation.next
 
     expect(gratitude_1).to be_saved
 
@@ -60,7 +60,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
   scenario 'Participant must submit New Positive events with description' do
     positive_events_1.open
-    navigation.next
+    participant_navigation.next
 
     expect(positive_events_1).to have_description_alert
   end
@@ -68,7 +68,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant creates New Positive events' do
     positive_events_1.open
     positive_events_1.complete
-    navigation.next
+    participant_navigation.next
 
     expect(positive_events_1).to be_saved
 
@@ -95,7 +95,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     activation_1.choose_pleasure
     activation_1.choose_accomplishment
     activation_1.complete_reminder_and_encouragement_fields
-    navigation.next
+    participant_navigation.next
 
     expect(activation_1).to have_activity_alert
   end
@@ -105,7 +105,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     activation_1.enter_activity_type
     activation_1.choose_accomplishment
     activation_1.complete_reminder_and_encouragement_fields
-    navigation.next
+    participant_navigation.next
 
     expect(activation_1).to be_on_new_activity_form
   end
@@ -115,7 +115,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     activation_1.enter_activity_type
     activation_1.choose_pleasure
     activation_1.complete_reminder_and_encouragement_fields
-    navigation.next
+    participant_navigation.next
 
     expect(activation_1).to be_on_new_activity_form
   end
@@ -123,7 +123,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant completes Activation' do
     activation_1.open
     activation_1.complete_new_activity
-    navigation.next
+    participant_navigation.next
     activation_2.complete_completed_activity
     social_networking.accept_social
     activation_3.complete_incomplete_activity
@@ -156,7 +156,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
     expect(meditation_1).to have_exercises
 
-    navigation.next
+    participant_navigation.next
 
     expect(meditation_1).to have_comments_alert
   end
@@ -164,7 +164,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant completes new Meditation activity' do
     meditation_1.open
     meditation_1.complete
-    navigation.next
+    participant_navigation.next
 
     expect(meditation_1).to have_activity
   end
@@ -178,9 +178,9 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant reviews past Mindfulness activity' do
     mindfulness_1.open_review
     mindfulness_1.review_incomplete_activity
-    navigation.next
+    participant_navigation.next
     mindfulness_2.review_completed_activity
-    navigation.next
+    participant_navigation.next
     mindfulness_2.open_view
 
     expect(mindfulness_1).to have_incomplete_activity
@@ -200,7 +200,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
   scenario 'Participant must enter activity to submit Mindfulness activity' do
     mindfulness_3.open
-    navigation.next
+    participant_navigation.next
 
     expect(mindfulness_3).to have_activity_alert
   end
@@ -208,7 +208,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant enters new Mindfulness activity' do
     mindfulness_3.open
     mindfulness_3.complete
-    navigation.next
+    participant_navigation.next
 
     expect(mindfulness_3).to have_planned_activity
   end
@@ -221,7 +221,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
   scenario 'Participant must enter journal entry to submit Kindness Journal' do
     kindness_1.open
-    navigation.next
+    participant_navigation.next
 
     expect(kindness_1).to have_entry_alert
   end
@@ -229,7 +229,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant completes Kindness Journal' do
     kindness_1.open
     kindness_1.complete
-    navigation.next
+    participant_navigation.next
 
     expect(kindness_1).to have_journal_entry
   end
@@ -243,7 +243,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant must enter description to submit Strengths journal' do
     strengths_1.open
     strengths_1.enter_challenges
-    navigation.next
+    participant_navigation.next
 
     expect(strengths_1).to have_description_alert
   end
@@ -251,7 +251,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant must enter challenges to submit Strengths journal' do
     strengths_1.open
     strengths_1.enter_description
-    navigation.next
+    participant_navigation.next
 
     expect(strengths_1).to have_challenges_alert
   end
@@ -260,7 +260,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     strengths_1.open
     strengths_1.enter_description
     strengths_1.enter_challenges
-    navigation.next
+    participant_navigation.next
 
     expect(strengths_1).to have_journal_entry
   end
@@ -287,7 +287,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     reappraisal_1.enter_stressor
     reappraisal_1.enter_reappraisals
     reappraisal_1.enter_reflection
-    navigation.next
+    participant_navigation.next
 
     expect(reappraisal_1).to have_description_alert
   end
@@ -297,7 +297,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     reappraisal_1.enter_description
     reappraisal_1.enter_reappraisals
     reappraisal_1.enter_reflection
-    navigation.next
+    participant_navigation.next
 
     expect(reappraisal_1).to have_stressor_alert
   end
@@ -307,7 +307,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     reappraisal_1.enter_description
     reappraisal_1.enter_stressor
     reappraisal_1.enter_reflection
-    navigation.next
+    participant_navigation.next
 
     expect(reappraisal_1).to have_reappraisal_alert
   end
@@ -317,7 +317,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     reappraisal_1.enter_description
     reappraisal_1.enter_stressor
     reappraisal_1.enter_reappraisals
-    navigation.next
+    participant_navigation.next
 
     expect(reappraisal_1).to have_reflection_alert
   end
@@ -325,7 +325,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   scenario 'Participant completes Reappraisal' do
     reappraisal_1.open
     reappraisal_1.complete
-    navigation.next
+    participant_navigation.next
 
     expect(reappraisal_1).to have_reappraisal
   end

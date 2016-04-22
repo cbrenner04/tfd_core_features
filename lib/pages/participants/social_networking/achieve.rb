@@ -54,7 +54,7 @@ class Participants
         open_new
         fill_in 'new-goal-description', with: @goal
         choose 'end of study'
-        navigation.save
+        pt_navigation.save
       end
 
       def visible?
@@ -71,16 +71,15 @@ class Participants
 
       def has_details?
         within('.list-group-item', text: "Created a Goal: #{@goal}") do
-          navigation.scroll_to_bottom
+          pt_navigation.scroll_to_bottom
           social_networking.open_detail
-
           has_text? "due #{@due_date.strftime('%b %d %Y')}"
         end
       end
 
       def complete
         within('.list-group-item', text: @goal) do
-          navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
+          pt_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
           click_on 'Complete'
         end
 
@@ -89,13 +88,13 @@ class Participants
                        'complete? This action cannot be undone.'
         end
 
-        has_css?('.list-group-item-success', text: 'p1 alpha')
+        find('.list-group-item-success', text: 'p1 alpha')
         click_on 'Completed'
       end
 
       def delete
         if ENV['chrome'] || ENV['safari']
-          navigation.confirm_with_js
+          pt_navigation.confirm_with_js
           find('.list-group-item', text: @goal).find('.delete').click
         else
           find('.list-group-item', text: @goal).find('.delete').click
@@ -130,7 +129,7 @@ class Participants
 
       def has_due_date?
         within first('.list-group-item.ng-scope', text: "a Goal: #{@goal}") do
-          navigation.scroll_to_bottom
+          pt_navigation.scroll_to_bottom
           social_networking.open_detail
           has_text? "due #{@due_date.strftime('%b %d %Y')}"
         end
@@ -142,8 +141,8 @@ class Participants
         @social_networking ||= Participants::SocialNetworking.new
       end
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def pt_navigation
+        @pt_navigation ||= Participants::Navigation.new
       end
     end
   end

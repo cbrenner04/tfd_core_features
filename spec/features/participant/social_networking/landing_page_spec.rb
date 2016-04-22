@@ -9,11 +9,11 @@ feature 'SocialNetworking Landing Page',
       participant_1.sign_in unless ENV['safari']
       visit ENV['Base_URL']
 
-      expect(navigation).to have_home_page_visible
+      expect(participant_navigation).to have_home_page_visible
     end
 
     scenario 'Participant creates a profile' do
-      navigation.scroll_down
+      participant_navigation.scroll_down
 
       expect(participant_1_to_do_list).to have_profile_task
 
@@ -44,14 +44,14 @@ feature 'SocialNetworking Landing Page',
     end
 
     scenario 'Participant creates a whats on your mind post' do
-      navigation.scroll_down
+      participant_navigation.scroll_down
       pt_1_on_the_mind.create
 
       expect(pt_1_on_the_mind).to be_in_feed
     end
 
     scenario 'Participant selects link in TODO list' do
-      3.times { navigation.scroll_down }
+      3.times { participant_navigation.scroll_down }
       participant_1_to_do_list.select_task
 
       expect(thought_viz).to be_visible
@@ -83,7 +83,7 @@ feature 'SocialNetworking Landing Page',
 
     scenario 'Participant checks for an incomplete goal' do
       social_networking.scroll_to_bottom_of_feed
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
 
       expect(incomplete_goal).to be_visible_in_feed
     end
@@ -120,8 +120,8 @@ feature 'SocialNetworking Landing Page',
 
       expect(think).to be_visible
 
-      navigation.open_mobile_menu
-      navigation.navigate_home
+      participant_navigation.open_mobile_menu
+      participant_navigation.navigate_home
 
       expect(to_do_list).to be_visible
 
@@ -140,7 +140,7 @@ feature 'SocialNetworking Landing Page',
 
       participant_4_profile.create_group_3_profile
       visit ENV['Base_URL']
-      navigation.confirm_with_js
+      participant_navigation.confirm_with_js
 
       expect(participant_4_to_do_list).to_not have_profile_task
       expect(participant_4_to_do_list).to be_complete
@@ -158,7 +158,7 @@ feature 'SocialNetworking Landing Page', :tfdso, sauce: sauce_labs do
       participant_1.sign_in unless ENV['safari']
       visit ENV['Base_URL']
 
-      expect(navigation).to have_home_page_visible
+      expect(participant_navigation).to have_home_page_visible
     end
 
     scenario 'Participant does not see \'Last seen:\' for moderator' do

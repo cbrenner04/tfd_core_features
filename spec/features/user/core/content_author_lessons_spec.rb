@@ -7,7 +7,7 @@ feature 'Content Author, Lessons', :superfluous, :core, sauce: sauce_labs do
 
   background do
     content_author.sign_in unless ENV['safari']
-    visit navigation.arms_page
+    visit user_navigation.arms_page
     lessons.navigate_to_lessons
   end
 
@@ -24,17 +24,17 @@ feature 'Content Author, Lessons', :superfluous, :core, sauce: sauce_labs do
   end
 
   scenario 'Content Author destroys lesson' do
-    navigation.scroll_to_bottom
+    user_navigation.scroll_to_bottom
     lessons_3.destory
 
     expect(lessons_3).to be_destroyed_successfully
   end
 
   scenario 'Content Author uses breadcrumbs to return home' do
-    navigation.return_to_arm
-    navigation.go_back_to_arms_page
-    navigation.go_back_to_home_page
+    user_navigation.return_to_arm
+    user_navigation.go_back_to_arms_page
+    user_navigation.go_back_to_home_page
 
-    expect(navigation).to have_home_visible
+    expect(user_navigation).to have_home_visible
   end
 end

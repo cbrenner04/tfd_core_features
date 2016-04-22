@@ -1,6 +1,7 @@
 class Participants
   # page object for the Think tool
   class Think
+    include RSpec::Matchers
     include Capybara::DSL
 
     def landing_page
@@ -26,7 +27,7 @@ class Participants
       tool.zip(content) do |t, c|
         click_on 'THINK'
         click_on t
-        has_text? c
+        expect(page).to have_content c
       end
     end
 

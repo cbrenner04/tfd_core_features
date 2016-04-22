@@ -29,7 +29,7 @@ class Participants
 
       def rate_mood
         select @mood_rating, from: 'mood[rating]'
-        navigation.next
+        participant_navigation.next
         find('.alert-info',
              text: "You just rated your mood as a #{@mood_rating} (Good)")
       end
@@ -41,7 +41,7 @@ class Participants
       end
 
       def add_and_rate_emotion
-        navigation.scroll_down
+        participant_navigation.scroll_down
         click_on 'Add Emotion'
         within '#subcontainer-1' do
           fill_in 'emotional_rating_name', with: @emotion
@@ -51,20 +51,20 @@ class Participants
       end
 
       def submit
-        navigation.next
+        participant_navigation.next
         find('.alert-success', text: 'Emotional Rating saved')
       end
 
       def finish
-        navigation.scroll_to_bottom
-        navigation.next
-        has_text? 'Feeling Tracker Landing'
+        participant_navigation.scroll_to_bottom
+        participant_navigation.next
+        find('small', text: 'Feeling Tracker Landing')
       end
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
     end
   end

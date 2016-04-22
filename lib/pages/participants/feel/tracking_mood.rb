@@ -16,20 +16,20 @@ class Participants
 
       def rate_mood
         select @rating, from: 'mood[rating]'
-        navigation.next
+        participant_navigation.next
         find('.alert-success', text: 'Mood saved')
       end
 
       def finish
-        navigation.scroll_to_bottom
-        navigation.next
+        participant_navigation.scroll_to_bottom
+        participant_navigation.next
         has_text? 'Feeling Tracker Landing'
       end
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
     end
   end

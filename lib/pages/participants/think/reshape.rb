@@ -5,6 +5,7 @@ class Participants
   class Think
     # page object for Reshape module
     class Reshape
+      include RSpec::Matchers
       include Capybara::DSL
 
       def initialize(reshape)
@@ -28,15 +29,15 @@ class Participants
 
         begin
           tries ||= 3
-          navigation.next
+          participant_navigation.next
         rescue Selenium::WebDriver::Error::UnknownError
-          navigation.scroll_by
+          participant_navigation.scroll_by
           retry unless (tries -= 1).zero?
         end
       end
 
       def has_reshape_form?
-        has_text? 'In case you\'ve forgotten' unless has_text? 'You don\'t have'
+        has_text?('In case you\'ve forgotten') || has_text?('You don\'t have')
       end
 
       def reshape_multiple_thoughts
@@ -45,18 +46,18 @@ class Participants
 
       def reshape
         find('h3', text: 'You said that you thought...')
-        navigation.next
+        participant_navigation.next
         fill_in 'thought[challenging_thought]', with: @challenge
-        navigation.scroll_down
-        navigation.next
-        think.has_success_alert?
+        participant_navigation.scroll_down
+        participant_navigation.next
+        expect(think).to have_success_alert
         find('p', text: 'Because what you THINK, FEEL, Do')
-        navigation.scroll_to_bottom
-        navigation.next
+        participant_navigation.scroll_to_bottom
+        participant_navigation.next
         find('label', text: 'What could you do to ACT AS IF you believe this?')
         fill_in 'thought_act_as_if', with: @action
-        navigation.next
-        think.has_success_alert?
+        participant_navigation.next
+        expect(think).to have_success_alert
       end
 
       def find_in_feed
@@ -66,7 +67,7 @@ class Participants
       def has_feed_details?
         within('.list-group-item.ng-scope',
                text: "Reshaped a Thought: #{@thought}") do
-          2.times { navigation.scroll_down }
+          2.times { participant_navigation.scroll_down }
           social_networking.open_detail
 
           has_text? "this thought is: #{@thought}" \
@@ -78,8 +79,8 @@ class Participants
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def think

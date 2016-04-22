@@ -63,7 +63,7 @@ class Participants
         question = ['What are your hobbies?', 'What is your favorite color?',
                     'Animal, vegetable or mineral?', 'Group 1 profile question']
         question.zip(@answer) do |q, a|
-          navigation.scroll_down
+          participant_navigation.scroll_down
           answer_profile_question(q, a)
         end
 
@@ -74,7 +74,7 @@ class Participants
       def create_group_3_profile
         visit_profile
         incomplete?
-        2.times { navigation.scroll_down }
+        2.times { participant_navigation.scroll_down }
         answer_profile_question('What are your hobbies?', @answer)
         has_no_text? 'Fill out your profile so other group members can get ' \
                      'to know you!'
@@ -98,7 +98,7 @@ class Participants
 
       def nudge
         click_on 'Nudge'
-        has_text? 'Nudge sent!'
+        find('.ng-binding', text: 'Nudge sent!')
       end
 
       def has_nudge_in_feed?
@@ -112,8 +112,8 @@ class Participants
 
       private
 
-      def navigation
-        @navigation ||= Participants::Navigation.new
+      def participant_navigation
+        @participant_navigation ||= Participants::Navigation.new
       end
 
       def social_networking
@@ -123,8 +123,8 @@ class Participants
       def answer_profile_question(question, answer)
         within profile_question(question) do
           enter_profile_answer(answer)
-          navigation.confirm_with_js
-          navigation.save
+          participant_navigation.confirm_with_js
+          participant_navigation.save
         end
       end
 
