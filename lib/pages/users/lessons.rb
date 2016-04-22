@@ -27,8 +27,13 @@ class Users
         has_css?('small', text: @lesson)
     end
 
-    def update
+    def open
       click_on @lesson
+      find('small', text: @lesson)
+    end
+
+    def update
+      open
       find('a', text: @slide_title)
       all('.btn-default')[1].click
       fill_in 'lesson_title', with: @new_title

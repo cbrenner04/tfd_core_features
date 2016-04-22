@@ -51,14 +51,4 @@ class Users
   def check_data(item, data)
     within(item) { has_text? data }
   end
-
-  def host_app
-    if ENV['tfd'] || ENV['tfdso']
-      'ThinkFeelDo'
-    elsif ENV['sunnyside']
-      'Sunnyside'
-    elsif ENV['marigold']
-      'Marigold'
-    end
-  end
 end

@@ -17,4 +17,14 @@ module SharedNavigation
   def next
     click_on 'Next'
   end
+
+  def host_app
+    if ENV['tfd'] || ENV['tfdso']
+      'ThinkFeelDo'
+    elsif ENV['sunnyside']
+      'Sunnyside'
+    elsif ENV['marigold']
+      'Marigold'
+    end
+  end
 end

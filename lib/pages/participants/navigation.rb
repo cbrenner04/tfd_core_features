@@ -97,17 +97,5 @@ class Participants
     def reload
       execute_script('window.location.reload()')
     end
-
-    private
-
-    def host_app
-      if ENV['tfd'] || ENV['tfdso']
-        'ThinkFeelDo'
-      elsif ENV['sunnyside']
-        'Sunnyside'
-      elsif ENV['marigold']
-        'Marigold'
-      end
-    end
   end
 end
