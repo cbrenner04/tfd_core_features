@@ -72,7 +72,7 @@ feature 'Researcher, Participants', :core, sauce: sauce_labs do
       tries ||= 3
       click_on 'Assign Coach/Moderator'
     rescue Selenium::WebDriver::Error::UnknownError
-      page.execute_script('window.scrollBy(0,1000)')
+      execute_script('window.scrollBy(0,1000)')
       retry unless (tries -= 1).zero?
     end
 

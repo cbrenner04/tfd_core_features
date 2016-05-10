@@ -138,10 +138,9 @@ class Users
     def check_standard_week_and_end_date
       weeks_later = ENV['tfd'] ? (20 * 7) : 56
       week_num = ENV['tfd'] ? 20 : 8
-      expect(page)
-        .to have_content "Standard number of weeks: #{week_num}, Projected" \
-                         ' End Date from today: ' \
-                         "#{(Date.today + weeks_later).strftime('%m/%d/%Y')}"
+      has_text? "Standard number of weeks: #{week_num}, Projected" \
+                ' End Date from today: ' \
+                "#{(Date.today + weeks_later).strftime('%m/%d/%Y')}"
     end
   end
 end
