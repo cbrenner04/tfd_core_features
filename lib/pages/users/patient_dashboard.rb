@@ -2,7 +2,7 @@ require './lib/pages/users/navigation'
 require './lib/pages/shared/activities_viz'
 require './lib/pages/shared/mood_emotions_viz'
 
-class Users
+module Users
   # page object for the patient dashboard
   class PatientDashboard
     include Capybara::DSL

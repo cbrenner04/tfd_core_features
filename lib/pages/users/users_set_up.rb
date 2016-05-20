@@ -1,6 +1,6 @@
 require './lib/pages/users/navigation'
 
-class Users
+module Users
   # page object for Users page
   class UsersSetUp
     include Capybara::DSL

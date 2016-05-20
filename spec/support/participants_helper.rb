@@ -8,35 +8,35 @@ def participant_navigation
 end
 
 def participant_1
-  @participant_1 ||= Participants.new(
+  @participant_1 ||= Participant.new(
     participant: ENV['Participant_Email'],
     password: ENV['Participant_Password']
   )
 end
 
 def participant_3
-  @participant_3 ||= Participants.new(
+  @participant_3 ||= Participant.new(
     participant: ENV['Alt_Participant_Email'],
     password: ENV['Alt_Participant_Password']
   )
 end
 
 def participant_5
-  @participant_5 ||= Participants.new(
+  @participant_5 ||= Participant.new(
     participant: ENV['Participant_5_Email'],
     password: ENV['Participant_5_Password']
   )
 end
 
 def nonsocial_pt
-  @nonsocial_pt ||= Participants.new(
+  @nonsocial_pt ||= Participant.new(
     participant: ENV['NS_Participant_Email'],
     password: ENV['NS_Participant_Password']
   )
 end
 
 def marigold_participant
-  @marigold_participant ||= Participants.new(
+  @marigold_participant ||= Participant.new(
     participant: ENV['Marigold_Participant_Email'],
     password: ENV['Marigold_Participant_Password']
   )

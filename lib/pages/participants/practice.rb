@@ -1,4 +1,4 @@
-class Participants
+module Participants
   # page object for PRACTICE
   class Practice
     include Capybara::DSL

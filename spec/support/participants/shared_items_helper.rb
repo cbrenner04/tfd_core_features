@@ -1,18 +1,18 @@
 # filename: ./spec/support/participants/shared_items_helper.rb
 
 require './lib/pages/participants/do'
-require './lib/pages/participants/do/awareness'
-require './lib/pages/participants/do/planning'
-require './lib/pages/participants/do/plan_new_activity'
-require './lib/pages/participants/do/reviewing'
+require './lib/pages/participants/do_modules/awareness'
+require './lib/pages/participants/do_modules/planning'
+require './lib/pages/participants/do_modules/plan_new_activity'
+require './lib/pages/participants/do_modules/reviewing'
 require './lib/pages/participants/learn'
 require './lib/pages/participants/relax'
 require './lib/pages/participants/social_networking'
 require './lib/pages/participants/think'
-require './lib/pages/participants/think/identifying'
-require './lib/pages/participants/think/add_new_thought'
-require './lib/pages/participants/think/patterns'
-require './lib/pages/participants/think/reshape'
+require './lib/pages/participants/think_modules/identifying'
+require './lib/pages/participants/think_modules/add_new_thought'
+require './lib/pages/participants/think_modules/patterns'
+require './lib/pages/participants/think_modules/reshape'
 
 def think
   @think ||= Participants::Think.new
@@ -27,20 +27,20 @@ def social_networking
 end
 
 def pt_1_identify_thought_1
-  @pt_1_identify_thought_1 ||= Participants::Think::Identifying.new(
+  @pt_1_identify_thought_1 ||= Participants::ThinkModules::Identifying.new(
     feed_item: 'Public thought 1',
     timestamp: "Today at #{Time.now.strftime('%l')}"
   )
 end
 
 def pt_1_identify_thought_2
-  @pt_1_identify_thought_2 ||= Participants::Think::Identifying.new(
+  @pt_1_identify_thought_2 ||= Participants::ThinkModules::Identifying.new(
     feed_item: 'Private thought 1'
   )
 end
 
 def pt_1_add_new_thought_1
-  @pt_1_add_new_thought_1 ||= Participants::Think::AddNewThought.new(
+  @pt_1_add_new_thought_1 ||= Participants::ThinkModules::AddNewThought.new(
     thought: 'Public thought 3',
     pattern: 'Magnification or Catastrophizing',
     challenge: 'Testing challenge thought',
@@ -50,7 +50,7 @@ def pt_1_add_new_thought_1
 end
 
 def pt_1_add_new_thought_2
-  @pt_1_add_new_thought_2 ||= Participants::Think::AddNewThought.new(
+  @pt_1_add_new_thought_2 ||= Participants::ThinkModules::AddNewThought.new(
     thought: 'Private thought 2',
     pattern: 'Magnification or Catastrophizing',
     challenge: 'Testing challenge thought',
@@ -59,7 +59,7 @@ def pt_1_add_new_thought_2
 end
 
 def pt_1_planning_1
-  @pt_1_planning_1 ||= Participants::DoTool::Planning.new(
+  @pt_1_planning_1 ||= Participants::DoModules::Planning.new(
     activity: 'New public activity',
     pleasure: 6,
     accomplishment: 3,
@@ -68,7 +68,7 @@ def pt_1_planning_1
 end
 
 def pt_1_planning_2
-  @pt_1_planning_2 ||= Participants::DoTool::Planning.new(
+  @pt_1_planning_2 ||= Participants::DoModules::Planning.new(
     activity: 'New private activity',
     pleasure: 4,
     accomplishment: 8
@@ -76,7 +76,7 @@ def pt_1_planning_2
 end
 
 def pt_1_plan_new_1
-  @pt_1_plan_new_1 ||= Participants::DoTool::PlanNewActivity.new(
+  @pt_1_plan_new_1 ||= Participants::DoModules::PlanNewActivity.new(
     activity: 'New public activity 2',
     pleasure: 4,
     accomplishment: 3,
@@ -85,7 +85,7 @@ def pt_1_plan_new_1
 end
 
 def pt_1_plan_new_2
-  @pt_1_plan_new_2 ||= Participants::DoTool::PlanNewActivity.new(
+  @pt_1_plan_new_2 ||= Participants::DoModules::PlanNewActivity.new(
     activity: 'New private activity 2',
     pleasure: 4,
     accomplishment: 3
@@ -93,38 +93,38 @@ def pt_1_plan_new_2
 end
 
 def ns_pt_identifying
-  @ns_pt_identifying ||= Participants::Think::Identifying.new(
+  @ns_pt_identifying ||= Participants::ThinkModules::Identifying.new(
     first_thought: 'fake'
   )
 end
 
 def ns_pt_add_new_thought
-  @ns_pt_add_new_thought ||= Participants::Think::Identifying.new(
+  @ns_pt_add_new_thought ||= Participants::ThinkModules::Identifying.new(
     thought: 'fake'
   )
 end
 
 def ns_pt_awareness
-  @ns_pt_awareness ||= Participants::DoTool::Awareness.new(
+  @ns_pt_awareness ||= Participants::DoModules::Awareness.new(
     start_time: "#{Date.today.strftime('%a')} 4 AM",
     end_time: "#{Date.today.strftime('%a')} 7 AM"
   )
 end
 
 def ns_pt_planning
-  @ns_pt_planning ||= Participants::DoTool::Planning.new(
+  @ns_pt_planning ||= Participants::DoModules::Planning.new(
     activity: 'fake'
   )
 end
 
 def ns_pt_add_new_activity
-  @ns_pt_add_new_activity ||= Participants::DoTool::PlanNewActivity.new(
+  @ns_pt_add_new_activity ||= Participants::DoModules::PlanNewActivity.new(
     activity: 'fake'
   )
 end
 
 def pt_5_reviewing_1
-  @pt_5_reviewing_1 ||= Participants::DoTool::Reviewing.new(
+  @pt_5_reviewing_1 ||= Participants::DoModules::Reviewing.new(
     activity: 'Parkour',
     start_time: Time.now - (60 * 60 * 24),
     end_time: Time.now - (60 * 60 * 23),
@@ -137,7 +137,7 @@ def pt_5_reviewing_1
 end
 
 def pt_5_reviewing_2
-  @pt_5_reviewing_2 ||= Participants::DoTool::Reviewing.new(
+  @pt_5_reviewing_2 ||= Participants::DoModules::Reviewing.new(
     activity: 'Loving'
   )
 end
@@ -157,14 +157,14 @@ def relax
 end
 
 def pt_5_pattern
-  @pt_5_pattern ||= Participants::Think::Patterns.new(
+  @pt_5_pattern ||= Participants::ThinkModules::Patterns.new(
     thought: 'ARG!',
     pattern: 'Personalization'
   )
 end
 
 def pt_5_reshape
-  @pt_5_reshape ||= Participants::Think::Reshape.new(
+  @pt_5_reshape ||= Participants::ThinkModules::Reshape.new(
     challenge: 'Example challenge',
     action: 'Example act-as-if',
     thought: 'I am useless',

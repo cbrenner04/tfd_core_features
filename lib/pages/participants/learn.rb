@@ -1,7 +1,7 @@
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 
-class Participants
+module Participants
   # page object for the Learn tool
   class Learn
     include Capybara::DSL

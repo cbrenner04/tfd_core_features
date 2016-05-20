@@ -1,6 +1,6 @@
 require './lib/pages/users/navigation'
 
-class Users
+module Users
   # page object for Participants
   class ParticipantsSetUp
     include RSpec::Matchers

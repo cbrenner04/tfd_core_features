@@ -1,6 +1,6 @@
 require './lib/pages/users/navigation'
 
-class Users
+module Users
   # page object for Arms
   class Arms
     include Capybara::DSL

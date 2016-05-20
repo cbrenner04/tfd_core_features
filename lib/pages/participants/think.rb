@@ -1,4 +1,4 @@
-class Participants
+module Participants
   # page object for the Think tool
   class Think
     include RSpec::Matchers

@@ -8,28 +8,28 @@ def user_navigation
 end
 
 def clinician
-  @clinician ||= Users.new(
+  @clinician ||= User.new(
     user: ENV['Clinician_Email'],
     password: ENV['Clinician_Password']
   )
 end
 
 def content_author
-  @content_author ||= Users.new(
+  @content_author ||= User.new(
     user: ENV['Content_Author_Email'],
     password: ENV['Content_Author_Password']
   )
 end
 
 def researcher
-  @researcher ||= Users.new(
+  @researcher ||= User.new(
     user: ENV['Researcher_Email'],
     password: ENV['Researcher_Password']
   )
 end
 
 def super_user
-  @super_user ||= Users.new(
+  @super_user ||= User.new(
     user: ENV['User_Email'],
     password: ENV['User_Password']
   )

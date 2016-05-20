@@ -1,4 +1,4 @@
-class Users
+module Users
   # page object for slideshows
   class Slideshows
     include Capybara::DSL

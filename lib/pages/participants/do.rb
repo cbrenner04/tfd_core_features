@@ -1,4 +1,4 @@
-class Participants
+module Participants
   # page object for DO tool
   class DoTool
     include RSpec::Matchers

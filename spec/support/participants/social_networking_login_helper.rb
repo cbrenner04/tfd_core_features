@@ -4,14 +4,14 @@ require './lib/pages/participants'
 require './lib/pages/participants/messages'
 
 def completer
-  @completer ||= Participants.new(
+  @completer ||= Participant.new(
     participant: ENV['Completed_Pt_Email'],
     password: ENV['Completed_Pt_Password']
   )
 end
 
 def mobile_completer
-  @mobile_completer ||= Participants.new(
+  @mobile_completer ||= Participant.new(
     participant: ENV['Mobile_Comp_Pt_Email'],
     password: ENV['Mobile_Comp_Pt_Password']
   )

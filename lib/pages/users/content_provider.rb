@@ -1,6 +1,6 @@
 require './lib/pages/users/navigation'
 
-class Users
+module Users
   # page object for content providers
   class ContentProvider
     include Capybara::DSL

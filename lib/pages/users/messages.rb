@@ -1,6 +1,6 @@
 require './lib/pages/shared/messages'
 
-class Users
+module Users
   # page object for messages
   class Messages
     include Capybara::DSL

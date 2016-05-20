@@ -1,7 +1,7 @@
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 
-class Participants
+module Participants
   # page object for Relax tool
   class Relax
     include Capybara::DSL

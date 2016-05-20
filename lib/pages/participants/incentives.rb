@@ -1,4 +1,4 @@
-class Participants
+module Participants
   # page object for Incentives features
   class Incentives
     include Capybara::DSL

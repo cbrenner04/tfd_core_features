@@ -1,14 +1,14 @@
 # filename: ./spec/features/participants/marigold/feel_spec.rb
 
 require './lib/pages/participants/feel'
-require './lib/pages/participants/feel/emotion_tracking'
+require './lib/pages/participants/feel_modules/emotion_tracking'
 
 def feel
   @feel ||= Participants::Feel.new
 end
 
 def emotions
-  @emotions ||= Participants::Feel::EmotionsTracking.new
+  @emotions ||= Participants::FeelModules::EmotionsTracking.new
 end
 
 feature 'FEEL tool', :marigold, sauce: sauce_labs do

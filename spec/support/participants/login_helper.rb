@@ -6,21 +6,21 @@ require './lib/pages/participants/think'
 require './lib/pages/participants/messages'
 
 def visitor
-  @visitor ||= Participants.new(
+  @visitor ||= Participant.new(
     participant: 'asdf@example.com',
     password: 'asdf'
   )
 end
 
 def old_participant
-  @old_participant ||= Participants.new(
+  @old_participant ||= Participant.new(
     participant: ENV['Old_Participant_Email'],
     password: ENV['Old_Participant_Password']
   )
 end
 
 def completed_participant
-  @completed_participant ||= Participants.new(
+  @completed_participant ||= Participant.new(
     participant: ENV['Completed_Pt_Email'],
     password: ENV['Completed_Pt_Password']
   )

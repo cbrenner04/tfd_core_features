@@ -1,6 +1,6 @@
 require './lib/pages/participants/navigation'
 
-class Participants
+module Participants
   # page object for Social networking features
   class SocialNetworking
     include Capybara::DSL

@@ -1,4 +1,4 @@
-class Participants
+module Participants
   # page object for the SKILLS tool
   class Skills
     include Capybara::DSL

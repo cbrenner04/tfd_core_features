@@ -1,6 +1,6 @@
 require './lib/pages/shared/navigation'
 
-class Participants
+module Participants
   # page object for navigation for Participants
   class Navigation
     include Capybara::DSL
