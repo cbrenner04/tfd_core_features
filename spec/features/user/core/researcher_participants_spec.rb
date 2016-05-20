@@ -66,55 +66,36 @@ feature 'Researcher, Participants', :core, sauce: sauce_labs do
   end
 
   scenario 'Researcher assigns a coach' do
-    user_navigation.scroll_to_bottom
-    click_on 'test_5'
-    begin
-      tries ||= 3
-      click_on 'Assign Coach/Moderator'
-    rescue Selenium::WebDriver::Error::UnknownError
-      execute_script('window.scrollBy(0,1000)')
-      retry unless (tries -= 1).zero?
-    end
+    test_5_participant.open
+    test_5_participant.assign_coach
 
-    if ENV['tfd']
-      select 'clinician1@example.com', from: 'coach_assignment_coach_id'
-      click_on 'Assign'
-    end
-
-    find('.alert-success', text: 'Coach/Moderator was successfully assigned')
-    expect(page).to have_content 'Current Coach/Moderator: ' \
-                                 "#{ENV['Clinician_Email']}"
+    expect(test_5_participant).to have_coach_assigned_successfully
   end
 
   scenario 'Researcher destroys a participant' do
-    user_navigation.scroll_to_bottom
-    click_on 'test_6'
+    test_6_participant.open
     user_navigation.confirm_with_js
-    click_on 'Destroy'
-    find('.alert-success', text: 'Participant was successfully destroyed.')
-    expect(page).to_not have_content 'test_6'
+    test_6_participant.destroy
+
+    expect(test_6_participant).to be_destroyed_successfully
   end
 
   scenario 'Researcher uses breadcrumbs to return home through Participants' do
     user_navigation.scroll_to_bottom
-    click_on 'TFD-1111'
-    find('p', text: 'Contact Preference')
-    within('.breadcrumb') { click_on 'Participants' }
-    find('.list-group-item', text: 'participant61')
-    within('.breadcrumb') { click_on 'Home' }
+    test_5_participant.open
+    user_navigation.go_back_to_participants_page
+    user_navigation.go_back_to_home_page
 
-    expect(page).to have_content 'Arms'
+    expect(user_navigation).to have_home_visible
   end
 
   scenario 'Researcher uses breadcrumbs to return to home through Groups' do
     user_navigation.scroll_to_bottom
-    click_on 'TFD-1111'
-    find('p', text: 'Contact Preference')
-    click_on 'Group'
-    within('.breadcrumb') { click_on 'Groups' }
-    find('.list-group-item', text: 'Group 3')
-    within('.breadcrumb') { click_on 'Home' }
+    test_5_participant.open
+    user_navigation.go_back_to_group_page
+    user_navigation.go_back_to_groups_page
+    user_navigation.go_back_to_home_page
 
-    expect(page).to have_content 'Arms'
+    expect(user_navigation).to have_home_visible
   end
 end

@@ -2,7 +2,7 @@ require './lib/pages/users/navigation'
 
 class Users
   # page object for Participants
-  class ResearcherParticipants
+  class ParticipantsSetUp
     include RSpec::Matchers
     include Capybara::DSL
 
@@ -12,9 +12,11 @@ class Users
       @email ||= participants[:email]
       @phone_number ||=
         participants.fetch(:phone_number, ENV['Participant_Phone_Number'])
+      @alt_phone ||=
+        participants.fetch(:alt_phone, ENV['Participant_Phone_Number_1'])
       @contact_preference ||= participants[:contact_preference]
       @coach ||= participants.fetch(:coach, ENV['Clinician_Email'])
-      @display_name ||= participants[:display_name]
+      @display_name ||= participants.fetch(:display_name, 'Tester')
       @start_date ||= participants[:start_date]
       @end_date ||= participants[:end_date]
     end
@@ -29,14 +31,14 @@ class Users
 
     def create
       click_on 'New'
-      fill_in_study_id_email_phone_number
+      fill_in_study_id_email_phone_number(@study_id)
       select @contact_preference, from: 'participant_contact_preference'
       click_on 'Create'
     end
 
     def created_successfully?
       has_css?('.alert', text: 'Participant was successfully created.') &&
-        has_participant?
+        has_participant?(@study_id)
     end
 
     def open
@@ -69,10 +71,10 @@ class Users
 
     def assign_group
       click_on 'Assign New Group'
-      select "Group #{group_num}", from: 'membership_group_id'
+      select "Group #{group_number}", from: 'membership_group_id'
       fill_in 'membership_display_name', with: @display_name unless ENV['tfd']
-      fill_in 'membership_start_date', with: start_date
-      fill_in 'membership_end_date', with: end_date
+      fill_in 'membership_start_date', with: @start_date
+      fill_in 'membership_end_date', with: @end_date
       check_standard_week_and_end_date
       click_on 'Assign'
     end
@@ -96,7 +98,38 @@ class Users
     def has_group_assigned_successfully?
       has_text?('Group was successfully assigned') &&
         has_text?('Membership Status: Active' \
-                  "\nCurrent Group: Group #{group_num}")
+                  "\nCurrent Group: Group #{group_number}")
+    end
+
+    def assign_coach
+      begin
+        tries ||= 2
+        click_on 'Assign Coach/Moderator'
+      rescue Selenium::WebDriver::Error::UnknownError
+        execute_script('window.scrollBy(0,1000)')
+        retry unless (tries -= 1).zero?
+      end
+
+      if ENV['tfd']
+        select @coach, from: 'coach_assignment_coach_id'
+        click_on 'Assign'
+      end
+    end
+
+    def has_coach_assigned_successfully?
+      has_css?('.alert-success',
+               text: 'Coach/Moderator was successfully assigned') &&
+        has_text?("Current Coach/Moderator: #{@coach}")
+    end
+
+    def destroy
+      click_on 'Destroy'
+    end
+
+    def destroyed_successfully?
+      has_css?('.alert-success',
+               text: 'Participant was successfully destroyed.') &&
+        has_no_text?(@study_id)
     end
 
     private
@@ -105,16 +138,16 @@ class Users
       @user_navigation ||= Users::Navigation.new
     end
 
-    def fill_in_study_id_email_phone_number(id = @study_id)
-      fill_in 'participant_study_id', with: id
+    def fill_in_study_id_email_phone_number(pt_id)
+      fill_in 'participant_study_id', with: pt_id
       fill_in 'participant_email', with: @email
       fill_in 'participant_phone_number', with: @phone_number
     end
 
-    def has_participant?(id = @study_id)
-      has_text? "Study Id: #{id}" \
+    def has_participant?(pt_id)
+      has_text? "Study Id: #{pt_id}" \
                 "\nEmail: #{@email}" \
-                "\nPhone Number: #{@phone}" \
+                "\nPhone Number: #{@alt_phone}" \
                 "\nContact Preference: #{@contact_preference}"
     end
 

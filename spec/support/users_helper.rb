@@ -27,3 +27,10 @@ def researcher
     password: ENV['Researcher_Password']
   )
 end
+
+def super_user
+  @super_user ||= Users.new(
+    user: ENV['User_Email'],
+    password: ENV['User_Password']
+  )
+end

@@ -1,82 +1,59 @@
 # filename: ./spec/features/user/core/super_user_spec.rb
 
+require './spec/support/users/super_user_helper'
+
 feature 'Super User', :superfluous, :core, sauce: sauce_labs do
   if ENV['safari']
-    background(:all) do
-      users.sign_in_user(ENV['User_Email'], 'participant2',
-                         ENV['User_Password'])
-    end
-
-    background do
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
-    end
-
+    background(:all) { super_user.sign_in }
+    background { visit user_navigation.dashboard }
   else
-    background do
-      users.sign_in_user(ENV['User_Email'], 'participant2',
-                         ENV['User_Password'])
-    end
+    background { super_user.sign_in }
   end
 
   scenario 'Super user creates an arm' do
-    click_on 'Arms'
-    click_on 'New'
-    fill_in 'arm_title', with: 'Test Arm'
-    click_on 'Create'
-    expect(page).to have_content 'Arm was successfully created.'
+    visit users_navigation.arms_page
+    new_arm.create
+
+    expect(new_arm).to be_created_successfully
   end
 
   scenario 'Super user updates an arm' do
-    click_on 'Arms'
-    click_on 'Testing Arm'
-    click_on 'Edit'
-    fill_in 'arm_title', with: 'Updated Testing Arm'
-    click_on 'Update'
-    find('.alert-success', text: 'Arm was successfully updated.')
-    expect(page).to have_content 'Title: Updated Testing Arm'
+    visit users_navigation.arms_page
+    update_arm.open
+    update_arm.update
+
+    expect(update_arm).to be_updated_successfully
   end
 
   scenario 'Super user sees appropriate alert when trying to destroy an arm' do
-    click_on 'Arms'
-    click_on 'Testing Arm 2'
-    find('p', text: 'Title: Testing Arm 2')
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Destroy'
-    expect(page).to have_content 'You do not have privileges to delete an ' \
-                                 'arm. Please contact the site administrator ' \
-                                 'to remove this arm.'
+    visit users_navigation.arms_page
+    test_2_arm.open
+    test_2_arm.destroy
+
+    expect(test_2_arm).to have_incorrect_privileges_alert
   end
 
   scenario 'Super user creates a super user' do
-    click_on 'Users'
-    click_on 'New'
-    fill_in 'user_email', with: 'superuser@test.com'
-    check 'user_is_admin'
-    click_on 'Create'
-    find('.alert-success', text: 'User was successfully created.')
-    expect(page).to have_content "Super User: Yes\nEmail: superuser@test.com"
+    visit users.landing_page
+    new_super_user.create_super_user
+
+    expect(new_super_user).to have_successfully_created_super_user
   end
 
   scenario 'Super user updates a super user' do
-    click_on 'Users'
-    click_on 'test_7@example.com'
-    click_on 'Edit'
-    check 'user_user_roles_clinician'
-    click_on 'Update'
-    find('.alert-success', text: 'User was successfully updated.')
-    expect(page).to have_content "Super User: Yes\nEmail: test_7@example.com" \
-                                 "\nRoles: Clinician"
+    visit users.landing_page
+    update_super_user.open
+    update_super_user.edit
+    update_super_user.add_clinician_role
+
+    expect(update_super_user).to be_super_user_with_clinician_role
   end
 
   scenario 'Super user destroys a super user' do
-    click_on 'Users'
-    click_on 'test_8@example.com'
-    find('p', text: 'Email: test_8@example.com')
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Destroy'
-    find('.alert-success', text: 'User was successfully destroyed.')
-    expect(page).to_not have_content 'test_8@example.com'
+    visit users.landing_page
+    destroy_super_user.open
+    destroy_super_user.destroy
 
-    users.sign_out('admin1')
+    expect(destroy_super_user).to be_destroyed_successfully
   end
 end

@@ -1,120 +1,81 @@
 # filename: ./spec/features/user/core/researcher_users_spec.rb
 
+require './spec/support/users/researcher_users_helper'
+
 feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
   background do
-    unless ENV['safari']
-      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                         ENV['Researcher_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/think_feel_do_dashboard/users"
+    researcher.sign_in unless ENV['safari']
+    visit researcher_users.landing_page
   end
 
   scenario 'Researcher creates a researcher' do
-    click_on 'New'
-    fill_in 'user_email', with: 'researcher@test.com'
-    check 'user_user_roles_researcher'
-    click_on 'Create'
-    find('.alert-success', text: 'User was successfully created.')
-    expect(page).to have_content "Super User: No\nEmail: researcher@test.com" \
-                                 "\nRoles: Researcher"
+    new_researcher.create_researcher
+
+    expect(new_researcher).to be_created_successfully
   end
 
   scenario 'Researcher adds a clinician role to a researcher' do
-    click_on 'test_1@example.com'
-    click_on 'Edit'
-    check 'user_user_roles_clinician'
-    click_on 'Update'
-    find('.alert-success', text: 'User was successfully updated.')
-    unless page.has_text?('Roles: Researcher and Clinician')
-      expect(page).to have_content 'Roles: Clinician and Researcher'
-    end
+    test_1_user.open
+    test_1_user.edit
+    test_1_user.add_clinician_role
+
+    expect(test_1_user).to have_clinician_and_researcher_role
   end
 
   scenario 'Researcher destroys a researcher' do
-    click_on 'test_2@example.com'
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Destroy'
-    find('.alert-success', text: 'User was successfully destroyed.')
-    expect(page).to_not have_content 'test_2@example.com'
+    test_2_user.open
+    test_2_user.destroy
+
+    expect(test_2_user).to be_destroyed_successfully
   end
 
   scenario 'Researcher creates a clinician' do
-    click_on 'New'
-    fill_in 'user_email', with: 'clinician@test.com'
-    check 'user_user_roles_clinician'
-    click_on 'Create'
-    find('.alert-success', text: 'User was successfully created.')
-    expect(page).to have_content "Super User: No\nEmail: clinician@test.com" \
-                                 "\nRoles: Clinician"
+    new_clinician.create_clinician
+
+    expect(new_clinician).to be_created_successfully
   end
 
   scenario 'Researcher adds a content author role to a clinician' do
-    click_on 'test_3@example.com'
-    click_on 'Edit'
-    check 'user_user_roles_content_author'
-    click_on 'Update'
-    find('.alert-success', text: 'User was successfully updated.')
-    unless page.has_text?('Roles: Content Author and Clinician')
-      expect(page).to have_content 'Roles: Clinician and Content Author'
-    end
+    test_3_user.open
+    test_3_user.edit
+    test_3_user.add_content_author_role
+
+    expect(test_3_user).to have_clinician_and_content_author_role
   end
 
   scenario 'Researcher destroys a clinician' do
-    click_on 'test_4@example.com'
-    find('p', text: 'Email: test_4@example.com')
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Destroy'
-    find('.alert-success', text: 'User was successfully destroyed.')
-    expect(page).to_not have_content 'test_4@example.com'
+    test_4_user.open
+    test_4_user.destroy
+
+    expect(test_4_user).to be_destroyed_successfully
   end
 
   scenario 'Researcher creates a content author' do
-    click_on 'New'
-    fill_in 'user_email', with: 'contentauthor@test.com'
-    check 'user_user_roles_content_author'
-    click_on 'Create'
-    find('.alert-success', text: 'User was successfully created.')
-    expect(page).to have_content 'Super User: No' \
-                                 "\nEmail: contentauthor@test.com" \
-                                 "\nRoles: Content Author"
+    new_content_author.create_content_author
+
+    expect(new_content_author).to be_created_successfully
   end
 
   scenario 'Researcher adds a clinician role to a content author' do
-    click_on 'test_5@example.com'
-    click_on 'Edit'
-    check 'user_user_roles_clinician'
-    click_on 'Update'
-    find('.alert-success', text: 'User was successfully updated.')
-    unless page.has_text?('Roles: Content Author and Clinician')
-      expect(page).to have_content 'Roles: Clinician and Content Author'
-    end
+    test_5_user.open
+    test_5_user.edit
+    test_5_user.add_clinician_role
+
+    expect(test_5_user).to have_clinician_and_content_author_role
   end
 
   scenario 'Researcher destroys a content author' do
-    click_on 'test_6@example.com'
-    find('p', text: 'Email: test_6@example.com')
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Destroy'
-    find('.alert-success', text: 'User was successfully destroyed.')
-    expect(page).to_not have_content 'test_6@example.com'
+    test_6_user.open
+    test_6_user.destroy
+
+    expect(test_6_user).to be_destroyed_successfully
   end
 
   scenario 'Researcher uses breadcrumbs to return to home' do
-    first('.list-group-item').click
-    find('p', text: 'Super User:')
-    click_on 'Users'
-    within('.breadcrumb') do
-      click_on 'Users'
-    end
+    test_1_user.open
+    user_navigation.go_back_to_users_page
+    user_navigation.go_back_to_home_page
 
-    find('.list-group-item', text: 'admin1@example.com')
-    within('.breadcrumb') do
-      click_on 'Home'
-    end
-
-    expect(page).to have_content 'Arms'
-
-    users.sign_out('participant2')
+    expect(user_navigation).to have_home_visible
   end
 end
