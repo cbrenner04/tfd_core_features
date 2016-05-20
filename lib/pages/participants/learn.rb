@@ -8,6 +8,7 @@ module Participants
 
     def initialize(learn)
       @lesson_title ||= learn[:lesson_title]
+      @reading_duration ||= learn.fetch(:reading_duration, 0)
     end
 
     def landing_page
@@ -29,6 +30,7 @@ module Participants
 
     def read_lesson
       click_on @lesson_title
+      sleep(@reading_duration)
       patient_navigation.next
       click_on 'Finish'
     end

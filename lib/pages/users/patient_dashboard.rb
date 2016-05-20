@@ -13,6 +13,8 @@ module Users
       @participant ||= patient_dashboard[:participant]
       @date ||= patient_dashboard[:date]
       @group ||= patient_dashboard[:group]
+      @total_logins ||= patient_dashboard[:total_logins]
+      @lesson_duration ||= patient_dashboard.fetch(:lesson_duration, 10)
     end
 
     def navigate_to_patient_dashboard
@@ -74,6 +76,15 @@ module Users
       end
     end
 
+    def has_login_info_in_patients_list?
+      within('#patients') do
+        within('table#patients tr', text: @participant) do
+          has_text?("#{@participant} 0 6") &&
+            has_text?("#{@total_logins} #{@date.strftime('%b %d %Y')}")
+        end
+      end
+    end
+
     def has_login_info?
       within('.panel-default', text: 'Login Info') do
         has_text?("Last Logged In: #{Date.today.strftime('%A, %b %d %Y')}") &&
@@ -82,6 +93,13 @@ module Users
           has_text?('Last Activity Detected At: ' \
                     "#{Date.today.strftime('%A, %b %d %Y')}") &&
           has_text?('Duration of Last Session: 10 minutes')
+      end
+    end
+
+    def has_partial_login_info?
+      within('.panel-default', text: 'Login Info') do
+        has_text?("Last Logged In: #{@date.strftime('%A, %b %d %Y')}") &&
+          has_text?("Total Logins: #{@total_logins}")
       end
     end
 
@@ -159,7 +177,7 @@ module Users
         all('tr:nth-child(1)')[1]
           .has_text?('Do - Awareness Introduction This is just the ' \
                      "beginning... #{Date.today.strftime('%b %d %Y')}") &&
-          all('tr:nth-child(1)')[1].has_text?('10 minutes')
+          all('tr:nth-child(1)')[1].has_text?("#{@lesson_duration} minutes")
       end
     end
 

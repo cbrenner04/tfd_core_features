@@ -15,7 +15,20 @@ module Users
       click_on 'Arm 1'
       click_on 'Manage Content'
       click_on 'Lesson Modules'
+      visible?
+    end
+
+    def visible?
       has_css?('h1', text: 'Listing Lesson Modules')
+    end
+
+    def manage_lessons_with_no_tools
+      click_on 'Manage Content'
+      user_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
+      click_on 'Lesson Modules'
+      learn_tool_needed_alert = 'A learn tool has to be created in order to ' \
+                                'access this page'
+      accept_alert learn_tool_needed_alert unless ENV['chrome'] || ENV['safari']
     end
 
     def create

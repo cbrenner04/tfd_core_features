@@ -12,12 +12,16 @@ module Users
       click_on 'Arm 1'
       click_on 'Manage Content'
       click_on 'Slideshows'
-      find('h1', text: 'Listing Slideshows')
+      has_slideshow_list_visible?
     end
 
     def open
       click_on @title
       find('small', text: @title)
+    end
+
+    def has_slideshow_list_visible?
+      has_css?('h1', text: 'Listing Slideshows')
     end
 
     def visible?
@@ -41,6 +45,15 @@ module Users
       click_on 'New'
       fill_in 'slideshow_title', with: @title
       click_on 'Create'
+    end
+
+    def manage_slideshows_with_no_tools
+      click_on 'Manage Content'
+      user_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
+      click_on 'Slideshows'
+      learn_tool_needed_alert = 'A learn tool has to be created in order to ' \
+                                'access this page'
+      accept_alert learn_tool_needed_alert unless ENV['chrome'] || ENV['safari']
     end
 
     def created_successfully?

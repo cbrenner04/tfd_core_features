@@ -10,13 +10,17 @@ module Users
       @updated_title ||= arms[:updated_title]
     end
 
-    def got_to_arms
-      click_on @title
-      find('p', text: "Title: #{@title}")
-    end
+    # def got_to_arms
+    #   click_on @title
+    #   find('p', text: "Title: #{@title}")
+    # end
 
     def open
       click_on @title
+    end
+
+    def visible?
+      has_text? "Title: #{@title}"
     end
 
     def create

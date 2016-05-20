@@ -75,7 +75,7 @@ module Users
       fill_in 'membership_display_name', with: @display_name unless ENV['tfd']
       fill_in 'membership_start_date', with: @start_date
       fill_in 'membership_end_date', with: @end_date
-      check_standard_week_and_end_date
+      has_standard_week_and_end_date?
       click_on 'Assign'
     end
 
@@ -168,7 +168,7 @@ module Users
       @end_date.is_a?(String) ? @end_date : @end_date.strftime('%Y-%m-%d')
     end
 
-    def check_standard_week_and_end_date
+    def has_standard_week_and_end_date?
       weeks_later = ENV['tfd'] ? (20 * 7) : 56
       week_num = ENV['tfd'] ? 20 : 8
       has_text? "Standard number of weeks: #{week_num}, Projected" \
