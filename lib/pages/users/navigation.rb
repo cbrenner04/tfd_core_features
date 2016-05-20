@@ -50,5 +50,40 @@ module Users
     def has_home_visible?
       has_text? "Arms\nNavigate to groups and participants through arms."
     end
+
+    def has_invalid_login?
+      has_text? 'Invalid email address or password'
+    end
+
+    def has_sign_in_needed_alert?
+      has_text? 'You need to sign in or sign up before continuing'
+    end
+
+    def has_password_reset_alert?
+      find('#new_user')
+      has_text? 'You will receive an email with ' \
+                'instructions on how to reset your password ' \
+                'in a few minutes.'
+    end
+
+    def has_all_home_navigation_options?
+      has_text? "Arms\nNavigate to groups and participants " \
+                "through arms.\nGroups\nCreate, update, " \
+                'delete, and associate groups with arms ' \
+                "along with set moderators.\nParticipants" \
+                "\nCreate, update, and delete participants " \
+                "along with assigning them to groups.\nUsers" \
+                "\nCreate and view super users, clinicians, " \
+                "researchers, and content authors.\nCSV " \
+                "Reports\nDownload data via csv."
+    end
+
+    def has_manage_content_navigation?
+      if ENV['tfd'] || ENV['tfdso']
+        has_text? 'Manage Content'
+      elsif ENV['sunnyside'] || ENV['marigold']
+        has_text? 'MANAGE CONTENT'
+      end
+    end
   end
 end

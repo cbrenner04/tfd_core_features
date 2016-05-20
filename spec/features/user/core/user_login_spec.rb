@@ -3,105 +3,91 @@
 require './lib/content/clinician_dash_buttons'
 require './lib/content/researcher_dash_buttons'
 require './lib/content/super_user_dash_buttons'
+require './lib/pages/users'
+require './lib/pages/users/lessons'
+
+def fake_user
+  @fake_user ||= User.new(
+    user: 'asdf@example.com',
+    password: 'asdf'
+  )
+end
+
+def login_lesson
+  @login_lesson ||= Users::Lessons.new(lesson: 'fake')
+end
+
+def button_names
+  all('.btn').map(&:text)
+end
 
 feature 'User login', :core, sauce: sauce_labs do
   scenario 'User signs in' do
-    users.sign_in_user(ENV['User_Email'], 'participant2', ENV['User_Password'])
+    super_user.sign_in
     expect(page).to have_content 'Signed in successfully'
   end
 
   scenario 'Visitor with bad creds fails to sign in' do
-    visit "#{ENV['Base_URL']}/users/sign_in"
+    visit super_user.login_page
+    super_user.sign_out if ENV['safari']
+    fake_user.fill_in_login_form
+    fake_user.submit_login
 
-    if ENV['safari']
-      users.sign_out('participant2')
-    end
-
-    within('#new_user') do
-      fill_in 'user_email', with: 'asdf@example.com'
-      fill_in 'user_password', with: 'asdf'
-    end
-
-    click_on 'Sign in'
-    expect(page).to have_content 'Invalid email address or password'
+    expect(user_navigation).to have_invalid_login
   end
 
   scenario 'Visitor visits a specific page' do
-    visit ENV['Base_URL'] + '/think_feel_do_dashboard'
-    expect(page).to have_content 'You need to sign in or sign up before ' \
-                                 'continuing'
+    visit user_navigation.dashboard
+
+    expect(user_navigation).to have_sign_in_needed_alert
   end
 
   scenario 'Visitor views the intro slideshow' do
-    visit "#{ENV['Base_URL']}/users/sign_in"
-    click_on "Introduction to #{users.host_app}"
-    click_on 'Done'
-    expect(page).to have_content 'You need to sign in or sign up before ' \
-                                 'continuing.'
+    visit super_user.login_page
+    user_navigation.click_on_login_page_slideshow
+    user_navigation.done
+
+    expect(user_navigation).to have_sign_in_needed_alert
   end
 
   scenario 'User uses the forgot password functionality' do
-    visit "#{ENV['Base_URL']}/users/sign_in"
-    click_on 'Forgot your password?'
-    find('h2', text: 'Forgot your password?')
+    visit super_user.login_page
+    super_user.select_forgot_password
+    super_user.submit_forgot_password
 
-    within('#new_user') do
-      fill_in 'user_email', with: ENV['User_Email']
-    end
-
-    click_on 'Send me reset password instructions'
-    expect(page).to have_content 'You will receive an email with ' \
-                                 'instructions on how to reset your ' \
-                                 'password in a few minutes.'
+    expect(super_user).to have_password_reset_alert
   end
 
   scenario 'Super user uses brand link to return to home page' do
     if ENV['safari']
-      visit "#{ENV['Base_URL']}/users/sign_in"
+      visit super_user.login_page
     else
-      users.sign_in_user(ENV['User_Email'], 'participant2',
-                         ENV['User_Password'])
+      super_user.sign_in
     end
 
-    click_on 'Arms'
-    click_on 'Arm 1'
-    click_on 'Manage Content'
-    click_on 'Lesson Modules'
-    expect(page).to have_content 'Listing'
+    visit user_navigation.arms_page
+    login_lesson.navigate_to_lessons
 
-    find('.navbar-brand').click
-    expect(page).to have_content 'Arms'
+    expect(login_lesson).to be_visible
+
+    user_navigation.click_brand
+
+    expect(user_navigation).to have_home_visible
   end
 end
 
 feature 'Authorization', :core, sauce: sauce_labs do
   feature 'Clinician' do
-    if ENV['safari']
-      background(:all) do
-        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                           ENV['Clinician_Password'])
-      end
-    end
+    background(:all) { clinician.sign_in } if ENV['safari']
 
     background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                           ENV['Clinician_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
+      clinician.sign_in unless ENV['safari']
+      visit user_navigation.dashboard
     end
 
     scenario 'Clinician sees correct landing page' do
-      find('.list-group-item', text: 'Arms')
-      expect(page)
-        .to_not have_content "Groups\nCreate, update, delete, and associate " \
-                             'groups with arms along with set moderators.' \
-                             "\nParticipants\nCreate, update, and delete " \
-                             'participants along with assigning them to ' \
-                             "groups.\nUsers\nCreate and view super users, " \
-                             'clinicians, researchers, and content authors.' \
-                             "\nCSV Reports\nDownload data via csv."
+      expect(user_navigation).to have_home_visible
+      expect(user_navigation).to_not have_all_home_navigation_options
     end
 
     scenario 'Clinician cannot manage content' do
@@ -122,7 +108,6 @@ feature 'Authorization', :core, sauce: sauce_labs do
       num = ENV['tfd'] ? 5 : 1
       click_on "Group #{num}"
       find('p', text: "Title: Group #{num}")
-      button_names = all('.btn').map(&:text)
       if ENV['tfd']
         expect(button_names).to match_array(ClinicianDashButtons::TFDGROUP)
       elsif ENV['tfdso']
@@ -140,33 +125,15 @@ feature 'Authorization', :core, sauce: sauce_labs do
   end
 
   feature 'Researcher' do
-    if ENV['safari']
-      background(:all) do
-        users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                           ENV['Researcher_Password'])
-      end
-    end
+    background(:all) { researcher.sign_in } if ENV['safari']
 
     background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                           ENV['Researcher_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
+      researcher.sign_in unless ENV['safari']
+      visit user_navigation.dashboard
     end
 
     scenario 'Researcher sees correct landing page' do
-      expect(page)
-        .to have_content "Arms\nNavigate to groups and participants " \
-                         "through arms.\nGroups\nCreate, update, " \
-                         'delete, and associate groups with arms ' \
-                         "along with set moderators.\nParticipants" \
-                         "\nCreate, update, and delete participants " \
-                         "along with assigning them to groups.\nUsers" \
-                         "\nCreate and view super users, clinicians, " \
-                         "researchers, and content authors.\nCSV " \
-                         "Reports\nDownload data via csv."
+      expect(user_navigation).to have_all_home_navigation_options
     end
 
     scenario 'Researcher cannot manage content' do
@@ -185,7 +152,6 @@ feature 'Authorization', :core, sauce: sauce_labs do
       num = ENV['tfd'] ? 5 : 1
       click_on "Group #{num}"
       find('p', text: "Title: Group #{num}")
-      button_names = all('.btn').map(&:text)
       if ENV['tfd']
         expect(button_names).to_not match_array(ResearcherDashButtons::TFDGROUP)
       elsif ENV['tfdso']
@@ -206,33 +172,16 @@ feature 'Authorization', :core, sauce: sauce_labs do
   end
 
   feature 'Content Author' do
-    if ENV['safari']
-      background(:all) do
-        users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
-                           ENV['Content_Author_Password'])
-      end
-    end
+    background(:all) { content_author.sign_in } if ENV['safari']
 
     background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
-                           ENV['Content_Author_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
+      content_author.sign_in unless ENV['safari']
+      visit user_navigation.dashboard
     end
 
     scenario 'Content Author sees correct landing page' do
-      expect(page)
-        .to_not have_content "Groups\nCreate, update, delete, and " \
-                             'associate groups with arms along with ' \
-                             "set moderators.\nParticipants\nCreate, " \
-                             'update, and delete participants along ' \
-                             "with assigning them to groups.\nUsers" \
-                             "\nCreate and view super users, " \
-                             'clinicians, researchers, and content ' \
-                             "authors.\nCSV Reports\nDownload data " \
-                             'via csv.'
+      expect(user_navigation).to have_home_visible
+      expect(user_navigation).to_not have_all_home_navigation_options
     end
 
     scenario 'Content Author can manage content' do
@@ -250,33 +199,15 @@ feature 'Authorization', :core, sauce: sauce_labs do
   end
 
   feature 'Super User' do
-    if ENV['safari']
-      background(:all) do
-        users.sign_in_user(ENV['User_Email'], 'participant2',
-                           ENV['User_Password'])
-      end
-    end
+    background(:all) { super_user.sign_in } if ENV['safari']
 
     background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['User_Email'], 'participant2',
-                           ENV['User_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard"
+      super_user.sign_in unless ENV['safari']
+      visit user_navigation.dashboard
     end
 
     scenario 'Super User sees correct landing page' do
-      expect(page)
-        .to have_content "Arms\nNavigate to groups and participants " \
-                         "through arms.\nGroups\nCreate, update, " \
-                         'delete, and associate groups with arms ' \
-                         "along with set moderators.\nParticipants" \
-                         "\nCreate, update, and delete participants " \
-                         "along with assigning them to groups.\nUsers" \
-                         "\nCreate and view super users, clinicians, " \
-                         "researchers, and content authors.\nCSV " \
-                         "Reports\nDownload data via csv."
+      expect(user_navigation).to have_all_home_navigation_options
     end
 
     scenario 'Super User can add arms' do
@@ -293,7 +224,6 @@ feature 'Authorization', :core, sauce: sauce_labs do
       click_on 'Arms'
       click_on 'Arm 1'
       find('p', text: 'Arm 1')
-      button_names = all('.btn').map(&:text)
       if ENV['tfd'] || ENV['tfdso']
         expect(button_names).to match_array(SuperUserDashButtons::ARM)
       elsif ENV['sunnyside'] || ENV['marigold']
@@ -306,7 +236,6 @@ feature 'Authorization', :core, sauce: sauce_labs do
       num = ENV['tfd'] ? 5 : 1
       click_on "Group #{num}"
       find('p', text: "Title: Group #{num}")
-      button_names =  all('.btn').map(&:text)
       if ENV['tfd']
         expect(button_names).to match_array(SuperUserDashButtons::TFDGROUP)
       elsif ENV['tfdso']

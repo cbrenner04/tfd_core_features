@@ -22,10 +22,6 @@ module Participants
       click_on 'Cancel'
     end
 
-    def done
-      click_on 'Done'
-    end
-
     def save
       click_on 'Save'
     end
@@ -58,16 +54,8 @@ module Participants
                 'group'
     end
 
-    def click_brand
-      find(:css, '.navbar-brand').click
-    end
-
     def has_home_page_visible?
       has_text? 'HOME'
-    end
-
-    def click_on_login_page_slideshow
-      click_on "Introduction to #{host_app}"
     end
 
     def has_password_reset_alert?

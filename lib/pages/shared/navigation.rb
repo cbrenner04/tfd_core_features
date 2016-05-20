@@ -27,4 +27,16 @@ module SharedNavigation
       'Marigold'
     end
   end
+
+  def click_on_login_page_slideshow
+    click_on "Introduction to #{host_app}"
+  end
+
+  def done
+    click_on 'Done'
+  end
+
+  def click_brand
+    find(:css, '.navbar-brand').click
+  end
 end
