@@ -3,6 +3,22 @@ module Users
   module Authorization
     include Capybara::DSL
 
+    def has_manage_content_button?
+      if ENV['tfd'] || ENV['tfdso']
+        has_text? 'Manage Content'
+      elsif ENV['sunnyside'] || ENV['marigold']
+        has_text? 'MANAGE CONTENT'
+      end
+    end
+
+    def has_arm_creation_button?
+      if ENV['tfd'] || ENV['tfdso']
+        has_css?('.btn.btn-primary', text: 'New')
+      elsif ENV['sunnyside'] || ENV['marigold']
+        has_css?('.btn.btn-primary', text: 'NEW')
+      end
+    end
+
     def has_clinician_dashboard_buttons?
       all('.btn', count: clinician_buttons.count)
       button_names.should =~ clinician_buttons
