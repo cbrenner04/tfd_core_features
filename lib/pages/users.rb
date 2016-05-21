@@ -33,7 +33,7 @@ class User
   end
 
   def sign_in
-    visit sign_in_page
+    visit login_page
     sign_out unless has_css?('#new_user')
     if has_css?('#new_user')
       fill_in_login_form

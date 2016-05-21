@@ -1,25 +1,6 @@
 # filename: ./spec/features/user/core/user_login_spec.rb
 
-require './lib/content/clinician_dash_buttons'
-require './lib/content/researcher_dash_buttons'
-require './lib/content/super_user_dash_buttons'
-require './lib/pages/users'
-require './lib/pages/users/lessons'
-
-def fake_user
-  @fake_user ||= User.new(
-    user: 'asdf@example.com',
-    password: 'asdf'
-  )
-end
-
-def login_lesson
-  @login_lesson ||= Users::Lessons.new(lesson: 'fake')
-end
-
-def button_names
-  all('.btn').map(&:text)
-end
+require './spec/support/users/user_login_helper'
 
 feature 'User login', :core, sauce: sauce_labs do
   scenario 'User signs in' do
@@ -55,7 +36,7 @@ feature 'User login', :core, sauce: sauce_labs do
     super_user.select_forgot_password
     super_user.submit_forgot_password
 
-    expect(super_user).to have_password_reset_alert
+    expect(user_navigation).to have_password_reset_alert
   end
 
   scenario 'Super user uses brand link to return to home page' do
@@ -91,36 +72,24 @@ feature 'Authorization', :core, sauce: sauce_labs do
     end
 
     scenario 'Clinician cannot manage content' do
-      click_on 'Arms'
-      click_on 'Arm 1'
-      find('p', text: 'Title: Arm 1')
-      if ENV['tfd'] || ENV['tfdso']
-        expect(page).to_not have_content 'Manage Content'
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(page).to_not have_content 'MANAGE CONTENT'
-      end
+      visit user_navigation.arms_page
+      arm_1.open
+
+      expect(arm_1).to be_visible
+      expect(user_navigation).to_not have_manage_content_button
     end
 
     scenario 'Clinician can access correct portions of group page' do
-      click_on 'Arms'
-      arm = ENV['tfd'] ? 3 : 1
-      click_on "Arm #{arm}"
-      num = ENV['tfd'] ? 5 : 1
-      click_on "Group #{num}"
-      find('p', text: "Title: Group #{num}")
+      visit user_navigation.arms_page
       if ENV['tfd']
-        expect(button_names).to match_array(ClinicianDashButtons::TFDGROUP)
-      elsif ENV['tfdso']
-        expect(button_names).to match_array(ClinicianDashButtons::TFDSOGROUP)
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(button_names).to match_array(ClinicianDashButtons::SSGROUP)
+        arm_3.open
+        group_5.open
+      else
+        arm_1.open
+        group_1.open
       end
 
-      if ENV['tfd'] || ENV['tfdso']
-        expect(button_names).to_not match_array(ClinicianDashButtons::NOGROUP)
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(button_names).to_not match_array(ClinicianDashButtons::SSNOGROUP)
-      end
+      expect(user_navigation).to have_clinician_dashboard_buttons
     end
   end
 
@@ -137,37 +106,18 @@ feature 'Authorization', :core, sauce: sauce_labs do
     end
 
     scenario 'Researcher cannot manage content' do
-      click_on 'Arms'
-      click_on 'Arm 1'
-      find('p', text: 'Title: Arm 1')
-      if ENV['tfd'] || ENV['tfdso']
-        expect(page).to_not have_content 'Manage Content'
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(page).to_not have_content 'MANAGE CONTENT'
-      end
+      visit user_navigation.arms_page
+      arm_1.open
+
+      expect(arm_1).to be_visible
+      expect(user_navigation).to_not have_manage_content_button
     end
 
     scenario 'Researcher can access correct portions of group page' do
-      click_on 'Groups'
-      num = ENV['tfd'] ? 5 : 1
-      click_on "Group #{num}"
-      find('p', text: "Title: Group #{num}")
-      if ENV['tfd']
-        expect(button_names).to_not match_array(ResearcherDashButtons::TFDGROUP)
-      elsif ENV['tfdso']
-        expect(button_names)
-          .to_not match_array(ResearcherDashButtons::TFDSOGROUP)
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(button_names).to_not match_array(ResearcherDashButtons::SSGROUP)
-      end
+      visit user_navigation.groups_page
+      ENV['tfd'] ? group_5.open : group_1.open
 
-      if ENV['tfd']
-        expect(button_names).to match_array(ResearcherDashButtons::TFDGROUP2)
-      elsif ENV['tfdso']
-        expect(button_names).to match_array(ResearcherDashButtons::TFDSOGROUP2)
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(button_names).to match_array(ResearcherDashButtons::SSGROUP2)
-      end
+      expect(user_navigation).to have_researcher_dashboard_buttons
     end
   end
 
@@ -185,16 +135,12 @@ feature 'Authorization', :core, sauce: sauce_labs do
     end
 
     scenario 'Content Author can manage content' do
-      click_on 'Arms'
-      click_on 'Arm 1'
-      find('p', text: 'Title: Arm 1')
-      if ENV['tfd'] || ENV['tfdso']
-        expect(page).to have_content 'Manage Content'
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(page).to have_content 'MANAGE CONTENT'
-      end
+      visit user_navigation.arms_page
+      arm_1.open
 
-      expect(page).to_not have_content 'Group 1'
+      expect(arm_1).to be_visible
+      expect(user_navigation).to have_manage_content_button
+      expect(group_1).to_not be_visible_in_listing
     end
   end
 
@@ -211,38 +157,24 @@ feature 'Authorization', :core, sauce: sauce_labs do
     end
 
     scenario 'Super User can add arms' do
-      click_on 'Arms'
-      find('h1', text: 'Arms')
-      if ENV['tfd'] || ENV['tfdso']
-        expect(page).to have_css('.btn.btn-primary', text: 'New')
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(page).to have_css('.btn.btn-primary', text: 'NEW')
-      end
+      visit user_navigation.arms_page
+
+      expect(user_navigation).to have_arm_creation_button
     end
 
     scenario 'Super User has access all portions of Arm page' do
-      click_on 'Arms'
-      click_on 'Arm 1'
-      find('p', text: 'Arm 1')
-      if ENV['tfd'] || ENV['tfdso']
-        expect(button_names).to match_array(SuperUserDashButtons::ARM)
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(button_names).to match_array(SuperUserDashButtons::SSARM)
-      end
+      visit user_navigation.arms_page
+      arm_1.open
+
+      expect(arm_1).to be_visible
+      expect(user_navigation).to have_super_user_arms_buttons
     end
 
     scenario 'Super User has access all portions of Group page' do
-      click_on 'Groups'
-      num = ENV['tfd'] ? 5 : 1
-      click_on "Group #{num}"
-      find('p', text: "Title: Group #{num}")
-      if ENV['tfd']
-        expect(button_names).to match_array(SuperUserDashButtons::TFDGROUP)
-      elsif ENV['tfdso']
-        expect(button_names).to match_array(SuperUserDashButtons::TFDSOGROUP)
-      elsif ENV['sunnyside'] || ENV['marigold']
-        expect(button_names).to match_array(SuperUserDashButtons::SSGROUP)
-      end
+      visit user_navigation.groups_page
+      ENV['tfd'] ? group_5.open : group_1.open
+
+      expect(user_navigation).to have_super_user_groups_buttons
     end
   end
 end

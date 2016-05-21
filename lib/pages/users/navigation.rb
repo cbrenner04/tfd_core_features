@@ -1,13 +1,19 @@
 require './lib/pages/shared/navigation'
+require './lib/pages/users/authorization'
 
 module Users
   # page object for Navigation
   class Navigation
     include Capybara::DSL
     include SharedNavigation
+    include Users::Authorization
 
     def arms_page
       "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
+    end
+
+    def groups_page
+      "#{ENV['Base_URL']}/think_feel_do_dashboard/groups"
     end
 
     def dashboard
@@ -78,11 +84,19 @@ module Users
                 "Reports\nDownload data via csv."
     end
 
-    def has_manage_content_navigation?
+    def has_manage_content_button?
       if ENV['tfd'] || ENV['tfdso']
         has_text? 'Manage Content'
       elsif ENV['sunnyside'] || ENV['marigold']
         has_text? 'MANAGE CONTENT'
+      end
+    end
+
+    def has_arm_creation_button?
+      if ENV['tfd'] || ENV['tfdso']
+        has_css?('.btn.btn-primary', text: 'New')
+      elsif ENV['sunnyside'] || ENV['marigold']
+        has_css?('.btn.btn-primary', text: 'NEW')
       end
     end
   end
