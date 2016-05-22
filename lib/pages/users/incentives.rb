@@ -38,7 +38,7 @@ module Users
     end
 
     def edit_individual_incentive
-      open_existing_incentive('like')
+      open_individual_like_incentive
       click_on 'Edit'
     end
 
@@ -47,7 +47,7 @@ module Users
     end
 
     def unable_to_edit_group_scope?
-      unable_to_edit_scope?('Scope')
+      unable_to_edit_scope?('Group')
     end
 
     def check_repeatable
@@ -59,12 +59,12 @@ module Users
     end
 
     def add_like_behavior
-      open_existing_incentive('Individual', 'like 3 feed items')
+      open_individual_like_incentive
       add_behavior('Like an Item')
     end
 
     def has_added_like_behavior_successfully?
-      behavior_created_succesfully?('SocialNetworking::Like', 'create')
+      behavior_created_successfully?('SocialNetworking::Like', 'create')
     end
 
     def create_repeatable_individual_incentive
@@ -116,13 +116,38 @@ module Users
     end
 
     def open_individual_goal_incentive
-      find('.list-group-item', text: 'Individual, create a goal').click
-      find('h1', text: 'Group 9 Incentive - create a goal')
+      open_existing_incentive('Individual', 'create a goal')
     end
 
     def has_unable_to_delete_incentive_alert?
       has_text? 'Behaviors exist. You can delete this ' \
                 'incentive if all associated behaviors are removed.'
+    end
+
+    def open_first_behavior
+      first('.list-group-item').click
+      find('p', text: 'Action: SocialNetworking::Goal')
+    end
+
+    def has_unable_to_destroy_behavior_alert?
+      has_text? 'Can\'t be destroyed because participant behaviors exist.'
+    end
+
+    def destroy_behavior
+      2.times { user_navigation.scroll_down }
+      first('.list-group-item').click
+      expect(page).to have_content 'Action: SocialNetworking::Like'
+      destroy
+      expect(page).to have_content 'Behavior was successfully destroyed.'
+    end
+
+    def open_individual_like_incentive
+      open_existing_incentive('Individual', 'like 3 feed items')
+    end
+
+    def has_like_incentive_successfully_destroyed?
+      has_text?('Incentive was successfully removed.') &&
+        has_no_css?('.list-group-item', text: 'Individual, like 3 feed items')
     end
 
     private
@@ -158,8 +183,8 @@ module Users
     end
 
     def open_existing_incentive(scope, incentive)
-      find('.list-group-item',
-           text: "#{scope}, #{incentive}").click
+      find('.list-group-item', text: "#{scope}, #{incentive}").click
+      find('h1', text: "#{@group} Incentive - #{incentive}")
     end
 
     def unable_to_edit_scope?(scope)
