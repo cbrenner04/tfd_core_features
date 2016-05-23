@@ -71,7 +71,7 @@ feature 'Coach messaging', :core, sauce: sauce_labs do
   end
 
   scenario 'Coach uses breadcrumbs to return to home' do
-    user_navigation.go_back_to_group_page
+    group_1.go_back_to_group_page
     user_navigation.go_back_to_home_page
 
     expect(user_navigation).to have_home_visible

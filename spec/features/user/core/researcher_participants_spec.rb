@@ -92,7 +92,7 @@ feature 'Researcher, Participants', :core, sauce: sauce_labs do
   scenario 'Researcher uses breadcrumbs to return to home through Groups' do
     user_navigation.scroll_to_bottom
     test_5_participant.open
-    user_navigation.go_back_to_group_page
+    group_1.go_back_to_group_page
     user_navigation.go_back_to_groups_page
     user_navigation.go_back_to_home_page
 

@@ -50,6 +50,10 @@ module Participants
       find('.status', text: "#{count} character#{plural} left")
     end
 
+    def has_participant65_visible_on_landing_page?
+      has_css?('h5', text: 'Fifth')
+    end
+
     private
 
     def participant_navigation

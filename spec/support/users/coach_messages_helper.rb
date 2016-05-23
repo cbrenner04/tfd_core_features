@@ -2,6 +2,11 @@
 
 require './lib/pages/participants/messages'
 require './lib/pages/users/messages'
+require './lib/pages/users/groups'
+
+def group_1
+  @group_1 ||= Users::Groups.new(title: 'Group 1')
+end
 
 def user_messages
   @user_messages ||= Users::Messages.new(message_subject: 'fake')

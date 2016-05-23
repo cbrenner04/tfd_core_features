@@ -15,5 +15,10 @@ module Users
     def visible_in_listing?
       has_text? @title
     end
+
+    def go_back_to_group_page
+      click_on 'Group'
+      find('p', text: "Title: #{@title}")
+    end
   end
 end

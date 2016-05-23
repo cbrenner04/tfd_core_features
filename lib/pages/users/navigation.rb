@@ -29,11 +29,6 @@ module Users
       find('h1', text: 'Arms')
     end
 
-    def go_back_to_group_page
-      click_on 'Group'
-      find('p', text: 'Title: Group 1')
-    end
-
     def go_back_to_groups_page
       within('.breadcrumb') { click_on 'Groups' }
       find('.list-group-item', text: 'Group 3')

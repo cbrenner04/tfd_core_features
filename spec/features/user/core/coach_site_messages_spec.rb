@@ -1,6 +1,11 @@
 # filename: ./spec/features/user/core/coach_site_messages_spec.rb
 
+require './lib/pages/users/groups'
 require './lib/pages/users/messages'
+
+def group_1
+  @group_1 ||= Users::Groups.new(title: 'Group 1')
+end
 
 def site_messaging_1
   @site_messaging_1 ||= Users::Messages.new(
@@ -43,7 +48,7 @@ feature 'Site Messaging', :core, sauce: sauce_labs do
   end
 
   scenario 'Coach uses breadcrumbs to return to home' do
-    user_navigation.go_back_to_group_page
+    group_1.go_back_to_group_page
     user_navigation.go_back_to_home_page
 
     expect(user_navigation).to have_home_visible
