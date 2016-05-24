@@ -54,12 +54,10 @@ module Users
         has_text?("Position: #{@position} / #{@position}")
     end
 
-    def destroy
+    def open_provider
       find('strong', text: 'Tool:')
       click_on @title
       find('p', text: 'Slideshow:')
-      user_navigation.confirm_with_js
-      click_on 'Destroy'
     end
 
     def destroyed_successfully?

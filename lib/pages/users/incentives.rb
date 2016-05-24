@@ -110,11 +110,6 @@ module Users
       behavior_created_successfully?('TaskStatus', 'complete')
     end
 
-    def destroy
-      user_navigation.confirm_with_js
-      click_on 'Destroy'
-    end
-
     def open_individual_goal_incentive
       open_existing_incentive('Individual', 'create a goal')
     end
@@ -137,7 +132,7 @@ module Users
       2.times { user_navigation.scroll_down }
       first('.list-group-item').click
       expect(page).to have_content 'Action: SocialNetworking::Like'
-      destroy
+      user_navigation.destroy
       expect(page).to have_content 'Behavior was successfully destroyed.'
     end
 

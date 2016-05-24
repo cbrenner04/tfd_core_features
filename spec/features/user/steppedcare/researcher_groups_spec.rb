@@ -37,8 +37,7 @@ feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   scenario 'Researcher destroys a group' do
     click_on 'Group 9'
     find('p', text: 'Title: Group 9')
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Destroy'
+    user_navigation.destroy
     find('.alert-success', text: 'Group was successfully destroyed.')
     expect(page).to_not have_content 'Group 9'
   end
@@ -56,9 +55,9 @@ feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   scenario 'Researcher nassigns a task within a group' do
     click_on 'Group 11'
     click_on 'Manage Tasks'
-    page.execute_script('window.scrollTo(0,5000)')
+    user_navigation.scroll_to_bottom
     within('tr', text: 'Testing adding/updating slides/lessons') do
-      page.driver.execute_script('window.confirm = function() {return true}')
+      user_navigation.confirm_with_js
       click_on 'Unassign'
     end
 
@@ -68,10 +67,8 @@ feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   end
 
   scenario 'Researcher uses breadcrumbs to return to home' do
-    within('.breadcrumb') do
-      click_on 'Home'
-    end
+    user_navigation.go_back_to_home_page
 
-    expect(page).to have_content 'Arms'
+    expect(user_navigation).to have_home_visible
   end
 end

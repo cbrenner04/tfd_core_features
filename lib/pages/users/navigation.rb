@@ -78,5 +78,10 @@ module Users
                 "researchers, and content authors.\nCSV " \
                 "Reports\nDownload data via csv."
     end
+
+    def destroy
+      confirm_with_js
+      click_on 'Destroy'
+    end
   end
 end

@@ -72,11 +72,6 @@ module Users
         has_text?("Super User: Yes\nEmail: #{@email}\nRoles: Clinician")
     end
 
-    def destroy
-      user_navigation.confirm_with_js
-      click_on 'Destroy'
-    end
-
     def destroyed_successfully?
       has_css?('.alert', text: 'User was successfully destroyed.') &&
         has_no_text?(@email)

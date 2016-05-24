@@ -24,7 +24,7 @@ feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
 
   scenario 'Researcher destroys a researcher' do
     test_2_user.open
-    test_2_user.destroy
+    user_navigation.destroy
 
     expect(test_2_user).to be_destroyed_successfully
   end
@@ -45,7 +45,7 @@ feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
 
   scenario 'Researcher destroys a clinician' do
     test_4_user.open
-    test_4_user.destroy
+    user_navigation.destroy
 
     expect(test_4_user).to be_destroyed_successfully
   end
@@ -66,7 +66,7 @@ feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
 
   scenario 'Researcher destroys a content author' do
     test_6_user.open
-    test_6_user.destroy
+    user_navigation.destroy
 
     expect(test_6_user).to be_destroyed_successfully
   end

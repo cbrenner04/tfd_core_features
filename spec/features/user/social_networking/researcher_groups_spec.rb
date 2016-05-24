@@ -1,98 +1,72 @@
 # filename: ./spec/features/user/social_networking/researcher_groups_spec.rb
 
+require './spec/support/users/social_researcher_groups_helper'
+
 feature 'Researcher, Groups,',
         :superfluous, :social_networking, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                         ENV['Researcher_Password'])
-    end
-  end
+  background(:all) { researcher.sign_in } if ENV['safari']
 
   background do
-    unless ENV['safari']
-      users.sign_in_user(ENV['Researcher_Email'], 'participant2',
-                         ENV['Researcher_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/think_feel_do_dashboard/groups"
+    researcher.sign_in unless ENV['safari']
+    visit user_navigation.groups_page
   end
 
   scenario 'Researcher creates a group' do
-    click_on 'New'
-    fill_in 'group_title', with: 'Testing Group'
-    select 'Arm 1', from: 'group_arm_id'
-    select ENV['User_Email'], from: 'group_moderator_id'
-    click_on 'Create'
-    expect(page).to have_content 'Group was successfully created.'
+    new_group.create
+
+    expect(new_group).to be_created_successfully
   end
 
   scenario 'Researcher updates a group' do
-    page.execute_script('window.scrollBy(0,500)')
-    click_on 'Group 8'
-    click_on 'Edit'
-    fill_in 'group_title', with: 'Updated Group 8'
-    click_on 'Update'
-    find('.alert-success', text: 'Group was successfully updated.')
-    expect(page).to have_content 'Title: Updated Group 8'
+    user_navigation.scroll_down
+    group_8.open
+    group_8.update_title
+
+    expect(group_8).to be_updated_successfully
+    expect(group_8).to have_updated_group_title
   end
 
   scenario 'Researcher updates moderator for Group 9' do
-    find('h1', text: 'Groups')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Group 9'
-    click_on 'Edit'
-    select ENV['User_Email'], from: 'group_moderator_id'
-    click_on 'Update'
-    find('.alert-success', text: 'Group was successfully updated.')
-    expect(page).to have_content "Coach/Moderator: #{ENV['User_Email']}"
+    expect(group_9).to be_visible_in_listing
+    user_navigation.scroll_to_bottom
+    group_9.open
+    group_9.update_moderator
+
+    expect(group_9).to be_updated_successfully
+    expect(group_9).to have_updated_moderator
   end
 
   scenario 'Researcher destroys a group' do
-    find('h1', text: 'Groups')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Group 10'
-    find('p', text: 'Title: Group 10')
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Destroy'
-    find('.alert-success', text: 'Group was successfully destroyed.')
-    expect(page).to_not have_content 'Group 10'
+    expect(group_10).to be_visible_in_listing
+    user_navigation.scroll_to_bottom
+    group_10.open
+    user_navigation.destroy
+
+    expect(group_10).to be_destroyed_successfully
+    expect(group_10).to_not be_visible_in_listing
   end
 
   scenario 'Researcher assigns a task within a group' do
-    find('h1', text: 'Groups')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Group 11'
-    click_on 'Manage Tasks'
-    select 'LEARN: Do - Planning Slideshow 3 of 4',
-           from: 'task_bit_core_content_module_id'
-    fill_in 'task_release_day', with: '1'
-    click_on 'Assign'
-    expect(page).to have_content 'Task assigned.'
+    expect(group_11).to be_visible_in_listing
+    user_navigation.scroll_to_bottom
+    group_11.open
+    group_11.assign_task
+
+    expect(group_11).to have_task_assigned_successfully
   end
 
   scenario 'Researcher unassigns a task within a group' do
-    find('h1', text: 'Groups')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Group 11'
-    click_on 'Manage Tasks'
-    find('h1', text: 'Manage Task')
-    page.execute_script('window.scrollTo(0,5000)')
-    within('tr', text: 'Testing adding/updating slides/lessons') do
-      page.driver.execute_script('window.confirm = function() {return true}')
-      click_on 'Unassign'
-    end
+    expect(group_11_a).to be_visible_in_listing
+    user_navigation.scroll_to_bottom
+    group_11_a.open
+    group_11_a.unassign_task
 
-    within '#tasks' do
-      expect(page).to_not have_content 'Testing adding/updating slides/lesson'
-    end
+    expect(group_11_a).to_not have_task
   end
 
   scenario 'Researcher uses breadcrumbs to return to home' do
-    within('.breadcrumb') do
-      click_on 'Home'
-    end
+    user_navigation.go_back_to_home_page
 
-    expect(page).to have_content 'Arms'
+    expect(user_navigation).to have_home_visible
   end
 end

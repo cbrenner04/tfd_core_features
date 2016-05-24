@@ -122,10 +122,6 @@ module Users
         has_text?("Current Coach/Moderator: #{@coach}")
     end
 
-    def destroy
-      click_on 'Destroy'
-    end
-
     def destroyed_successfully?
       has_css?('.alert-success',
                text: 'Participant was successfully destroyed.') &&

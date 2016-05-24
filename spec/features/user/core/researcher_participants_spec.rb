@@ -74,8 +74,7 @@ feature 'Researcher, Participants', :core, sauce: sauce_labs do
 
   scenario 'Researcher destroys a participant' do
     test_6_participant.open
-    user_navigation.confirm_with_js
-    test_6_participant.destroy
+    user_navigation.destroy
 
     expect(test_6_participant).to be_destroyed_successfully
   end

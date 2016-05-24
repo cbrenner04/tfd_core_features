@@ -23,7 +23,8 @@ feature 'Content Author, Content Modules',
   end
 
   scenario 'Content Author destroys a module' do
-    another_content_module.destroy
+    another_content_module.open_module
+    user_navigation.destroy
 
     expect(another_content_module).to be_destroyed_successfully
   end
@@ -44,7 +45,8 @@ feature 'Content Author, Content Modules',
 
   scenario 'Content Author destroys a provider' do
     final_content_module.open_module
-    slideshow_content_provider.destroy
+    slideshow_content_provider.open_provider
+    user_navigation.destroy
 
     expect(slideshow_content_provider).to be_destroyed_successfully
   end

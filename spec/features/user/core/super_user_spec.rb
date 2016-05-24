@@ -11,14 +11,14 @@ feature 'Super User', :superfluous, :core, sauce: sauce_labs do
   end
 
   scenario 'Super user creates an arm' do
-    visit users_navigation.arms_page
+    visit user_navigation.arms_page
     new_arm.create
 
     expect(new_arm).to be_created_successfully
   end
 
   scenario 'Super user updates an arm' do
-    visit users_navigation.arms_page
+    visit user_navigation.arms_page
     update_arm.open
     update_arm.update
 
@@ -26,9 +26,9 @@ feature 'Super User', :superfluous, :core, sauce: sauce_labs do
   end
 
   scenario 'Super user sees appropriate alert when trying to destroy an arm' do
-    visit users_navigation.arms_page
+    visit user_navigation.arms_page
     test_2_arm.open
-    test_2_arm.destroy
+    user_navigation.destroy
 
     expect(test_2_arm).to have_incorrect_privileges_alert
   end
@@ -52,7 +52,7 @@ feature 'Super User', :superfluous, :core, sauce: sauce_labs do
   scenario 'Super user destroys a super user' do
     visit users.landing_page
     destroy_super_user.open
-    destroy_super_user.destroy
+    user_navigation.destroy
 
     expect(destroy_super_user).to be_destroyed_successfully
   end

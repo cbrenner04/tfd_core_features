@@ -110,7 +110,7 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     group_9.open
     group_9_incentives.manage
     group_9_incentives.open_individual_goal_incentive
-    group_9_incentives.destroy
+    user_navigation.destroy
 
     expect(group_9_incentives).to have_unable_to_delete_incentive_alert
   end
@@ -120,7 +120,7 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     group_9_incentives.manage
     group_9_incentives.open_individual_goal_incentive
     group_9_incentives.open_first_behavior
-    group_9_incentives.destroy
+    user_navigation.destroy
 
     expect(group_9_incentives).to have_unable_to_destroy_behavior_alert
   end
@@ -130,7 +130,7 @@ feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
     group_6_incentives.manage
     group_6_incentives.open_individual_like_incentive
     3.times { group_6_incentives.destroy_behavior }
-    group_6_incentives.destroy
+    user_navigation.destroy
 
     expect(group_6_incentives).to have_like_incentive_successfully_destroyed
   end
@@ -198,7 +198,7 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
 
   scenario 'Coach cannot destroy  w/o first destroying related behaviors' do
     group_9_incentives.open_individual_goal_incentive
-    group_9_incentives.destroy
+    user_navigation.destroy
 
     expect(group_9_incentives).to have_unable_to_delete_incentive_alert
   end
@@ -206,7 +206,7 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
   scenario 'Coach is unable to destroy behaviors that already have data' do
     group_9_incentives.open_individual_goal_incentive
     group_9_incentives.open_first_behavior
-    group_9_incentives.destroy
+    user_navigation.destroy
 
     expect(group_9_incentives).to have_unable_to_destroy_behavior_alert
   end
@@ -214,7 +214,7 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
   scenario 'Coach is able to destroy behaviors and incentives' do
     group_9_incentives.open_individual_like_incentive
     2.times { group_9_incentives.destroy_behavior }
-    group_9_incentives.destroy
+    user_navigation.destroy
 
     expect(group_9_incentives).to have_like_incentive_successfully_destroyed
   end

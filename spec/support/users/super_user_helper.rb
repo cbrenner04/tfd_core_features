@@ -1,12 +1,7 @@
 # filename: ./spec/support/users/super_user_helper.rb
 
 require './lib/pages/users/arms'
-require './lib/pages/users/navigation'
 require './lib/pages/users/users_set_up'
-
-def users_navigation
-  @users_navigation ||= Users::Navigation.new
-end
 
 def arms
   @arms ||= Users::Arms.new(title: 'fake')

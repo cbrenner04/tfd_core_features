@@ -44,11 +44,6 @@ module Users
         has_text?('Title: Updated Testing Arm')
     end
 
-    def destroy
-      user_navigation.confirm_with_js
-      click_on 'Destroy'
-    end
-
     def has_incorrect_privileges_alert?
       has_text? 'You do not have privileges to delete an ' \
                 'arm. Please contact the site administrator ' \

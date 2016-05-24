@@ -52,12 +52,6 @@ module Users
         has_text?("Tool: #{@new_tool}")
     end
 
-    def destroy
-      open_module
-      user_navigation.confirm_with_js
-      click_on 'Destroy'
-    end
-
     def destroyed_successfully?
       has_css?('.alert',
                text: 'Content module along with any associated tasks were ' \
