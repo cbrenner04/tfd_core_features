@@ -19,6 +19,7 @@ module Users
       @display_name ||= participants.fetch(:display_name, 'Tester')
       @start_date ||= participants[:start_date]
       @end_date ||= participants[:end_date]
+      @group_number ||= participants[:group_number]
     end
 
     def landing_page
@@ -71,7 +72,7 @@ module Users
 
     def assign_group
       click_on 'Assign New Group'
-      select "Group #{group_number}", from: 'membership_group_id'
+      select "Group #{@group_number}", from: 'membership_group_id'
       fill_in 'membership_display_name', with: @display_name unless ENV['tfd']
       fill_in 'membership_start_date', with: @start_date
       fill_in 'membership_end_date', with: @end_date
@@ -93,6 +94,11 @@ module Users
 
     def has_end_date_in_the_past?
       has_text? 'End date must not be in the past'
+    end
+
+    def has_display_name_needed_alert?
+      has_text? "Group #{@group_number} is part of a social arm. " \
+                'Display name is required for social arms.'
     end
 
     def has_group_assigned_successfully?
