@@ -1,27 +1,12 @@
 # filename: ./spec/support/participants/individual_incentives_helper.rb
 
-require './lib/pages/participants'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/incentives'
-require './lib/pages/participants/social_networking/profile'
-require './lib/pages/participants/social_networking/like'
-require './lib/pages/participants/social_networking/achieve'
-
-def navigation
-  @navigation ||= Participants::Navigation.new
-end
-
-def participant_3_so3
-  @participant_3_so3 ||= Participants.new(
-    participant: ENV['Alt_Participant_Email'],
-    old_participant: 'participant3',
-    password: ENV['Alt_Participant_Password'],
-    display_name: 'participant3'
-  )
-end
+require './lib/pages/participants/social_networking_modules/profile'
+require './lib/pages/participants/social_networking_modules/like'
+require './lib/pages/participants/social_networking_modules/achieve'
 
 def participant_3_profile
-  @participant_3_profile ||= Participants::SocialNetworking::Profile.new(
+  @participant_3_profile ||= Participants::SocialNetworkingModules::Profile.new(
     display_name: 'participant3'
   )
 end
@@ -94,25 +79,25 @@ def pt_3_behavior_3
 end
 
 def pt_3_like_1
-  @pt_3_like_1 ||= Participants::SocialNetworking::Like.new(
+  @pt_3_like_1 ||= Participants::SocialNetworkingModules::Like.new(
     feed_item: 'Did Not Complete a Goal: p2 alpha'
   )
 end
 
 def pt_3_like_2
-  @pt_3_like_2 ||= Participants::SocialNetworking::Like.new(
+  @pt_3_like_2 ||= Participants::SocialNetworkingModules::Like.new(
     feed_item: 'Did Not Complete a Goal: p2 gamma'
   )
 end
 
 def pt_3_like_3
-  @pt_3_like_3 ||= Participants::SocialNetworking::Like.new(
+  @pt_3_like_3 ||= Participants::SocialNetworkingModules::Like.new(
     feed_item: 'said what about Bob?'
   )
 end
 
 def pt_3_goal
-  @pt_3_goal ||= Participants::SocialNetworking::Achieve.new(
+  @pt_3_goal ||= Participants::SocialNetworkingModules::Achieve.new(
     goal: 'do something fun'
   )
 end

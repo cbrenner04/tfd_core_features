@@ -1,34 +1,20 @@
 # filename: ./spec/support/participants/social_networking_login_helper.rb
 
-require './lib/pages/users'
 require './lib/pages/participants'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/messages'
 
-def user
-  @user ||= Users.new
-end
-
-def completer_sons
-  @completer_sons ||= Participants.new(
+def completer
+  @completer ||= Participant.new(
     participant: ENV['Completed_Pt_Email'],
-    old_participant: 'nonsocialpt',
-    password: ENV['Completed_Pt_Password'],
-    display_name: 'completer'
+    password: ENV['Completed_Pt_Password']
   )
 end
 
 def mobile_completer
-  @completer_sons ||= Participants.new(
+  @mobile_completer ||= Participant.new(
     participant: ENV['Mobile_Comp_Pt_Email'],
-    old_participant: 'completer',
-    password: ENV['Mobile_Comp_Pt_Password'],
-    display_name: 'mobilecompleter'
+    password: ENV['Mobile_Comp_Pt_Password']
   )
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def completer_message

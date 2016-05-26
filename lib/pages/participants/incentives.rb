@@ -1,4 +1,4 @@
-class Participants
+module Participants
   # page object for Incentives features
   class Incentives
     include Capybara::DSL
@@ -29,8 +29,8 @@ class Participants
     end
 
     def has_incomplete_image?
-      incentive_title.has_css?('.flower-translucent')
-      incentive_title.has_css?("img[src = \"/assets/#{@image}.png\"]")
+      incentive_title.has_css?('.flower-translucent') &&
+        incentive_title.has_css?("img[src = \"/assets/#{@image}.png\"]")
     end
 
     def open_incentives_list
@@ -43,15 +43,13 @@ class Participants
 
     def incomplete?
       within all('.list-group-item.task-status')[@pt_list_item] do
-        has_no_css? '.fa.fa-check-circle'
-        has_text? 'Completed at: ---'
+        has_no_css?('.fa.fa-check-circle') && has_text?('Completed at: ---')
       end
     end
 
     def complete?
       within all('.list-group-item')[@pt_list_item] do
-        has_css?('.fa.fa-check-circle')
-        has_text? "Completed at: #{@date}"
+        has_css?('.fa.fa-check-circle') && has_text?("Completed at: #{@date}")
       end
     end
 

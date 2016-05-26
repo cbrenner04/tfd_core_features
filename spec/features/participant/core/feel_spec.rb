@@ -4,7 +4,7 @@ require './spec/support/participants/feel_helper'
 
 feature 'FEEL tool, Tracking Mood', :core, sauce: sauce_labs do
   scenario 'Participant completes Tracking Your Mood' do
-    participant_1_so3.sign_in
+    participant_1.sign_in
     visit feel.landing_page
     tracking_mood.open
     tracking_mood.rate_mood
@@ -13,10 +13,10 @@ feature 'FEEL tool, Tracking Mood', :core, sauce: sauce_labs do
 end
 
 feature 'FEEL tool, Tracking Mood & Emotions', :core, sauce: sauce_labs do
-  background(:all) { participant_3_so1.sign_in if ENV['safari'] }
+  background(:all) { participant_3.sign_in if ENV['safari'] }
 
   background do
-    participant_3_so1.sign_in unless ENV['safari']
+    participant_3.sign_in unless ENV['safari']
     visit feel.landing_page
   end
 
@@ -36,10 +36,10 @@ feature 'FEEL tool, Tracking Mood & Emotions', :core, sauce: sauce_labs do
 end
 
 feature 'FEEL Tool, Your Recent Mood & Emotions', :core, sauce: sauce_labs do
-  background(:all) { participant_5_so3.sign_in if ENV['safari'] }
+  background(:all) { participant_5.sign_in if ENV['safari'] }
 
   background do
-    participant_5_so3.sign_in unless ENV['safari']
+    participant_5.sign_in unless ENV['safari']
     visit feel.landing_page
   end
 

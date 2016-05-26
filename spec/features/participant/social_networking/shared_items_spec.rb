@@ -5,16 +5,16 @@ require './spec/support/participants/shared_items_helper'
 feature 'Shared items, Social arm',
         :social_networking, :marigold, sauce: sauce_labs do
   feature 'THINK tool' do
-    background(:all) { participant_1_somc.sign_in if ENV['safari'] }
+    background(:all) { participant_1.sign_in if ENV['safari'] }
 
     background do
-      participant_1_somc.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit think.landing_page
     end
 
     scenario 'Participant shares THINK > Identifying responses' do
       pt_1_identify_thought_1.open
-      navigation.skip
+      participant_navigation.skip
       pt_1_identify_thought_1
         .enter_thought('Now, your turn...', 'Public thought 1')
       social_networking.accept_social
@@ -32,9 +32,7 @@ feature 'Shared items, Social arm',
       pt_1_identify_thought_1.find_in_feed
 
       expect(pt_1_identify_thought_2).to_not be_visible
-
       expect(pt_1_identify_thought_1).to be_visible
-
       expect(pt_1_identify_thought_1).to have_timestamp
     end
 
@@ -42,7 +40,6 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_1.open
       pt_1_add_new_thought_1.complete
       visit ENV['Base_URL']
-
       pt_1_add_new_thought_1.find_in_feed
 
       expect(pt_1_add_new_thought_1).to have_timestamp
@@ -53,7 +50,7 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_2.open
       pt_1_add_new_thought_2.enter_thought
       social_networking.decline_social
-      navigation.alt_next
+      participant_navigation.alt_next
 
       expect(think).to have_success_alert
 
@@ -61,26 +58,25 @@ feature 'Shared items, Social arm',
       pt_1_add_new_thought_1.find_in_feed
 
       expect(pt_1_add_new_thought_2).to_not be_visible
-
       expect(pt_1_add_new_thought_1).to be_visible
     end
   end
 
   feature 'DO tool' do
     background do
-      participant_1_so1.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit do_tool.landing_page
     end
 
     scenario 'Participant shares DO > Planning responses' do
       pt_1_planning_1.open
-      navigation.next
+      participant_navigation.next
       pt_1_planning_1.plan
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
 
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       pt_1_planning_2.plan
       social_networking.decline_social
 
@@ -90,16 +86,13 @@ feature 'Shared items, Social arm',
 
       expect(pt_1_planning_2).to have_review_page_visible
 
-      navigation.scroll_down
+      participant_navigation.scroll_down
       pt_1_planning_2.finish
-
       visit ENV['Base_URL']
       pt_1_planning_1.find_in_feed
 
       expect(pt_1_planning_2).to_not be_visible
-
       expect(pt_1_planning_1).to be_visible
-
       expect(pt_1_planning_1).to have_timestamp
     end
 
@@ -109,14 +102,12 @@ feature 'Shared items, Social arm',
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
-
       expect(do_tool).to have_landing_visible
 
       visit ENV['Base_URL']
       pt_1_plan_new_1.find_in_feed
 
       expect(pt_1_plan_new_1).to be_visible
-
       expect(pt_1_plan_new_1).to have_timestamp
     end
 
@@ -126,11 +117,11 @@ feature 'Shared items, Social arm',
       social_networking.decline_social
 
       expect(do_tool).to have_success_alert
+
       visit ENV['Base_URL']
       pt_1_plan_new_1.find_in_feed
 
       expect(pt_1_plan_new_2).to_not be_visible
-
       expect(pt_1_plan_new_1).to be_visible
     end
   end
@@ -149,12 +140,12 @@ feature 'Shared items, Mobile arm',
     scenario 'Participant cannot create a shared item in Identifying' do
       ns_pt_identifying.open
       ns_pt_identifying.move_to_thought_input
-      navigation.next
+      participant_navigation.next
 
       expect(social_networking).to_not have_share_options
 
       ns_pt_identifying.enter_thought('Now list another', 'Test thought 1')
-      navigation.next
+      participant_navigation.next
 
       expect(ns_pt_identifying).to have_final_slide
     end
@@ -168,13 +159,13 @@ feature 'Shared items, Mobile arm',
 
   feature 'DO tool' do
     background do
-      nonsocial_pt_sons.sign_in unless ENV['safari']
+      nonsocial_pt.sign_in unless ENV['safari']
       visit do_tool.landing_page
     end
 
     scenario 'Participant cannot create a shared item in Awareness' do
       ns_pt_awareness.open
-      navigation.next
+      participant_navigation.next
       ns_pt_awareness.create_time_period
 
       expect(social_networking).to_not have_share_options
@@ -182,10 +173,9 @@ feature 'Shared items, Mobile arm',
 
     scenario 'Participant cannot create a shared item in Planning' do
       ns_pt_planning.open
-      navigation.next
+      participant_navigation.next
 
       expect(ns_pt_planning).to have_planning_form_visible
-
       expect(social_networking).to_not have_share_options
     end
 
@@ -193,7 +183,6 @@ feature 'Shared items, Mobile arm',
       ns_pt_add_new_activity.open
 
       expect(ns_pt_add_new_activity).to be_on_form
-
       expect(social_networking).to_not have_share_options
     end
   end
@@ -201,8 +190,8 @@ end
 
 feature 'Shared items, Social arm',
         :social_networking, :marigold, sauce: sauce_labs do
-  background(:all) { participant_5_sons.sign_in if ENV['safari'] }
-  background { participant_5_sons.sign_in unless ENV['safari'] }
+  background(:all) { participant_5.sign_in if ENV['safari'] }
+  background { participant_5.sign_in unless ENV['safari'] }
 
   scenario 'Participant shared DO > Reviewing responses' do
     visit do_tool.landing_page
@@ -241,7 +230,6 @@ feature 'Shared items, Social arm',
     relax.open_autogenic_exercises
     relax.play_audio
     relax.finish
-
     visit ENV['Base_URL']
     relax.find_in_feed
   end
@@ -269,6 +257,6 @@ feature 'Shared items, Social arm',
 
     expect(pt_5_reshape).to have_feed_details
 
-    participant_5_sons.sign_out
+    participant_5.sign_out # necessary?
   end
 end

@@ -3,22 +3,18 @@
 require './spec/support/participants/nudge_helper'
 
 feature 'Nudge', :social_networking, :marigold, sauce: sauce_labs do
-  if ENV['safari']
-    if ENV['sunnyside'] || ENV['marigold']
-      background(:all) { participant_1_so4.sign_in }
-    end
-  else
-    background do
-      participant_1_so1.sign_in
-      visit ENV['Base_URL']
+  background(:all) { participant_1.sign_in } if ENV['safari']
 
-      expect(navigation).to have_home_page_visible
-    end
+  background do
+    participant_1.sign_in unless ENV['safari']
+    visit ENV['Base_URL']
+
+    expect(participant_navigation).to have_home_page_visible
   end
 
   scenario 'Participant nudges another participant' do
     pt_1_prof_1.visit_another_participants_profile
-    navigation.scroll_down
+    participant_navigation.scroll_down
     pt_1_prof_1.nudge
     visit ENV['Base_URL']
 
@@ -33,7 +29,7 @@ feature 'Nudge', :social_networking, :marigold, sauce: sauce_labs do
 
   scenario 'Participant sees nudge on landing page' do
     social_networking.scroll_to_bottom_of_feed
-    navigation.scroll_to_bottom
+    participant_navigation.scroll_to_bottom
 
     expect(social_networking).to have_last_feed_item
   end

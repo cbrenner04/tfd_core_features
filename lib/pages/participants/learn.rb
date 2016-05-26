@@ -1,13 +1,14 @@
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 
-class Participants
+module Participants
   # page object for the Learn tool
   class Learn
     include Capybara::DSL
 
     def initialize(learn)
       @lesson_title ||= learn[:lesson_title]
+      @reading_duration ||= learn.fetch(:reading_duration, 0)
     end
 
     def landing_page
@@ -29,7 +30,8 @@ class Participants
 
     def read_lesson
       click_on @lesson_title
-      navigation.next
+      sleep(@reading_duration)
+      patient_navigation.next
       click_on 'Finish'
     end
 
@@ -59,7 +61,7 @@ class Participants
 
     def return_to_lessons
       click_on 'Return to Lessons'
-      has_text? 'Week 1'
+      find('h3', text: 'Week 1')
     end
 
     def find_in_feed
@@ -68,8 +70,8 @@ class Participants
 
     private
 
-    def navigation
-      @navigation ||= Participants::Navigation.new
+    def patient_navigation
+      @patient_navigation ||= Participants::Navigation.new
     end
 
     def social_networking

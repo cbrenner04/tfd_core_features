@@ -1,90 +1,79 @@
 # filename: ./spec/features/user/core/coach_messages_spec.rb
 
+require './spec/support/users/coach_messages_helper'
+
 feature 'Coach messaging', :core, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) do
-      users.sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
-                         ENV['Clinician_Password'])
-    end
-  end
+  background(:all) { clinician.sign_in if ENV['safari'] }
 
   background do
-    unless ENV['safari']
-      users.sign_in_user(ENV['Clinician_Email'], 'mobilecompleter',
-                         ENV['Clinician_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-    click_on 'Arm 1'
-    click_on 'Group 1'
-    click_on 'Messaging'
-    click_on 'Messages'
+    clinician.sign_in unless ENV['safari']
+    visit user_navigation.arms_page
+    user_messages.navigate_to_messages
   end
 
   scenario 'Coach reads a received message' do
-    click_on 'I like this app'
-    find('strong', text: 'From TFD-1111')
-    expect(page).to have_content 'This app is really helpful!'
+    user_message_1.open_message
+
+    expect(user_message_1).to have_sender
+    expect(user_message_1).to have_message_visible
   end
 
   scenario 'Coach reads a sent message' do
-    click_on 'Sent'
-    click_on 'Try out the LEARN tool'
-    expect(page).to have_content 'I think you will find it helpful.'
+    user_message_2.go_to_sent_messages
+    user_message_2.open_message
+
+    expect(user_message_2).to have_message_visible
   end
 
   scenario 'Coach replies to a message' do
-    click_on 'I like this app'
-    click_on 'Reply to this message'
-    find('#coach-message-link-selection')
-    fill_in 'message[body]',
-            with: 'This message is to test the reply functionality'
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Send'
-    expect(page).to have_content 'Message saved'
+    user_message_3.open_message
+    user_message_3.reply
+    user_message_3.enter_reply_message
+    user_navigation.scroll_down
+    user_message_3.send
+
+    expect(user_message_3).to have_saved_alert
 
     unless ENV['safari']
-      users.sign_in_pt(ENV['Participant_Email'], 'participant2',
-                       ENV['Participant_Password'])
-      visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
-      expect(page).to have_content 'Reply: I like this app'
+      participant_1.sign_in
+      visit participant_message_1.landing_page
+      expect(participant_message_1).to have_message
     end
   end
 
   scenario 'Coach composes a message' do
-    click_on 'Compose'
-    select 'TFD-1111', from: 'message_recipient_id'
-    fill_in 'message_subject', with: 'Testing compose functionality'
-    select 'Intro', from: 'coach-message-link-selection'
-    fill_in 'message_body',
-            with: 'This message is to test the compose functionality.'
-    click_on 'Send'
-    expect(page).to have_content 'Message saved'
+    user_message_4.open_new_message
+    user_message_4.select_recipient
+    user_message_4.write_message
+    user_message_4.select_link
+    user_message_4.send
+
+    expect(user_message_4).to have_saved_alert
 
     unless ENV['safari']
-      users.sign_in_pt(ENV['Participant_Email'], 'participant2',
-                       ENV['Participant_Password'])
-      visit "#{ENV['Base_URL']}/navigator/contexts/MESSAGES"
-      expect(page).to have_content 'Testing compose functionality'
+      participant_1.sign_in
+      visit participant_message_2.landing_page
+
+      expect(participant_message_2).to have_message
     end
   end
 
   scenario 'Coach searches for a specific participants messages' do
-    select 'TFD-1111', from: 'search'
-    click_on 'Search'
-    find('.list-group-item', text: 'I like this app')
-    click_on 'Sent'
-    expect(page).to have_content 'Try out the LEARN tool'
+    user_message_5.search
 
-    expect(page).to_not have_content 'Check out the Introduction slideshow'
+    expect(user_message_5).to have_message
+
+    user_message_5.go_to_sent_messages
+
+    expect(user_message_6).to have_message
+
+    expect(user_message_7).to_not have_message
   end
 
   scenario 'Coach uses breadcrumbs to return to home' do
-    click_on 'Group'
-    within('.breadcrumb') do
-      click_on 'Home'
-    end
+    group_1.go_back_to_group_page
+    user_navigation.go_back_to_home_page
 
-    expect(page).to have_content 'Arms'
+    expect(user_navigation).to have_home_visible
   end
 end

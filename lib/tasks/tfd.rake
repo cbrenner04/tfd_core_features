@@ -101,6 +101,16 @@ namespace :run_tfd do
     system('tfd=true rspec --tag core --tag tfd --tag ~superfluous')
   end
 
+  desc 'Run the participants test suite for TeleHealth on Firefox'
+  task :participants do
+    system('tfd=true rspec ./spec/features/participant/ --tag core --tag tfd')
+  end
+
+  desc 'Run the users test suite for TeleHealth on Firefox'
+  task :users do
+    system('tfd=true rspec ./spec/features/user/ --tag core --tag tfd')
+  end
+
   # this requires switching databases on staging
   desc 'Run the test suite for the TeleHealth host application on SauceLabs'
   task :sauce do

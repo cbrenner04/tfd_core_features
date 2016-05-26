@@ -13,7 +13,7 @@ feature 'Background image', :incentives, sauce: sauce_labs do
   scenario 'Participant selects a background image' do
     app_background_1.choose_image
 
-    expect(navigation).to_not have_modal
+    expect(participant_navigation).to_not have_modal
 
     visit think.landing_page
 
@@ -21,7 +21,7 @@ feature 'Background image', :incentives, sauce: sauce_labs do
   end
 
   scenario 'Participant updates the background image from profile page' do
-    app_background_1.choose_image if navigation.has_modal?
+    app_background_1.choose_image if participant_navigation.has_modal?
     bkgd_pt_profile.visit_profile
     app_background_1.change
     app_background_2.choose_image

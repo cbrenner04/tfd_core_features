@@ -4,22 +4,22 @@ require './spec/support/participants/core_bugs_helper.rb'
 
 feature 'Participant Bugs', :core, sauce: sauce_labs do
   feature 'DO tool' do
-    background(:all) { participant_1_so3.sign_in if ENV['safari'] }
+    background(:all) { participant_1.sign_in if ENV['safari'] }
 
     background do
-      participant_1_so3.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit do_tool.landing_page
     end
 
     scenario 'Participant completes Planning without multiple alerts' do
       planning.open
-      navigation.next
+      participant_navigation.next
       first_planned_activity.plan
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
 
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       second_planned_activity.plan
       social_networking.accept_social
 
@@ -29,7 +29,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       expect(planning).to have_review_page_visible
 
-      navigation.scroll_down
+      participant_navigation.scroll_down
       planning.finish
     end
 
@@ -39,7 +39,6 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
-
       expect(plan_new_activity).to have_activity
     end
 
@@ -52,17 +51,18 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       expect(awareness).to have_review_tables
 
-      navigation.next
+      participant_navigation.next
       activity_viz.open
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       activity_viz.go_to_previous_day
+
       expect(activity_viz).to have_previous_day_visible
     end
   end
 
   feature 'FEEL tool, Your Recent Mood & Emotions' do
     scenario 'Participant is able to switch view back to 7 Day' do
-      participant_1_so3.sign_in unless ENV['safari']
+      participant_1.sign_in unless ENV['safari']
       visit feel.landing_page
       recent_moods_emotions.open
 
@@ -74,14 +74,16 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       recent_moods_emotions.switch_to_7_day_view
       recent_moods_emotions.switch_to_previous_period
+
       expect(recent_moods_emotions).to have_previous_period_visible
     end
   end
 
   feature 'Participant 2 signs in,', :core, :marigold do
     scenario 'Participant completes a module, it appears complete' do
-      participant_2_so1.sign_in
-      expect(navigation).to have_new_assignment_in_feel
+      participant_2.sign_in
+
+      expect(participant_navigation).to have_new_assignment_in_feel
 
       visit feel.landing_page
 
@@ -89,9 +91,8 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       tracking_mood_emotions.open
       tracking_mood_emotions.rate_mood
-
       tracking_mood_emotions.rate_emotion
-      navigation.scroll_to_bottom
+      participant_navigation.scroll_to_bottom
       tracking_mood_emotions.submit
       visit feel.landing_page
 
@@ -99,9 +100,9 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       recent_moods_emotions.open
 
-      expect(navigation).to_not have_new_assignment_in_feel
+      expect(participant_navigation).to_not have_new_assignment_in_feel
 
-      participant_2_so1.sign_out
+      participant_2.sign_out # within example b/c of derailment issues, move?
     end
   end
 end

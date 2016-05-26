@@ -3,10 +3,10 @@
 require './spec/support/participants/do_helper'
 
 feature 'DO tool', :core, sauce: sauce_labs do
-  background(:all) { participant_1_so1.sign_in if ENV['safari'] }
+  background(:all) { participant_1.sign_in if ENV['safari'] }
 
   background do
-    participant_1_so1.sign_in unless ENV['safari']
+    participant_1.sign_in unless ENV['safari']
     visit do_tool.landing_page
   end
 
@@ -25,7 +25,6 @@ feature 'DO tool', :core, sauce: sauce_labs do
     awareness.move_to_time_period_selection
 
     expect(awareness).to_not have_start_time('7 AM')
-
     expect(awareness).to_not have_end_time('10 PM')
   end
 
@@ -35,21 +34,21 @@ feature 'DO tool', :core, sauce: sauce_labs do
     awareness_11p_to_1a.create_time_period
     awareness_11p_to_1a.complete_one_hour_review(0, 'Sleep', 6, 1)
     awareness_11p_to_1a.copy(0)
-    navigation.scroll_to_bottom
-    navigation.next
+    participant_navigation.scroll_to_bottom
+    participant_navigation.next
 
     expect(awareness_11p_to_1a).to have_entries
   end
 
   scenario 'Participant completes Planning module' do
     planning.open
-    navigation.next
+    participant_navigation.next
     plan_activity_1.plan
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
 
-    navigation.scroll_down
+    participant_navigation.scroll_down
     plan_activity_2.plan
     social_networking.accept_social
 
@@ -66,7 +65,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
     reviewing.open
     reviewing.move_to_review
     reviewing.review_completed_activity
-    ENV['tfd'] ? navigation.next : social_networking.decline_social
+    ENV['tfd'] ? participant_navigation.next : social_networking.decline_social
 
     expect(do_tool).to have_success_alert
 
@@ -85,14 +84,13 @@ feature 'DO tool', :core, sauce: sauce_labs do
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
-
     expect(plan_new_activity).to have_activity
   end
 
   scenario 'Participant navigates to Your Activities viz' do
     activity_viz.open
 
-    expect(activity_viz).to be_visible
+    expect(activity_viz).to have_current_day_visible
   end
 
   scenario 'Participant collapses Daily Summaries in Your Activities viz' do
@@ -107,12 +105,12 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
   scenario 'Participant goes to previous day, views & edits ratings in viz' do
     edit_activity_viz.open
-    navigation.scroll_to_bottom
+    participant_navigation.scroll_to_bottom
     edit_activity_viz.go_to_previous_day
 
     expect(edit_activity_viz).to have_previous_day_visible
 
-    navigation.scroll_to_bottom
+    participant_navigation.scroll_to_bottom
     edit_activity_viz.view_activity_rating
 
     expect(edit_activity_viz).to have_activity_rating
@@ -138,7 +136,6 @@ feature 'DO tool', :core, sauce: sauce_labs do
     planned_activities.open
 
     expect(planned_activities).to be_visible
-
     expect(planned_activities).to have_activity
   end
 
@@ -155,7 +152,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
     expect(awareness).to have_first_slide_visible
 
-    navigation.skip
+    participant_navigation.skip
 
     expect(awareness).to have_time_period_selection_form_visible
   end
@@ -165,7 +162,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
     expect(planning).to have_first_slide_visible
 
-    navigation.skip
+    participant_navigation.skip
 
     expect(planning).to have_planning_form_visible
   end
@@ -173,7 +170,8 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant uses skip functionality in Doing' do
     reviewing.open
     reviewing.has_first_slide_visible?
-    navigation.skip
+    participant_navigation.skip
+
     unless reviewing.has_another_activity_to_review?
       expect(reviewing).to have_nothing_to_do_message
     end
@@ -185,10 +183,10 @@ feature 'DO tool', :core, sauce: sauce_labs do
 end
 
 feature 'DO Tool, Participant 3', :core, sauce: sauce_labs do
-  background(:all) { participant_3_so1.sign_in if ENV['safari'] }
+  background(:all) { participant_3.sign_in if ENV['safari'] }
 
   background do
-    participant_3_so1.sign_in unless ENV['safari']
+    participant_3.sign_in unless ENV['safari']
     visit do_tool.landing_page
   end
 
@@ -199,7 +197,6 @@ feature 'DO Tool, Participant 3', :core, sauce: sauce_labs do
     awareness_complete_entry.complete_multiple_hour_review
 
     expect(awareness_complete_entry).to have_entries
-
     expect(do_tool).to have_landing_visible
   end
 

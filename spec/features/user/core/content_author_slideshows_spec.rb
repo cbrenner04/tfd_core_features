@@ -1,61 +1,53 @@
 # filename: ./spec/features/user/core/content_author_slideshows_spec.rb
 
+require './lib/pages/users/slideshows'
+
+def new_slideshow
+  @new_slideshow ||= Users::Slideshows.new(title: 'Test slideshow')
+end
+
+def test_slideshow
+  @test_slideshow ||= Users::Slideshows.new(
+    title: 'Another testing slideshow',
+    new_title: 'Holy cow!'
+  )
+end
+
+def overkill_slideshow
+  @overkill_slideshow ||= Users::Slideshows.new(title: 'Is this overkill?')
+end
+
 feature 'Content Author, Slideshows',
         :superfluous, :core, sauce: sauce_labs do
   background do
-    unless ENV['safari']
-      users.sign_in_user(ENV['Content_Author_Email'], 'participant2',
-                         ENV['Content_Author_Password'])
-    end
-
-    visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-    click_on 'Arm 1'
-    click_on 'Manage Content'
-    click_on 'Slideshows'
+    content_author.sign_in unless ENV['safari']
+    visit user_navigation.arms_page
+    test_slideshow.navigate_to_slideshows
   end
 
   scenario 'Content Author creates a slideshow' do
-    click_on 'New'
-    fill_in 'slideshow_title', with: 'Test slideshow'
-    click_on 'Create'
-    find('.alert-success', text: 'Successfully created slideshow')
-    expect(page).to have_content 'Test slideshow'
+    new_slideshow.create
+
+    expect(new_slideshow).to be_created_successfully
   end
 
   scenario 'Content Author updates slideshow' do
-    find('h1', text: 'Listing Slideshows')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Another testing slideshow'
-    page.all('.btn.btn-default')[5].click
-    fill_in 'slideshow_title', with: 'Holy cow!'
-    click_on 'Update'
-    find('.alert-success', text: 'Successfully updated slideshow')
-    expect(page).to have_css('a', text: 'Holy cow!')
+    test_slideshow.update
+
+    expect(test_slideshow).to be_updated_successfully
   end
 
   scenario 'Content Author destroys slideshow' do
-    find('h1', text: 'Listing Slideshows')
-    page.execute_script('window.scrollTo(0,5000)')
-    click_on 'Is this overkill?'
-    page.driver.execute_script('window.confirm = function() {return true}')
-    click_on 'Delete'
-    find('.alert-success', text: 'Slideshow deleted')
-    expect(page).to_not have_content 'Is this overkill?'
+    overkill_slideshow.destroy
+
+    expect(overkill_slideshow).to be_destroyed_successfully
   end
 
   scenario 'Content Author uses breadcrumbs to return home' do
-    find('h1', text: 'Listing Slideshows')
-    click_on 'Arm'
-    within('.breadcrumb') do
-      click_on 'Arms'
-    end
+    user_navigation.return_to_arm
+    user_navigation.go_back_to_arms_page
+    user_navigation.go_back_to_home_page
 
-    find('.list-group-item', text: 'Arm 3')
-    within('.breadcrumb') do
-      click_on 'Home'
-    end
-
-    expect(page).to have_content "Arms\nNavigate to groups and participants " \
-                                 'through arms.'
+    expect(user_navigation).to have_home_visible
   end
 end

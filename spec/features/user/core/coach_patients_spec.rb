@@ -1,437 +1,257 @@
 # filename: ./spec/features/user/core/coach_patients_spec.rb
 
+require './spec/support/users/coach_patients_helper'
+
 feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
   feature 'Group 1' do
     background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                           ENV['Clinician_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-      click_on 'Arm 1'
-      click_on 'Group 1'
-      click_on 'Patient Dashboard'
-      find('h1', text: 'Patient Dashboard')
+      clinician.sign_in unless ENV['safari']
+      visit user_navigation.arms_page
+      patient_dashboard_group_1.navigate_to_patient_dashboard
     end
 
     scenario 'Coach views active participants assigned to them' do
-      within('#patients') do
-        expect(page).to have_content 'TFD-1111'
-      end
+      expect(participant_1_dashboard)
+        .to have_participant_visible_in_patient_table
     end
 
     scenario 'Coach views inactive participants assigned to them' do
-      within('.btn-toolbar') do
-        page.all('.btn.btn-default')[1].click
-      end
+      patient_dashboard_group_1.navigate_to_inactive_patients
 
-      expect(page).to have_content 'Completer'
+      expect(completer_dashboard).to have_participant_visible_in_patient_table
     end
 
     scenario 'Coach selects Terminate Access' do
-      within('tr', text: 'TFD-Withdraw') do
-        if ENV['safari'] || ENV['chrome']
-          execute_script('window.confirm = function() {return true}')
-        end
+      withdraw_dashboard.terminate_access
 
-        click_on 'Terminate Access'
-      end
+      expect(withdraw_dashboard)
+        .to_not have_participant_visible_in_patient_table
 
-      unless ENV['safari'] || ENV['chrome']
-        page.accept_alert 'Are you sure you would like to terminate access ' \
-                          'to this membership? This option should also be ' \
-                          'used before changing membership of the patient to ' \
-                          'a different group or to completely revoke access ' \
-                          'to this membership. You will not be able to undo ' \
-                          'this.'
-      end
+      patient_dashboard_group_1.navigate_to_inactive_patients
 
-      expect(page).to_not have_content 'TFD-Withdraw'
+      expect(withdraw_dashboard).to have_withdrawal_date
+    end
 
-      click_on 'Inactive Patients'
-      find('.inactive', text: 'TFD-Withdraw')
-      within('.inactive', text: 'TFD-Withdraw') do
-        prev_day = Date.today - 1
-        expect(page)
-          .to have_content "Withdrawn #{prev_day.strftime('%m/%d/%Y')}"
-      end
+    scenario 'Coach uses breadcrumbs to return to home' do
+      group_1.go_back_to_group_page
+      user_navigation.go_back_to_home_page
+
+      expect(user_navigation).to have_home_visible
+    end
+  end
+
+  feature 'Participant \'TFD-Data\'' do
+    background do
+      clinician.sign_in unless ENV['safari']
+      visit user_navigation.arms_page
+      patient_dashboard_group_1.navigate_to_patient_dashboard
+      data_dashboard.select_patient
     end
 
     scenario 'Coach views General Patient Info' do
-      users.select_patient('TFD-data')
-      within('.panel.panel-default', text: 'General Patient Info') do
-        if ENV['tfd']
-          weeks_later = Date.today + 20 * 7
-          week_num = 20
-        else
-          weeks_later = Date.today + 56
-          week_num = 8
-        end
-
-        expect(page)
-          .to have_content 'Started on: ' \
-                           "#{Date.today.strftime('%A, %m/%d/%Y')}" \
-                           "\n#{week_num} weeks from the start date is: " \
-                           "#{weeks_later.strftime('%A, %m/%d/%Y')}" \
-                           "\nStatus: Active Currently in week 1" \
-                           "\nLessons read this week: 1"
-      end
+      expect(data_dashboard).to have_general_patient_info
     end
 
     scenario 'Coach views Login Info' do
-      users.select_patient('TFD-data')
-      within('.panel.panel-default', text: 'Login Info') do
-        expect(page).to have_content 'Last Logged In: ' \
-                                     "#{Date.today.strftime('%A, %b %d %Y')}"
-        expect(page).to have_content "Logins Today: 1\nLogins during this " \
-                                     "treatment week: 1\nTotal Logins: 1"
-        expect(page).to have_content 'Last Activity Detected At: ' \
-                                     "#{Date.today.strftime('%A, %b %d %Y')}"
-        expect(page).to have_content 'Duration of Last Session: 10 minutes'
-      end
+      expect(data_dashboard).to have_login_info
     end
 
     scenario 'Coach uses the table of contents in the patient report' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('.list-group') do
-        ['Mood and Emotions Visualizations', 'Feelings', 'Logins',
-         'Lessons', 'Audio Access', 'Activities - Future',
-         'Activities - Past', 'Messages', 'Tasks'].each do |tool|
-          find('a', text: tool).click
-        end
-        page.all('a', text: 'Mood')[1].click
-        page.all('a', text: 'Thoughts')[1].click
-      end
+      patient_dashboard_group_1.select_all_toc_links
+      patient_dashboard_group_1.select_activity_viz_from_toc
 
-      within('.list-group') do
-        find('a', text: 'Activities visualization').click
-      end
+      expect(patient_dashboard_group_1).to have_activity_viz_visible
 
-      expect(page).to have_content 'Daily Averages'
+      patient_dashboard_group_1.return_to_dashboard
 
-      click_on 'Patient Dashboard'
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('.list-group') do
-        find('a', text: 'Thoughts visualization').click
-      end
+      expect(patient_dashboard_group_1).to be_visible
 
-      expect(page).to have_css('#ThoughtVizContainer')
+      patient_dashboard_group_1.select_thoughts_viz_from_toc
 
-      click_on 'Patient Dashboard'
-      find('h3', text: 'General Patient Info')
+      expect(patient_dashboard_group_1).to have_thoughts_viz_container
+
+      patient_dashboard_group_1.return_to_dashboard
+
+      expect(patient_dashboard_group_1).to be_visible
     end
 
     scenario 'Coach views Mood and Emotions viz' do
-      users.select_patient('TFD-data')
-      within('#viz-container') do
-        find('.title', text: 'Mood')
-        find('.title', text: 'Positive and Negative Emotions')
-        expect(page).to have_css('.bar', count: 2)
-      end
+      patient_dashboard_group_1.select_mood_emotions_viz_from_toc
+
+      expect(patient_dashboard_group_1).to have_mood_emotions_viz_visible
     end
 
     scenario 'Coach navigates to 28 day view in Mood and Emotions viz' do
-      users.select_patient('TFD-data')
-      within('#viz-container') do
-        find('.title', text: 'Mood')
-        one_week_ago = Date.today - 6
-        one_month_ago = Date.today - 27
-        find('#date-range', text: "#{one_week_ago.strftime('%b %d %Y')} " \
-             "- #{Date.today.strftime('%b %d %Y')}")
-        page.execute_script('window.scrollTo(0,5000)')
-        within('.btn-group') do
-          find('.btn.btn-default', text: '28').click
-        end
+      patient_dashboard_group_1.select_mood_emotions_viz_from_toc
+      within(patient_dashboard_group_1.mood_emotions_viz) do
+        expect(patient_dashboard_group_1).to have_week_view_visible
 
-        expect(page).to have_content "#{one_month_ago.strftime('%b %d %Y')} " \
-                                     "- #{Date.today.strftime('%b %d %Y')}"
+        patient_dashboard_group_1.switch_to_28_day_view
+
+        expect(patient_dashboard_group_1).to have_28_day_view_visible
       end
     end
 
     scenario 'Coach navigates to Previous Period in Mood and Emotions viz' do
-      users.select_patient('TFD-data')
-      within('#viz-container') do
-        find('.title', text: 'Mood')
-        page.execute_script('window.scrollTo(0,5000)')
-        click_on 'Previous Period'
-        one_week_ago_1 = Date.today - 7
-        two_weeks_ago = Date.today - 13
-        expect(page).to have_content "#{two_weeks_ago.strftime('%b %d %Y')} " \
-                                     "- #{one_week_ago_1.strftime('%b %d %Y')}"
+      patient_dashboard_group_1.select_mood_emotions_viz_from_toc
+      within(patient_dashboard_group_1.mood_emotions_viz) do
+        patient_dashboard_group_1.switch_to_previous_period
+
+        expect(patient_dashboard_group_1).to have_previous_period_visible
       end
     end
 
     scenario 'Coach views Mood' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('#mood-container') do
-        expect(page.all('tr:nth-child(1)')[1])
-          .to have_content "9 #{Date.today.strftime('%b %d %Y')}"
-      end
+      data_dashboard.select_mood_from_toc
+
+      expect(data_dashboard).to have_mood_data
     end
 
     scenario 'Coach views Feelings' do
-      users.select_patient('TFD-data')
-      within('#feelings-container') do
-        expect(page.all('tr:nth-child(1)')[1])
-          .to have_content "longing 2 #{Date.today.strftime('%b %d %Y')}"
-      end
+      data_dashboard.select_feel_from_toc
+
+      expect(data_dashboard).to have_feelings_data
     end
 
     scenario 'Coach views Logins' do
-      users.select_patient('TFD-data')
-      within('#logins-container') do
-        expect(page.all('tr:nth-child(1)')[1])
-          .to have_content Date.today.strftime('%b %d %Y')
-      end
+      data_dashboard.select_logins_from_toc
+
+      expect(data_dashboard).to have_login_data
     end
 
     scenario 'Coach views Lessons' do
-      users.select_patient('TFD-data')
-      within('#lessons-container') do
-        expect(page.all('tr:nth-child(1)')[1])
-          .to have_content 'Do - Awareness Introduction This is just the ' \
-                           "beginning... #{Date.today.strftime('%b %d %Y')}"
+      data_dashboard.select_lessons_from_toc
 
-        expect(page.all('tr:nth-child(1)')[1]).to have_content '10 minutes'
-      end
+      expect(data_dashboard).to have_lessons_data
     end
 
     scenario 'Coach views Audio Access' do
-      users.select_patient('TFD-data')
-      within('#media-access-container') do
-        expect(page.all('tr:nth-child(1)')[1]).to have_content 'Audio! ' \
-                                     "#{Date.today.strftime('%m/%d/%Y')}" \
-                                     " #{Date.today.strftime('%b %d %Y')}"
+      patient_dashboard_group_1.select_audio_access_from_toc
 
-        expect(page.all('tr:nth-child(1)')[1]).to have_content '2 minutes'
-      end
+      expect(patient_dashboard_group_1).to have_audio_access_data
     end
 
     scenario 'Coach views Activities viz' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('h3', text: 'Activities visualization') do
-        click_on 'Activities visualization'
-      end
+      patient_dashboard_group_1.select_activity_viz_from_body
 
-      expect(page).to have_content 'Daily Averages for ' \
-                                   "#{Date.today.strftime('%b %d %Y')}"
+      expect(patient_dashboard_group_1).to have_current_day_visible
     end
 
     scenario 'Coach collapses Daily Summaries in Activities viz' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('h3', text: 'Activities visualization') do
-        click_on 'Activities visualization'
-      end
+      patient_dashboard_group_1.select_activity_viz_from_body
+      patient_dashboard_group_1.go_to_previous_day
 
-      find('h3', text: 'Daily Averages')
-      page.execute_script('window.scrollBy(0,500)')
-      click_on 'Previous Day'
-      find('p', text: 'Average Accomplishment Discrepancy')
-      click_on 'Daily Summaries'
-      expect(page).to_not have_content 'Average Accomplishment Discrepancy'
+      expect(patient_dashboard_group_1).to have_daily_summary_visible
+
+      patient_dashboard_group_1.toggle_daily_summary
+
+      expect(patient_dashboard_group_1).to_not have_daily_summary_visible
     end
 
     scenario 'Coach navigates to previous day in Activities viz' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('h3', text: 'Activities visualization') do
-        click_on 'Activities visualization'
-      end
+      patient_dashboard_group_1.select_activity_viz_from_body
+      patient_dashboard_group_1.go_to_previous_day
 
-      find('h3', text: 'Daily Averages')
-      page.execute_script('window.scrollBy(0,500)')
-      click_on 'Previous Day'
-      prev_day = Date.today - 1
-      expect(page)
-        .to have_content "Daily Averages for #{prev_day.strftime('%b %d %Y')}"
+      expect(patient_dashboard_group_1).to have_previous_day_visible
     end
 
     scenario 'Coach views ratings of an activity in Activity Viz' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('h3', text: 'Activities visualization') do
-        click_on 'Activities visualization'
-      end
+      patient_dashboard_group_1.select_activity_viz_from_body
+      patient_dashboard_group_1.go_to_previous_day
 
-      find('h3', text: 'Daily Averages')
-      page.execute_script('window.scrollTo(0,5000)')
-      prev_day = Date.today - 1
-      click_on 'Previous Day'
-      find('h3', text: "Daily Averages for #{prev_day.strftime('%b %d %Y')}")
-      endtime = Time.now + (60 * 60)
-      page.execute_script('window.scrollBy(0,500)')
-      within('.panel.panel-default',
-             text: "#{Time.now.strftime('%-l %P')} - " \
-                   "#{endtime.strftime('%-l %P')}: Parkour") do
-        click_on "#{Time.now.strftime('%-l %P')} - " \
-                 "#{endtime.strftime('%-l %P')}: Parkour"
-        within('.collapse.in') do
-          expect(page).to have_content 'Predicted'
-        end
-      end
+      expect(patient_dashboard_group_1).to have_previous_day_visible
+
+      patient_dashboard_group_1.view_activity_in_viz
+
+      expect(patient_dashboard_group_1).to have_activity_ratings_in_viz
     end
 
     scenario 'Coach uses the visualization in Activities viz' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('h3', text: 'Activities visualization') do
-        click_on 'Activities visualization'
-      end
+      patient_dashboard_group_1.select_activity_viz_from_body
 
-      find('h3', text: 'Daily Averages')
-      click_on 'Visualize'
-      click_on 'Last 3 Days'
-      date1 = Date.today - 1
-      expect(page).to have_content date1.strftime('%A, %m/%d')
+      expect(patient_dashboard_group_1).to have_current_day_visible
 
-      click_on 'Day'
-      expect(page).to have_css('#datepicker')
+      patient_dashboard_group_1.open_visualize
+      patient_dashboard_group_1.go_to_three_day_view
+
+      expect(patient_dashboard_group_1).to be_on_three_day_view
+
+      patient_dashboard_group_1.open_date_picker
+
+      expect(patient_dashboard_group_1).to have_date_picker
     end
 
     scenario 'Coach views Activities - Future' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('#activities-future-container') do
-        within('tr', text: 'Going to school') do
-          two_days = Date.today + 2
-          expect(page).to have_content 'Going to school  2 6 Scheduled for ' \
-                                       "#{two_days.strftime('%b %d %Y')}"
-        end
-      end
+      patient_dashboard_group_1.select_activities_future_from_toc
+
+      expect(patient_dashboard_group_1).to have_activities_future_data
     end
 
     scenario 'Coach views Activities - Past' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollBy(0,5500)')
-      within('#activities-past-container') do
-        within('tr', text: 'Parkour') do
-          expect(page).to have_content '9 4'
-          prev_day = Date.today - 1
-          expect(page).to have_content prev_day.strftime('%b %d %Y')
-        end
-      end
+      patient_dashboard_group_1.select_activities_past_from_toc
+
+      expect(patient_dashboard_group_1).to have_completed_activities_past_data
     end
 
     scenario 'Coach views noncompliance reason in Activities - Past' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollBy(0,5500)')
-      within('#activities-past-container') do
-        within('tr', text: 'Jogging') do
-          click_on 'Noncompliance'
-          within('.popover.fade.right.in') do
-            expect(page).to have_content 'Why was this not completed?' \
-                                         "\nI didn't have time"
-          end
-        end
-      end
+      patient_dashboard_group_1.select_activities_past_from_toc
+
+      expect(patient_dashboard_group_1).to have_incomplete_activities_past_data
     end
 
     scenario 'Coach views Thoughts viz' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      page.execute_script('window.scrollTo(0,10000)')
-      within('h3', text: 'Thoughts visualization') do
-        click_on 'Thoughts visualization'
-      end
+      patient_dashboard_group_1.select_thoughts_viz_from_body
 
-      find('#ThoughtVizContainer')
-      find('.thoughtviz_text.viz-clickable',
-           text: 'Magnification or Catastro...').click
-      expect(page).to have_content 'Testing add a new thought'
+      expect(patient_dashboard_group_1).to have_thoughts_viz_container
 
-      click_on 'Close'
-      find('text', text: 'Click a bubble for more info')
+      expect(patient_dashboard_group_1).to have_thought_viz_detail
     end
 
     scenario 'Coach views Thoughts' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      within('#thoughts-container') do
-        within('tr', text: 'Testing negative thought') do
-          expect(page).to have_content 'Testing negative thought ' \
-                                       'Magnification or Catastrophizing ' \
-                                       'Example challenge Example ' \
-                                       'act-as-if ' \
-                                       "#{Date.today.strftime('%b %d %Y')}"
-        end
-      end
+      patient_dashboard_group_1.select_thoughts_from_toc
+
+      expect(patient_dashboard_group_1).to have_thoughts_data
     end
 
     scenario 'Coach views Messages' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      within('#messages-container') do
-        within('tr', text: 'Test') do
-          expect(page)
-            .to have_content "Test message #{Date.today.strftime('%b %d %Y')}"
-        end
-      end
+      patient_dashboard_group_1.select_messages_from_toc
+
+      expect(patient_dashboard_group_1).to have_messages_data
     end
 
     scenario 'Coach views Tasks' do
-      users.select_patient('TFD-data')
-      find('h3', text: 'General Patient Info')
-      within('#tasks-container') do
-        within('tr', text: 'Do - Planning Introduction') do
-          tom = Date.today + 1
-          expect(page).to have_content "#{tom.strftime('%m/%d/%Y')} Incomplete"
-        end
-      end
-    end
+      patient_dashboard_group_1.select_tasks_from_toc
 
-    scenario 'Coach uses breadcrumbs to return to home' do
-      click_on 'Group'
-      find('p', text: 'Title: Group 1')
-      within('.breadcrumb') do
-        click_on 'Home'
-      end
-
-      expect(page).to have_content 'Arms'
+      expect(patient_dashboard_group_1).to have_tasks_data
     end
   end
 
   feature 'Group 2' do
-    background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                           ENV['Clinician_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-      click_on 'Arm 1'
-      click_on 'Group 2'
-      click_on 'Patient Dashboard'
-      find('h1', text: 'Patient Dashboard')
-    end
-
     scenario 'Coach sees data for a patient who has been withdrawn' do
-      click_on 'Inactive Patients'
-      within('.inactive', text: 'TFD-inactive') do
-        click_on 'TFD-inactive'
-      end
+      clinician.sign_in unless ENV['safari']
+      visit user_navigation.arms_page
+      patient_dashboard_group_2.navigate_to_patient_dashboard
+      patient_dashboard_group_2.navigate_to_inactive_patients
+      inactive_dashboard.select_patient
 
-      find('h1', text: 'Participant TFD-inactive')
-      find('.label-warning', text: 'Inactive')
-      page.execute_script('window.scrollTo(0,5000)')
-      within('#activities-future-container') do
-        expect(page).to have_content 'Knitting'
-      end
+      expect(inactive_dashboard).to have_inactive_label
+
+      patient_dashboard_group_2.select_all_toc_links
+      patient_dashboard_group_2.select_activity_viz_from_toc
+
+      expect(patient_dashboard_group_2).to have_activity_viz_visible
+
+      patient_dashboard_group_2.return_to_dashboard
+
+      expect(patient_dashboard_group_2).to be_visible
+
+      patient_dashboard_group_2.select_thoughts_viz_from_toc
+
+      expect(patient_dashboard_group_2).to have_thoughts_viz_container
+
+      patient_dashboard_group_2.return_to_dashboard
+
+      expect(patient_dashboard_group_2).to be_visible
     end
   end
 end

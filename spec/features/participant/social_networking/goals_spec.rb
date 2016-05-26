@@ -3,10 +3,10 @@
 require './spec/support/participants/goal_helper.rb'
 
 feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
-  background(:all) { participant_1_so1.sign_in if ENV['safari'] }
+  background(:all) { participant_1.sign_in if ENV['safari'] }
 
   background do
-    participant_1_so1.sign_in unless ENV['safari']
+    participant_1.sign_in unless ENV['safari']
     visit achieve.landing_page
   end
 
@@ -20,7 +20,6 @@ feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
     eat_pizza_goal.add
 
     expect(goal_due_yesterday).to be_visible
-
     expect(eat_pizza_goal).to be_visible
 
     visit ENV['Base_URL']
@@ -33,7 +32,6 @@ feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
     goal_p1_alpha.complete
 
     expect(goal_p1_gamma).to_not be_visible
-
     expect(goal_p1_alpha).to be_visible
 
     visit ENV['Base_URL']
@@ -50,7 +48,6 @@ feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
     goal_p1_gamma.view_deleted
 
     expect(goal_p1_alpha).to_not be_visible
-
     expect(goal_p1_gamma).to be_visible
   end
 end
@@ -62,13 +59,9 @@ feature 'ACHIEVE tool create options', :social_networking, sauce: sauce_labs do
     achieve.open_new
 
     expect(achieve).to have_no_specific_date_option
-
     expect(achieve).to have_one_week_option
-
     expect(achieve).to have_two_week_option
-
     expect(achieve).to have_four_week_option
-
     expect(achieve).to have_end_of_study_option
   end
 
@@ -78,11 +71,8 @@ feature 'ACHIEVE tool create options', :social_networking, sauce: sauce_labs do
     achieve.open_new
 
     expect(achieve).to have_no_specific_date_option
-
     expect(achieve).to have_one_week_option
-
     expect(achieve).to have_two_week_option
-
     expect(achieve).to have_end_of_study_option
   end
 
@@ -92,11 +82,8 @@ feature 'ACHIEVE tool create options', :social_networking, sauce: sauce_labs do
     achieve.open_new
 
     expect(achieve).to have_no_specific_date_option
-
     expect(achieve).to have_one_week_option
-
     expect(achieve).to_not have_two_week_option
-
     expect(achieve).to have_end_of_study_option
   end
 
@@ -106,11 +93,8 @@ feature 'ACHIEVE tool create options', :social_networking, sauce: sauce_labs do
     achieve.open_new
 
     expect(achieve).to have_no_specific_date_option
-
     expect(achieve).to_not have_one_week_option
-
     expect(achieve).to_not have_two_week_option
-
     expect(achieve).to have_end_of_study_option
   end
 
@@ -120,13 +104,10 @@ feature 'ACHIEVE tool create options', :social_networking, sauce: sauce_labs do
     achieve.open_new
 
     expect(achieve).to have_no_specific_date_option
-
     expect(achieve).to_not have_one_week_option
-
     expect(achieve).to_not have_two_week_option
-
     expect(achieve).to_not have_end_of_study_option
 
-    completer_participant.sign_out
+    completer_participant.sign_out # necessary?
   end
 end

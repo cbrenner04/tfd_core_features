@@ -1,43 +1,29 @@
 # filename: ./spec/support/participants/login_helper.rb
 
 require './lib/pages/participants'
-require './lib/pages/participants/navigation'
 require './lib/pages/participants/learn'
 require './lib/pages/participants/think'
 require './lib/pages/participants/messages'
 
 def visitor
-  @visitor ||= Participants.new(
+  @visitor ||= Participant.new(
     participant: 'asdf@example.com',
     password: 'asdf'
   )
 end
 
-def participant_1_so2
-  @participant_1_so2 ||= Participants.new(
-    participant: ENV['Participant_Email'],
-    old_participant: 'participant2',
-    password: ENV['Participant_Password']
-  )
-end
-
 def old_participant
-  @old_participant ||= Participants.new(
+  @old_participant ||= Participant.new(
     participant: ENV['Old_Participant_Email'],
     password: ENV['Old_Participant_Password']
   )
 end
 
 def completed_participant
-  @completed_participant ||= Participants.new(
+  @completed_participant ||= Participant.new(
     participant: ENV['Completed_Pt_Email'],
-    password: ENV['Completed_Pt_Password'],
-    old_participant: 'participant1'
+    password: ENV['Completed_Pt_Password']
   )
-end
-
-def navigation
-  @navigation ||= Participants::Navigation.new
 end
 
 def learn_1

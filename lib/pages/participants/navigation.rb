@@ -1,11 +1,10 @@
-class Participants
+require './lib/pages/shared/navigation'
+
+module Participants
   # page object for navigation for Participants
   class Navigation
     include Capybara::DSL
-
-    def next
-      click_on 'Next'
-    end
+    include SharedNavigation
 
     def alt_next
       if has_css?('a', text: 'Next', count: 2)
@@ -13,14 +12,6 @@ class Participants
       else
         find('a', text: 'Next').click
       end
-    end
-
-    def scroll_to_bottom
-      execute_script('window.scrollTo(0,5000)')
-    end
-
-    def scroll_down
-      execute_script('window.scrollBy(0,500)')
     end
 
     def skip
@@ -31,20 +22,12 @@ class Participants
       click_on 'Cancel'
     end
 
-    def done
-      click_on 'Done'
-    end
-
     def save
       click_on 'Save'
     end
 
     def create_new
       click_on 'New'
-    end
-
-    def confirm_with_js
-      execute_script('window.confirm = function() {return true}')
     end
 
     def has_new_assignment_in_feel?
@@ -71,16 +54,8 @@ class Participants
                 'group'
     end
 
-    def click_brand
-      find(:css, '.navbar-brand').click
-    end
-
     def has_home_page_visible?
       has_text? 'HOME'
-    end
-
-    def click_on_login_page_slideshow
-      click_on "Introduction to #{host_app}"
     end
 
     def has_password_reset_alert?
@@ -109,18 +84,6 @@ class Participants
 
     def reload
       execute_script('window.location.reload()')
-    end
-
-    private
-
-    def host_app
-      if ENV['tfd'] || ENV['tfdso']
-        'ThinkFeelDo'
-      elsif ENV['sunnyside']
-        'Sunnyside'
-      elsif ENV['marigold']
-        'Marigold'
-      end
     end
   end
 end
