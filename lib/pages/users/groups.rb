@@ -31,7 +31,7 @@ module Users
       click_on 'New'
       fill_in_group_title(@title)
       select @arm, from: 'group_arm_id'
-      select_moderator(@moderator)
+      select_moderator(@moderator) unless ENV['tfd']
       click_on 'Create'
     end
 

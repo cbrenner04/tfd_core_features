@@ -2,10 +2,6 @@
 
 require './spec/support/users/steppedcare_coach_patients_helper'
 
-def date_1
-  @date_1 ||= Date.today - 4
-end
-
 feature 'Coach', :tfd, sauce: sauce_labs do
   feature 'Patient Dashboard' do
     background do
