@@ -1,57 +1,36 @@
 # filename ./spec/features/user/steppedcare/coach_patients_spec.rb
 
+require './spec/support/users/steppedcare_coach_patients_helper'
+
+def date_1
+  @date_1 ||= Date.today - 4
+end
+
 feature 'Coach', :tfd, sauce: sauce_labs do
   feature 'Patient Dashboard' do
     background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                           ENV['Clinician_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-      click_on 'Arm 1'
+      clinician.sign_in unless ENV['safari']
+      visit user_navigation.arms_page
     end
 
     scenario 'Coach sees consistent # of Logins' do
-      click_on 'Group 6'
-      click_on 'Patient Dashboard'
-      find('h1', text: 'Patient Dashboard')
-      within('#patients') do
-        within('table#patients tr', text: 'participant61') do
-          expect(page).to have_content 'participant61 0 6'
+      participant_61_dashboard.navigate_to_patient_dashboard
 
-          date1 = Date.today - 4
-          expect(page).to have_content "11 #{date1.strftime('%b %d %Y')}"
-        end
-      end
+      expect(participant_61_dashboard).to have_login_info_in_patients_list
     end
 
     scenario 'Coach uses the table of contents in the patient report' do
-      click_on 'Group 1'
-      click_on 'Patient Dashboard'
-      find('h1', text: 'Patient Dashboard')
-      users.select_patient('TFD-1111')
-      find('h3', text: 'General Patient Info')
-
-      page.execute_script('window.scrollTo(0,5000)')
-      within('.list-group') do
-        find('a', text: 'PHQ9').click
-      end
+      participant_1_dashboard.navigate_to_patient_dashboard
+      participant_1_dashboard.select_patient
+      user_navigation.scroll_to_bottom
+      participant_1_dashboard.select_phq_from_toc
     end
 
     scenario 'Coach views Login Info' do
-      click_on 'Group 6'
-      click_on 'Patient Dashboard'
-      find('h1', text: 'Patient Dashboard')
-      users.select_patient('participant61')
-      within('.panel.panel-default', text: 'Login Info') do
-        date1 = Date.today - 4
-        expect(page).to have_content 'Last Logged In: ' \
-                                     "#{date1.strftime('%A, %b %d %Y')}"
+      participant_61_dashboard.navigate_to_patient_dashboard
+      participant_61_dashboard.select_patient
 
-        expect(page).to have_content "Logins Today: 0\nLogins during this " \
-                                     "treatment week: 0\nTotal Logins: 11"
-      end
+      expect(participant_61_dashboard).to have_partial_login_info
     end
   end
 end
@@ -59,309 +38,111 @@ end
 feature 'Coach', :tfd, sauce: sauce_labs do
   feature 'Patient Dashboard, PHQ Group' do
     background do
-      unless ENV['safari']
-        users.sign_in_user(ENV['Clinician_Email'], 'participant2',
-                           ENV['Clinician_Password'])
-      end
-
-      visit "#{ENV['Base_URL']}/think_feel_do_dashboard/arms"
-      click_on 'Arm 1'
-      click_on 'PHQ Group'
-      click_on 'Patient Dashboard'
-      find('h1', text: 'Patient Dashboard')
+      clinician.sign_in unless ENV['safari']
+      visit user_navigation.arms_page
+      phq_group_dashboard.navigate_to_patient_dashboard
     end
 
     scenario 'Coach checks details for stepping' do
-      within('#patients') do
-        within first('tr', text: 'PHQ-1') do
-          click_on 'Details'
-        end
-      end
+      phq1_dashboard.open_stepping_details
 
-      startdate = Date.today - 25
-      within('.modal-content') do
-        expect(page).to have_content 'Week 4 - Started on ' \
-                                     "#{startdate.strftime('%m/%d/%Y')}\n" \
-                                     'Suggestion: Step to t-CBT'
-        date1 = Date.today - 4
-        date2 = Date.today + 2
-        expect(page)
-          .to have_css('.danger.suffix_row',
-                       text: "4 (#{date1.strftime('%m/%d/%Y')} - " \
-                             "#{date2.strftime('%m/%d/%Y')}) " \
-                             "#{date1.strftime('%m/%d/%Y')} 17")
-
-        within('tr', text: 'PHQ-9 Score >= 17 for two consecutive weeks') do
-          expect(page)
-            .to have_css('.label.label-danger.label-adj_danger', text: 'True')
-        end
-      end
+      expect(phq1_dashboard).to have_stepping_details
     end
 
     scenario 'Coach does not see a suggestion for a participant in week 3' do
-      within('#patients') do
-        within('tr', text: 'PHQ-6') do
-          date1 = Date.today - 4
-          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page)
-            .to have_css('.label.label-warning', text: 'No; Too Early')
-        end
-      end
+      expect(phq6_dashboard).to have_too_early_suggestion
     end
 
     scenario 'Coach sees a suggestion to step for a participant in week 4' do
-      within('#patients') do
-        within('tr', text: 'PHQ-7') do
-          date1 = Date.today - 4
-          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-danger', text: 'YES')
-        end
-      end
+      expect(phq7_dashboard).to have_step_suggestion
     end
 
     scenario 'Coach sees a suggestion to stay for a participant in week 4' do
-      within('#patients') do
-        within('tr', text: 'PHQ-8') do
-          date1 = Date.today - 4
-          expect(page).to have_content "16 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-success', text: 'No')
-        end
-      end
+      expect(phq8_dashboard).to have_stay_suggestion
     end
 
     scenario 'Coach sees discontinue suggestion for participant in week 4' do
-      within('#patients') do
-        within('tr', text: 'PHQ-9') do
-          date1 = Date.today - 4
-          expect(page).to have_content "4 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page)
-            .to have_css('.label.label-success', text: 'No - Low Scores')
-        end
-      end
+      expect(phq9_dashboard).to have_discontinue_suggestion
     end
 
     scenario 'Coach sees a suggestion to step for a participant in week 8' do
-      within('#patients') do
-        within('tr', text: 'PHQ-10') do
-          date1 = Date.today - 4
-          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-danger', text: 'YES')
-        end
-      end
+      expect(phq10_dashboard).to have_step_suggestion
     end
 
     scenario 'Coach sees a suggestion to stay for a participant in week 8' do
-      within('#patients') do
-        within('tr', text: 'PHQ-11') do
-          date1 = Date.today - 4
-          expect(page).to have_content "16 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-success', text: 'No')
-        end
-      end
+      expect(phq11_dashboard).to have_stay_suggestion
     end
 
     scenario 'Coach sees discontinue suggestion for participant in week 9' do
-      within('#patients') do
-        within('tr', text: 'PHQ-12') do
-          date1 = Date.today - 4
-          expect(page).to have_content "4 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page)
-            .to have_css('.label.label-success', text: 'No - Low Scores')
-        end
-      end
+      expect(phq12_dashboard).to have_discontinue_suggestion
     end
 
     scenario 'Coach sees a suggestion to step for a participant in week 9' do
-      within('#patients') do
-        within('tr', text: 'PHQ-13') do
-          date1 = Date.today - 4
-          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-danger', text: 'YES')
-        end
-      end
+      expect(phq13_dashboard).to have_step_suggestion
     end
 
     scenario 'Coach sees a suggestion to stay for a participant in week 9' do
-      within('#patients') do
-        within('tr', text: 'PHQ-14') do
-          date1 = Date.today - 4
-          expect(page).to have_content "12 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-success', text: 'No')
-        end
-      end
+      expect(phq14_dashboard).to have_stay_suggestion
     end
 
     scenario 'Coach sees a suggestion to step for a participant in week 10' do
-      within('#patients') do
-        within('tr', text: 'PHQ-15') do
-          date1 = Date.today - 4
-          expect(page).to have_content "13 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-danger', text: 'YES')
-        end
-      end
+      expect(phq15_dashboard).to have_step_suggestion
     end
 
     scenario 'Coach sees a suggestion to stay for a participant in week 10' do
-      within('#patients') do
-        within('tr', text: 'PHQ-16') do
-          date1 = Date.today - 4
-          expect(page).to have_content "12 on #{date1.strftime('%m/%d/%Y')}"
-
-          expect(page).to have_css('.label.label-success', text: 'No')
-        end
-      end
+      expect(phq16_dashboard).to have_stay_suggestion
     end
 
     scenario 'Coach steps a participant' do
-      within('#patients') do
-        within('table#patients tr', text: 'PHQ-2') do
-          if ENV['chrome'] || ENV['safari']
-            execute_script('window.confirm = function() {return true}')
-          end
+      phq2_dashboard.step
 
-          click_on 'Step'
-        end
-      end
-
-      unless ENV['chrome'] || ENV['safari']
-        page.accept_alert "You can't undo this! Please make sure you really " \
-                        'want to STEP this participant before confirming. ' \
-                        'Otherwise click CANCEL.'
-      end
-
-      within('#patients') do
-        expect(page).to_not have_css('tr', text: 'PHQ-2')
-      end
-
-      within('#stepped-patients') do
-        expect(page).to have_css('tr', text: 'PHQ-2')
-
-        within('tr', text: 'PHQ-2') do
-          expect(page)
-            .to have_content "Stepped #{Date.today.strftime('%m/%d/%Y')}"
-          expect(page).to_not have_content 'Details'
-        end
-      end
+      expect(phq2_dashboard).to be_stepped_successfully
     end
 
     scenario 'Coach views PHQ9' do
-      users.select_patient('PHQ-3')
+      phq3_dashboard.select_patient
 
-      within('#phq9-container') do
-        three_weeks_ago = Date.today - 18
-        expect(page)
-          .to have_content 'Released ' \
-                           "#{three_weeks_ago.strftime('%m/%d/%Y')}" \
-                           ' Created ' \
-                           "#{three_weeks_ago.strftime('%m/%d/%Y')}" \
-                           ' 9 * 1 2  1 2 1 1 1  '
-      end
-    end
-
-    scenario 'Coach views PHQ9 management tool' do
-      users.select_patient('PHQ-4')
-      within('.list-group') do
-        find('a', text: 'PHQ9').click
-      end
-
-      click_on 'Manage'
-      expect(page).to have_css('h2', text: 'PHQ assessments for PHQ-4')
+      expect(phq3_dashboard).to have_phq9_data
     end
 
     scenario 'Coach creates a new PHQ9 assessment' do
-      users.select_patient('PHQ-4')
-      within('.list-group') do
-        find('a', text: 'PHQ9').click
-      end
+      phq4_dashboard.select_patient
+      phq4_dashboard.manage_phqs
 
-      click_on 'Manage'
-      find('h2', text: 'PHQ assessments for PHQ-4')
-      click_on 'New Phq assessment'
-      (1..9).each do |i|
-        fill_in "phq_assessment_q#{i}", with: '2'
-      end
+      expect(phq4_dashboard).to have_phq_management_tool_visible
 
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Create Phq assessment'
-      find('.alert-success', text: 'Phq assessment was successfully created.')
-      within('tr', text: Date.today.strftime('%Y-%m-%d')) do
-        expect(page).to have_content '2 2 2 2 2 2 2 2 2 Edit Delete'
+      phq4_dashboard.create_phq
 
-        expect(page).to have_css('.fa.fa-flag', count: '9')
-      end
+      expect(phq4_dashboard).to have_new_phq
     end
 
     scenario 'Coach manages an existing PHQ9, Most Recent stays the same' do
-      within('#patients') do
-        within first('tr', text: 'PHQ-1') do
-          date1 = Date.today - 4
-          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
-        end
-      end
+      expect(phq1_dashboard).to have_most_recent_phq_score
 
-      users.select_patient('PHQ-1')
-      within('.list-group') do
-        find('a', text: 'PHQ9').click
-      end
+      phq1_dashboard.select_patient
+      phq1_dashboard.manage_phqs
 
-      click_on 'Manage'
-      find('h2', text: 'PHQ assessments for PHQ-1')
-      three_weeks_ago = Date.today - 18
-      within('tr', text: three_weeks_ago.strftime('%Y-%m-%d')) do
-        click_on 'Edit'
-      end
+      expect(phq1_dashboard).to have_phq_management_tool_visible
 
-      fill_in 'phq_assessment_q3', with: '2'
-      fill_in 'phq_assessment_q9', with: '2'
-      page.execute_script('window.scrollTo(0,5000)')
-      click_on 'Update Phq assessment'
-      find('.alert-success', text: 'Phq assessment was successfully updated.')
-      within('tr', text: three_weeks_ago.strftime('%Y-%m-%d')) do
-        expect(page).to have_content '1 2 2 1 2 1 1 1 2 Edit Delete'
+      phq1_dashboard.edit_old_phq
 
-        expect(page).to have_css('.fa.fa-flag', count: '2')
-      end
+      expect(phq1_dashboard).to have_updated_phq
 
-      click_on 'Patient dashboard'
-      click_on 'Patients'
-      within('#patients') do
-        within first('tr', text: 'PHQ-1') do
-          date1 = Date.today - 4
-          expect(page).to have_content "17 on #{date1.strftime('%m/%d/%Y')}"
-        end
-      end
+      # check to make sure update of old phq doesn't change whats in listing
+      phq1_dashboard.navigate_back_to_patients_list
+
+      expect(phq1_dashboard).to have_most_recent_phq_score
     end
 
     scenario 'Coach deletes an existing PHQ9 assessment' do
-      users.select_patient('PHQ-5')
+      phq5_dashboard.select_patient
+      phq5_dashboard.manage_phqs
 
-      within('.list-group') do
-        find('a', text: 'PHQ9').click
-      end
+      expect(phq5_dashboard).to have_phq_management_tool_visible
 
-      click_on 'Manage'
-      expect(page).to have_css('h2', text: 'PHQ assessments for PHQ-5')
+      phq5_dashboard.delete_old_phq
 
-      four_weeks_ago = Date.today - 25
-      within('tr', text: four_weeks_ago.strftime('%Y-%m-%d')) do
-        page.driver.execute_script('window.confirm = function() {return true}')
-        click_on 'Delete'
-      end
-
-      expect(page).to have_content 'Phq assessment was successfully destroyed.'
-
-      expect(page)
-        .to_not have_css('tr', text: four_weeks_ago.strftime('%Y-%m-%d'))
+      expect(phq5_dashboard).to have_phq_deleted
     end
   end
 end

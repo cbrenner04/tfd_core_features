@@ -1,6 +1,8 @@
 require './lib/pages/users/navigation'
 require './lib/pages/shared/activities_viz'
 require './lib/pages/shared/mood_emotions_viz'
+require './lib/pages/users/patient_dashboard/phq_assessments'
+require './lib/pages/users/patient_dashboard/social_networking'
 
 module Users
   # page object for the patient dashboard
@@ -8,6 +10,8 @@ module Users
     include Capybara::DSL
     include SharedMoodEmotionsViz
     include SharedActivitiesViz
+    include Users::PatientDashboards::PHQAssessments
+    include Users::PatientDashboards::SocialNetworking
 
     def initialize(patient_dashboard)
       @participant ||= patient_dashboard[:participant]
@@ -15,6 +19,7 @@ module Users
       @group ||= patient_dashboard[:group]
       @total_logins ||= patient_dashboard[:total_logins]
       @lesson_duration ||= patient_dashboard.fetch(:lesson_duration, 10)
+      @most_recent_phq_score ||= patient_dashboard[:most_recent_phq_score]
     end
 
     def navigate_to_patient_dashboard
@@ -33,7 +38,7 @@ module Users
     end
 
     def terminate_access
-      within('tr', text: @participant) do
+      within patient_row do
         user_navigation.confirm_with_js if ENV['safari'] || ENV['chrome']
         click_on 'Terminate Access'
       end
@@ -56,7 +61,7 @@ module Users
     end
 
     def select_patient
-      within('#patients', text: @participant) { click_on @participant }
+      within(patient_row) { click_on @participant }
       find('h3', text: 'General Patient Info')
     end
 
@@ -77,11 +82,9 @@ module Users
     end
 
     def has_login_info_in_patients_list?
-      within('#patients') do
-        within('table#patients tr', text: @participant) do
-          has_text?("#{@participant} 0 6") &&
-            has_text?("#{@total_logins} #{@date.strftime('%b %d %Y')}")
-        end
+      within patient_row do
+        has_text?("#{@participant} 0 6") &&
+          has_text?("#{@total_logins} #{@date.strftime('%b %d %Y')}")
       end
     end
 
@@ -119,6 +122,10 @@ module Users
       select_thoughts_from_toc
       select_messages_from_toc
       select_tasks_from_toc
+    end
+
+    def select_phq_from_toc
+      select_from_toc('PHQ9')
     end
 
     def select_mood_emotions_viz_from_toc
@@ -307,103 +314,6 @@ module Users
         .has_text? "#{(Date.today + 1).strftime('%m/%d/%Y')} Incomplete"
     end
 
-    def click_all_links_in_tool_use_table
-      within('.table.table-hover', text: 'Tool Use') do
-        ['Lessons Read', 'Moods', 'Thoughts', 'Activities Planned',
-         'Activities Monitored', 'Activities Reviewed and Completed',
-         'Activities Reviewed and Incomplete'].each do |link|
-          click_on link
-        end
-      end
-    end
-
-    def click_all_links_in_social_activity_table
-      2.times { user_navigation.scroll_down }
-      within('.table.table-hover', text: 'Social Activity') do
-        ['Likes', 'Nudges', 'Comments', 'Goals', '"On My Mind" Statements']
-          .each do |link|
-          click_on link
-        end
-      end
-    end
-
-    def has_tool_use_data?
-      within('.table.table-hover', text: 'Tool Use') do
-        content_1 = ['Tool Use  Today Last 7 Days Totals', 'Lessons Read 1 1 1']
-        content_2 = ['Moods 1 1 1', 'Thoughts 3 3 3',
-                     'Activities Monitored 0 0 0', 'Activities Planned 1 4 4',
-                     'Activities Reviewed and Completed 0 1 1',
-                     'Activities Reviewed and Incomplete 0 1 1']
-        (0..1).zip(content_1).all? do |row, content|
-          has_patient_data?(table_row[row], content)
-        end && (2..7).zip(content_2).all? do |row, content|
-          has_patient_data?("tr:nth-child(#{row})", content)
-        end
-      end
-    end
-
-    def has_social_activity_data?
-      within('.table.table-hover', text: 'Social Activity') do
-        data = ['Nudges 1 1 1', 'Comments 0 0 1', 'Goals 0 0 1',
-                '"On My Mind" Statements 0 0 1']
-        has_patient_data?(table_row[0],
-                          'Social Activity Today Last 7 Days Totals') &&
-          has_patient_data?(table_row[1], 'Likes 0 0 1') &&
-          (2..5).zip(data).all? do |i, d|
-            has_patient_data?("tr:nth-child(#{i})", d)
-          end
-      end
-    end
-
-    def has_likes_data?
-      within('#likes-container', text: 'Item Liked') do
-        table_row[1].has_text?('Goal: participant63, Get crazy ' \
-                  "#{(Date.today - 24).strftime('%b %d %Y')}") &&
-          table_row[1].has_text?('2')
-      end
-    end
-
-    def has_goals_data?
-      within('#goals-container', text: 'Goals') do
-        table_row[1].has_text?('do something  Incomplete ' \
-                               "#{(Date.today - 30).strftime('%b %d %Y')}") &&
-          table_row[1].has_text?((Date.today - 26).strftime('%m/%d/%Y')) &&
-          table_row[1].has_text?((Date.today - 34).strftime('%b %d %Y')) &&
-          table_row[1].has_text?('1 0 0')
-      end
-    end
-
-    def has_comments_data?
-      within('#comments-container') do
-        table_row[1]
-          .has_text?('Great activity! Activity: participant62, ' \
-                     "Jumping, #{(Date.today - 18).strftime('%b %d %Y')}") &&
-          table_row[1].has_text?('3')
-      end
-    end
-
-    def has_nudges_initiated_data?
-      within('.panel.panel-default', text: 'Nudges Initiated') do
-        table_row[1].has_text?(Date.today.strftime('%b %d %Y')) &&
-          table_row[1].has_text?('participant62')
-      end
-    end
-
-    def has_nudges_received_data?
-      within('.panel.panel-default', text: 'Nudges Received') do
-        table_row[1].has_text?(Date.today.strftime('%b %d %Y')) &&
-          table_row[1].has_text?('participant65')
-      end
-    end
-
-    def has_on_the_mind_data?
-      within('#on-my-mind-container') do
-        table_row[1].has_text?("I'm feeling great! " \
-                               "#{(Date.today - 14).strftime('%b %d %Y')}") &&
-          table_row[1].has_text?('4 0 0')
-      end
-    end
-
     private
 
     def user_navigation
@@ -421,6 +331,14 @@ module Users
 
     def table_row
       all('tr:nth-child(1)')
+    end
+
+    def patient_row
+      if @participant == 'PHQ-1'
+        find('#patients').first('tr', text: @participant)
+      else
+        find('#patients').find('tr', text: @participant)
+      end
     end
   end
 end
