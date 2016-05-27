@@ -5,9 +5,9 @@ require 'capybara'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'selenium-webdriver'
-require 'sauce'
-require 'sauce/capybara'
-require 'sauce_whisk'
+# require 'sauce'
+# require 'sauce/capybara'
+# require 'sauce_whisk'
 
 # define methods for setting the driver
 def sauce_labs
@@ -44,13 +44,15 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = [:should, :expect]
   end
+  config.example_status_persistence_file_path = 'spec/examples.txt'
+  config.run_all_when_everything_filtered = true
   config.profile_examples = 10
   config.before(:suite) { sanity_check }
 end
 
 # Capybara configuration options
 Capybara.configure do |config|
-  config.default_wait_time = 5
+  config.default_max_wait_time = 1
   config.default_driver = test_driver
   config.register_driver :selenium do |app|
     Selenium::WebDriver::Firefox::Binary.path = ENV['Firefox_Path']
@@ -65,28 +67,29 @@ Capybara::Screenshot.register_driver(:sauce) do |driver, path|
   driver.render(path)
 end
 Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-  "#{example.description.tr(' ', '-').gsub(/^.*\/spec\//, '')}"
+  example.description.tr(' ', '-').gsub(/^.*\/spec\//, '')
 end
 Capybara::Screenshot.autosave_on_failure = !sauce_labs
 Capybara::Screenshot.prune_strategy = :keep_last_run
 
-# Sauce configuration options
-Sauce.config do |config|
-  config[:job_name] = "#{ENV['App']}-Staging #{Time.now.strftime('%-m/%-d/%Y')}"
-  config[:start_tunnel] = false
-  config[:browsers] = [
-    ['Windows XP', 'Firefox', '32'],
-    ['Windows XP', 'Chrome', nil],
-    ['Windows 7', 'Firefox', '32'],
-    ['Windows 7', 'Chrome', nil],
-    ['OS X 10.6', 'Firefox', '32'],
-    ['OS X 10.6', 'Chrome', nil],
-    ['OS X 10.9', 'Firefox', '32'],
-    ['OS X 10.9', 'Chrome', nil],
-    ['OS X 10.10', 'Firefox', '32'],
-    ['OS X 10.10', 'Chrome', nil]
-  ].sample
-end
+# sauce configurations need to be updated
+# # Sauce configuration options
+# Sauce.config do |config|
+#   config[:job_name] = "#{ENV['App']}-Staging #{Time.now.strftime('%-m/%-d/%Y')}"
+#   config[:start_tunnel] = false
+#   config[:browsers] = [
+#     ['Windows XP', 'Firefox', '32'],
+#     ['Windows XP', 'Chrome', nil],
+#     ['Windows 7', 'Firefox', '32'],
+#     ['Windows 7', 'Chrome', nil],
+#     ['OS X 10.6', 'Firefox', '32'],
+#     ['OS X 10.6', 'Chrome', nil],
+#     ['OS X 10.9', 'Firefox', '32'],
+#     ['OS X 10.9', 'Chrome', nil],
+#     ['OS X 10.10', 'Firefox', '32'],
+#     ['OS X 10.10', 'Chrome', nil]
+#   ].sample
+# end
 
 # sauce_whisk configuration options
 # SauceWhisk::Jobs.pass_job job_id
