@@ -63,6 +63,8 @@ feature 'Shared items, Social arm',
   end
 
   feature 'DO tool' do
+    background(:all) { participant_1.sign_in if ENV['safari'] }
+
     background do
       participant_1.sign_in unless ENV['safari']
       visit do_tool.landing_page
@@ -158,6 +160,8 @@ feature 'Shared items, Mobile arm',
   end
 
   feature 'DO tool' do
+    background(:all) { nonsocial_pt.sign_in if ENV['safari'] }
+
     background do
       nonsocial_pt.sign_in unless ENV['safari']
       visit do_tool.landing_page
@@ -256,7 +260,5 @@ feature 'Shared items, Social arm',
     pt_5_reshape.find_in_feed
 
     expect(pt_5_reshape).to have_feed_details
-
-    participant_5.sign_out # necessary?
   end
 end

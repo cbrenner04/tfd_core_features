@@ -4,6 +4,8 @@ require './spec/support/users/content_modules_helper'
 
 feature 'Content Author, Content Modules',
         :superfluous, :core, sauce: sauce_labs do
+  background(:all) { content_author.sign_in } if ENV['safari']
+
   background do
     content_author.sign_in unless ENV['safari']
     visit user_navigation.arms_page

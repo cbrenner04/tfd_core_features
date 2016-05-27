@@ -16,14 +16,12 @@ def relax
 end
 
 feature 'RELAX tool', :core, :marigold, sauce: sauce_labs do
-  background do
+  scenario 'Participant listens to a relax exercise' do
     participant_1_soc.sign_in
     visit relax.landing_page
 
     expect(relax).to be_visible
-  end
 
-  scenario 'Participant listens to a relax exercise' do
     relax.open_autogenic_exercises
     relax.play_audio
     relax.finish

@@ -4,6 +4,8 @@ require './spec/support/users/social_networking_coach_patients_helper'
 
 feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   feature 'Group 1' do
+    background(:all) { clinician.sign_in } if ENV['safari']
+
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
@@ -28,6 +30,8 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
   end
 
   feature 'Group 6' do
+    background(:all) { clinician.sign_in } if ENV['safari']
+
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
@@ -83,7 +87,7 @@ feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
 
   feature 'Terminate Access' do
     scenario 'Coach Terminates Access, checks profile is removed' do
-      clinician.sign_in unless ENV['safari']
+      clinician.sign_in
       visit user_navigation.arms_page
       patient_dashboard_group_6.navigate_to_patient_dashboard
       patient_65_dashboard.terminate_access

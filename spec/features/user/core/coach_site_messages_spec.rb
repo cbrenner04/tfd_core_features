@@ -25,6 +25,8 @@ def site_messaging_2
 end
 
 feature 'Site Messaging', :core, sauce: sauce_labs do
+  background(:all) { clinician.sign_in } if ENV['safari']
+
   background do
     clinician.sign_in unless ENV['safari']
     visit user_navigation.arms_page
@@ -52,7 +54,5 @@ feature 'Site Messaging', :core, sauce: sauce_labs do
     user_navigation.go_back_to_home_page
 
     expect(user_navigation).to have_home_visible
-
-    clinician.sign_out
   end
 end

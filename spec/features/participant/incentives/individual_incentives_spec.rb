@@ -3,6 +3,8 @@
 require './spec/support/participants/individual_incentives_helper'
 
 feature 'Individual incentives', :incentives, sauce: sauce_labs do
+  background(:all) { participant_3.sign_in } if ENV['safari']
+
   background do
     participant_3.sign_in unless ENV['safari']
     visit ENV['Base_URL']
@@ -81,7 +83,5 @@ feature 'Individual incentives', :incentives, sauce: sauce_labs do
     expect(pt_2_behavior_2).to be_complete
 
     participant_2_incentive.close_incentive_alerts
-    visit ENV['Base_URL']
-    participant_3.sign_out
   end
 end

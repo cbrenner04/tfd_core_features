@@ -13,7 +13,7 @@ feature 'FEEL tool, Tracking Mood', :core, sauce: sauce_labs do
 end
 
 feature 'FEEL tool, Tracking Mood & Emotions', :core, sauce: sauce_labs do
-  background(:all) { participant_3.sign_in if ENV['safari'] }
+  background(:all) { participant_3.sign_in } if ENV['safari']
 
   background do
     participant_3.sign_in unless ENV['safari']

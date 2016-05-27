@@ -101,8 +101,6 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
       recent_moods_emotions.open
 
       expect(participant_navigation).to_not have_new_assignment_in_feel
-
-      participant_2.sign_out # within example b/c of derailment issues, move?
     end
   end
 end

@@ -7,6 +7,7 @@ module Participants
     include SharedNavigation
 
     def alt_next
+      scroll_to_bottom
       if has_css?('a', text: 'Next', count: 2)
         all('a', text: 'Next')[1].click
       else

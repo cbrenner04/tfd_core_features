@@ -14,7 +14,7 @@ module Participants
       end
 
       def visible?
-        if ENV['safari'] || ENV['chrome']
+        if ENV['safari']
           find('.snap-content.footless:nth-child(1)')
             .native.css_value('background-image')
             .should eq("url(http://localhost:3000/assets/#{@image}.jpg)")

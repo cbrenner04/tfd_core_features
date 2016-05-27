@@ -4,6 +4,8 @@ require './spec/support/users/coach_patients_helper'
 
 feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
   feature 'Group 1' do
+    background(:all) { clinician.sign_in } if ENV['safari']
+
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
@@ -41,6 +43,8 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
   end
 
   feature 'Participant \'TFD-Data\'' do
+    background(:all) { clinician.sign_in } if ENV['safari']
+
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
@@ -229,7 +233,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
 
   feature 'Group 2' do
     scenario 'Coach sees data for a patient who has been withdrawn' do
-      clinician.sign_in unless ENV['safari']
+      clinician.sign_in
       visit user_navigation.arms_page
       patient_dashboard_group_2.navigate_to_patient_dashboard
       patient_dashboard_group_2.navigate_to_inactive_patients

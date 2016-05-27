@@ -45,6 +45,7 @@ module Participants
       end
 
       def check_for_character_count
+        2.times { participant_navigation.scroll_down }
         within profile_question('What are your hobbies?') do
           find('input[type = text]').click
           expect(social_networking).to have_1000_characters_left

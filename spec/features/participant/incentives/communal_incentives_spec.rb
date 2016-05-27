@@ -31,6 +31,7 @@ feature 'Communal incentives', :incentives, sauce: sauce_labs do
     pt_3_comment_2.comment
     pt_3_comment_3.comment
     participant_navigation.reload
+    sleep(1)
     complete_communal_incentive.open_communal_plot
 
     expect(complete_communal_incentive).to have_image_in_plot

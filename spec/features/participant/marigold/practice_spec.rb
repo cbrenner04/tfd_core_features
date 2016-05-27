@@ -3,8 +3,10 @@
 require './spec/support/participants/practice_helper'
 
 feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
+  background(:all) { marigold_participant.sign_in } if ENV['safari']
+
   background do
-    marigold_participant.sign_in
+    marigold_participant.sign_in unless ENV['safari']
     visit practice.landing_page
   end
 

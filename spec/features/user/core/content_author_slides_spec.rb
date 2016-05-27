@@ -5,6 +5,8 @@ require './spec/support/users/slides_helper'
 feature 'Content Author, Slides,',
         :superfluous, :core, type: :feature, sauce: sauce_labs do
   feature 'Lesson Modules' do
+    background(:all) { content_author.sign_in } if ENV['safari']
+
     background do
       content_author.sign_in unless ENV['safari']
       visit user_navigation.arms_page
@@ -87,6 +89,8 @@ feature 'Content Author, Slides,',
   end
 
   feature 'Slideshows' do
+    background(:all) { content_author.sign_in } if ENV['safari']
+
     background do
       content_author.sign_in unless ENV['safari']
       visit user_navigation.arms_page

@@ -3,6 +3,8 @@
 require './spec/support/participants/think_helper.rb'
 
 feature 'THINK tool', :core, sauce: sauce_labs do
+  background(:all) { participant_1.sign_in } if ENV['safari']
+
   background do
     participant_1.sign_in unless ENV['safari']
     visit think.landing_page
@@ -88,12 +90,12 @@ feature 'THINK tool', :core, sauce: sauce_labs do
 end
 
 feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
-  background do
+  scenario 'Participant uses the visualization' do
     participant_5.sign_in
     visit think.landing_page
-  end
 
-  scenario 'Participant uses the visualization' do
+    expect(think).to be_visible
+
     participant_navigation.scroll_to_bottom
     thought_viz.open_viz
 

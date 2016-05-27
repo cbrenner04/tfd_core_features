@@ -3,11 +3,11 @@
 require './spec/support/users/super_user_helper'
 
 feature 'Super User', :superfluous, :core, sauce: sauce_labs do
-  if ENV['safari']
-    background(:all) { super_user.sign_in }
-    background { visit user_navigation.dashboard }
-  else
-    background { super_user.sign_in }
+  background(:all) { super_user.sign_in } if ENV['safari']
+
+  background do
+    super_user.sign_in
+    visit user_navigation.dashboard
   end
 
   scenario 'Super user creates an arm' do

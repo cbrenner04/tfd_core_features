@@ -48,7 +48,7 @@ module Participants
     end
 
     def complete?
-      within all('.list-group-item')[@pt_list_item] do
+      within(all('.list-group-item')[@pt_list_item]) do
         has_css?('.fa.fa-check-circle') && has_text?("Completed at: #{@date}")
       end
     end

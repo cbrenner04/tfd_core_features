@@ -148,6 +148,8 @@ module Users
     end
 
     def select_mood_from_toc
+      # two scrolls needed when running social networking app
+      user_navigation.scroll_down if social_networking_app?
       user_navigation.scroll_down
       find('.list-group').all('a', text: 'Mood')[1].click
     end
@@ -243,6 +245,7 @@ module Users
     end
 
     def select_activities_past_from_toc
+      user_navigation.scroll_down if social_networking_app?
       select_from_toc('Activities - Past')
     end
 
@@ -267,6 +270,7 @@ module Users
     end
 
     def select_thoughts_viz_from_toc
+      user_navigation.scroll_down if social_networking_app?
       select_from_toc('Thoughts visualization')
     end
 
@@ -287,6 +291,8 @@ module Users
     end
 
     def select_thoughts_from_toc
+      # need to scroll twice for social networking apps
+      2.times { user_navigation.scroll_down } if social_networking_app?
       user_navigation.scroll_down
       find('.list-group').all('a', text: 'Thoughts')[1].click
     end
@@ -300,6 +306,8 @@ module Users
     end
 
     def select_messages_from_toc
+      # need to scroll twice for social networking apps
+      2.times { user_navigation.scroll_down } if social_networking_app?
       select_from_toc('Messages')
     end
 
@@ -310,6 +318,8 @@ module Users
     end
 
     def select_tasks_from_toc
+      # need to scroll twice for social networking apps
+      2.times { user_navigation.scroll_down } if social_networking_app?
       select_from_toc('Tasks')
     end
 
@@ -326,6 +336,8 @@ module Users
     end
 
     def select_from_toc(link)
+      # need to scroll twice if social working app
+      user_navigation.scroll_down if social_networking_app?
       user_navigation.scroll_down
       find('.list-group').find('a', text: link).click
     end
@@ -352,6 +364,10 @@ module Users
     rescue Selenium::WebDriver::Error::UnknownError
       user_navigation.scroll_down
       retry unless (tries -= 1).zero?
+    end
+
+    def social_networking_app?
+      return true if ENV['tfdso'] || ENV['sunnyside'] || ENV['marigold']
     end
   end
 end

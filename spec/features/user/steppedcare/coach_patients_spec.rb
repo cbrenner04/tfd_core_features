@@ -4,6 +4,8 @@ require './spec/support/users/steppedcare_coach_patients_helper'
 
 feature 'Coach', :tfd, sauce: sauce_labs do
   feature 'Patient Dashboard' do
+    background(:all) { clinician.sign_in } if ENV['safari']
+
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
@@ -33,6 +35,8 @@ end
 
 feature 'Coach', :tfd, sauce: sauce_labs do
   feature 'Patient Dashboard, PHQ Group' do
+    background(:all) { clinician.sign_in } if ENV['safari']
+
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page

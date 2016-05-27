@@ -5,6 +5,8 @@ require './spec/support/participants/social_networking_landing_helper'
 feature 'SocialNetworking Landing Page',
         :social_networking, :marigold, sauce: sauce_labs do
   feature 'Social Arm' do
+    background(:all) { participant_1.sign_in } if ENV['safari']
+
     background do
       participant_1.sign_in unless ENV['safari']
       visit ENV['Base_URL']
@@ -97,6 +99,8 @@ feature 'SocialNetworking Landing Page',
   end
 
   feature 'Resize window to mobile size' do
+    background(:all) { participant_1.sign_in if ENV['safari'] }
+
     background do
       participant_1.sign_in unless ENV['safari']
       visit ENV['Base_URL']
@@ -144,24 +148,17 @@ feature 'SocialNetworking Landing Page',
 
       expect(participant_4_to_do_list).to_not have_profile_task
       expect(participant_4_to_do_list).to be_complete
-
-      participant_4.sign_out # necessary?
     end
   end
 end
 
 feature 'SocialNetworking Landing Page', :tfdso, sauce: sauce_labs do
   feature 'Checks moderator' do
-    background(:all) { participant_1.sign_in if ENV['safari'] }
-
-    background do
-      participant_1.sign_in unless ENV['safari']
+    scenario 'Participant does not see \'Last seen:\' for moderator' do
+      participant_1.sign_in
       visit ENV['Base_URL']
 
       expect(participant_navigation).to have_home_page_visible
-    end
-
-    scenario 'Participant does not see \'Last seen:\' for moderator' do
       expect(moderator_profile).to_not have_last_seen
     end
   end

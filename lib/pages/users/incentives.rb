@@ -1,3 +1,5 @@
+require './lib/pages/users/navigation'
+
 module Users
   # page object for incentives
   class Incentives
@@ -120,6 +122,7 @@ module Users
     end
 
     def open_first_behavior
+      user_navigation.scroll_down
       first('.list-group-item').click
       find('p', text: 'Action: SocialNetworking::Goal')
     end
@@ -147,6 +150,10 @@ module Users
 
     private
 
+    def user_navigation
+      @user_navigation ||= Users::Navigation.new
+    end
+
     def app
       if ENV['sunnyside']
         'sunnyside'
@@ -164,6 +171,7 @@ module Users
     end
 
     def select_image(image_number)
+      user_navigation.scroll_down
       within(".col-md-2:nth-child(#{image_number})") do
         choose("#{app}_incentive[image_url]")
       end

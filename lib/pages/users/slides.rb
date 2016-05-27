@@ -56,6 +56,7 @@ module Users
     end
 
     def destroy
+      user_navigation.scroll_down
       user_navigation.confirm_with_js
       find('li', text: @title).find('.btn-danger').click
     end

@@ -19,6 +19,8 @@ end
 
 feature 'Content Author, Slideshows',
         :superfluous, :core, sauce: sauce_labs do
+  background(:all) { content_author.sign_in } if ENV['safari']
+
   background do
     content_author.sign_in unless ENV['safari']
     visit user_navigation.arms_page

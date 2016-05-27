@@ -3,6 +3,8 @@
 require './spec/support/users/researcher_users_helper'
 
 feature 'Researcher, Users', :superfluous, :core, sauce: sauce_labs do
+  background(:all) { researcher.sign_in } if ENV['safari']
+
   background do
     researcher.sign_in unless ENV['safari']
     visit researcher_users.landing_page

@@ -40,12 +40,7 @@ feature 'User login', :core, sauce: sauce_labs do
   end
 
   scenario 'Super user uses brand link to return to home page' do
-    if ENV['safari']
-      visit super_user.login_page
-    else
-      super_user.sign_in
-    end
-
+    super_user.sign_in
     visit user_navigation.arms_page
     login_lesson.navigate_to_lessons
 
