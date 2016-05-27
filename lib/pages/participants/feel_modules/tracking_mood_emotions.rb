@@ -56,6 +56,7 @@ module Participants
       end
 
       def finish
+        find('text', text: 'Mood*')
         participant_navigation.scroll_to_bottom
         participant_navigation.next
         find('small', text: 'Feeling Tracker Landing')

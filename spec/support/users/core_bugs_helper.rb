@@ -20,8 +20,8 @@ def bug_participant
   )
 end
 
-def participant_61
-  @participant_61 ||= Users::PatientDashboard.new(
+def participant_61_dashboard
+  @participant_61_dashboard ||= Users::PatientDashboard.new(
     participant: 'participant61',
     group: 'Group 6',
     date: Date.today - 4,

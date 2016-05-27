@@ -27,7 +27,7 @@ end
 def sanity_check
   puts "Sauce Labs is set to #{sauce_labs}\nAuto screenshots is set to " \
        "#{!sauce_labs}\nRunning in #{driver}\nThe time is " \
-       "#{Time.now.strftime('%H:%M:%S')}"
+       "#{Time.now.strftime('%H:%M:%S')}\nRunning tests for #{app}"
 end
 
 def test_driver

@@ -72,10 +72,10 @@ module Users
 
     def assign_group
       click_on 'Assign New Group'
-      select "Group #{@group_number}", from: 'membership_group_id'
+      select "Group #{group_number}", from: 'membership_group_id'
       fill_in 'membership_display_name', with: @display_name unless ENV['tfd']
-      fill_in 'membership_start_date', with: @start_date
-      fill_in 'membership_end_date', with: @end_date
+      fill_in 'membership_start_date', with: @start_date unless ENV['chrome']
+      fill_in 'membership_end_date', with: @end_date unless ENV['chrome']
       has_standard_week_and_end_date?
       click_on 'Assign'
     end

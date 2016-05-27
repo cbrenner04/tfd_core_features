@@ -18,12 +18,12 @@ module Participants
     end
 
     def navigate_to_all_modules_through_nav_bar
-      tool = ['#2 Planning', '#1 Awareness', '#3 Doing', 'Add a New Activity',
-              'Your Activities', 'View Planned Activities', 'DO Home']
+      tool = ['#2 Planning', '#1 Awareness', 'View Planned Activities',
+              '#3 Doing', 'Add a New Activity', 'Your Activities', 'DO Home']
       content = ['The last few times you were here...',
-                 'This is just the beginning...', 'Welcome back!',
+                 'This is just the beginning...', 'Speech', 'Welcome back!',
                  "But you don't have to start from scratch", 'Daily Averages',
-                 'Speech', 'Add a New Activity']
+                 'Add a New Activity']
       tool.zip(content) do |t, c|
         click_on 'DO'
         click_on t

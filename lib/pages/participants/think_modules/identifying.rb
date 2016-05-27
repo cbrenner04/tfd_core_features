@@ -23,6 +23,7 @@ module Participants
       end
 
       def move_to_thought_input
+        participant_navigation.scroll_down
         participant_navigation.next
         ['Helpful thoughts are...', 'Harmful thoughts are:',
          'Some quick examples...'].each do |s|
@@ -43,7 +44,6 @@ module Participants
         end
         find('h1', text: 'Good work')
         participant_navigation.next
-        expect(think).to be_visible
       end
 
       def enter_thought(heading, response)

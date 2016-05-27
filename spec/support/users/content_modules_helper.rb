@@ -44,7 +44,7 @@ def new_content_provider
   @new_content_provider ||= Users::ContentProvider.new(
     tool: 'LEARN',
     module_title: 'Home Introduction',
-    provider_type: 'BitCore::ContentProviders::SlideshowProvider',
+    provider_type: 'Bit Core Content Providers Slideshow Provider',
     content_type: 'BitCore::Slideshow',
     provider_content: 'Home Intro',
     position: 4

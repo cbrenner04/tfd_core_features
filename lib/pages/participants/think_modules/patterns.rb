@@ -34,13 +34,13 @@ module Participants
         3.times do
           thought_value = compare_thought(thought_value)
           select_pattern('Magnification or Catastrophizing')
+          participant_navigation.scroll_down
         end
         compare_thought(thought_value)
         select_pattern('Personalization')
         participant_navigation.scroll_down
         social_networking.accept_social
-        think.has_success_alert?
-        expect(think).to be_visible
+        participant_navigation.next if has_css?('h1', text: 'Good work!')
       end
 
       def complete_two_thoughts
@@ -92,7 +92,7 @@ module Participants
         participant_navigation.scroll_down
         social_networking.accept_social
         think.has_success_alert?
-        within('.adjusted-list-group-item') { has_no_content? thought }
+        find('.adjusted-list-group-item').has_no_content? thought
         find('.adjusted-list-group-item').text
       end
     end

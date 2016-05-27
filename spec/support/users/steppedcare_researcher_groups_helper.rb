@@ -1,7 +1,7 @@
 require './lib/pages/users/groups'
 
-def new_group
-  @new_group ||= Users::Groups.new(
+def new_group_a
+  @new_group_a ||= Users::Groups.new(
     title: 'Testing Group',
     arm: 'Arm 2'
   )
@@ -14,8 +14,8 @@ def group_8
   )
 end
 
-def group_9
-  @group_9 ||= Users::Groups.new(title: 'Group 9')
+def group_9_a
+  @group_9_a ||= Users::Groups.new(title: 'Group 9')
 end
 
 def group_11

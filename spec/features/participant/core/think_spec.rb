@@ -14,12 +14,17 @@ feature 'THINK tool', :core, sauce: sauce_labs do
     identifying.open
     identifying.move_to_thought_input
     identifying.complete
+
+    expect(think).to be_visible
   end
 
   scenario 'Participant completes Patterns module' do
     patterns.open
     patterns.move_to_pattern_entry_form
     patterns.complete_for_five_thoughts
+
+    expect(think).to have_success_alert
+    expect(think).to be_visible
   end
 
   scenario 'Participant completes Reshape module' do
@@ -89,7 +94,7 @@ feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
   end
 
   scenario 'Participant uses the visualization' do
-    2.times { participant_navigation.scroll_down }
+    participant_navigation.scroll_to_bottom
     thought_viz.open_viz
 
     expect(thought_viz).to be_visible
@@ -101,7 +106,5 @@ feature 'THINK Tool, Visualization', :core, sauce: sauce_labs do
     thought_viz.close_modal
 
     expect(thought_viz).to be_visible
-
-    participant_5.sign_out # is this even necessary?
   end
 end

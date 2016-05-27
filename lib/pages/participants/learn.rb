@@ -61,7 +61,7 @@ module Participants
 
     def return_to_lessons
       click_on 'Return to Lessons'
-      find('h3', text: 'Week 1')
+      find('h3', text: 'Week 1', match: :first)
     end
 
     def find_in_feed
@@ -79,25 +79,31 @@ module Participants
     end
 
     def last_wk_num
-      @last_wk_num ||= (16 if ENV['tfd']) || (8 if social_networking_app?)
+      @last_wk_num ||= (16 if ENV['tfd']) ||
+                       (14 if ENV['sunnyside']) ||
+                       (8 if social_networking_app?)
     end
 
     def last_week
       @last_week ||= (Date.today + 105 if ENV['tfd']) ||
+                     (Date.today + 91 if ENV['sunnyside']) ||
                      (Date.today + 49 if social_networking_app?)
     end
 
     def after_wk_num
-      @after_wk_num ||= (17 if ENV['tfd']) || (9 if social_networking_app?)
+      @after_wk_num ||= (17 if ENV['tfd']) ||
+                        (15 if ENV['sunnyside']) ||
+                        (9 if social_networking_app?)
     end
 
     def after_study
       @after_study ||= (Date.today + 112 if ENV['tfd']) ||
+                       (Date.today + 98 if ENV['sunnyside']) ||
                        (Date.today + 56 if social_networking_app?)
     end
 
     def social_networking_app?
-      return true if ENV['tfdso'] || ENV['sunnyside'] || ENV['marigold']
+      return true if ENV['tfdso'] || ENV['marigold']
     end
   end
 end

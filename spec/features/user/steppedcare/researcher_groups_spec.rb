@@ -11,9 +11,9 @@ feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   end
 
   scenario 'Researcher creates a group' do
-    new_group.create
+    new_group_a.create
 
-    expect(new_group).to be_created_successfully
+    expect(new_group_a).to be_created_successfully
   end
 
   scenario 'Researcher updates a group' do
@@ -25,11 +25,11 @@ feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   end
 
   scenario 'Researcher destroys a group' do
-    group_9.open
+    group_9_a.open
     user_navigation.destroy
 
-    expect(group_9).to be_destroyed_successfully
-    expect(group_9).to_not be_visible_in_listing
+    expect(group_9_a).to be_destroyed_successfully
+    expect(group_9_a).to_not be_visible_in_listing
   end
 
   scenario 'Researcher assigns a task within a group' do

@@ -32,6 +32,9 @@ module Users
     def open_module
       tries ||= 4
       click_on @title
+    rescue Selenium::WebDriver::Error::UnknownError
+      user_navigation.scroll_down
+      click_on @title
     rescue Capybara::ElementNotFound
       user_navigation.scroll_to_bottom
       within('.pagination') { user_navigation.next }

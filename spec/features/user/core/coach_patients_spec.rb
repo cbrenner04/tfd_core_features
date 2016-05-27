@@ -200,6 +200,7 @@ feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
     end
 
     scenario 'Coach views Thoughts viz' do
+      patient_dashboard_group_1.select_thoughts_from_toc
       patient_dashboard_group_1.select_thoughts_viz_from_body
 
       expect(patient_dashboard_group_1).to have_thoughts_viz_container

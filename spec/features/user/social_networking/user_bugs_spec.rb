@@ -3,8 +3,8 @@
 require './lib/pages/users/participants_set_up'
 require './lib/pages/users/patient_dashboard'
 
-def new_participant
-  @new_participant ||= Users::ParticipantsSetUp.new(
+def new_participant_a
+  @new_participant_a ||= Users::ParticipantsSetUp.new(
     study_id: 'Fake',
     email: 'fake@test.com',
     contact_preference: 'Email',
@@ -27,14 +27,14 @@ feature 'User Dashboard Bugs', :social_networking, sauce: sauce_labs do
     scenario 'Researcher creates a participant, assigns social membership wo' \
              ' a display name, receives alert that display name is needed' do
       researcher.sign_in
-      visit new_participant.landing_page
-      new_participant.create
+      visit new_participant_a.landing_page
+      new_participant_a.create
 
-      expect(new_participant).to be_created_successfully
+      expect(new_participant_a).to be_created_successfully
 
-      new_participant.assign_group
+      new_participant_a.assign_group
 
-      expect(new_participant).to have_display_name_needed_alert
+      expect(new_participant_a).to have_display_name_needed_alert
     end
   end
 

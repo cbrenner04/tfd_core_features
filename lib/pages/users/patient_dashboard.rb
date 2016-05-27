@@ -39,16 +39,19 @@ module Users
 
     def terminate_access
       within patient_row do
-        user_navigation.confirm_with_js if ENV['safari'] || ENV['chrome']
-        click_on 'Terminate Access'
-      end
-      unless ENV['safari'] || ENV['chrome']
-        accept_alert 'Are you sure you would like to terminate access ' \
-                     'to this membership? This option should also be ' \
-                     'used before changing membership of the patient to ' \
-                     'a different group or to completely revoke access ' \
-                     'to this membership. You will not be able to undo ' \
-                     'this.'
+        if ENV['safari'] || ENV['chrome']
+          user_navigation.confirm_with_js
+          click_on 'Terminate Access'
+          sleep(1)
+        else
+          click_on 'Terminate Access'
+          accept_alert 'Are you sure you would like to terminate access ' \
+                       'to this membership? This option should also be ' \
+                       'used before changing membership of the patient to ' \
+                       'a different group or to completely revoke access ' \
+                       'to this membership. You will not be able to undo ' \
+                       'this.'
+        end
       end
     end
 
@@ -61,7 +64,7 @@ module Users
     end
 
     def select_patient
-      within(patient_row) { click_on @participant }
+      click_on_patient_name
       find('h3', text: 'General Patient Info')
     end
 
@@ -151,7 +154,7 @@ module Users
 
     def has_mood_data?
       find('#mood-container')
-        .table_row[1]
+        .all('tr:nth-child(1)')[1]
         .has_text? "9 #{Date.today.strftime('%b %d %Y')}"
     end
 
@@ -161,7 +164,7 @@ module Users
 
     def has_feelings_data?
       find('#feelings-container')
-        .table_row[1]
+        .all('tr:nth-child(1)')[1]
         .has_text? "longing 2 #{Date.today.strftime('%b %d %Y')}"
     end
 
@@ -171,7 +174,7 @@ module Users
 
     def has_login_data?
       find('#logins-container')
-        .table_row[1]
+        .all('tr:nth-child(1)')[1]
         .has_text? Date.today.strftime('%b %d %Y')
     end
 
@@ -216,6 +219,7 @@ module Users
     end
 
     def view_activity_in_viz
+      user_navigation.scroll_down
       within('.panel.panel-default', text: 'Parkour') { click_on 'Parkour' }
     end
 
@@ -255,6 +259,7 @@ module Users
       within('#activities-past-container') do
         within('tr', text: 'Jogging') do
           click_on 'Noncompliance'
+          find('.popover', match: :first)
           find('.popover.fade.right.in')
             .has_text? "Why was this not completed?\nI didn't have time"
         end
@@ -266,11 +271,11 @@ module Users
     end
 
     def has_thoughts_viz_container?
-      has_css?('#ThoughtVizContainer')
+      has_css?('#ThoughtVizContainer') ||
+        has_text?('Not enough harmful thoughts yet exist for graphical display')
     end
 
     def select_thoughts_viz_from_body
-      2.times { user_navigation.scroll_down }
       within('h3', text: 'Thoughts visualization') do
         click_on 'Thoughts visualization'
       end
@@ -339,6 +344,14 @@ module Users
       else
         find('#patients').find('tr', text: @participant)
       end
+    end
+
+    def click_on_patient_name
+      tries ||= 2
+      within(patient_row) { click_on @participant }
+    rescue Selenium::WebDriver::Error::UnknownError
+      user_navigation.scroll_down
+      retry unless (tries -= 1).zero?
     end
   end
 end

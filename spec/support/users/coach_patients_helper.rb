@@ -46,6 +46,6 @@ end
 
 def inactive_dashboard
   @inactive_dashboard ||= Users::PatientDashboard.new(
-    particiapnts: 'TFD-inactive'
+    participant: 'TFD-inactive'
   )
 end

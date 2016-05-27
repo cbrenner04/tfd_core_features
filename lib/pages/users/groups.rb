@@ -97,6 +97,7 @@ module Users
     end
 
     def has_task?
+      sleep(1)
       find('#tasks').has_text? @task
     end
   end

@@ -5,6 +5,10 @@ def group_1
   @group_1 ||= Users::Groups.new(title: 'Group 1')
 end
 
+def group_5
+  @group_5 ||= Users::Groups.new(title: 'Group 5')
+end
+
 def researcher_participants
   @researcher_participants ||= Users::ParticipantsSetUp.new(
     study_id: 'none'

@@ -31,7 +31,7 @@ module Participants
           tries ||= 3
           participant_navigation.next
         rescue Selenium::WebDriver::Error::UnknownError
-          participant_navigation.scroll_by
+          participant_navigation.scroll_down
           retry unless (tries -= 1).zero?
         end
       end
