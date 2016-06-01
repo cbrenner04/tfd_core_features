@@ -22,5 +22,10 @@ feature 'FEEL tool', :marigold, sauce: sauce_labs do
     emotions.rate
 
     expect(emotions).to be_saved
+
+    visit feel.landing_page
+    emotions.open
+
+    expect(emotions).to be_previously_completed_today
   end
 end

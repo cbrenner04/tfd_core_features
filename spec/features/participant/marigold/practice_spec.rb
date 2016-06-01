@@ -165,7 +165,9 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
 
   scenario 'Participant completes new Meditation activity' do
     meditation_1.open
+    participant_navigation.reload
     meditation_1.complete
+    participant_navigation.scroll_to_bottom
     participant_navigation.next
 
     expect(meditation_1).to have_activity
@@ -277,6 +279,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     reappraisal_1.open
     reappraisal_1.view_perspective_examples
     reappraisal_1.view_it_could_be_worse_examples
+    participant_navigation.scroll_to_bottom
     reappraisal_1.view_got_through_it_examples
 
     expect(reappraisal_1).to have_perspective_examples

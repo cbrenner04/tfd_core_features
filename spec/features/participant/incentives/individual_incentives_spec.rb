@@ -2,7 +2,7 @@
 
 require './spec/support/participants/individual_incentives_helper'
 
-feature 'Individual incentives', :incentives, sauce: sauce_labs do
+feature 'Individual incentives', :incentives, :marigold, sauce: sauce_labs do
   background(:all) { participant_3.sign_in } if ENV['safari']
 
   background do

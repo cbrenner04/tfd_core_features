@@ -2,7 +2,7 @@
 
 require './spec/support/users/researcher_participants_helper'
 
-feature 'Researcher, Participants', :core, sauce: sauce_labs do
+feature 'Researcher, Participants', :core, :marigold, sauce: sauce_labs do
   background(:all) { researcher.sign_in } if ENV['safari']
 
   background do

@@ -5,7 +5,11 @@ module Users
 
     def open
       click_on 'Group Dashboard'
-      summary_panel
+      visible?
+    end
+
+    def visible?
+      has_css?('.panel', text: 'Group Summary')
     end
 
     def has_group_summary_data?
@@ -34,9 +38,9 @@ module Users
 
     def has_logins_by_week?
       within('.panel', text: 'Logins By Week') do
-        summary_data = ['First 4 3 0 2 2 0 0 0', 'Second  2 1 1 1 2 0 0 0',
-                        'Third  1 0 1 0 1 0 0 0', 'Fourth  0 6 1 0 0 0 0 0',
-                        'Fifth  0 0 1 0 0 0 0 0']
+        summary_data = ['First 4 3 0 2 2', 'Second  2 1 1 1 2',
+                        'Third  1 0 1 0 1', 'Fourth  0 6 1 0 0',
+                        'Fifth  0 0 1 0 0']
         (2..6).zip(summary_data).all? do |row, data|
           has_group_data?("tr:nth-child(#{row})", data)
         end

@@ -3,7 +3,7 @@
 require 'uuid'
 require 'fileutils'
 
-feature 'CSV Exports', :social_networking do
+feature 'CSV Exports', :social_networking, :marigold do
   background do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
@@ -18,7 +18,7 @@ feature 'CSV Exports', :social_networking do
     @driver.get "#{ENV['Base_URL']}/users/sign_in"
     @driver.find_element(id: 'user_email').send_keys(ENV['Researcher_Email'])
     @driver.find_element(id: 'user_password')
-      .send_keys(ENV['Researcher_Password'])
+           .send_keys(ENV['Researcher_Password'])
     @driver.find_element(css: '.btn.btn-default').submit
   end
 

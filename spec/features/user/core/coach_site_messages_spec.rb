@@ -24,13 +24,14 @@ def site_messaging_2
   )
 end
 
-feature 'Site Messaging', :core, sauce: sauce_labs do
+feature 'Site Messaging', :core, :marigold, sauce: sauce_labs do
   background(:all) { clinician.sign_in } if ENV['safari']
 
   background do
     clinician.sign_in unless ENV['safari']
     visit user_navigation.arms_page
     site_messaging_1.navigate_to_site_messages
+    expect(site_messaging_1).to have_site_messages_visible
   end
 
   scenario 'Coach creates and sends a new site message' do

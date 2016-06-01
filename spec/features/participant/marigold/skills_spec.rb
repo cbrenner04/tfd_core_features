@@ -21,16 +21,25 @@ feature 'SKILLS tool', :marigold, sauce: sauce_labs do
     expect(skills_2).to be_unavailable
 
     skills.open_lesson
-    7.times { participant_navigation.next }
+    8.times do
+      participant_navigation.scroll_to_bottom
+      participant_navigation.next
+      sleep(0.5) # pause so next is not clicked before next page loads
+    end
     skills.finish
 
     expect(skills).to be_on_feedback_slide
 
     skills.rate
     skills.enter_feedback
-    participant_navigation.next
+    2.times { participant_navigation.next }
 
     expect(skills).to have_feedback_saved
+
+    expect(participant_navigation).to have_home_page_visible
+
+    visit skills.landing_page
+
     expect(skills_2).to be_available
   end
 end

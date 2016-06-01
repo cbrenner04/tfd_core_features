@@ -22,7 +22,8 @@ def participant_data_dashboard
   )
 end
 
-feature 'User Dashboard Bugs', :social_networking, sauce: sauce_labs do
+feature 'User Dashboard Bugs', :social_networking, :marigold,
+        sauce: sauce_labs do
   feature 'Researcher' do
     scenario 'Researcher creates a participant, assigns social membership wo' \
              ' a display name, receives alert that display name is needed' do

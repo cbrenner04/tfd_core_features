@@ -80,7 +80,7 @@ feature 'SocialNetworking Landing Page',
     scenario 'Participant checks for due date of a goal post' do
       social_networking.scroll_to_bottom_of_feed
 
-      expect(goal_p1_alpha).to have_due_date
+      expect(goal_p2_alpha).to have_due_date
     end
 
     scenario 'Participant checks for an incomplete goal' do

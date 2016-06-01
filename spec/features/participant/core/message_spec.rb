@@ -83,3 +83,12 @@ feature 'MESSAGES tool, with link', :core, :marigold, sauce: sauce_labs do
     expect(linked_message).to have_link_content
   end
 end
+
+feature 'MESSAGES tool, Marigold specific', :marigold, sauce: sauce_labs do
+  scenario 'Participant access the messaging tool from the logout dropdown' do
+    marigold_participant.sign_in
+    messages.go_to_contact_us
+
+    expect(messages).to have_contact_us_visible
+  end
+end

@@ -2,7 +2,7 @@
 
 require './spec/support/users/coach_patients_helper'
 
-feature 'Patient Dasbhoard', :core, sauce: sauce_labs do
+feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
   feature 'Group 1' do
     background(:all) { clinician.sign_in } if ENV['safari']
 

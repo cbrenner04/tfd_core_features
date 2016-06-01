@@ -3,7 +3,7 @@
 require './spec/support/users/slides_helper'
 
 feature 'Content Author, Slides,',
-        :superfluous, :core, type: :feature, sauce: sauce_labs do
+        :superfluous, :core, :marigold, sauce: sauce_labs do
   feature 'Lesson Modules' do
     background(:all) { content_author.sign_in } if ENV['safari']
 

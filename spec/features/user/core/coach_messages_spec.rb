@@ -2,13 +2,14 @@
 
 require './spec/support/users/coach_messages_helper'
 
-feature 'Coach messaging', :core, sauce: sauce_labs do
+feature 'Coach messaging', :core, :marigold, sauce: sauce_labs do
   background(:all) { clinician.sign_in if ENV['safari'] }
 
   background do
     clinician.sign_in unless ENV['safari']
     visit user_navigation.arms_page
     user_messages.navigate_to_messages
+    expect(user_messages).to be_visible
   end
 
   scenario 'Coach reads a received message' do

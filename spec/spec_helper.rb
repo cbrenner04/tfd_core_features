@@ -75,7 +75,8 @@ Capybara::Screenshot.prune_strategy = :keep_last_run
 # sauce configurations need to be updated
 # # Sauce configuration options
 # Sauce.config do |config|
-#   config[:job_name] = "#{ENV['App']}-Staging #{Time.now.strftime('%-m/%-d/%Y')}"
+#   config[:job_name] = "#{ENV['App']}-Staging " \
+#                       "#{Time.now.strftime('%-m/%-d/%Y')}"
 #   config[:start_tunnel] = false
 #   config[:browsers] = [
 #     ['Windows XP', 'Firefox', '32'],

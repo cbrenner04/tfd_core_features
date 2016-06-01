@@ -7,6 +7,7 @@ require './lib/pages/users/patient_dashboard/social_networking'
 module Users
   # page object for the patient dashboard
   class PatientDashboard
+    include RSpec::Matchers
     include Capybara::DSL
     include SharedMoodEmotionsViz
     include SharedActivitiesViz
@@ -65,7 +66,8 @@ module Users
 
     def select_patient
       click_on_patient_name
-      find('h3', text: 'General Patient Info')
+      sleep(0.5)
+      visible?
     end
 
     def has_inactive_label?
@@ -74,11 +76,16 @@ module Users
 
     def has_general_patient_info?
       within('.panel-default', text: 'General Patient Info') do
-        weeks_later = ENV['tfd'] ? Date.today + (20 * 7) : Date.today + 56
-        week_num = ENV['tfd'] ? 20 : 8
+        week_num = if ENV['tfd']
+                     20
+                   elsif ENV['marigold']
+                     5
+                   else
+                     8
+                   end
         has_text? "Started on: #{Date.today.strftime('%A, %m/%d/%Y')}" \
                   "\n#{week_num} weeks from the start date is: " \
-                  "#{weeks_later.strftime('%A, %m/%d/%Y')}" \
+                  "#{(Date.today + (week_num * 7)).strftime('%A, %m/%d/%Y')}" \
                   "\nStatus: Active Currently in week 1" \
                   "\nLessons read this week: 1"
       end
@@ -111,6 +118,7 @@ module Users
 
     def return_to_dashboard
       click_on 'Patient Dashboard'
+      sleep(0.25)
     end
 
     def select_all_toc_links
@@ -207,6 +215,7 @@ module Users
 
     def select_activity_viz_from_toc
       select_from_toc('Activities visualization')
+      expect(page).to have_css('.btn-toolbar', text: 'Today')
     end
 
     def has_activity_viz_visible?

@@ -125,6 +125,13 @@ def goal_p1_alpha
   )
 end
 
+def goal_p2_alpha
+  @goal_p2_alpha ||= Participants::SocialNetworkingModules::Achieve.new(
+    goal: 'p2 alpha',
+    due_date: Date.today - 1
+  )
+end
+
 def philly_feed_item
   @philly_feed_item ||= Participants::SocialNetworkingModules::Like.new(
     feed_item: 'said it\'s always sunny in Philadelphia',

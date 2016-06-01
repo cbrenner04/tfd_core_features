@@ -2,7 +2,7 @@
 
 require './spec/support/users/super_user_helper'
 
-feature 'Super User', :superfluous, :core, sauce: sauce_labs do
+feature 'Super User', :superfluous, :core, :marigold, sauce: sauce_labs do
   background(:all) { super_user.sign_in } if ENV['safari']
 
   background do

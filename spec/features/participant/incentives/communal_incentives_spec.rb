@@ -2,7 +2,7 @@
 
 require './spec/support/participants/communal_incentives_helper'
 
-feature 'Communal incentives', :incentives, sauce: sauce_labs do
+feature 'Communal incentives', :incentives, :marigold, sauce: sauce_labs do
   background(:all) { participant_3.sign_in if ENV['safari'] }
 
   background do

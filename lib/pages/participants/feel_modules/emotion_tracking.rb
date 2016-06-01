@@ -13,7 +13,7 @@ module Participants
 
       def has_emotions?
         find('tr', match: :first)
-        actual = (1..23).map { |i| all('tr')[i].find('th').text }
+        actual = (1..26).map { |i| all('tr')[i].find('th').text }
         actual.should =~ emotions
       end
 
@@ -21,7 +21,7 @@ module Participants
         emotions_to_rate = emotions.sample(5)
         emotions_to_rate.each do |emotion|
           find('tr', text: emotion)
-            .find("input[value = '#{(0..4).to_a.sample}']").click
+            .find("input[value = '#{(1..9).to_a.sample}']").click
         end
         participant_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
         participant_navigation.next
@@ -37,6 +37,11 @@ module Participants
         has_css?('.alert', text: 'Emotional Rating saved')
       end
 
+      def previously_completed_today?
+        has_css?('.alert', text: 'Well done! You have already successfully ' \
+                                 'recorded yesterday\'s emotions')
+      end
+
       private
 
       def participant_navigation
@@ -45,29 +50,16 @@ module Participants
 
       def emotions
         @emotions ||= [
-          'amused, fun-loving',
-          'angry, irritated, frustrated',
-          'anxious, scared',
-          'awe, wonder, inspiration',
-          'bored',
-          'contempt, score, disdain',
-          'content',
-          'disgusted',
-          'embarrassed',
-          'excited, eager, enthusiastic',
-          'grateful',
-          'guilty',
-          'happy',
-          'hatred, disgust, suspicion',
-          'hopeful, optimistic',
-          'interested',
-          'lonely, rejected',
-          'love, closeness, trust',
-          'proud, confident',
-          'sad',
-          'stressed, overwhelmed',
-          'sympathy, compassion',
-          'relieved'
+          'Amused or fun-loving', 'Angry, irritated, or frustrated',
+          'Ashamed or humiliated', 'Anxious or scared',
+          'Awe, wonder, or inspiration', 'Bored',
+          'Contempt, scorn, or disdain', 'Content', 'Disgusted',
+          'Embarrassed', 'Excited, eager, or enthusiastic', 'Grateful',
+          'Guilty', 'Happy', 'Hatred, distrust, or suspicion',
+          'Hopeful or optimistic', 'Inspired or uplifted', 'Interested',
+          'Lonely or rejected', 'Love, closeness, or trust',
+          'Proud or confident', 'Sad', 'Stressed or overwhelmed',
+          'Surprised or amazed', 'Sympathy or compassion', 'Relieved'
         ]
       end
     end

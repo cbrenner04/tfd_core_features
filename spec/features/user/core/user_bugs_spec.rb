@@ -2,7 +2,7 @@
 
 require './spec/support/users/core_bugs_helper'
 
-feature 'User Dashboard Bugs,', :core, sauce: sauce_labs do
+feature 'User Dashboard Bugs,', :core, :marigold, sauce: sauce_labs do
   feature 'Researcher' do
     scenario 'Researcher creates a participant, assigns a group membership, ' \
              'sees correct calculation of end date' do

@@ -5,7 +5,8 @@ module SharedActivitiesViz
   include Capybara::DSL
 
   def has_current_day_visible?
-    has_text? "Daily Averages for #{Date.today.strftime('%b %d %Y')}"
+    find('.panel-title')
+      .has_text? "Daily Averages for #{Date.today.strftime('%b %d %Y')}"
   end
 
   def go_to_previous_day
@@ -24,7 +25,8 @@ module SharedActivitiesViz
   end
 
   def has_previous_day_visible?
-    has_text? "Daily Averages for #{(Date.today - 1).strftime('%b %d %Y')}"
+    find('.panel-title')
+      .has_text? "Daily Averages for #{(Date.today - 1).strftime('%b %d %Y')}"
   end
 
   def open_visualize

@@ -18,7 +18,7 @@ def overkill_slideshow
 end
 
 feature 'Content Author, Slideshows',
-        :superfluous, :core, sauce: sauce_labs do
+        :superfluous, :core, :marigold, sauce: sauce_labs do
   background(:all) { content_author.sign_in } if ENV['safari']
 
   background do

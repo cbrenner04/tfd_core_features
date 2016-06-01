@@ -32,6 +32,7 @@ module Participants
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Comment'
           find('input[type = text]').click
+          sleep(0.5)
           expect(social_networking).to have_1000_characters_left
           find('input[type = text]').set(@comment)
           expect(social_networking).to have_updated_character_count(@comment)

@@ -48,6 +48,7 @@ module Participants
         2.times { participant_navigation.scroll_down }
         within profile_question('What are your hobbies?') do
           find('input[type = text]').click
+          sleep(0.25)
           expect(social_networking).to have_1000_characters_left
         end
       end
@@ -138,8 +139,7 @@ module Participants
       end
 
       def profile_class
-        @profile_class ||=
-          ENV['sunnyside'] || ENV['marigold'] ? 'success' : 'default'
+        ENV['sunnyside'] || ENV['marigold'] ? 'success' : 'default'
       end
 
       def one_less_than_1000_characters_of_lorem

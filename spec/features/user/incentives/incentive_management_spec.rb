@@ -2,7 +2,8 @@
 
 require './spec/support/users/incentives_helper'
 
-feature 'Incentive, Researcher', :superfluous, :incentives, sauce: sauce_labs do
+feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
+        sauce: sauce_labs do
   background(:all) { researcher.sign_in } if ENV['safari']
 
   background do

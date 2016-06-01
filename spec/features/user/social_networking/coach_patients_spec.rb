@@ -2,7 +2,8 @@
 
 require './spec/support/users/social_networking_coach_patients_helper'
 
-feature 'Coach, Patient Dashboard', :social_networking, sauce: sauce_labs do
+feature 'Coach, Patient Dashboard', :social_networking, :marigold,
+        sauce: sauce_labs do
   feature 'Group 1' do
     background(:all) { clinician.sign_in } if ENV['safari']
 

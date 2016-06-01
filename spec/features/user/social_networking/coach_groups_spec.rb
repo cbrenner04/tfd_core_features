@@ -16,7 +16,8 @@ def group_6_dashboard
   @group_6_dashboard ||= Users::GroupDashboard.new
 end
 
-feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
+feature 'Coach, Group Dashboard', :social_networking, :marigold,
+        sauce: sauce_labs do
   background(:all) { clinician.sign_in } if ENV['safari']
 
   background do
@@ -25,6 +26,8 @@ feature 'Coach, Group Dashboard', :social_networking, sauce: sauce_labs do
     arm_1.open
     group_6.open
     group_6_dashboard.open
+
+    expect(group_6_dashboard).to be_visible
   end
 
   scenario 'Coach views Group Summary' do

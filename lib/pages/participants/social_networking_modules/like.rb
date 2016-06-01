@@ -19,6 +19,7 @@ module Participants
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Like' unless has_text?('Like (1)')
           expect(page).to have_content 'Like (1)'
+          expect(page).to have_css('.text-muted', text: 'Like')
         end
       end
 

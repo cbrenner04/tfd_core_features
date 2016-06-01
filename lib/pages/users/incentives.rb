@@ -172,7 +172,8 @@ module Users
 
     def select_image(image_number)
       user_navigation.scroll_down
-      within(".col-md-2:nth-child(#{image_number})") do
+      class_num = ENV['marigold'] ? 3 : 2
+      within(".col-md-#{class_num}:nth-child(#{image_number})") do
         choose("#{app}_incentive[image_url]")
       end
     end

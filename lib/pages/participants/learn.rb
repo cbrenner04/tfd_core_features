@@ -79,31 +79,31 @@ module Participants
     end
 
     def last_wk_num
-      @last_wk_num ||= (16 if ENV['tfd']) ||
-                       (14 if ENV['sunnyside']) ||
-                       (8 if social_networking_app?)
+      return 16 if ENV['tfd']
+      return 14 if ENV['sunnyside']
+      return 8 if ENV['tfdso']
+      return 5 if ENV['marigold']
     end
 
     def last_week
-      @last_week ||= (Date.today + 105 if ENV['tfd']) ||
-                     (Date.today + 91 if ENV['sunnyside']) ||
-                     (Date.today + 49 if social_networking_app?)
+      return Date.today + 105 if ENV['tfd']
+      return Date.today + 91 if ENV['sunnyside']
+      return Date.today + 49 if ENV['tfdso']
+      return Date.today + 28 if ENV['marigold']
     end
 
     def after_wk_num
-      @after_wk_num ||= (17 if ENV['tfd']) ||
-                        (15 if ENV['sunnyside']) ||
-                        (9 if social_networking_app?)
+      return 17 if ENV['tfd']
+      return 15 if ENV['sunnyside']
+      return 9 if ENV['tfdso']
+      return 6 if ENV['marigold']
     end
 
     def after_study
-      @after_study ||= (Date.today + 112 if ENV['tfd']) ||
-                       (Date.today + 98 if ENV['sunnyside']) ||
-                       (Date.today + 56 if social_networking_app?)
-    end
-
-    def social_networking_app?
-      return true if ENV['tfdso'] || ENV['marigold']
+      return Date.today + 112 if ENV['tfd']
+      return Date.today + 98 if ENV['sunnyside']
+      return Date.today + 56 if ENV['tfdso']
+      return Date.today + 35 if ENV['marigold']
     end
   end
 end

@@ -20,9 +20,17 @@ module Users
       click_on 'Messages'
     end
 
+    def visible?
+      has_css?('h1', text: 'Messages')
+    end
+
     def navigate_to_site_messages
       navigate_to_messaging
       click_on 'Site Messaging'
+    end
+
+    def has_site_messages_visible?
+      has_css?('h1', text: 'Listing Site Messages')
     end
 
     def reply

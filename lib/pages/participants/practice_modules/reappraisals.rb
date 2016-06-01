@@ -25,6 +25,7 @@ module Participants
       end
 
       def has_perspective_examples?
+        find('#collapse-perspective-examples', match: :first)
         has_css?('#collapse-perspective-examples',
                  text: 'Did someone annoy you, frustrate you, or treat you ' \
                        'badly? Think about reasons someone might act that ' \
@@ -42,6 +43,7 @@ module Participants
       end
 
       def has_it_could_be_worse_examples?
+        find('#collapse-worse-examples', match: :first)
         has_css?('#collapse-worse-examples',
                  text: 'Can you think of a way that even though something ' \
                        'went wrong, something else went right? (for example,' \
@@ -56,6 +58,7 @@ module Participants
       end
 
       def has_got_through_it_examples?
+        find('#collapse-reflection-examples', match: :first)
         has_css?('#collapse-reflection-examples',
                  text: 'Did you use your skills or personal strengths to ' \
                        'make the problem better? Did someone help you when ' \

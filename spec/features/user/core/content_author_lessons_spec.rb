@@ -2,7 +2,8 @@
 
 require './spec/support/users/lessons_helper'
 
-feature 'Content Author, Lessons', :superfluous, :core, sauce: sauce_labs do
+feature 'Content Author, Lessons', :superfluous, :core, :marigold,
+        sauce: sauce_labs do
   background(:all) { content_author.sign_in } if ENV['safari']
 
   background do
