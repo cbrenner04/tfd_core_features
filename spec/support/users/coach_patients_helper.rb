@@ -3,8 +3,8 @@
 require './lib/pages/users/groups'
 require './lib/pages/users/patient_dashboard'
 
-def group_1
-  @group_1 ||= Users::Groups.new(title: 'Group 1')
+def group_2
+  @group_2 ||= Users::Groups.new(title: 'Group 2')
 end
 
 def patient_dashboard_group_1

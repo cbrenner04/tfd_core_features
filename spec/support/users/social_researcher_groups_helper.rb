@@ -2,20 +2,6 @@
 
 require './lib/pages/users/groups'
 
-def group_8
-  @group_8 ||= Users::Groups.new(
-    title: 'Group 8',
-    updated_title: 'Updated Group 8'
-  )
-end
-
-def group_9
-  @group_9 ||= Users::Groups.new(
-    title: 'Group 9',
-    updated_moderator: ENV['User_Email']
-  )
-end
-
 def group_10
   @group_10 ||= Users::Groups.new(title: 'Group 10')
 end

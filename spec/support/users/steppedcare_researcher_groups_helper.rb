@@ -7,17 +7,6 @@ def new_group_a
   )
 end
 
-def group_8
-  @group_8 ||= Users::Groups.new(
-    title: 'Group 8',
-    updated_title: 'Updated Group 8'
-  )
-end
-
-def group_9_a
-  @group_9_a ||= Users::Groups.new(title: 'Group 9')
-end
-
 def group_11
   @group_11 ||= Users::Groups.new(
     title: 'Group 11',

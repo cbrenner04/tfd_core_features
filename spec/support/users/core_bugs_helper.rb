@@ -29,8 +29,8 @@ def participant_61_dashboard
   )
 end
 
-def patient_1
-  @patient_1 ||= Users::PatientDashboard.new(
+def patient_1_dashboard
+  @patient_1_dashboard ||= Users::PatientDashboard.new(
     participant: 'TFD-1111',
     group: 'Group 1',
     lesson_duration: 2

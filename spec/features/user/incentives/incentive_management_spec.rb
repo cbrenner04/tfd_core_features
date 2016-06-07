@@ -1,6 +1,14 @@
 # filename: ./spec/features/user/incentives/researcher_groups_spec.rb
 
-require './spec/support/users/incentives_helper'
+require './lib/pages/users/incentives'
+
+def group_6_incentives
+  @group_6_incentives ||= Users::Incentives.new(group: 'Group 6')
+end
+
+def group_9_incentives
+  @group_9_incentives ||= Users::Incentives.new(group: 'Group 9')
+end
 
 feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
         sauce: sauce_labs do

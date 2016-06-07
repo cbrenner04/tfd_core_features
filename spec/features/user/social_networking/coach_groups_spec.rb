@@ -1,16 +1,6 @@
 # filename: ./spec/features/user/social_networking/coach_groups_spec.rb
 
-require './lib/pages/users/arms'
-require './lib/pages/users/groups'
 require './lib/pages/users/group_dashboard'
-
-def arm_1
-  @arm_1 ||= Users::Arms.new(title: 'Arm 1')
-end
-
-def group_6
-  @group_6 ||= Users::Groups.new(title: 'Group 6')
-end
 
 def group_6_dashboard
   @group_6_dashboard ||= Users::GroupDashboard.new

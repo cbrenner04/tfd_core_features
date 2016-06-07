@@ -23,7 +23,9 @@ feature 'User Dashboard Bugs,', :core, :marigold, sauce: sauce_labs do
     scenario 'Clinician sees consistent Logins in listing, Patient Report' do
       clinician.sign_in
       visit user_navigation.arms_page
-      participant_61_dashboard.navigate_to_patient_dashboard
+      arm_1.open
+      group_6.open
+      participant_61_dashboard.open
 
       expect(participant_61_dashboard).to have_login_info_in_patients_list
 
@@ -42,10 +44,12 @@ feature 'User Dashboard Bugs,', :core, :marigold, sauce: sauce_labs do
 
       clinician.sign_in
       visit user_navigation.arms_page
-      patient_1.navigate_to_patient_dashboard
-      patient_1.select_patient
+      arm_1.open
+      group_1.open
+      patient_1_dashboard.open
+      patient_1_dashboard.select_patient
 
-      expect(patient_1).to have_lessons_data
+      expect(patient_1_dashboard).to have_lessons_data
     end
   end
 end

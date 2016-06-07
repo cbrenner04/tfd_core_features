@@ -9,23 +9,27 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
+      arm_1.open
     end
 
     scenario 'Coach sees consistent # of Logins' do
-      participant_61_dashboard.navigate_to_patient_dashboard
+      group_6.open
+      participant_61_dashboard.open
 
       expect(participant_61_dashboard).to have_login_info_in_patients_list
     end
 
     scenario 'Coach uses the table of contents in the patient report' do
-      participant_1_dashboard.navigate_to_patient_dashboard
+      group_1.open
+      participant_1_dashboard.open
       participant_1_dashboard.select_patient
       user_navigation.scroll_to_bottom
       participant_1_dashboard.select_phq_from_toc
     end
 
     scenario 'Coach views Login Info' do
-      participant_61_dashboard.navigate_to_patient_dashboard
+      group_6.open
+      participant_61_dashboard.open
       participant_61_dashboard.select_patient
 
       expect(participant_61_dashboard).to have_partial_login_info
@@ -40,7 +44,9 @@ feature 'Coach', :tfd, sauce: sauce_labs do
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
-      phq_group_dashboard.navigate_to_patient_dashboard
+      arm_1.open
+      phq_group.open
+      phq_group_dashboard.open
     end
 
     scenario 'Coach checks details for stepping' do

@@ -1,6 +1,11 @@
 # filename: ./spec/support/users/steppedcare_coach_patients_helper.rb
 
+require './lib/pages/users/groups'
 require './lib/pages/users/patient_dashboard'
+
+def phq_group
+  @phq_group ||= Users::Groups.new(title: 'PHQ Group')
+end
 
 def participant_1_dashboard
   @participant_1_dashboard ||= Users::PatientDashboard.new(

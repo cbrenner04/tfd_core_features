@@ -17,7 +17,7 @@ module Users
       tries ||= 2
       click_on @title
       find('p', text: "Title: #{@title}")
-    rescue Selenium::WebDriver::Error::UnknownError
+    rescue Selenium::WebDriver::Error::UnknownError, Capybara::ElementNotFound
       user_navigation.scroll_down
       retry unless (tries -= 1).zero?
     end

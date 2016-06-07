@@ -44,7 +44,9 @@ feature 'User Dashboard Bugs', :social_networking, :marigold,
              ', sees correct data for activities' do
       clinician.sign_in
       visit user_navigation.arms_page
-      participant_data_dashboard.navigate_to_patient_dashboard
+      arm_1.open
+      group_1.open
+      participant_data_dashboard.open
       participant_data_dashboard.select_patient
 
       expect(participant_data_dashboard).to have_tool_use_data

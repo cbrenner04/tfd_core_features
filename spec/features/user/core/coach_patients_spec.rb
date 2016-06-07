@@ -9,7 +9,9 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
-      patient_dashboard_group_1.navigate_to_patient_dashboard
+      arm_1.open
+      group_1.open
+      patient_dashboard_group_1.open
     end
 
     scenario 'Coach views active participants assigned to them' do
@@ -48,7 +50,9 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
-      patient_dashboard_group_1.navigate_to_patient_dashboard
+      arm_1.open
+      group_1.open
+      patient_dashboard_group_1.open
       data_dashboard.select_patient
     end
 
@@ -235,7 +239,9 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     scenario 'Coach sees data for a patient who has been withdrawn' do
       clinician.sign_in
       visit user_navigation.arms_page
-      patient_dashboard_group_2.navigate_to_patient_dashboard
+      arm_1.open
+      group_2.open
+      patient_dashboard_group_2.open
       patient_dashboard_group_2.navigate_to_inactive_patients
       inactive_dashboard.select_patient
 

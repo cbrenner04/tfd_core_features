@@ -10,7 +10,9 @@ feature 'Coach, Patient Dashboard', :social_networking, :marigold,
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
-      patient_dashboard_group_1.navigate_to_patient_dashboard
+      arm_1.open
+      group_1.open
+      patient_dashboard_group_1.open
     end
 
     scenario 'Coach views Tool Use table' do
@@ -36,7 +38,9 @@ feature 'Coach, Patient Dashboard', :social_networking, :marigold,
     background do
       clinician.sign_in unless ENV['safari']
       visit user_navigation.arms_page
-      patient_dashboard_group_6.navigate_to_patient_dashboard
+      arm_1.open
+      group_6.open
+      patient_dashboard_group_6.open
     end
 
     scenario 'Coach sees consistent # of Logins' do
@@ -90,7 +94,9 @@ feature 'Coach, Patient Dashboard', :social_networking, :marigold,
     scenario 'Coach Terminates Access, checks profile is removed' do
       clinician.sign_in
       visit user_navigation.arms_page
-      patient_dashboard_group_6.navigate_to_patient_dashboard
+      arm_1.open
+      group_6.open
+      patient_dashboard_group_6.open
       patient_65_dashboard.terminate_access
 
       expect(patient_65_dashboard)

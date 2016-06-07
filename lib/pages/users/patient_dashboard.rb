@@ -23,9 +23,7 @@ module Users
       @most_recent_phq_score ||= patient_dashboard[:most_recent_phq_score]
     end
 
-    def navigate_to_patient_dashboard
-      click_on 'Arm 1'
-      click_on @group
+    def open
       click_on 'Patient Dashboard'
       find('h1', text: 'Patient Dashboard')
     end

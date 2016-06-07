@@ -13,7 +13,5 @@ def lessons_2
 end
 
 def lessons_3
-  @lessons_3 ||= Users::Lessons.new(
-    lesson: 'Lessons for tests'
-  )
+  @lessons_3 ||= Users::Lessons.new(lesson: 'Lessons for tests')
 end
