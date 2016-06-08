@@ -26,8 +26,7 @@ module Participants
       end
 
       def has_journal_entry?
-        has_css?('tr',
-                 text: "#{@kindness} #{@created_at.strftime('%b %d %Y %I')}")
+        has_css?('tr', text: "#{@kindness} #{long_date_with_hour(@created_at)}")
       end
     end
   end

@@ -21,7 +21,7 @@ def complete_communal_incentive
     image: 'flower2',
     plot: 'communal',
     pt_list_item: 2,
-    date: Time.now.strftime('%b %d %Y %I')
+    date: long_date_with_hour(Time.now)
   )
 end
 

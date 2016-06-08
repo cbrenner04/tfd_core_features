@@ -20,7 +20,7 @@ def patient_61_dashboard
   @patient_61_dashboard ||= Users::PatientDashboard.new(
     participant: 'participant61',
     total_logins: 11,
-    date: Date.today - 4
+    date: today - 4
   )
 end
 

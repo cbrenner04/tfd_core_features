@@ -36,7 +36,7 @@ module Participants
     end
 
     def has_read_record?
-      has_text? "Read on #{Date.today.strftime('%b %d')}"
+      has_text? "Read on #{today.strftime('%b %d')}"
     end
 
     def has_printable_link_visible?
@@ -45,13 +45,12 @@ module Participants
 
     def has_last_week_listed?
       has_css?('.panel-title.panel-unreleased',
-               text: "Week #{last_wk_num} · #{last_week.strftime('%b %d %Y')}")
+               text: "Week #{last_wk_num} · #{long_date(last_week)}")
     end
 
     def has_week_listed_beyond_study?
       has_css?('.panel-title.panel-unreleased',
-               text: "Week #{after_wk_num} " \
-                     "· #{after_study.strftime('%b %d %Y')}")
+               text: "Week #{after_wk_num} · #{long_date(after_study)}")
     end
 
     def print
@@ -86,10 +85,10 @@ module Participants
     end
 
     def last_week
-      return Date.today + 105 if ENV['tfd']
-      return Date.today + 91 if ENV['sunnyside']
-      return Date.today + 49 if ENV['tfdso']
-      return Date.today + 28 if ENV['marigold']
+      return today + 105 if ENV['tfd']
+      return today + 91 if ENV['sunnyside']
+      return today + 49 if ENV['tfdso']
+      return today + 28 if ENV['marigold']
     end
 
     def after_wk_num
@@ -100,10 +99,10 @@ module Participants
     end
 
     def after_study
-      return Date.today + 112 if ENV['tfd']
-      return Date.today + 98 if ENV['sunnyside']
-      return Date.today + 56 if ENV['tfdso']
-      return Date.today + 35 if ENV['marigold']
+      return today + 112 if ENV['tfd']
+      return today + 98 if ENV['sunnyside']
+      return today + 56 if ENV['tfdso']
+      return today + 35 if ENV['marigold']
     end
   end
 end

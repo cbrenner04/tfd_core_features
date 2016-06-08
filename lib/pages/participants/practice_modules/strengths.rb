@@ -36,7 +36,7 @@ module Participants
 
       def has_journal_entry?
         has_css?('tr', text: "#{@description} #{@challenges} " \
-                             "#{@created_at.strftime('%b %d %Y %I')}")
+                             "#{long_date_with_hour(@created_at)}")
       end
     end
   end

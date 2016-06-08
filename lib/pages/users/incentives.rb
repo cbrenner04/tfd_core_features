@@ -155,11 +155,8 @@ module Users
     end
 
     def app
-      if ENV['sunnyside']
-        'sunnyside'
-      elsif ENV['marigold']
-        'marigold'
-      end
+      return 'sunnyside' if ENV['sunnyside']
+      return 'marigold' if ENV['marigold']
     end
 
     def click_new

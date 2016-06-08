@@ -31,14 +31,14 @@ def invalid_start_participant
   @invalid_start_participant ||= Users::ParticipantsSetUp.new(
     study_id: 'test_3',
     start_date: 'mm/dd/yyyy',
-    end_date: Date.today + 365
+    end_date: today + 365
   )
 end
 
 def invalid_end_participant
   @invalid_end_participant ||= Users::ParticipantsSetUp.new(
     study_id: 'test_3',
-    start_date: Date.today - 1,
+    start_date: today - 1,
     end_date: 'mm/dd/yyyy'
   )
 end
@@ -46,16 +46,16 @@ end
 def past_end_participant
   @past_end_participant ||= Users::ParticipantsSetUp.new(
     study_id: 'test_3',
-    start_date: Date.today - 1,
-    end_date: Date.today - 5
+    start_date: today - 1,
+    end_date: today - 5
   )
 end
 
 def test_4_participant
   @test_4_participant ||= Users::ParticipantsSetUp.new(
     study_id: 'test_4',
-    start_date: Date.today - 1,
-    end_date: Date.today + 365
+    start_date: today - 1,
+    end_date: today + 365
   )
 end
 

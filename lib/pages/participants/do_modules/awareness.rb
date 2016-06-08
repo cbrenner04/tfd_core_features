@@ -49,12 +49,12 @@ module Participants
 
       def has_start_time?(start_time)
         has_css?('#awake_period_start_time',
-                 text: "#{Date.today.prev_day.strftime('%a')} #{start_time}")
+                 text: "#{week_day(today.prev_day)} #{start_time}")
       end
 
       def has_end_time?(end_time)
         has_css?('#awake_period_end_time',
-                 text: "#{Date.today.prev_day.strftime('%a')} #{end_time}")
+                 text: "#{week_day(today.prev_day)} #{end_time}")
       end
 
       def complete_multiple_hour_review

@@ -95,7 +95,7 @@ module Participants
 
       def has_planned_activity?
         has_css?('tr', text: "#{@activity_type} " \
-                             "#{@planned_for.strftime('%b %d %Y %I')}") &&
+                             "#{long_date_with_hour(@planned_for)}") &&
           has_css?('tr', text: "Actual: #{@actual_pleasure} Predicted: " \
                                "#{@pleasure} Actual: " \
                                "#{@actual_accomplishment} Predicted: " \
@@ -105,7 +105,7 @@ module Participants
 
       def has_completed_activity?
         has_css?('tr', text: "#{@activity_type} " \
-                             "#{@planned_for.strftime('%b %d %Y %I')}") &&
+                             "#{long_date_with_hour(@planned_for)}") &&
           has_css?('tr', text: "Actual: #{@actual_pleasure} Predicted: " \
                                "#{@pleasure} Actual: " \
                                "#{@actual_accomplishment} Predicted: " \
@@ -116,7 +116,7 @@ module Participants
 
       def has_incomplete_activity?
         has_css?('tr', text: "#{@activity_type} " \
-                             "#{@planned_for.strftime('%b %d %Y %I')}") &&
+                             "#{long_date_with_hour(@planned_for)}") &&
           has_css?('tr', text: "Actual: #{@actual_pleasure} Predicted: " \
                                "#{@pleasure} Actual: " \
                                "#{@actual_accomplishment} Predicted: " \

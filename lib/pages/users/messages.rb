@@ -73,7 +73,7 @@ module Users
     def has_site_message?
       find('tr:nth-child(2)')
         .has_text? "#{@participant} #{@message_subject}  " \
-                   "#{@message_body} #{Date.today.strftime('%b %d %Y')}"
+                   "#{@message_body} #{long_date(today)}"
     end
 
     def show_site_message
@@ -94,15 +94,9 @@ module Users
     end
 
     def app_email
-      if ENV['tfd']
-        'localhost'
-      elsif ENV['tfdso']
-        'localhost'
-      elsif ENV['sunnyside']
-        'sunnyside.northwestern.edu'
-      elsif ENV['marigold']
-        'marigold.northwestern.edu'
-      end
+      return 'localhost' if ENV['tfd'] || ENV['tfdso']
+      return 'sunnyside.northwestern.edu' if ENV['sunnyside']
+      return 'marigold.northwestern.edu' if ENV['marigold']
     end
   end
 end

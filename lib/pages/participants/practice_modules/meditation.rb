@@ -37,7 +37,7 @@ module Participants
 
       def has_activity?
         has_css?('tr', text: "#{@type} #{@comment} " \
-                             "#{@activity_time.strftime('%b %d %Y %I')}")
+                             "#{long_date_with_hour(@activity_time)}")
       end
 
       private

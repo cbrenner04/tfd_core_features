@@ -17,10 +17,8 @@ module Users
       def click_all_links_in_social_activity_table
         2.times { user_navigation.scroll_down }
         within('.table.table-hover', text: 'Social Activity') do
-          ['Likes', 'Nudges', 'Comments', 'Goals', '"On My Mind" Statements']
-            .each do |link|
-            click_on link
-          end
+          ['Likes', 'Nudges', 'Comments', 'Goals',
+           '"On My Mind" Statements'].each { |link| click_on link }
         end
       end
 
@@ -56,7 +54,7 @@ module Users
       def has_likes_data?
         within('#likes-container', text: 'Item Liked') do
           table_row[1].has_text?('Goal: participant63, Get crazy ' \
-                    "#{(Date.today - 24).strftime('%b %d %Y')}") &&
+                    "#{long_date(today - 24)}") &&
             table_row[1].has_text?('2')
         end
       end
@@ -64,9 +62,9 @@ module Users
       def has_goals_data?
         within('#goals-container', text: 'Goals') do
           table_row[1].has_text?('do something  Incomplete ' \
-                                 "#{(Date.today - 30).strftime('%b %d %Y')}") &&
-            table_row[1].has_text?((Date.today - 26).strftime('%m/%d/%Y')) &&
-            table_row[1].has_text?((Date.today - 34).strftime('%b %d %Y')) &&
+                                 "#{long_date(today - 30)}") &&
+            table_row[1].has_text?(short_date(today - 26)) &&
+            table_row[1].has_text?(long_date(today - 34)) &&
             table_row[1].has_text?('1 0 0')
         end
       end
@@ -75,21 +73,21 @@ module Users
         within('#comments-container') do
           table_row[1]
             .has_text?('Great activity! Activity: participant62, ' \
-                       "Jumping, #{(Date.today - 18).strftime('%b %d %Y')}") &&
+                       "Jumping, #{long_date(today - 18)}") &&
             table_row[1].has_text?('3')
         end
       end
 
       def has_nudges_initiated_data?
         within('.panel.panel-default', text: 'Nudges Initiated') do
-          table_row[1].has_text?(Date.today.strftime('%b %d %Y')) &&
+          table_row[1].has_text?(long_date(today)) &&
             table_row[1].has_text?('participant62')
         end
       end
 
       def has_nudges_received_data?
         within('.panel.panel-default', text: 'Nudges Received') do
-          table_row[1].has_text?(Date.today.strftime('%b %d %Y')) &&
+          table_row[1].has_text?(long_date(today)) &&
             table_row[1].has_text?('participant65')
         end
       end
@@ -97,7 +95,7 @@ module Users
       def has_on_the_mind_data?
         within('#on-my-mind-container') do
           table_row[1].has_text?("I'm feeling great! " \
-                                 "#{(Date.today - 14).strftime('%b %d %Y')}") &&
+                                 "#{long_date(today - 14)}") &&
             table_row[1].has_text?('4 0 0')
         end
       end

@@ -11,7 +11,7 @@ end
 def eat_pizza_goal
   @eat_pizza_goal ||= Participants::SocialNetworkingModules::Achieve.new(
     goal: 'eat a whole pizza',
-    due_date: Date.today + 365,
+    due_date: today + 365,
     status: 'Created'
   )
 end

@@ -15,8 +15,8 @@ def bug_participant
     email: 'bug_test_pt@example.com',
     contact_preference: 'Email',
     display_name: 'Bug Tester',
-    start_date: Date.today - 1,
-    end_date: Date.today + 365
+    start_date: today - 1,
+    end_date: today + 365
   )
 end
 
@@ -24,7 +24,7 @@ def participant_61_dashboard
   @participant_61_dashboard ||= Users::PatientDashboard.new(
     participant: 'participant61',
     group: 'Group 6',
-    date: Date.today - 4,
+    date: today - 4,
     total_logins: 11
   )
 end

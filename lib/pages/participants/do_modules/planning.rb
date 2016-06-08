@@ -85,7 +85,7 @@ module Participants
       end
 
       def pick_tomorrow
-        tomorrow = Date.today + 1
+        tomorrow = today + 1
         within('#ui-datepicker-div') do
           unless has_no_css?('.ui-datepicker-unselectable.ui-state-disabled',
                              text: tomorrow.strftime('%-e'))

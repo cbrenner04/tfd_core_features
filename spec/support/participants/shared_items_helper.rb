@@ -106,8 +106,8 @@ end
 
 def ns_pt_awareness
   @ns_pt_awareness ||= Participants::DoModules::Awareness.new(
-    start_time: "#{Date.today.strftime('%a')} 4 AM",
-    end_time: "#{Date.today.strftime('%a')} 7 AM"
+    start_time: "#{week_day(today)} 4 AM",
+    end_time: "#{week_day(today)} 7 AM"
   )
 end
 

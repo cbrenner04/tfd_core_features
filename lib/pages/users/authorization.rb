@@ -1,6 +1,7 @@
 module Users
   # module for checking authorization
   module Authorization
+    include RSpec::Matchers
     include Capybara::DSL
 
     def has_manage_content_button?
@@ -20,29 +21,27 @@ module Users
     end
 
     def has_clinician_dashboard_buttons?
-      all('.btn', count: clinician_buttons.count)
-      button_names.should =~ clinician_buttons
+      compare_buttons(clinician_buttons)
     end
 
     def has_researcher_dashboard_buttons?
-      all('.btn', count: researcher_buttons.count)
-      button_names.should =~ researcher_buttons
+      compare_buttons(researcher_buttons)
     end
 
     def has_super_user_arms_buttons?
-      all('.btn', count: super_user_arms_buttons.count)
-      button_names.should =~ super_user_arms_buttons
+      compare_buttons(super_user_arms_buttons)
     end
 
     def has_super_user_groups_buttons?
-      all('.btn', count: super_user_groups_buttons.count)
-      button_names.should =~ super_user_groups_buttons
+      compare_buttons(super_user_groups_buttons)
     end
 
     private
 
-    def button_names
-      all('.btn').map(&:text)
+    def compare_buttons(buttons)
+      button_names = all('.btn').map(&:text)
+      button_names.count.should eq buttons.count
+      button_names.should =~ buttons
     end
 
     def clinician_buttons

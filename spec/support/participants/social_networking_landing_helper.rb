@@ -121,14 +121,14 @@ end
 def goal_p1_alpha
   @goal_p1_alpha ||= Participants::SocialNetworkingModules::Achieve.new(
     goal: 'p1 alpha',
-    due_date: Date.today
+    due_date: today
   )
 end
 
 def goal_p2_alpha
   @goal_p2_alpha ||= Participants::SocialNetworkingModules::Achieve.new(
     goal: 'p2 alpha',
-    due_date: Date.today - 1
+    due_date: today - 1
   )
 end
 

@@ -19,7 +19,7 @@ def participant_61_dashboard
     participant: 'participant61',
     group: 'Group 6',
     total_logins: 11,
-    date: Date.today - 4
+    date: today - 4
   )
 end
 
@@ -32,7 +32,7 @@ end
 def phq1_dashboard
   @phq1_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-1',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 17
   )
 end
@@ -46,7 +46,7 @@ end
 def phq3_dashboard
   @phq3_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-3',
-    date: Date.today - 18
+    date: today - 18
   )
 end
 
@@ -65,7 +65,7 @@ end
 def phq6_dashboard
   @phq6_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-6',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 17
   )
 end
@@ -73,7 +73,7 @@ end
 def phq7_dashboard
   @phq7_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-7',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 17
   )
 end
@@ -81,7 +81,7 @@ end
 def phq8_dashboard
   @phq8_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-8',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 6
   )
 end
@@ -89,7 +89,7 @@ end
 def phq9_dashboard
   @phq9_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-9',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 4
   )
 end
@@ -97,7 +97,7 @@ end
 def phq10_dashboard
   @phq10_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-10',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 17
   )
 end
@@ -105,7 +105,7 @@ end
 def phq11_dashboard
   @phq11_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-11',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 16
   )
 end
@@ -113,7 +113,7 @@ end
 def phq12_dashboard
   @phq12_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-12',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 4
   )
 end
@@ -121,7 +121,7 @@ end
 def phq13_dashboard
   @phq13_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-13',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 17
   )
 end
@@ -129,7 +129,7 @@ end
 def phq14_dashboard
   @phq14_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-14',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 12
   )
 end
@@ -137,7 +137,7 @@ end
 def phq15_dashboard
   @phq15_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-15',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 13
   )
 end
@@ -145,7 +145,7 @@ end
 def phq16_dashboard
   @phq16_dashboard ||= Users::PatientDashboard.new(
     participant: 'PHQ-16',
-    date: Date.today - 4,
+    date: today - 4,
     most_recent_phq_score: 12
   )
 end

@@ -60,21 +60,21 @@ end
 def pt_3_behavior_1
   @pt_3_behavior_1 ||= Participants::Incentives.new(
     pt_list_item: 0,
-    date: Time.now.strftime('%b %d %Y %I')
+    date: long_date_with_hour(Time.now)
   )
 end
 
 def pt_3_behavior_2
   @pt_3_behavior_2 ||= Participants::Incentives.new(
     pt_list_item: 1,
-    date: Time.now.strftime('%b %d %Y %I')
+    date: long_date_with_hour(Time.now)
   )
 end
 
 def pt_3_behavior_3
   @pt_3_behavior_3 ||= Participants::Incentives.new(
     pt_list_item: 2,
-    date: Time.now.strftime('%b %d %Y %I')
+    date: long_date_with_hour(Time.now)
   )
 end
 
@@ -116,20 +116,20 @@ end
 def pt_2_behavior_1
   @pt_2_behavior_1 ||= Participants::Incentives.new(
     pt_list_item: 0,
-    date: Time.now.strftime('%b %d %Y %I')
+    date: long_date_with_hour(Time.now)
   )
 end
 
 def pt_2_behavior_2
   @pt_2_behavior_2 ||= Participants::Incentives.new(
     pt_list_item: 1,
-    date: Time.now.strftime('%b %d %Y %I')
+    date: long_date_with_hour(Time.now)
   )
 end
 
 def pt_2_behavior_3
   @pt_2_behavior_3 ||= Participants::Incentives.new(
     pt_list_item: 2,
-    date: Time.now.strftime('%b %d %Y %I')
+    date: long_date_with_hour(Time.now)
   )
 end

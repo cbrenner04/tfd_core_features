@@ -111,7 +111,7 @@ module Participants
       def has_reappraisal?
         has_css?('tr',
                  text: "#{@description} #{@stressor} #{@reappraisal} " \
-                       "#{@reflection} #{@created_at.strftime('%b %d %Y %I')}")
+                       "#{@reflection} #{long_date_with_hour(@created_at)}")
       end
     end
   end

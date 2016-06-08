@@ -73,7 +73,7 @@ module Participants
         within('.list-group-item', text: "Created a Goal: #{@goal}") do
           pt_navigation.scroll_to_bottom
           social_networking.open_detail
-          has_text? "due #{@due_date.strftime('%b %d %Y')}"
+          has_text? "due #{long_date(@due_date)}"
         end
       end
 
@@ -131,7 +131,7 @@ module Participants
         within first('.list-group-item.ng-scope', text: "a Goal: #{@goal}") do
           pt_navigation.scroll_to_bottom
           social_networking.open_detail
-          has_text? "due #{@due_date.strftime('%b %d %Y')}"
+          has_text? "due #{long_date(@due_date)}"
         end
       end
 

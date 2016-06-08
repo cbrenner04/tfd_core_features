@@ -10,8 +10,8 @@ def new_participant_a
     contact_preference: 'Email',
     group_number: 6,
     display_name: '',
-    start_date: Date.today - 1,
-    end_date: Date.today + 365
+    start_date: today - 1,
+    end_date: today + 365
   )
 end
 

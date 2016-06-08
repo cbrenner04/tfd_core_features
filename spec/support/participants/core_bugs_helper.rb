@@ -56,8 +56,8 @@ end
 
 def awareness
   @awareness ||= Participants::DoModules::Awareness.new(
-    start_time: "#{Date.today.strftime('%a')} 2 AM",
-    end_time: "#{Date.today.strftime('%a')} 3 AM",
+    start_time: "#{week_day(today)} 2 AM",
+    end_time: "#{week_day(today)} 3 AM",
     activity: 'Sleep',
     pleasure: 9,
     accomplishment: 3
@@ -66,7 +66,7 @@ end
 
 def activity_viz
   @activity_viz ||= Participants::DoModules::ActivityVisualization.new(
-    prev_day: Date.today - 1
+    prev_day: today - 1
   )
 end
 

@@ -81,9 +81,9 @@ module Users
                    else
                      8
                    end
-        has_text? "Started on: #{Date.today.strftime('%A, %m/%d/%Y')}" \
+        has_text? "Started on: #{today.strftime('%A, %m/%d/%Y')}" \
                   "\n#{week_num} weeks from the start date is: " \
-                  "#{(Date.today + (week_num * 7)).strftime('%A, %m/%d/%Y')}" \
+                  "#{(today + (week_num * 7)).strftime('%A, %m/%d/%Y')}" \
                   "\nStatus: Active Currently in week 1" \
                   "\nLessons read this week: 1"
       end
@@ -92,17 +92,17 @@ module Users
     def has_login_info_in_patients_list?
       within patient_row do
         has_text?("#{@participant} 0 6") &&
-          has_text?("#{@total_logins} #{@date.strftime('%b %d %Y')}")
+          has_text?("#{@total_logins} #{long_date(@date)}")
       end
     end
 
     def has_login_info?
       within('.panel-default', text: 'Login Info') do
-        has_text?("Last Logged In: #{Date.today.strftime('%A, %b %d %Y')}") &&
+        has_text?("Last Logged In: #{today.strftime('%A, %b %d %Y')}") &&
           has_text?("Logins Today: 1\nLogins during this treatment week: 1\n" \
                     'Total Logins: 1') &&
           has_text?('Last Activity Detected At: ' \
-                    "#{Date.today.strftime('%A, %b %d %Y')}") &&
+                    "#{today.strftime('%A, %b %d %Y')}") &&
           has_text?('Duration of Last Session: 10 minutes')
       end
     end
@@ -163,7 +163,7 @@ module Users
     def has_mood_data?
       find('#mood-container')
         .all('tr:nth-child(1)')[1]
-        .has_text? "9 #{Date.today.strftime('%b %d %Y')}"
+        .has_text? "9 #{long_date(today)}"
     end
 
     def select_feel_from_toc
@@ -173,7 +173,7 @@ module Users
     def has_feelings_data?
       find('#feelings-container')
         .all('tr:nth-child(1)')[1]
-        .has_text? "longing 2 #{Date.today.strftime('%b %d %Y')}"
+        .has_text? "longing 2 #{long_date(today)}"
     end
 
     def select_logins_from_toc
@@ -183,7 +183,7 @@ module Users
     def has_login_data?
       find('#logins-container')
         .all('tr:nth-child(1)')[1]
-        .has_text? Date.today.strftime('%b %d %Y')
+        .has_text? long_date(today)
     end
 
     def select_lessons_from_toc
@@ -194,7 +194,7 @@ module Users
       within('#lessons-container') do
         table_row[1]
           .has_text?('Do - Awareness Introduction This is just the ' \
-                     "beginning... #{Date.today.strftime('%b %d %Y')}") &&
+                     "beginning... #{long_date(today)}") &&
           table_row[1].has_text?("#{@lesson_duration} minutes")
       end
     end
@@ -205,8 +205,8 @@ module Users
 
     def has_audio_access_data?
       within('#media-access-container') do
-        table_row[1].has_text?("Audio! #{Date.today.strftime('%m/%d/%Y')}" \
-                               " #{Date.today.strftime('%b %d %Y')}") &&
+        table_row[1].has_text?("Audio! #{short_date(today)}" \
+                               " #{long_date(today)}") &&
           table_row[1].has_text?('2 minutes')
       end
     end
@@ -237,7 +237,7 @@ module Users
     end
 
     def on_three_day_view?
-      has_text?((Date.today - 1).strftime('%A, %m/%d'))
+      has_text?((today - 1).strftime('%A, %m/%d'))
     end
 
     def select_activities_future_from_toc
@@ -248,7 +248,7 @@ module Users
       find('#activities-future-container')
         .find('tr', text: 'Going to school')
         .has_text? 'Going to school  2 6 Scheduled for ' \
-                   "#{(Date.today + 2).strftime('%b %d %Y')}"
+                   "#{long_date(today + 2)}"
     end
 
     def select_activities_past_from_toc
@@ -259,8 +259,7 @@ module Users
     def has_completed_activities_past_data?
       within('#activities-past-container') do
         within('tr', text: 'Parkour') do
-          has_text?('9 4') &&
-            has_text?((Date.today - 1).strftime('%b %d %Y'))
+          has_text?('9 4') && has_text?(long_date(today - 1))
         end
       end
     end
@@ -309,7 +308,7 @@ module Users
         .find('tr', text: 'Testing negative thought')
         .has_text? 'Testing negative thought Magnification or ' \
                    'Catastrophizing Example challenge Example ' \
-                   "act-as-if #{Date.today.strftime('%b %d %Y')}"
+                   "act-as-if #{long_date(today)}"
     end
 
     def select_messages_from_toc
@@ -321,7 +320,7 @@ module Users
     def has_messages_data?
       find('#messages-container')
         .find('tr', text: 'Test')
-        .has_text? "Test message #{Date.today.strftime('%b %d %Y')}"
+        .has_text? "Test message #{long_date(today)}"
     end
 
     def select_tasks_from_toc
@@ -333,7 +332,7 @@ module Users
     def has_tasks_data?
       find('#tasks-container')
         .find('tr', text: 'Do - Planning Introduction')
-        .has_text? "#{(Date.today + 1).strftime('%m/%d/%Y')} Incomplete"
+        .has_text? "#{short_date(today + 1)} Incomplete"
     end
 
     private

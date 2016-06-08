@@ -163,19 +163,18 @@ module Users
     end
 
     def start_date
-      @start_date.is_a?(String) ? @start_date : @start_date.strftime('%Y-%m-%d')
+      @start_date.is_a?(String) ? @start_date : iso_date(@start_date)
     end
 
     def end_date
-      @end_date.is_a?(String) ? @end_date : @end_date.strftime('%Y-%m-%d')
+      @end_date.is_a?(String) ? @end_date : iso_date(@end_date)
     end
 
     def has_standard_week_and_end_date?
       weeks_later = ENV['tfd'] ? (20 * 7) : 56
       week_num = ENV['tfd'] ? 20 : 8
       has_text? "Standard number of weeks: #{week_num}, Projected" \
-                ' End Date from today: ' \
-                "#{(Date.today + weeks_later).strftime('%m/%d/%Y')}"
+                " End Date from today: #{short_date(today + weeks_later)}"
     end
   end
 end

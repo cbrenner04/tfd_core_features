@@ -19,13 +19,9 @@ module SharedNavigation
   end
 
   def host_app
-    if ENV['tfd'] || ENV['tfdso']
-      'ThinkFeelDo'
-    elsif ENV['sunnyside']
-      'Sunnyside'
-    elsif ENV['marigold']
-      'Marigold'
-    end
+    return 'ThinkFeelDo' if ENV['tfd'] || ENV['tfdso']
+    return 'Sunnyside' if ENV['sunnyside']
+    return 'Marigold' if ENV['marigold']
   end
 
   def click_on_login_page_slideshow

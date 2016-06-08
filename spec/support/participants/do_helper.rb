@@ -18,8 +18,8 @@ end
 
 def awareness_7a_to_10p
   @awareness_7a_to_10p ||= Participants::DoModules::Awareness.new(
-    start_time: "#{Date.today.prev_day.strftime('%a')} 7 AM",
-    end_time: "#{Date.today.prev_day.strftime('%a')} 10 PM",
+    start_time: "#{week_day(today.prev_day)} 7 AM",
+    end_time: "#{week_day(today.prev_day)} 10 PM",
     num_fields: 0..14,
     activity: ['Get ready for work', 'Travel to work', 'Work', 'Work', 'Work',
                'Work', 'Work', 'Work', 'Work', 'Work', 'Travel from work',
@@ -32,8 +32,8 @@ end
 
 def awareness_11p_to_1a
   @awareness_11p_to_1a ||= Participants::DoModules::Awareness.new(
-    start_time: "#{Date.today.prev_day.strftime('%a')} 11 PM",
-    end_time: "#{Date.today.strftime('%a')} 1 AM",
+    start_time: "#{week_day(today.prev_day)} 11 PM",
+    end_time: "#{week_day(today)} 1 AM",
     count: [3, 2, 1]
   )
 end

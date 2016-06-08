@@ -34,7 +34,7 @@ end
 def withdraw_dashboard
   @withdraw_dashboard ||= Users::PatientDashboard.new(
     participant: 'TFD-Withdraw',
-    date: (Date.today - 1).strftime('%m/%d/%Y')
+    date: short_date(today - 1)
   )
 end
 

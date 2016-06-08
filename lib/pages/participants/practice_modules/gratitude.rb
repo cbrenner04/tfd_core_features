@@ -42,7 +42,7 @@ module Participants
 
       def has_recording?
         has_css?('.list-group-item',
-                 text: "#{@response_date.strftime('%b %d %Y')} #{@response}")
+                 text: "#{long_date(@response_date)} #{@response}")
       end
 
       private

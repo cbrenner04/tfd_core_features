@@ -6,7 +6,7 @@ module SharedActivitiesViz
 
   def has_current_day_visible?
     find('.panel-title')
-      .has_text? "Daily Averages for #{Date.today.strftime('%b %d %Y')}"
+      .has_text? "Daily Averages for #{long_date(today)}"
   end
 
   def go_to_previous_day
@@ -26,7 +26,7 @@ module SharedActivitiesViz
 
   def has_previous_day_visible?
     find('.panel-title')
-      .has_text? "Daily Averages for #{(Date.today - 1).strftime('%b %d %Y')}"
+      .has_text? "Daily Averages for #{long_date(today - 1)}"
   end
 
   def open_visualize
@@ -38,7 +38,7 @@ module SharedActivitiesViz
   end
 
   def has_three_day_view_visible?
-    has_text?((Date.today - 2).strftime('%A, %m/%d'))
+    has_text?((today - 2).strftime('%A, %m/%d'))
   end
 
   def open_date_picker
