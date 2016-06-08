@@ -5,6 +5,9 @@ require './lib/pages/users'
 require './lib/pages/users/arms'
 require './lib/pages/users/groups'
 require './lib/pages/users/navigation'
+require './lib/pages/time_formats'
+
+include TimeFormats
 
 def user_navigation
   @user_navigation ||= Users::Navigation.new

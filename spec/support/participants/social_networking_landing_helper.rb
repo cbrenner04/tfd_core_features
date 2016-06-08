@@ -150,6 +150,8 @@ end
 
 def thought_viz
   @thought_viz ||= Participants::ThinkModules::ThoughtVisualization.new(
-    thought: 'fake'
+    pattern: 'Magnification or Catastro...',
+    detail_pattern: 'Magnification or Catastro...',
+    thought: 'No one likes me'
   )
 end

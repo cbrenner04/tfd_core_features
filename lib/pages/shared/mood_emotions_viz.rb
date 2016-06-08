@@ -25,6 +25,6 @@ module SharedMoodEmotionsViz
   end
 
   def has_previous_period_visible?
-    has_text? "#{long_date(today - 13)} - #{long_date(today)}"
+    has_text? "#{long_date(today - 13)} - #{long_date(today - 7)}"
   end
 end

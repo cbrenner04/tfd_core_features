@@ -60,12 +60,12 @@ module Users
     end
 
     def visible?
+      sleep(1)
       has_css?('h3', text: 'General Patient Info')
     end
 
     def select_patient
       click_on_patient_name
-      sleep(0.5)
       visible?
     end
 
@@ -193,9 +193,8 @@ module Users
 
     def has_lessons_data?
       within('#lessons-container') do
-        table_row[1]
-          .has_text?('Do - Awareness Introduction This is just the ' \
-                     "beginning... #{long_date(today)}") &&
+        table_row[1].has_text?('Do - Awareness Introduction') &&
+          table_row[1].has_text?(long_date(today)) &&
           table_row[1].has_text?("#{@lesson_duration} minutes")
       end
     end
@@ -214,7 +213,8 @@ module Users
 
     def select_activity_viz_from_toc
       select_from_toc('Activities visualization')
-      expect(page).to have_css('.btn-toolbar', text: 'Today')
+      text = ENV['sunnyside'] ? 'TODAY' : 'Today'
+      expect(page).to have_css('.btn-toolbar', text: text)
     end
 
     def has_activity_viz_visible?

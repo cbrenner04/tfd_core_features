@@ -10,7 +10,7 @@ module TimeFormats
   end
 
   def short_date(date)
-    date.strftime('%D')
+    date.strftime('%m/%d/%Y')
   end
 
   def iso_date(date)
@@ -18,7 +18,7 @@ module TimeFormats
   end
 
   def today
-    today
+    Date.today
   end
 
   def week_day(date)

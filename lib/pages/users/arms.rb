@@ -22,6 +22,7 @@ module Users
     def create
       click_on 'New'
       fill_in_title(@title)
+      user_navigation.scroll_down
       click_on 'Create'
     end
 

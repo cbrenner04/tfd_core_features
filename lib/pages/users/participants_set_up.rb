@@ -51,6 +51,7 @@ module Users
     def update
       click_on 'Edit'
       fill_in_study_id_email_phone_number(@updated_study_id)
+      user_navigation.scroll_down
       click_on 'Update'
     end
 
@@ -72,6 +73,7 @@ module Users
     end
 
     def assign_group
+      user_navigation.scroll_down
       click_on 'Assign New Group'
       select "Group #{group_number}", from: 'membership_group_id'
       fill_in 'membership_display_name', with: @display_name unless ENV['tfd']
@@ -109,13 +111,9 @@ module Users
     end
 
     def assign_coach
-      begin
-        tries ||= 2
-        click_on 'Assign Coach/Moderator'
-      rescue Selenium::WebDriver::Error::UnknownError
-        execute_script('window.scrollBy(0,1000)')
-        retry unless (tries -= 1).zero?
-      end
+      sleep(0.25)
+      user_navigation.scroll_down
+      click_on 'Assign Coach/Moderator'
 
       if ENV['tfd']
         select @coach, from: 'coach_assignment_coach_id'

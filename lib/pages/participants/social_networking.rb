@@ -17,6 +17,7 @@ module Participants
 
     def decline_social
       within('.form-group', text: 'Share the content') { choose 'No' }
+      participant_navigation.scroll_down
       participant_navigation.next
     end
 

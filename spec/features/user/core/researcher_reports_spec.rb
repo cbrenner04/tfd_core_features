@@ -39,7 +39,7 @@ feature 'Researcher, CSV exports', :core, :marigold do
       download_link.click
       file_path = "#{@download_dir}/#{file}.csv"
       File.size(file_path).should be > 0
-      @driver.execute_script('window.scrollBy(0,100)')
+      @driver.execute_script('window.scrollBy(0,100)') if i.even?
     end
 
     files = Dir.glob("#{@download_dir}/**")

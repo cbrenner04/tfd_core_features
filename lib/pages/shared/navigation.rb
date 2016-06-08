@@ -26,6 +26,7 @@ module SharedNavigation
   end
 
   def click_on_login_page_slideshow
+    scroll_to_bottom
     click_on "Introduction to #{host_app}"
   end
 

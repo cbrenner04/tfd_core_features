@@ -62,7 +62,7 @@ module Users
 
       def has_goals_data?
         within('#goals-container', text: 'Goals') do
-          table_row[1].has_text?('do something  Incomplete ' \
+          table_row[1].has_text?('do something Incomplete ' \
                                  "#{long_date(today - 30)}") &&
             table_row[1].has_text?(short_date(today - 26)) &&
             table_row[1].has_text?(long_date(today - 34)) &&

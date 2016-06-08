@@ -3,6 +3,9 @@
 
 require './lib/pages/participants'
 require './lib/pages/participants/navigation'
+require './lib/pages/time_formats'
+
+include TimeFormats
 
 def participant_navigation
   @participant_navigation ||= Participants::Navigation.new
