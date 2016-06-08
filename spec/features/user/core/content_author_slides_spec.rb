@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/content_author_slides_spec.rb
 
 require './spec/support/users/slides_helper'

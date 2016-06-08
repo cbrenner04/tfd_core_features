@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/pages/participants/navigation'
 
 # module for shared Activities viz functionality

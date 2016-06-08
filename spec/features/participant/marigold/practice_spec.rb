@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/marigold/practice_spec.rb
 
 require './spec/support/participants/practice_helper'

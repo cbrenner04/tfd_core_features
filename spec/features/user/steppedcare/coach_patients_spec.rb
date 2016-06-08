@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename ./spec/features/user/steppedcare/coach_patients_spec.rb
 
 require './spec/support/users/steppedcare_coach_patients_helper'

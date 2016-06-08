@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/pages/users/participants_set_up'
 
 def researcher_participants

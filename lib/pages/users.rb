@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # page object for Users
 class User
   include Capybara::DSL

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/social_networking/researcher_groups_spec.rb
 
 require './spec/support/users/social_researcher_groups_helper'

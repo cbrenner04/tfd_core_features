@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/social_networking/goals_spec.rb
 
 require './spec/support/participants/goal_helper.rb'

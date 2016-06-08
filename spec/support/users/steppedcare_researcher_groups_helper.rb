@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/pages/users/groups'
 
 def new_group_a

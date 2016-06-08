@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Participants
   module ThinkModules
     # page object for Thought Visualization

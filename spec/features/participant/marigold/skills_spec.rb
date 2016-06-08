@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/marigold/skills_spec.rb
 
 require './lib/pages/participants/skills'

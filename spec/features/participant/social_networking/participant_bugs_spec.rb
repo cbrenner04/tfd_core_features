@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # file: ./spec/features/participant/social_networking/participant_bugs_spec.rb
 
 feature 'Social Networking Bugs, Non-social Participant',

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/social_networking/researcher_reports_spec.rb
 
 require 'uuid'

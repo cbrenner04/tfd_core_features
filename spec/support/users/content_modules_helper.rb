@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/pages/users/content_modules'
 require './lib/pages/users/content_provider'
 

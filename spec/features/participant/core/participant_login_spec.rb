@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/core/participant_login_spec.rb
 
 require './spec/support/participants/login_helper'

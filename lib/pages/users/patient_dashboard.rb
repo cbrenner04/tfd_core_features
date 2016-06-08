@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/pages/users/navigation'
 require './lib/pages/shared/activities_viz'
 require './lib/pages/shared/mood_emotions_viz'

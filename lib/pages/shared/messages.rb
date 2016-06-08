@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # module for shared Messages functionality
 module SharedMessages
   include Capybara::DSL

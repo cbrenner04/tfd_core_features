@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/pages/participants'
 require './lib/pages/participants/social_networking'
 require './lib/pages/users/patient_dashboard'

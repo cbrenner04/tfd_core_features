@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require './lib/pages/participants/navigation'
 require './lib/pages/participants/social_networking'
 require './lib/pages/participants/think'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/incentives/individual_incentives_spec.rb
 
 require './spec/support/participants/individual_incentives_helper'

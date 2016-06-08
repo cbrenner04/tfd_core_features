@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/support/participants/social_networking_login_helper.rb
 
 require './lib/pages/participants'

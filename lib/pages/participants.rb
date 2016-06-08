@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # page object for Participants
 class Participant
   include Capybara::DSL

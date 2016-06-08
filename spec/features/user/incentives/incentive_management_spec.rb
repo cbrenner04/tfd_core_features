@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/incentives/researcher_groups_spec.rb
 
 require './lib/pages/users/incentives'

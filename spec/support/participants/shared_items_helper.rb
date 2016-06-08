@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/support/participants/shared_items_helper.rb
 
 require './lib/pages/participants/do'

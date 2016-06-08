@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/social_networking/landing_page_spec.rb
 
 require './spec/support/participants/social_networking_landing_helper'

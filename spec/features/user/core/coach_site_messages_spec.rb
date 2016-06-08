@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/coach_site_messages_spec.rb
 
 require './lib/pages/users/groups'

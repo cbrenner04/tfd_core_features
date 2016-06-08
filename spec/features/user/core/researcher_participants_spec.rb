@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: researcher_participants_spec.rb
 
 require './spec/support/users/researcher_participants_helper'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/support/users/core_bug_helper.rb
 
 require 'uuid'

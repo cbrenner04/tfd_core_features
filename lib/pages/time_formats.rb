@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # standard format for time and date
 module TimeFormats
   def long_date(date)

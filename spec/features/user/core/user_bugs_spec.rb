@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/user_bugs_spec.rb
 
 require './spec/support/users/core_bugs_helper'

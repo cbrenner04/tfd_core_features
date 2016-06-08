@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/content_author_modules_spec.rb
 
 require './spec/support/users/content_modules_helper'

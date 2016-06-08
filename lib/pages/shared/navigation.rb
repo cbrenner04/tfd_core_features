@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # module for shared navigation
 module SharedNavigation
   include Capybara::DSL

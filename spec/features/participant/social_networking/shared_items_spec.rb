@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/social_networking/shared_items_spec.rb
 
 require './spec/support/participants/shared_items_helper'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/content_author_slideshows_spec.rb
 
 require './lib/pages/users/slideshows'

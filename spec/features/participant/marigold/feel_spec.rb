@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participants/marigold/feel_spec.rb
 
 require './lib/pages/participants/feel'

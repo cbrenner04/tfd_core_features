@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/social_networking/user_bugs_spec.rb
 
 require './lib/pages/users/participants_set_up'

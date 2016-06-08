@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/core/feel_spec.rb
 
 require './spec/support/participants/feel_helper'

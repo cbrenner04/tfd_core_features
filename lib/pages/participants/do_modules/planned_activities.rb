@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Participants
   module DoModules
     # page object for the Planned Activities view

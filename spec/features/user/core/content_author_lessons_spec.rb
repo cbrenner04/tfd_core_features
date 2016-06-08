@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/content_author_lessons_spec.rb
 
 require './spec/support/users/lessons_helper'

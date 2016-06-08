@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/core/learn_spec.rb
 
 require './lib/pages/participants/learn'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/support/participants/goal_helper.rb
 
 require './lib/pages/participants/social_networking_modules/achieve'

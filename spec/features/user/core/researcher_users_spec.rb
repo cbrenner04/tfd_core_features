@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/researcher_users_spec.rb
 
 require './spec/support/users/researcher_users_helper'

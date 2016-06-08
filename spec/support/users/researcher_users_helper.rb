@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/support/users/researcher_users_helper.rb
 
 require './lib/pages/users/users_set_up'

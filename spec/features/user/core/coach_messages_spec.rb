@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/coach_messages_spec.rb
 
 require './spec/support/users/coach_messages_helper'

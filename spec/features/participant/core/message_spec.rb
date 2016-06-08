@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/participant/core/message_spec.rb
 
 require './spec/support/participants/messages_helper'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Participants
   # page object for the Feel tool
   class Feel

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/super_user_spec.rb
 
 require './spec/support/users/super_user_helper'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Participants
   module SocialNetworkingModules
     # page object for the to do list

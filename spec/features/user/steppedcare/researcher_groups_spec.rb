@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/user/core/researcher_groups_spec.rb
 
 require './spec/support/users/steppedcare_researcher_groups_helper'

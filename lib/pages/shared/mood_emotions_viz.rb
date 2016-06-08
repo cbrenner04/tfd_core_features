@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # module for shared Mood and Emotions Viz functionality
 module SharedMoodEmotionsViz
   include Capybara::DSL

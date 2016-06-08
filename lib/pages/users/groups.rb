@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Users
   # page object for groups
   class Groups

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/spec_helper.rb
 
 require 'rspec'

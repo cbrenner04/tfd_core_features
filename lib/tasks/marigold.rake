@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./lib/tasks/marigold.rake
 
 require './spec/env_variables'
