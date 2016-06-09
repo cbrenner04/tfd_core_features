@@ -10,6 +10,7 @@ feature 'Content Author, Content Modules',
   background do
     content_author.sign_in unless ENV['safari']
     visit user_navigation.arms_page
+    arm_1.open
     content_modules.navigate_to_content_modules
   end
 

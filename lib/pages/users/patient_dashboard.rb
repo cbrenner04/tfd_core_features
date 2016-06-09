@@ -26,6 +26,9 @@ module Users
 
     def open
       click_on 'Patient Dashboard'
+      # The PHQ group takes a long time to load
+      # using find('foo', match: :first) or find('foo', count: 1) did not help
+      sleep(1) if ENV['tfd']
       find('h1', text: 'Patient Dashboard')
     end
 

@@ -4,8 +4,14 @@
 require 'uuid'
 require 'fileutils'
 
-feature 'Researcher, CSV exports', :core, :marigold do
-  background do
+def check_file(file)
+  @driver.find_element(link: file).click
+  file_path = "#{@download_dir}/#{file.downcase.delete(' ')}.csv"
+  File.size(file_path).should be > 0
+end
+
+feature 'Researcher, downloads CSV exports', :core, :marigold do
+  background(:all) do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
 
@@ -21,31 +27,53 @@ feature 'Researcher, CSV exports', :core, :marigold do
     @driver.find_element(id: 'user_password')
            .send_keys(ENV['Researcher_Password'])
     @driver.find_element(css: '.btn.btn-default').submit
+    @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
   end
 
-  after do
+  after(:all) do
     @driver.quit
     FileUtils.rm_rf @download_dir
   end
 
-  scenario 'Researcher navigates to CSV reports, downloads all reports' do
-    @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
-    file_names = %w(modulepageview modulesession lessonviewing
-                    lessonslideview videosession taskcompletion
-                    sitesession toolaccess useragent login comment
-                    goal like nudge)
-    (0..13).zip(file_names) do |i, file|
-      download_link = @driver.find_elements(class: 'list-group-item')[i]
-      download_link.click
-      file_path = "#{@download_dir}/#{file}.csv"
-      File.size(file_path).should be > 0
-      @driver.execute_script('window.scrollBy(0,100)') if i.even?
-    end
+  scenario 'Module Page View' do
+    check_file('Module Page View')
+  end
 
-    files = Dir.glob("#{@download_dir}/**")
-    files.count.should be == 14
+  scenario 'Module Session' do
+    check_file('Module Session')
+  end
 
-    sorted_files = files.sort_by { |file| File.mtime(file) }
-    File.size(sorted_files.last).should be > 0
+  scenario 'Lesson Viewing' do
+    check_file('Lesson Viewing')
+  end
+
+  scenario 'Lesson Slide View' do
+    check_file('Lesson Slide View')
+  end
+
+  scenario 'Video Session' do
+    check_file('Video Session')
+  end
+
+  scenario 'Task Completion' do
+    check_file('Task Completion')
+  end
+
+  scenario 'Site Session' do
+    @driver.execute_script('window.scrollBy(0,100)')
+    check_file('Site Session')
+  end
+
+  scenario 'Tool Access' do
+    check_file('Tool Access')
+  end
+
+  scenario 'User Agent' do
+    @driver.execute_script('window.scrollBy(0,100)')
+    check_file('User Agent')
+  end
+
+  scenario 'Login' do
+    check_file('Login')
   end
 end

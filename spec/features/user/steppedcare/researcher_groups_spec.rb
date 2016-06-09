@@ -26,11 +26,11 @@ feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   end
 
   scenario 'Researcher destroys a group' do
-    group_9_a.open
+    group_9.open
     user_navigation.destroy
 
-    expect(group_9_a).to be_destroyed_successfully
-    expect(group_9_a).to_not be_visible_in_listing
+    expect(group_9).to be_destroyed_successfully
+    expect(group_9).to_not be_visible_in_listing
   end
 
   scenario 'Researcher assigns a task within a group' do

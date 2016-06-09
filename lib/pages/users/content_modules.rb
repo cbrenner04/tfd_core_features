@@ -14,7 +14,6 @@ module Users
     end
 
     def navigate_to_content_modules
-      click_on 'Arm 1'
       click_on 'Manage Content'
       click_on 'Content Modules'
       find('h1', text: 'Listing Content Modules')
@@ -32,6 +31,7 @@ module Users
 
     def open_module
       tries ||= 4
+      user_navigation.scroll_down
       click_on @title
     rescue Selenium::WebDriver::Error::UnknownError
       user_navigation.scroll_down
