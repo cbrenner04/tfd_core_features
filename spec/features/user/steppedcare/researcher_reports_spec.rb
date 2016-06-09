@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/social_networking/researcher_reports_spec.rb
+# filename: ./spec/features/user/steppedcare/researcher_reports_spec.rb
 
 require 'uuid'
 require 'fileutils'
@@ -10,7 +10,7 @@ def check_file(file)
   File.size(file_path).should be > 0
 end
 
-feature 'Researcher downloads CSV Exports', :social_networking, :marigold do
+feature 'Researcher, downloads CSV exports', :core, :marigold do
   background(:all) do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
@@ -35,39 +35,12 @@ feature 'Researcher downloads CSV Exports', :social_networking, :marigold do
     FileUtils.rm_rf @download_dir
   end
 
-  scenario 'Comment' do
-    check_file('Comment')
+  scenario 'PHQ9 Assessment' do
+    @driver.execute_script('window.scrollBy(0,500)')
+    check_file('PHQ9 Assessment')
   end
 
-  scenario 'Goal' do
-    check_file('Goal')
-  end
-
-  scenario 'Like' do
-    check_file('Like')
-  end
-
-  scenario 'Nudge' do
-    check_file('Nudge')
-  end
-
-  scenario 'Off Topic Post' do
-    check_file('Off Topic Post')
-  end
-
-  scenario 'Tool Share' do
-    check_file('Tool Share')
-  end
-
-  scenario 'Emotional Rating' do
-    check_file('Emotional Rating')
-  end
-
-  scenario 'Thought' do
-    check_file('Thought')
-  end
-
-  scenario 'Activity' do
-    check_file('Activity')
+  scenario 'WAI Assessment' do
+    check_file('WAI Assessment')
   end
 end

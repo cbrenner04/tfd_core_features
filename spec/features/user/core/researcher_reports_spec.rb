@@ -76,4 +76,12 @@ feature 'Researcher, downloads CSV exports', :core, :marigold do
   scenario 'Login' do
     check_file('Login')
   end
+
+  scenario 'Events' do
+    check_file('Events')
+  end
+
+  scenario 'Messaging' do
+    check_file('Messaging')
+  end
 end
