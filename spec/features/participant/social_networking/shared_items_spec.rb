@@ -215,7 +215,8 @@ feature 'Shared items, Social arm',
     visit ENV['Base_URL']
     pt_5_reviewing_1.find_in_feed
 
-    # this fails in marigold
+    # this fails in marigold (maybe sunnyside)
+    # this fails when run alone
     expect(pt_5_reviewing_1).to have_feed_item_detail
     expect(pt_5_reviewing_2).to have_nonsocial_incomplete_item
   end

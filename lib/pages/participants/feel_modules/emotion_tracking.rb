@@ -24,6 +24,7 @@ module Participants
           find('tr', text: emotion)
             .find("input[value = '#{(1..9).to_a.sample}']").click
         end
+        participant_navigation.scroll_to_bottom
         participant_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
         participant_navigation.next
         unless ENV['chrome'] || ENV['safari']

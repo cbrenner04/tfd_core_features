@@ -24,6 +24,7 @@ feature 'FEEL tool', :marigold, sauce: sauce_labs do
 
     expect(emotions).to be_saved
 
+    sleep(1) # throws an error alert, another expect does not work
     visit feel.landing_page
     emotions.open
 

@@ -95,9 +95,8 @@ module Users
     end
 
     def app_email
-      return 'localhost' if ENV['tfd'] || ENV['tfdso']
+      return 'localhost' if ENV['tfd'] || ENV['tfdso'] || ENV['marigold']
       return 'sunnyside.northwestern.edu' if ENV['sunnyside']
-      return 'marigold.northwestern.edu' if ENV['marigold']
     end
   end
 end

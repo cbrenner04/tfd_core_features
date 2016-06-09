@@ -22,7 +22,7 @@ feature 'Individual incentives', :incentives, :marigold, sauce: sauce_labs do
     expect(pt_3_incentive_1).to have_incentives_listed
   end
 
-  scenario 'Participant completes a behavior, sees incentive list update' do
+  scenario 'Pt completes behavior, incentive list updates, completes all' do
     pt_3_like_1.like
     participant_3_profile.visit_profile
 
@@ -33,9 +33,8 @@ feature 'Individual incentives', :incentives, :marigold, sauce: sauce_labs do
     participant_navigation.scroll_down
 
     expect(pt_3_behavior_1).to be_complete
-  end
 
-  scenario 'Participant completes all behaviors, sees incentive list update' do
+    participant_navigation.click_brand
     pt_3_like_2.like
     pt_3_like_3.like
     participant_3_profile.visit_profile
@@ -64,6 +63,7 @@ feature 'Individual incentives', :incentives, :marigold, sauce: sauce_labs do
     visit ENV['Base_URL']
     participant_3_profile.visit_profile
 
+    # dependent on previous examples - flower count is 2 if run alone
     expect(pt_3_repeatable_incentive_2).to have_correct_num_of_flowers_in_plot
     expect(pt_3_repeatable_incentive_2).to have_num_completed
   end
@@ -81,7 +81,7 @@ feature 'Individual incentives', :incentives, :marigold, sauce: sauce_labs do
 
     expect(pt_2_behavior_1).to be_complete
     expect(pt_2_behavior_2).to be_complete
-    expect(pt_2_behavior_2).to be_complete
+    expect(pt_2_behavior_3).to be_complete
 
     participant_2_incentive.close_incentive_alerts
   end

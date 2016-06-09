@@ -43,15 +43,16 @@ module Participants
     end
 
     def incomplete?
-      within all('.list-group-item.task-status')[@pt_list_item] do
-        has_no_css?('.fa.fa-check-circle') && has_text?('Completed at: ---')
-      end
+      all('.list-group-item')[@pt_list_item].has_no_css?('.fa-check-circle') &&
+        all('.list-group-item.task-status')[@pt_list_item]
+          .has_text?('Completed at: ---')
     end
 
     def complete?
-      within(all('.list-group-item')[@pt_list_item]) do
-        has_css?('.fa.fa-check-circle') && has_text?("Completed at: #{@date}")
-      end
+      sleep(0.25) # this can be flaky, the sleep seems to help
+      all('.list-group-item')[@pt_list_item].has_css?('.fa-check-circle') &&
+        all('.list-group-item')[@pt_list_item]
+          .has_text?("Completed at: #{@date}")
     end
 
     def has_num_completed?
