@@ -15,7 +15,7 @@ module Participants
       def has_emotions?
         find('tr', match: :first)
         actual = (1..26).map { |i| all('tr')[i].find('th').text }
-        actual.should =~ emotions
+        expect(actual).to eq emotions
       end
 
       def rate
@@ -62,7 +62,7 @@ module Participants
           'Lonely or rejected', 'Love, closeness, or trust',
           'Proud or confident', 'Sad', 'Stressed or overwhelmed',
           'Surprised or amazed', 'Sympathy or compassion', 'Relieved'
-        ]
+        ].sort
       end
     end
   end
