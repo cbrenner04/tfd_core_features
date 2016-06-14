@@ -71,6 +71,23 @@ module Users
       end
     end
 
+    def has_no_moderator_in_incomplete_lessons?
+      moderator = if ENV['tfdso']
+                    'ThinkFeelDo'
+                  elsif ENV['sunnyside']
+                    'Sunnyside'
+                  elsif ENV['marigold']
+                    'Marigold'
+                  end
+      2.times { user_navigation.scroll_down }
+      within('.panel', text: 'Lesson View Summary') do
+        within('tr', text: 'Do - Awareness Introduction') do 
+          click_on 'View Incomplete Participants'
+          has_no_text? moderator
+        end
+      end
+    end
+
     def has_thoughts_data?
       navigate_to_panel('thoughts')
       within('#thoughts-container') do

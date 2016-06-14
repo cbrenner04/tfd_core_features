@@ -22,6 +22,8 @@ feature 'Coach, Group Dashboard', :social_networking, :marigold,
   end
 
   scenario 'Coach views Group Summary' do
+    # implicitly checks that moderator participant's data is not displayed
+    # moderator participant's data are written in the fixtures
     expect(group_6_dashboard).to have_group_summary_data
   end
 
@@ -34,7 +36,12 @@ feature 'Coach, Group Dashboard', :social_networking, :marigold,
   end
 
   scenario 'Coach views Lesson View Summary' do
+    # implicitly checks that moderator participant does not count toward counts
     expect(group_6_dashboard).to have_lesson_summary_data
+    # explicitly confirms moderator participant is not shown
+    # in "View Incomplete Participants"
+    # app env variable NEEDS to be set or you will get a false positive
+    expect(group_6_dashboard).to have_no_moderator_in_incomplete_lessons
   end
 
   scenario 'Coach views Thoughts' do
