@@ -81,7 +81,7 @@ module Users
                   end
       2.times { user_navigation.scroll_down }
       within('.panel', text: 'Lesson View Summary') do
-        within('tr', text: 'Do - Awareness Introduction') do 
+        within('tr', text: 'Do - Awareness Introduction') do
           click_on 'View Incomplete Participants'
           has_no_text? moderator
         end
