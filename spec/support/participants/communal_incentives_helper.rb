@@ -26,6 +26,28 @@ def complete_communal_incentive
   )
 end
 
+def partial_communal_incentive_1
+  @partial_communal_incentive_1 ||= Participants::Incentives.new(
+    incentive: 'comment on 1 feed items',
+    completed: 2,
+    total: 7,
+    image: 'flower2',
+    plot: 'communal'
+  )
+end
+
+def partial_communal_incentive_2
+  @partial_communal_incentive_2 ||= Participants::Incentives.new(
+    incentive: 'comment on 1 feed items',
+    completed: 3,
+    total: 7,
+    image: 'flower2',
+    plot: 'communal',
+    pt_list_item: 0,
+    date: long_date_with_hour(Time.now)
+  )
+end
+
 def pt_3_comment_1
   @pt_3_comment_1 ||= Participants::SocialNetworkingModules::Comment.new(
     feed_item: 'Did Not Complete a Goal: p2 gamma',
@@ -44,5 +66,12 @@ def pt_3_comment_3
   @pt_3_comment_3 ||= Participants::SocialNetworkingModules::Comment.new(
     feed_item: 'said what about Bob?',
     comment: 'wow'
+  )
+end
+
+def pt_1_comment_1
+  @pt_1_comment_1 ||= Participants::SocialNetworkingModules::Comment.new(
+    feed_item: 'Did Not Complete a Goal: p2 gamma',
+    comment: 'great'
   )
 end

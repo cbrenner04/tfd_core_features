@@ -79,6 +79,12 @@ module Participants
       first('.close').click while has_css?('.alert', text: 'Congratulations')
     end
 
+    def has_total_needed_to_complete?
+      has_css?('.panel-title',
+               text: "#{@incentive} #{@completed}/#{@total} complete "\
+                     '(at least 3 is required)')
+    end
+
     private
 
     def incentive_title

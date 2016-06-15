@@ -42,9 +42,24 @@ feature 'Communal incentives', :incentives, :marigold, sauce: sauce_labs do
 
     expect(complete_communal_incentive).to be_complete
   end
+end
 
-  scenario 'Participant completes partial community incentive'
-  # create communal incentive with fixture data where only partial group
-  # needs to complete. All but one of those participants should have completed.
-  # Last participant completes - list updates
+feature 'Communal incentives', :incentives, :marigold, sauce: sauce_labs do
+  scenario 'Participant completes partial community incentive' do
+    participant_1.sign_in
+    partial_communal_incentive_1.open_communal_plot
+
+    expect(partial_communal_incentive_1).to have_total_needed_to_complete
+    expect(partial_communal_incentive_1).to_not have_image_in_plot
+
+    pt_1_comment_1.comment
+    participant_navigation.reload
+    sleep(1)
+    partial_communal_incentive_2.open_communal_plot
+
+    participant_navigation.scroll_down
+    partial_communal_incentive_2.open_incentives_list
+
+    expect(partial_communal_incentive_2).to be_complete
+  end
 end

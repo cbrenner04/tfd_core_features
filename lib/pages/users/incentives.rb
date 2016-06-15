@@ -104,6 +104,22 @@ module Users
       incentive_created_succesfully?('read something', 9, 'Group', 'No')
     end
 
+    def add_partial_group_incentive
+      click_new
+      fill_in_description('Partial whatever')
+      select_group_incentive
+      fill_in 'sunnyside_incentive[minimum_count_for_completion]',
+              with: 3
+      select_image(4)
+      group_9_incentives.submit_create
+    end
+
+    def has_created_partial_group_incentive_successfully?
+      incentive_created_succesfully?('Partial whatever', 4, 'Group', 'No') &&
+        has_text?('Partial completion allowed: Yes ' \
+                  'Minimum count for completion: 3')
+    end
+
     def add_lesson_behavior
       open_existing_incentive('Group', 'read a lesson')
       add_behavior('Complete a Lesson')

@@ -80,7 +80,14 @@ feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
     expect(group_9_incentives).to have_created_group_incentive_successfully
   end
 
-  scenario 'Researcher adds a partial group incentive'
+  scenario 'Researcher adds a partial group incentive' do
+    group_9.open
+    group_9_incentives.manage
+    group_9_incentives.add_partial_group_incentive
+
+    expect(group_9_incentives)
+      .to have_created_partial_group_incentive_successfully
+  end
 
   scenario 'Researcher adds a behavior to a group incentive' do
     group_9.open
