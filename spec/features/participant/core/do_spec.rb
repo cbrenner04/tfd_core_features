@@ -11,6 +11,17 @@ feature 'DO tool', :core, sauce: sauce_labs do
     visit do_tool.landing_page
   end
 
+  scenario 'Participant cannot enter more than 255 characters' do
+    awareness.open
+    awareness.move_to_time_period_selection
+    awareness_1a_to_2a.create_time_period
+    awareness_1a_to_2a.complete_one_hour_review_with_more_than_255_characters
+    participant_navigation.scroll_to_bottom
+    participant_navigation.next
+
+    expect(awareness).to have_less_than_255_characters_in_entries
+  end
+
   scenario 'Participant completes the Awareness module' do
     awareness.open
     awareness.move_to_time_period_selection
@@ -18,10 +29,9 @@ feature 'DO tool', :core, sauce: sauce_labs do
     awareness_7a_to_10p.complete_multiple_hour_review
 
     expect(awareness_7a_to_10p).to have_entries
-  end
 
-  # this is dependent on the previous example, need to update
-  scenario 'Participant cannot complete for time period already completed' do
+    # check to confirm you cannot enter the same time period
+    visit do_tool.landing_page
     awareness.open
     awareness.move_to_time_period_selection
 

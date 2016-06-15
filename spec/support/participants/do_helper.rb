@@ -17,6 +17,13 @@ def social_networking
   @social_networking ||= Participants::SocialNetworking.new
 end
 
+def awareness_1a_to_2a
+  @awareness_1a_to_2a ||= Participants::DoModules::Awareness.new(
+    start_time: "#{week_day(today.prev_day)} 1 AM",
+    end_time: "#{week_day(today.prev_day)} 2 AM"
+  )
+end
+
 def awareness_7a_to_10p
   @awareness_7a_to_10p ||= Participants::DoModules::Awareness.new(
     start_time: "#{week_day(today.prev_day)} 7 AM",

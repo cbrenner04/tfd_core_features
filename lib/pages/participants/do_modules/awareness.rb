@@ -6,6 +6,7 @@ module Participants
   module DoModules
     # page object for the awareness module
     class Awareness
+      include RSpec::Matchers
       include Capybara::DSL
 
       def initialize(awareness)
@@ -58,6 +59,15 @@ module Participants
                  text: "#{week_day(today.prev_day)} #{end_time}")
       end
 
+      def complete_one_hour_review_with_more_than_255_characters
+        complete_one_hour_review(0, more_than_255_characters, 4, 5)
+      end
+
+      def has_less_than_255_characters_in_entries?
+        actual_text = find('td', text: 'Lorem').text
+        actual_text.should eq more_than_255_characters[0..254]
+      end
+
       def complete_multiple_hour_review
         @num_fields.zip(@activity, @pleasure, @accomplishment) do |a, b, c, d|
           complete_one_hour_review(a, b, c, d)
@@ -100,6 +110,14 @@ module Participants
 
       def participant_navigation
         @participant_navigation ||= Participants::Navigation.new
+      end
+
+      def more_than_255_characters
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ' \
+        'eleifend interdum lorem et fringilla. Duis eros magna, scelerisque' \
+        ' in dictum quis, viverra quis mi. Donec et magna et arcu vulputate' \
+        ' vehicula eu in tellus. Morbi luctus urna eget ipsum amet. Over the' \
+        ' line!'
       end
     end
   end
