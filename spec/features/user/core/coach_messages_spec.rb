@@ -13,6 +13,20 @@ feature 'Coach messaging', :core, :marigold, sauce: sauce_labs do
     expect(user_messages).to be_visible
   end
 
+  scenario 'Coach cannot send a message with more than 1700 characters' do
+    user_message_1700.open_new_message
+    user_message_1700.select_recipient
+    user_message_1700.write_message_with_more_than_1700_characters
+    user_message_1700.send
+
+    expect(user_message_1700).to have_saved_alert
+
+    user_message_1700.go_to_sent_messages
+    user_message_1700.open_message
+
+    expect(user_message_1700).to have_1700_characters_message
+  end
+
   scenario 'Coach reads a received message' do
     user_message_1.open_message
 

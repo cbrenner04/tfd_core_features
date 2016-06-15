@@ -38,3 +38,9 @@ def linked_message
     link_content: 'Welcome to ThiFeDo'
   )
 end
+
+def message_1700
+  @message_1700 ||= Participants::Messages.new(
+    message_subject: 'Too many characters'
+  )
+end

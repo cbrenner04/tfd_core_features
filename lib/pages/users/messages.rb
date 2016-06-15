@@ -67,6 +67,14 @@ module Users
       click_on 'Send'
     end
 
+    def send_1700_character_site_message
+      click_on 'New'
+      select @participant, from: 'site_message_participant_id'
+      fill_in 'site_message_subject', with: @message_subject
+      fill_in 'site_message_body', with: more_than_1700_characters
+      send
+    end
+
     def has_site_message_successfully_sent?
       has_text? 'Site message was successfully created.' \
                 "\nParticipant: #{@participant}" \
@@ -101,6 +109,11 @@ module Users
     def has_site_message_visible?
       has_text? "Participant: #{@participant}\nSubject: #{@message_subject}" \
                 "\nBody: #{@message_body}"
+    end
+
+    def has_1700_character_site_message_visible?
+      has_text? "Participant: #{@participant}\nSubject: #{@message_subject}" \
+                "\nBody: #{more_than_1700_characters[0..1699]}"
     end
 
     private

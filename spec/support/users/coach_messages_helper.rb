@@ -8,6 +8,13 @@ def user_messages
   @user_messages ||= Users::Messages.new(message_subject: 'fake')
 end
 
+def user_message_1700
+  @user_message_1700 ||= Users::Messages.new(
+    message_subject: 'Too many characters',
+    participant: 'TFD-1111'
+  )
+end
+
 def user_message_1
   @user_message_1 ||= Users::Messages.new(
     message_subject: 'I like this app',

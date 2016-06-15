@@ -11,6 +11,19 @@ feature 'MESSAGES tool', :core, :marigold, sauce: sauce_labs do
     visit messages.landing_page
   end
 
+  scenario 'Participant cannot send message with more than 1700 characters' do
+    messages.open_new_message
+    message_1700.write_message_with_more_than_1700_characters
+    messages.send
+
+    expect(messages).to have_saved_alert
+
+    messages.go_to_sent_messages
+    message_1700.open_message
+
+    expect(message_1700).to have_1700_characters_message
+  end
+
   scenario 'Participant composes a new message' do
     messages.open_new_message
 
