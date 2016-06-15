@@ -129,6 +129,14 @@ module Users
       behavior_created_successfully?('TaskStatus', 'complete')
     end
 
+    def add_one_comment_behavior
+      add_behavior('Comment on an Item')
+    end
+
+    def has_added_one_comment_behavior_successfully?
+      behavior_created_successfully?('SocialNetworking::Comment', 'create')
+    end
+
     def open_individual_goal_incentive
       open_existing_incentive('Individual', 'create a goal')
     end
@@ -163,6 +171,19 @@ module Users
     def has_like_incentive_successfully_destroyed?
       has_text?('Incentive was successfully removed.') &&
         has_no_css?('.list-group-item', text: 'Individual, like 3 feed items')
+    end
+
+    def has_correct_behavior_options?
+      open_individual_like_incentive
+      sleep(0.5)
+      user_navigation.scroll_down
+      within('.well') { click_new }
+      options = ['Create a Goal', 'Complete a Goal', 'Like an Item',
+                 'Comment on an Item', 'Create an Activity',
+                 'Complete an Activity', 'Create a Thought',
+                 'Complete a Thought', 'Complete a Lesson',
+                 'Complete a Relaxation Exercise']
+      options.all? { |option| has_css?('option', text: option) }
     end
 
     private

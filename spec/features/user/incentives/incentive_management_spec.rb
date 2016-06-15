@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # filename: ./spec/features/user/incentives/researcher_groups_spec.rb
 
+require './lib/pages/participants'
+require './lib/pages/participants/incentives'
 require './lib/pages/users/incentives'
 
 def group_6_incentives
@@ -9,6 +11,23 @@ end
 
 def group_9_incentives
   @group_9_incentives ||= Users::Incentives.new(group: 'Group 9')
+end
+
+def participant_7
+  @participant_7 ||= Participant.new(
+    participant: ENV['Participant_7_Email'],
+    password: ENV['Participant_7_Password']
+  )
+end
+
+def group9_communal_incentive
+  @group9_communal_incentive ||= Participants::Incentives.new(
+    incentive: 'Partial whatever',
+    completed: 0,
+    total: 1,
+    image: 'flower4',
+    plot: 'communal'
+  )
 end
 
 feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
@@ -45,7 +64,12 @@ feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
     expect(group_9_incentives).to be_unable_to_edit_group_scope
   end
 
-  scenario 'Researcher can only choose valid options when creating behavior'
+  scenario 'Researcher can only choose valid options when creating behavior' do
+    group_9.open
+    group_9_incentives.manage
+
+    expect(group_9_incentives).to have_correct_behavior_options
+  end
 
   scenario 'Researcher adds a behavior to an incentive' do
     group_9.open
@@ -124,6 +148,29 @@ feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
     user_navigation.destroy
 
     expect(group_6_incentives).to have_like_incentive_successfully_destroyed
+  end
+
+  scenario 'Researcher add group incentive, confirm moderator does not count' do
+    group_9.open
+    group_9_incentives.manage
+    group_9_incentives.add_partial_group_incentive
+
+    expect(group_9_incentives)
+      .to have_created_partial_group_incentive_successfully
+    group_9_incentives.add_one_comment_behavior
+
+    expect(group_9_incentives).to have_added_one_comment_behavior_successfully
+
+    # check participant facing for lack of moderator in count
+    researcher.sign_out
+    participant_7.sign_in
+    group9_communal_incentive.open_communal_plot
+
+    expect(group9_communal_incentive).to be_visible
+
+    group9_communal_incentive.open_incentives_list
+
+    expect(group9_communal_incentive).to have_incentives_listed
   end
 end
 
