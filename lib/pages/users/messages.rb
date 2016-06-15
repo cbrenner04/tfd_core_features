@@ -53,10 +53,17 @@ module Users
 
     def send_new_site_message
       click_on 'New'
-      find('p', text: app_email)
+      fill_in_message
+      send
+    end
+
+    def fill_in_message
       select @participant, from: 'site_message_participant_id'
       fill_in 'site_message_subject', with: @message_subject
       fill_in 'site_message_body', with: @message_body
+    end
+
+    def send
       click_on 'Send'
     end
 
@@ -65,6 +72,16 @@ module Users
                 "\nParticipant: #{@participant}" \
                 "\nSubject: #{@message_subject}" \
                 "\nBody: #{@message_body}"
+    end
+
+    def has_failed_to_send_message_due_to_blank_subject_alert?
+      has_text? '1 error prohibited this site_message from being saved: ' \
+                'Subject can\'t be blank'
+    end
+
+    def has_failed_to_send_message_due_to_blank_body_alert?
+      has_text? '1 error prohibited this site_message from being saved: ' \
+                'Body can\'t be blank'
     end
 
     def return_to_site_messaging

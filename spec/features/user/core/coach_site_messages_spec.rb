@@ -25,6 +25,22 @@ def site_messaging_2
   )
 end
 
+def site_messaging_3
+  @site_messaging_3 ||= Users::Messages.new(
+    message_subject: '',
+    message_body: 'message body',
+    participant: 'TFD-1111'
+  )
+end
+
+def site_messaging_4
+  @site_messaging_4 ||= Users::Messages.new(
+    message_subject: 'message subject',
+    message_body: '',
+    participant: 'TFD-1111'
+  )
+end
+
 feature 'Site Messaging', :core, :marigold, sauce: sauce_labs do
   background(:all) { clinician.sign_in } if ENV['safari']
 
@@ -33,6 +49,21 @@ feature 'Site Messaging', :core, :marigold, sauce: sauce_labs do
     visit user_navigation.arms_page
     site_messaging_1.navigate_to_site_messages
     expect(site_messaging_1).to have_site_messages_visible
+  end
+
+  scenario 'Coach cannot send site message until all fields are complete' do
+    site_messaging_3.send_new_site_message
+
+    expect(site_messaging_3).to_not have_site_message_successfully_sent
+    expect(site_messaging_3)
+      .to have_failed_to_send_message_due_to_blank_subject_alert
+
+    site_messaging_4.fill_in_message
+    site_messaging_4.send
+
+    expect(site_messaging_4).to_not have_site_message_successfully_sent
+    expect(site_messaging_4)
+      .to have_failed_to_send_message_due_to_blank_body_alert
   end
 
   scenario 'Coach creates and sends a new site message' do
