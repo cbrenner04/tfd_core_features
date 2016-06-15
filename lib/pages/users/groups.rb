@@ -101,6 +101,11 @@ module Users
       end
     end
 
+    def has_failed_to_unassign_alert?
+      has_css?('.alert', text: 'Unable to delete task from group, at ' \
+                               'least one related task status is complete.')
+    end
+
     def has_task?
       sleep(1)
       find('#tasks').has_text? @task

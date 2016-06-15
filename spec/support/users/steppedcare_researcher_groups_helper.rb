@@ -22,3 +22,10 @@ def group_11_a
     task: 'Testing adding/updating slides/lessons'
   )
 end
+
+def group_1_b
+  @group_1_b ||= Users::Groups.new(
+    title: 'Group 1',
+    task: 'DO: #1 Awareness'
+  )
+end

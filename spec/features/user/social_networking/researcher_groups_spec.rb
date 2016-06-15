@@ -56,6 +56,16 @@ feature 'Researcher, Groups,',
     expect(group_11).to have_task_assigned_successfully
   end
 
+  scenario 'Researcher cannot unassign a task when data exists' do
+    expect(group_1_b).to be_visible_in_listing
+    user_navigation.scroll_to_bottom
+    group_1_b.open
+    group_1_b.unassign_task
+
+    expect(group_1_b).to have_failed_to_unassign_alert
+    expect(group_1_b).to have_task
+  end
+
   scenario 'Researcher unassigns a task within a group' do
     expect(group_11_a).to be_visible_in_listing
     user_navigation.scroll_to_bottom
