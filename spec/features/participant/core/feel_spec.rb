@@ -30,6 +30,14 @@ feature 'FEEL tool, Tracking Mood & Emotions', :core, sauce: sauce_labs do
     tracking_mood_and_emotions.finish
   end
 
+  scenario 'Participant cannot create an emotion more than 255 characters' do
+    tracking_mood_and_emotions.open
+    tracking_mood_and_emotions.rate_mood
+    emotion_255.create_emotion_with_more_than_255_characters
+
+    expect(emotion_255).to have_emotion_with_255_characters
+  end
+
   scenario 'Participant uses navbar functionality in all of FEEL' do
     visit feel.track_mood_emotions
     feel.navigate_to_all_modules_through_navbar

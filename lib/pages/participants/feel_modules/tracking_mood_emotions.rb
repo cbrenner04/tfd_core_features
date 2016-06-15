@@ -5,6 +5,7 @@ module Participants
   module FeelModules
     # page object for Tracking Mood & Emotions module
     class TrackingMoodEmotions
+      include RSpec::Matchers
       include Capybara::DSL
 
       def initialize(mood_emotions)
@@ -51,6 +52,20 @@ module Participants
         end
       end
 
+      def create_emotion_with_more_than_255_characters
+        fill_in 'Emotion', with: more_than_255_characters
+        select 'positive', from: 'emotional_rating_is_positive'
+        select '3', from: 'emotional_rating[rating]'
+        submit
+      end
+
+      def has_emotion_with_255_characters?
+        all('.bar.positive').last.click
+        actual_text = find('.modal-content').text
+        expect(actual_text)
+          .to include(more_than_255_characters[0..254].downcase)
+      end
+
       def submit
         participant_navigation.next
         find('.alert-success', text: 'Emotional Rating saved')
@@ -67,6 +82,14 @@ module Participants
 
       def participant_navigation
         @participant_navigation ||= Participants::Navigation.new
+      end
+
+      def more_than_255_characters
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ' \
+        'eleifend interdum lorem et fringilla. Duis eros magna, scelerisque ' \
+        'in dictum quis, viverra quis mi. Donec et magna et arcu vulputate ' \
+        'vehicula eu in tellus. Morbi luctus urna eget ipsum amet. Over the ' \
+        'line!'
       end
     end
   end

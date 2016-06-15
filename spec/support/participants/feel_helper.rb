@@ -46,3 +46,9 @@ def recent_mood_and_emotions
       emotion_type: 'negative'
     )
 end
+
+def emotion_255
+  @emotions_255 ||= Participants::FeelModules::TrackingMoodEmotions.new(
+    mood_rating: 6
+  )
+end
