@@ -30,6 +30,10 @@ feature 'Coach messaging', :core, :marigold, sauce: sauce_labs do
   scenario 'Coach replies to a message' do
     user_message_3.open_message
     user_message_3.reply
+
+    expect { user_message_3.select_recipient }
+      .to raise_error Capybara::ElementNotFound
+
     user_message_3.enter_reply_message
     user_navigation.scroll_down
     user_message_3.send
