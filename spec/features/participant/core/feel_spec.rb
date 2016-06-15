@@ -55,13 +55,21 @@ feature 'FEEL Tool, Your Recent Mood & Emotions', :core, sauce: sauce_labs do
   scenario 'Participant views ratings in Mood Graph' do
     recent_mood_and_emotions.open
 
-    expect(recent_mood_and_emotions).to have_moods
+    expect(recent_mood_and_emotions).to have_moods_in_graph
+
+    recent_mood_and_emotions.open_mood_modal
+
+    expect(recent_mood_and_emotions).to have_moods_in_modal
   end
 
   scenario 'Participant views ratings in Emotions graph' do
     recent_mood_and_emotions.open
 
-    expect(recent_mood_and_emotions).to have_emotions
+    expect(recent_mood_and_emotions).to have_emotions_in_graph
+
+    recent_mood_and_emotions.open_emotion_modal
+
+    expect(recent_mood_and_emotions).to have_emotions_in_modal
   end
 
   scenario 'Participant navigates to 28 day view' do
