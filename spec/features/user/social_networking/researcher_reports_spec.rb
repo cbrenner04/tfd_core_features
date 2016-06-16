@@ -4,8 +4,11 @@
 require 'uuid'
 require 'fileutils'
 
-def check_file(file)
-  @driver.find_element(link: file).click
+def confirm_file(link)
+  @driver.find_element(link: link).click
+  puts "This is the link #{link}"
+  file = (link == 'Thought' || link == 'Activity') ? "patient#{link}" : link
+  puts "This is the file #{file}"
   file_path = "#{@download_dir}/#{file.downcase.delete(' ')}.csv"
   File.size(file_path).should be > 0
 end
@@ -36,38 +39,38 @@ feature 'Researcher downloads CSV Exports', :social_networking, :marigold do
   end
 
   scenario 'Comment' do
-    check_file('Comment')
+    confirm_file('Comment')
   end
 
   scenario 'Goal' do
-    check_file('Goal')
+    confirm_file('Goal')
   end
 
   scenario 'Like' do
-    check_file('Like')
+    confirm_file('Like')
   end
 
   scenario 'Nudge' do
-    check_file('Nudge')
+    confirm_file('Nudge')
   end
 
   scenario 'Off Topic Post' do
-    check_file('Off Topic Post')
+    confirm_file('Off Topic Post')
   end
 
   scenario 'Tool Share' do
-    check_file('Tool Share')
+    confirm_file('Tool Share')
   end
 
   scenario 'Emotional Rating' do
-    check_file('Emotional Rating')
+    confirm_file('Emotional Rating')
   end
 
   scenario 'Thought' do
-    check_file('Thought')
+    confirm_file('Thought')
   end
 
   scenario 'Activity' do
-    check_file('Activity')
+    confirm_file('Activity')
   end
 end

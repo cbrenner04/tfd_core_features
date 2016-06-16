@@ -58,7 +58,7 @@ module Users
     def open_provider
       find('strong', text: 'Tool:')
       click_on @title
-      find('p', text: 'Position:')
+      find('h1', text: 'Content Provider')
     end
 
     def destroyed_successfully?

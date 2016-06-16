@@ -4,8 +4,11 @@
 require 'uuid'
 require 'fileutils'
 
-def check_file(file)
-  @driver.find_element(link: file).click
+def select_and_check_file(link)
+  @driver.find_element(link: link).click
+  puts "This is the link #{link}"
+  file = link == 'Events' ? 'event' : link
+  puts "This is the file #{file}"
   file_path = "#{@download_dir}/#{file.downcase.delete(' ')}.csv"
   File.size(file_path).should be > 0
 end
@@ -36,52 +39,52 @@ feature 'Researcher, downloads CSV exports', :core, :marigold do
   end
 
   scenario 'Module Page View' do
-    check_file('Module Page View')
+    select_and_check_file('Module Page View')
   end
 
   scenario 'Module Session' do
-    check_file('Module Session')
+    select_and_check_file('Module Session')
   end
 
   scenario 'Lesson Viewing' do
-    check_file('Lesson Viewing')
+    select_and_check_file('Lesson Viewing')
   end
 
   scenario 'Lesson Slide View' do
-    check_file('Lesson Slide View')
+    select_and_check_file('Lesson Slide View')
   end
 
   scenario 'Video Session' do
-    check_file('Video Session')
+    select_and_check_file('Video Session')
   end
 
   scenario 'Task Completion' do
-    check_file('Task Completion')
+    select_and_check_file('Task Completion')
   end
 
   scenario 'Site Session' do
     @driver.execute_script('window.scrollBy(0,100)')
-    check_file('Site Session')
+    select_and_check_file('Site Session')
   end
 
   scenario 'Tool Access' do
-    check_file('Tool Access')
+    select_and_check_file('Tool Access')
   end
 
   scenario 'User Agent' do
     @driver.execute_script('window.scrollBy(0,100)')
-    check_file('User Agent')
+    select_and_check_file('User Agent')
   end
 
   scenario 'Login' do
-    check_file('Login')
+    select_and_check_file('Login')
   end
 
   scenario 'Events' do
-    check_file('Events')
+    select_and_check_file('Events')
   end
 
   scenario 'Messaging' do
-    check_file('Messaging')
+    select_and_check_file('Messaging')
   end
 end

@@ -50,6 +50,7 @@ feature 'Content Author, Content Modules',
   scenario 'Content Author destroys a provider' do
     final_content_module.open_module
     slideshow_content_provider.open_provider
+    # sleep(1)
     user_navigation.destroy
 
     expect(slideshow_content_provider).to be_destroyed_successfully

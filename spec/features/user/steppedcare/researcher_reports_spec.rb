@@ -10,7 +10,7 @@ def check_file(file)
   File.size(file_path).should be > 0
 end
 
-feature 'Researcher, downloads CSV exports', :core, :marigold do
+feature 'Researcher, downloads CSV exports', :tfd do
   background(:all) do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir

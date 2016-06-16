@@ -18,7 +18,7 @@ end
 def group_11_a
   @group_11_a ||= Users::Groups.new(
     title: 'Group 11',
-    task: 'Testing adding/updating slides/lessons'
+    task: 'Home Introduction'
   )
 end
 
