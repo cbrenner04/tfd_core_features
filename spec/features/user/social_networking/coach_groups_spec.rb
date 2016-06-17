@@ -24,6 +24,7 @@ feature 'Coach, Group Dashboard', :social_networking, :marigold,
   scenario 'Coach views Group Summary' do
     # implicitly checks that moderator participant's data is not displayed
     # moderator participant's data are written in the fixtures
+
     # also implicitly checks the data is in the correct week
     # previously the data would shift weeks due to moderator
     # membership starting earlier

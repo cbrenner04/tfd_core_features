@@ -33,6 +33,7 @@ module Users
     def update
       click_on 'Edit'
       fill_in_title(@updated_title)
+      user_navigation.scroll_down
       click_on 'Update'
     end
 

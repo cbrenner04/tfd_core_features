@@ -6,9 +6,7 @@ require 'fileutils'
 
 def select_and_check_file(link)
   @driver.find_element(link: link).click
-  puts "This is the link #{link}"
   file = link == 'Events' ? 'event' : link
-  puts "This is the file #{file}"
   file_path = "#{@download_dir}/#{file.downcase.delete(' ')}.csv"
   File.size(file_path).should be > 0
 end
@@ -51,6 +49,7 @@ feature 'Researcher, downloads CSV exports', :core, :marigold do
   end
 
   scenario 'Lesson Slide View' do
+    @driver.execute_script('window.scrollBy(0,100)')
     select_and_check_file('Lesson Slide View')
   end
 

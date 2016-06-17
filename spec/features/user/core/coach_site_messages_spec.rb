@@ -27,6 +27,7 @@ feature 'Site Messaging', :core, :marigold, sauce: sauce_labs do
       .to have_failed_to_send_message_due_to_blank_subject_alert
 
     site_messaging_4.fill_in_message
+    user_navigation.scroll_down
     site_messaging_4.send
 
     expect(site_messaging_4).to_not have_site_message_successfully_sent

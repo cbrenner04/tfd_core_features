@@ -198,6 +198,7 @@ module Users
     end
 
     def click_new
+      user_navigation.scroll_down
       click_on 'New'
     end
 

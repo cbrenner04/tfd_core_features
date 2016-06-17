@@ -6,9 +6,7 @@ require 'fileutils'
 
 def confirm_file(link)
   @driver.find_element(link: link).click
-  puts "This is the link #{link}"
   file = (link == 'Thought' || link == 'Activity') ? "patient#{link}" : link
-  puts "This is the file #{file}"
   file_path = "#{@download_dir}/#{file.downcase.delete(' ')}.csv"
   File.size(file_path).should be > 0
 end
