@@ -16,8 +16,10 @@ module Users
     def has_group_summary_data?
       within summary_panel do
         summary_data = ['logins  7 10 4 3 5 0 0 0', 'thoughts  1 0 1 1 1 0 0 0',
-                        'activities past  2 1 1 0 0 0 0 0',
-                        'activities future  0 0 0 0 0 1 2 2',
+                        'activities monitored 0 0 0 0 0 0 0 0',
+                        'activities planned  0 0 0 0 0 1 1 0',
+                        'activities reviewed and complete  1 0 1 0 0 0 0 0',
+                        'activities reviewed and incomplete  0 0 0 0 0 0 0 0',
                         'on the mind statements  0 0 0 1 0 0 0 0',
                         'comments  0 0 2 0 1 0 0 0', 'goals  1 2 0 0 0 0 0 0',
                         'likes  1 2 1 0 1 0 0 0']
