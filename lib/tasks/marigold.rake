@@ -7,7 +7,7 @@ namespace :marigold do
   # load development version of marigold locally
   desc 'Set and start marigold for full suite testing locally'
   task :load_app_local do
-    Dir.chdir(ENV['marigold_path']) do
+    Dir.chdir("#{ENV['Path']}/marigold") do
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('marigold=true rake selenium_seed:with_fixtures')
@@ -29,7 +29,7 @@ namespace :marigold do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb marigold_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb marigold_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d marigold_development -f /Users/Chris/Work/dbs/marigold_db.sql')
-    Dir.chdir(ENV['marigold_path']) do
+    Dir.chdir("#{ENV['Path']}/marigold") do
       system('rails s')
     end
   end
@@ -38,7 +38,7 @@ namespace :marigold do
   desc 'Set test database for testing on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://marigold-staging.cbits.northwestern.edu')
-    Dir.chdir(ENV['marigold_path']) do
+    Dir.chdir("#{ENV['Path']}/marigold") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate')
@@ -77,7 +77,7 @@ namespace :marigold do
   task :load_app_sauce do
     system('export Base_URL=https://marigold-staging.cbits.northwestern.edu')
     system('Sauce=true')
-    Dir.chdir(ENV['marigold_path']) do
+    Dir.chdir("#{ENV['Path']}/marigold") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate_db')
@@ -89,7 +89,7 @@ namespace :marigold do
   # load staging version of marigold on staging
   desc 'Returning staging database on staging'
   task :return_staging do
-    Dir.chdir(ENV['marigold_path']) do
+    Dir.chdir("#{ENV['Path']}/marigold") do
       system('cap staging deploy:use_staging_db')
     end
   end
@@ -124,6 +124,11 @@ namespace :run_marigold do
   desc 'Run the users test suite for Marigold on Firefox'
   task :users do
     system('marigold=true rspec ./spec/features/user --tag marigold')
+  end
+
+  desc 'Run the test suite for Marigold headlessly'
+  task :headless do
+    system('driver=poltergeist marigold=true rspec --tag marigold --tag ~browser')
   end
 
   # this requires switching databases on staging

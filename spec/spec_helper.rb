@@ -39,6 +39,9 @@ def test_driver
   end
 end
 
+# declare Firefox binary path -> needed for csv specs
+Selenium::WebDriver::Firefox::Binary.path = ENV['Firefox_Path']
+
 # RSpec configuration options
 RSpec.configure do |config|
   config.full_backtrace = false
@@ -56,10 +59,18 @@ Capybara.configure do |config|
   config.default_max_wait_time = 1
   config.default_driver = test_driver
   config.register_driver :selenium do |app|
-    Selenium::WebDriver::Firefox::Binary.path = ENV['Firefox_Path']
     Capybara::Selenium::Driver.new(app, browser: driver)
   end
-  config.page.driver.browser.manage.window.resize_to(1280, 743)
+  config.register_driver :poltergeist do |app|
+    options = { js: true, js_errors: false }
+    Capybara::Poltergeist::Driver.new(app, options)
+  end
+  # set `driver=poltergeist` on the command line when you want to run headless
+  driver = ENV['driver'].nil? ? :selenium : ENV['driver'].to_sym
+  config.default_driver = driver
+  unless ENV['driver'] == 'poltergeist'
+    config.page.driver.browser.manage.window.resize_to(1280, 743)
+  end
   config.save_path = "#{ENV['Path']}/tfd_core_features/screenshots/"
 end
 

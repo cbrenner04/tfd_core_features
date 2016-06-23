@@ -7,7 +7,7 @@ namespace :tfdso do
   # load development version of think_feel_do_so locally
   desc 'Set and start think_feel_do_so for full suite testing locally'
   task :load_app_local do
-    Dir.chdir(ENV['tfdso_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do_so") do
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('rake selenium_seed:with_fixtures')
@@ -29,7 +29,7 @@ namespace :tfdso do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb think_feel_do_so_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb think_feel_do_so_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d think_feel_do_so_development -f /Users/Chris/Work/dbs/tfdso_db.sql')
-    Dir.chdir(ENV['tfdso_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do_so") do
       system('rails s')
     end
   end
@@ -38,7 +38,7 @@ namespace :tfdso do
   desc 'Set test database for testing think_feel_do_so on staging, keep driver'
   task :load_app_staging do
     system('export Base_URL=https://moodtech-staging.cbits.northwestern.edu')
-    Dir.chdir(ENV['tfdso_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do_so") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate')
@@ -66,7 +66,7 @@ namespace :tfdso do
   task :load_app_sauce do
     system('export Base_URL=https://moodtech-staging.cbits.northwestern.edu')
     system('Sauce=true')
-    Dir.chdir(ENV['tfdso_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do_so") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate_db')
@@ -78,7 +78,7 @@ namespace :tfdso do
   # load staging version of think_feel_do_so on staging
   desc 'Returning think_feel_do_so staging database on staging'
   task :return_staging do
-    Dir.chdir(ENV['tfdso_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do_so") do
       system('cap staging deploy:use_staging_db')
     end
   end
@@ -113,6 +113,11 @@ namespace :run_tfdso do
   desc 'Run the users test suite for MoodTech on Firefox'
   task :users do
     system('tfdso=true rspec ./spec/features/user/ --tag core --tag social_networking --tag tfdso --tag ~superfluous')
+  end
+
+  desc 'Run the test suite for MoodTech headlessly'
+  task :headless do
+    system('driver=poltergeist tfdso=true rspec --tag core --tag social_networking --tag tfdso --tag ~browser')
   end
 
   # this requires switching databases on staging
