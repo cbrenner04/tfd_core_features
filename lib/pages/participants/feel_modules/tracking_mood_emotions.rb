@@ -60,7 +60,11 @@ module Participants
       end
 
       def has_emotion_with_255_characters?
-        all('.bar.positive').last.click
+        if ENV['driver'] == 'poltergeist'
+          all('.bar.positive').last.trigger('click')
+        else
+          all('.bar.positive').last.click
+        end
         actual_text = find('.modal-content').text
         expect(actual_text)
           .to include(more_than_255_characters[0..254].downcase)

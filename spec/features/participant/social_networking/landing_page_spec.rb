@@ -99,7 +99,7 @@ feature 'SocialNetworking Landing Page',
     end
   end
 
-  feature 'Resize window to mobile size' do
+  feature 'Resize window to mobile size', :browser do
     background(:all) { participant_1.sign_in if ENV['safari'] }
 
     background do

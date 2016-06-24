@@ -96,8 +96,8 @@ module Participants
       end
 
       def has_review_tables?
-        %w(recent fun accomplished).each do |x|
-          find("##{x}_activities")
+        %w(recent fun accomplished).each do |activity_type|
+          find("##{activity_type}_activities")
           click_on 'Next'
         end
       end

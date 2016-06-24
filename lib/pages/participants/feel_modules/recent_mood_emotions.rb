@@ -40,7 +40,11 @@ module Participants
       end
 
       def open_emotion_modal
-        find('.bar.negative').click
+        if ENV['driver'] == 'poltergeist'
+          find('.bar.negative').trigger('click')
+        else
+          find('.bar.negative').click
+        end
       end
 
       def has_emotions_in_modal?

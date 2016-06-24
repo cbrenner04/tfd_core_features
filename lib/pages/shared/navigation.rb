@@ -17,6 +17,8 @@ module SharedNavigation
 
   def next
     click_on 'Next'
+  rescue Capybara::Poltergeist::MouseEventFailed
+    find('button[type = "submit"]').trigger('click')
   end
 
   def host_app
