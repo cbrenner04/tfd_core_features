@@ -84,45 +84,60 @@ namespace :tfdso do
   end
 end
 
+TAGS = '--tag core --tag social_networking --tag tfdso'
+SET_TFDSO_TRUE = 'tfdso=true'
+NO_SUPERFLUOUS = '--tag ~superfluous'
+NO_BROWSER = '--tag ~browser'
+
 namespace :run_tfdso do
   desc 'Run the test suite for the MoodTech host application on Chrome'
   task :chrome do
-    system('tfdso=true chrome=true rspec --tag core --tag social_networking --tag tfdso')
+    system("#{SET_TFDSO_TRUE} chrome=true rspec #{TAGS}")
   end
 
   desc 'Run the test suite for the MoodTech host application on Safari'
   task :safari do
-    system('tfdso=true safari=true rspec --tag core --tag social_networking --tag tfdso')
+    system("#{SET_TFDSO_TRUE} safari=true rspec #{TAGS}")
   end
 
   desc 'Run the test suite for the MoodTech host application on Firefox'
   task :firefox do
-    system('tfdso=true rspec --tag core --tag social_networking --tag tfdso')
+    system("#{SET_TFDSO_TRUE} rspec #{TAGS}")
   end
 
   desc 'Run the test suite for MoodTech on Chrome without certain example groups to increase speed'
   task :fast do
-    system('tfdso=true rspec --tag core --tag social_networking --tag tfdso --tag ~superfluous')
+    system("#{SET_TFDSO_TRUE} rspec #{TAGS} #{NO_SUPERFLUOUS}")
   end
 
   desc 'Run the participants test suite for MoodTech on Firefox'
   task :participants do
-    system('tfdso=true rspec ./spec/features/participant/ --tag core --tag social_networking --tag tfdso --tag ~superfluous')
+    system("#{SET_TFDSO_TRUE} rspec ./spec/features/participant/ #{TAGS} #{NO_SUPERFLUOUS}")
   end
 
   desc 'Run the users test suite for MoodTech on Firefox'
   task :users do
-    system('tfdso=true rspec ./spec/features/user/ --tag core --tag social_networking --tag tfdso --tag ~superfluous')
+    system("#{SET_TFDSO_TRUE} rspec ./spec/features/user/ #{TAGS} #{NO_SUPERFLUOUS}")
   end
 
   desc 'Run the test suite for MoodTech headlessly'
   task :headless do
-    system('driver=poltergeist tfdso=true rspec --tag core --tag social_networking --tag tfdso --tag ~browser')
+    system("driver=poltergeist #{SET_TFDSO_TRUE} rspec #{TAGS} #{NO_BROWSER}")
+  end
+
+  desc 'Run only failures for MoodTech headlessly'
+  task :headless_failures do
+    system("driver=poltergeist #{SET_TFDSO_TRUE} rspec --only-failures #{TAGS} #{NO_BROWSER}")
+  end
+
+  desc 'Run next failure for MoodTech headlessly'
+  task :headless_next_failure do
+    system("driver=poltergeist #{SET_TFDSO_TRUE} rspec --next-failure #{TAGS} #{NO_BROWSER}")
   end
 
   # this requires switching databases on staging
   desc 'Run the test suite for the MoodTech host application on SauceLabs'
   task :sauce do
-    system('tfdso=true sauce=true rspec --tag core --tag social_networking --tag tfdso')
+    system("driver=sauce #{SET_TFDSO_TRUE} rspec #{TAGS}")
   end
 end

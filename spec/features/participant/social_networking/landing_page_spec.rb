@@ -67,6 +67,7 @@ feature 'SocialNetworking Landing Page',
     end
 
     scenario 'Participant likes a whats on your mind post' do
+      # not seeing this when running in poltergeist
       philly_feed_item.like
 
       expect(philly_feed_item).to have_like_detail
