@@ -54,6 +54,7 @@ module Participants
       end
 
       def view_elaborate_examples
+        participant_navigation.scroll_down
         click_on 'elaborate examples'
       end
 

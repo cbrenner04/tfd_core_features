@@ -14,8 +14,7 @@ end
 def incentives
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
-    image: 'flower5-3bf874367425ba7f88a74bdf18c0fdff' \
-           '2a2ad7bd10eadf9317b274e675e28d4b',
+    image: 'flower5',
     pt_list_item: 0,
     date: Date.today.strftime('%b %d %Y'),
     incentive: 'complete all skills',
@@ -48,15 +47,17 @@ feature 'SKILLS tool', :marigold, sauce: sauce_labs do
       participant_navigation.next
       sleep(0.5) # pause so next is not clicked before next page loads
     end
-    skills.finish
+    # skills.finish
 
     expect(skills).to be_on_feedback_slide
 
     skills.rate
     skills.enter_feedback
-    2.times { participant_navigation.next }
+    participant_navigation.next
 
     expect(skills).to have_feedback_saved
+
+    participant_navigation.next
 
     expect(participant_navigation).to have_home_page_visible
 

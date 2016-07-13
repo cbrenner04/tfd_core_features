@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/social_networking/researcher_reports_spec.rb
+# filename: ./spec/features/user/marigold/researcher_reports_spec.rb
 
 require 'uuid'
 require 'fileutils'
@@ -11,7 +11,7 @@ def confirm_file(link)
   File.size(file_path).should be > 0
 end
 
-feature 'Researcher downloads CSV Exports', :social_networking do
+feature 'Researcher downloads CSV Exports', :marigold do
   background(:all) do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir

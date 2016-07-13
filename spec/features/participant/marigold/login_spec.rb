@@ -18,8 +18,7 @@ end
 def incentives
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
-    image: 'flower6-a2ce1c2df305ca3f5e7b7b36b458197b9'\
-           '56d240f19162113e82637e0ea6d2963',
+    image: 'flower6',
     pt_list_item: 0,
     date: Date.today.strftime('%b %d %Y'),
     incentive: 'login for 7 days in a row',

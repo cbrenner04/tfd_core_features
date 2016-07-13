@@ -23,8 +23,7 @@ end
 def incentives
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
-    image: 'flower3-1c0805ecb0d4f4f308c703662009c' \
-           '166f28aef0040ef78bd967b8ceb205165fb',
+    image: 'flower3',
     pt_list_item: 0,
     date: Date.today.strftime('%b %d %Y'),
     incentive: 'emotion tracking 4 days in a row',

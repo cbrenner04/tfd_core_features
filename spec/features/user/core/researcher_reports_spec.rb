@@ -11,7 +11,7 @@ def select_and_check_file(link)
   File.size(file_path).should be > 0
 end
 
-feature 'Researcher, downloads CSV exports', :core, :marigold do
+feature 'Researcher, downloads CSV exports', :core do
   background(:all) do
     @download_dir = File.join(Dir.pwd, UUID.new.generate)
     FileUtils.mkdir_p @download_dir
