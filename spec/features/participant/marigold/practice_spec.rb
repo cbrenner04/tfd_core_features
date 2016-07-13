@@ -342,3 +342,25 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     expect(reappraisal_2).to have_reappraisal
   end
 end
+
+feature 'Practice incentives', :marigold, sauce: sauce_labs do
+  scenario 'completes 4-day incentive' do
+    marigold_2.sign_in
+    visit practice.landing_page
+    meditation_1.open
+    participant_navigation.reload
+    meditation_1.complete
+    participant_navigation.scroll_to_bottom
+    participant_navigation.next
+
+    expect(meditation_1).to have_activity
+
+    profile.visit_profile
+
+    expect(incentives).to have_image_in_plot
+
+    incentives.open_incentives_list
+
+    expect(incentives).to be_complete
+  end
+end

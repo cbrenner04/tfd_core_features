@@ -26,12 +26,12 @@ module Participants
     end
 
     def has_image_in_plot?
-      find("#garden-#{@plot}").has_css? "img[src = \"/assets/#{@image}.png\"]"
+      find("#garden-#{@plot}").has_css? "img[src ^= \"/assets/#{@image}\"]"
     end
 
     def has_incomplete_image?
       incentive_title.has_css?('.flower-translucent') &&
-        incentive_title.has_css?("img[src = \"/assets/#{@image}.png\"]")
+        incentive_title.has_css?("img[src ^= \"/assets/#{@image}\"]")
     end
 
     def open_incentives_list
@@ -67,7 +67,7 @@ module Participants
 
     def has_image_in_home_plot?
       find('.text-center', text: @participant)
-        .find('.small-garden').has_css? "img[src = \"/assets/#{@image}.png\"]"
+        .find('.small-garden').has_css? "img[src ^= \"/assets/#{@image}\"]"
     end
 
     def visit_another_pt_incentives
