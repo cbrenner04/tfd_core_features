@@ -227,7 +227,7 @@ module Users
     def incentive_created_succesfully?(incentive, img_number, scope, repeatable)
       has_css?('.alert-success', text: 'Incentive was successfully created.') &&
         has_css?('h1', text: "#{@group} Incentive - #{incentive}") &&
-        has_xpath?("//img[@src='/assets/flower#{img_number}.png']") &&
+        has_css?("img[src ^= \"/assets/flower#{img_number}\"]") &&
         has_text?("Description: #{incentive}\nScope: #{scope}" \
                   "\nRepeatable: #{repeatable}")
     end

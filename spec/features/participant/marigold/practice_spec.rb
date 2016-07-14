@@ -61,11 +61,15 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     expect(positive_events_1).to have_amplifying_examples
   end
 
-  scenario 'Participant must submit New Positive events with description' do
-    positive_events_1.open
-    participant_navigation.next
+  if ENV['chrome'] # alert doesn't show on firefox
+    scenario 'Participant must submit New Positive events with description' do
+      positive_events_1.open
+      sleep(1)
+      participant_navigation.scroll_to_bottom
+      participant_navigation.next
 
-    expect(positive_events_1).to have_description_alert
+      expect(positive_events_1).to have_description_alert
+    end
   end
 
   scenario 'Participant creates New Positive events' do
