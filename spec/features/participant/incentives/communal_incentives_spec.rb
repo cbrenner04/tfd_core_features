@@ -3,7 +3,7 @@
 
 require './spec/support/participants/communal_incentives_helper'
 
-feature 'Communal incentives', :incentives, :marigold, sauce: sauce_labs do
+feature 'Communal incentives', :incentives, sauce: sauce_labs do
   background(:all) { participant_3.sign_in if ENV['safari'] }
 
   background do
@@ -44,7 +44,7 @@ feature 'Communal incentives', :incentives, :marigold, sauce: sauce_labs do
   end
 end
 
-feature 'Communal incentives', :incentives, :marigold, sauce: sauce_labs do
+feature 'Communal incentives', :incentives, sauce: sauce_labs do
   scenario 'Participant completes partial community incentive' do
     participant_1.sign_in
     partial_communal_incentive_1.open_communal_plot

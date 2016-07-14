@@ -41,7 +41,7 @@ module Participants
 
       def previously_completed_today?
         has_css?('.alert', text: 'Well done! You have already successfully ' \
-                                 'recorded yesterday\'s emotions')
+                                 'recorded your emotions')
       end
 
       private

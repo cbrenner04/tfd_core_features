@@ -24,15 +24,18 @@ module Users
                         'comments  0 0 2 0 1 0 0 0', 'goals  1 2 0 0 0 0 0 0',
                         'likes  1 2 1 0 1 0 0 0']
         (2..9).zip(summary_data).all? do |row, data|
-          has_group_data?("tr:nth-child(#{row})", data)
+          update_data = ENV['marigold'] ? data.slice(0..-7) : data
+          has_group_data?("tr:nth-child(#{row})", update_data)
         end
       end
     end
 
     def click_each_link
       within summary_panel do
-        ['logins', 'thoughts', 'activities past', 'activities future',
-         'on the mind statements', 'comments', 'goals', 'likes'].each do |link|
+        ['logins', 'thoughts', 'activities monitored', 'activities planned',
+         'on the mind statements', 'comments', 'goals', 'likes',
+         'activities reviewed and complete',
+         'activities reviewed and incomplete'].each do |link|
           click_on link
         end
       end
@@ -109,7 +112,7 @@ module Users
     end
 
     def has_activities_past_data?
-      navigate_to_panel('activities past')
+      navigate_to_panel('activities reviewed and complete')
       within('#activities-past-container') do
         find('.sorting', text: 'Week').click
         row = [all('tr:nth-child(1)')[1], 'tr:nth-child(2)']
@@ -127,7 +130,7 @@ module Users
     end
 
     def has_activities_future_data?
-      navigate_to_panel('activities future')
+      navigate_to_panel('activities planned')
       within('#activities-planned-container') do
         find('.sorting', text: 'Week').click
         row = [all('tr:nth-child(1)')[1], 'tr:nth-child(2)']

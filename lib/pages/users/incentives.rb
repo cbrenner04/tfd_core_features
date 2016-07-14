@@ -178,12 +178,22 @@ module Users
       sleep(0.5)
       user_navigation.scroll_down
       within('.well') { click_new }
+      sleep(2)
       options = ['Create a Goal', 'Complete a Goal', 'Like an Item',
                  'Comment on an Item', 'Create an Activity',
                  'Complete an Activity', 'Create a Thought',
-                 'Complete a Thought', 'Complete a Lesson',
-                 'Complete a Relaxation Exercise']
-      options.all? { |option| has_css?('option', text: option) }
+                 'Complete a Thought', 'Complete a Relaxation Exercise']
+      extras = if ENV['marigold']
+                 ['Create Profile', 'Record Feelings',
+                  'Complete at least 1 practice per day for 4 days',
+                  'Log in to the website for 7 consecutive days',
+                  'Read one Skill', 'Read all Skills']
+               else
+                 ['Compete a Lesson']
+               end
+      expected_options = options.concat(extras)
+
+      expected_options.all? { |option| has_css?('option', text: option) }
     end
 
     private

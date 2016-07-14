@@ -4,6 +4,8 @@
 require './lib/pages/participants/practice'
 Dir['./lib/pages/participants/practice_modules/*.rb'].each { |f| require f }
 require './lib/pages/participants/social_networking'
+require './lib/pages/participants/incentives'
+require './lib/pages/participants/social_networking_modules/profile'
 
 def practice
   @practice ||= Participants::Practice.new
@@ -219,5 +221,23 @@ def reappraisal_2
     reappraisal: 'Reappraisal reappraisal',
     reflection: 'Reappraisal reflection',
     created_at: Time.now - (2 * 60 * 60)
+  )
+end
+
+def profile_practice
+  @profile ||= Participants::SocialNetworkingModules::Profile.new(
+    display_name: 'marigold_2'
+  )
+end
+
+def incentives_practice
+  @incentives ||= Participants::Incentives.new(
+    plot: 'individual',
+    image: 'flower4',
+    pt_list_item: 0,
+    date: Date.today.strftime('%b %d %Y'),
+    incentive: 'practice tracking 4 days in a row',
+    completed: 1,
+    total: 1
   )
 end

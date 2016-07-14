@@ -2,6 +2,26 @@
 # filename: ./spec/features/participant/marigold/skills_spec.rb
 
 require './lib/pages/participants/skills'
+require './lib/pages/participants/incentives'
+require './lib/pages/participants/social_networking_modules/profile'
+
+def profile_skills
+  @profile ||= Participants::SocialNetworkingModules::Profile.new(
+    display_name: 'marigold_2'
+  )
+end
+
+def incentives_skills
+  @incentives ||= Participants::Incentives.new(
+    plot: 'individual',
+    image: 'flower5',
+    pt_list_item: 0,
+    date: Date.today.strftime('%b %d %Y'),
+    incentive: 'complete all skills',
+    completed: 1,
+    total: 1
+  )
+end
 
 def skills
   @skills ||= Participants::Skills.new(lesson: 'Home Introduction')
@@ -27,20 +47,46 @@ feature 'SKILLS tool', :marigold, sauce: sauce_labs do
       participant_navigation.next
       sleep(0.5) # pause so next is not clicked before next page loads
     end
-    skills.finish
 
     expect(skills).to be_on_feedback_slide
 
     skills.rate
     skills.enter_feedback
-    2.times { participant_navigation.next }
+    participant_navigation.next
 
     expect(skills).to have_feedback_saved
+
+    participant_navigation.next
 
     expect(participant_navigation).to have_home_page_visible
 
     visit skills.landing_page
 
     expect(skills_2).to be_available
+  end
+
+  scenario 'Participant completes all available skills' do
+    marigold_2.sign_in
+    visit skills.landing_page
+
+    expect(skills_2).to be_available
+
+    skills_2.open_lesson
+    7.times do
+      participant_navigation.scroll_to_bottom
+      participant_navigation.next
+      sleep(0.5) # pause so next is not clicked before next page loads
+    end
+    skills_2.finish
+
+    sleep(1) # pause so skills page can load before profile page
+
+    profile_skills.visit_profile
+
+    expect(incentives_skills).to have_image_in_plot
+
+    incentives_skills.open_incentives_list
+
+    expect(incentives_skills).to be_complete
   end
 end
