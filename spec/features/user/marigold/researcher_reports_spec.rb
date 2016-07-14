@@ -25,7 +25,7 @@ feature 'Researcher, downloads CSV exports', :marigold do
     @driver.get "#{ENV['Base_URL']}/users/sign_in"
     @driver.find_element(id: 'user_email').send_keys(ENV['Researcher_Email'])
     @driver.find_element(id: 'user_password')
-      .send_keys(ENV['Researcher_Password'])
+           .send_keys(ENV['Researcher_Password'])
     @driver.find_element(css: '.btn.btn-default').submit
     @driver.get "#{ENV['Base_URL']}/think_feel_do_dashboard/reports"
   end
