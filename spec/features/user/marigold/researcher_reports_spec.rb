@@ -36,156 +36,126 @@ feature 'Researcher, downloads CSV exports', :marigold do
   end
 
   scenario 'Emotional Rating' do
-    sleep(2)
     select_and_check_file('Emotional Rating', 'emotionalrating')
   end
 
   scenario 'Gamification: Behavior' do
-    sleep(2)
     select_and_check_file('Gamification: Behavior', 'behavior')
   end
 
   scenario 'Gamification: Incentive' do
-    sleep(2)
     select_and_check_file('Gamification: Incentive', 'incentive')
   end
 
   scenario 'Gamification: Participant Behavior' do
-    sleep(2)
     select_and_check_file('Gamification: Participant Behavior',
                           'participantbehavior')
   end
 
   scenario 'Gamification: Participant Incentive' do
-    sleep(2)
     select_and_check_file('Gamification: Participant Incentive',
                           'participantincentive')
   end
 
   scenario 'Login' do
-    sleep(2)
     select_and_check_file('Login', 'login')
   end
 
   scenario 'Module Page View' do
-    sleep(2)
     select_and_check_file('Module Page View', 'modulepageview')
   end
 
   scenario 'Module Session' do
-    sleep(2)
     select_and_check_file('Module Session', 'modulesession')
   end
 
   scenario 'Participant Profile' do
-    sleep(2)
     select_and_check_file('Participant Profile', 'participantprofile')
   end
 
   scenario 'Practice: Activation Activity' do
-    sleep(2)
     select_and_check_file('Practice: Activation Activity',
                           'activationactivity')
   end
 
   scenario 'Practice: Gratitude Journal' do
-    sleep(2)
     select_and_check_file('Practice: Gratitude Journal', 'gratituderecording')
   end
 
   scenario 'Practice: Kindness' do
-    sleep(2)
     select_and_check_file('Practice: Kindness', 'kindness')
   end
 
   scenario 'Practice: Mindfulness Activity' do
-    sleep(2)
     select_and_check_file('Practice: Mindfulness Activity', 'mindfulactivity')
   end
 
   scenario 'Practice: Mindfulness Meditation' do
-    sleep(2)
     select_and_check_file('Practice: Mindfulness Meditation', 'meditation')
   end
 
   scenario 'Practice: Positive Experience' do
-    sleep(2)
     select_and_check_file('Practice: Positive Experience', 'experience')
   end
 
   scenario 'Practice: Reappraisal' do
-    sleep(2)
     select_and_check_file('Practice: Reappraisal', 'reappraisal')
   end
 
   scenario 'Practice: Strength' do
-    sleep(2)
     select_and_check_file('Practice: Strength', 'strength')
   end
 
   scenario 'Site Session' do
-    sleep(2)
     select_and_check_file('Site Session', 'sitesession')
   end
 
   scenario 'Skill: Feedback' do
-    sleep(2)
     select_and_check_file('Skill: Feedback', 'lessonfeedback')
   end
 
   scenario 'Skill: Slide View' do
-    sleep(2)
     select_and_check_file('Skill: Slide View', 'lessonslideview')
   end
 
   scenario 'Skill: Viewing' do
-    sleep(2)
     select_and_check_file('Skill: Viewing', 'lessonviewing')
   end
 
   scenario 'Social: Comment' do
-    sleep(2)
     select_and_check_file('Social: Comment', 'comment')
   end
 
   scenario 'Social: Like' do
-    sleep(2)
     select_and_check_file('Social: Like', 'like')
   end
 
   scenario 'Social: Nudge' do
-    sleep(2)
     select_and_check_file('Social: Nudge', 'nudge')
   end
 
   scenario 'Social: On My Mind Statements' do
-    sleep(2)
     select_and_check_file('Social: On My Mind Statements', 'offtopicpost')
   end
 
   scenario 'Task Completion' do
-    sleep(2)
     select_and_check_file('Task Completion', 'taskcompletion')
   end
 
   scenario 'Tool Access' do
-    sleep(2)
     select_and_check_file('Tool Access', 'toolaccess')
   end
 
   scenario 'Unsubscribed Phone Numbers' do
-    sleep(2)
     select_and_check_file('Unsubscribed Phone Numbers',
                           'smsdeliveryerrorrecord')
   end
 
   scenario 'User Agent' do
-    sleep(2)
     select_and_check_file('User Agent', 'useragent')
   end
 
   scenario 'Video Session' do
-    sleep(2)
     select_and_check_file('Video Session', 'videosession')
   end
 end
