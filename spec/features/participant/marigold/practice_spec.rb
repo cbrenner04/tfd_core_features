@@ -355,12 +355,12 @@ feature 'Practice incentives', :marigold, sauce: sauce_labs do
 
     expect(meditation_1).to have_activity
 
-    profile.visit_profile
+    profile_practice.visit_profile
 
-    expect(incentives).to have_image_in_plot
+    expect(incentives_practice).to have_image_in_plot
 
-    incentives.open_incentives_list
+    incentives_practice.open_incentives_list
 
-    expect(incentives).to be_complete
+    expect(incentives_practice).to be_complete
   end
 end

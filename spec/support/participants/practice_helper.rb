@@ -224,13 +224,13 @@ def reappraisal_2
   )
 end
 
-def profile
+def profile_practice
   @profile ||= Participants::SocialNetworkingModules::Profile.new(
     display_name: 'marigold_2'
   )
 end
 
-def incentives
+def incentives_practice
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
     image: 'flower4',

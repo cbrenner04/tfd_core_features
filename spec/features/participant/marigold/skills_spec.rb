@@ -5,13 +5,13 @@ require './lib/pages/participants/skills'
 require './lib/pages/participants/incentives'
 require './lib/pages/participants/social_networking_modules/profile'
 
-def profile
+def profile_skills
   @profile ||= Participants::SocialNetworkingModules::Profile.new(
     display_name: 'marigold_2'
   )
 end
 
-def incentives
+def incentives_skills
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
     image: 'flower5',
@@ -47,7 +47,6 @@ feature 'SKILLS tool', :marigold, sauce: sauce_labs do
       participant_navigation.next
       sleep(0.5) # pause so next is not clicked before next page loads
     end
-    # skills.finish
 
     expect(skills).to be_on_feedback_slide
 
@@ -82,12 +81,12 @@ feature 'SKILLS tool', :marigold, sauce: sauce_labs do
 
     sleep(1) # pause so skills page can load before profile page
 
-    profile.visit_profile
+    profile_skills.visit_profile
 
-    expect(incentives).to have_image_in_plot
+    expect(incentives_skills).to have_image_in_plot
 
-    incentives.open_incentives_list
+    incentives_skills.open_incentives_list
 
-    expect(incentives).to be_complete
+    expect(incentives_skills).to be_complete
   end
 end

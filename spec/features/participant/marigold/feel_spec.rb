@@ -14,13 +14,13 @@ def emotions
   @emotions ||= Participants::FeelModules::EmotionsTracking.new
 end
 
-def profile
+def profile_feel
   @profile ||= Participants::SocialNetworkingModules::Profile.new(
     display_name: 'marigold_2'
   )
 end
 
-def incentives
+def incentives_feel
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
     image: 'flower3',
@@ -60,12 +60,12 @@ feature 'FEEL tool', :marigold, sauce: sauce_labs do
     expect(emotions).to be_saved
 
     sleep(2)
-    profile.visit_profile
+    profile_feel.visit_profile
 
-    expect(incentives).to have_image_in_plot
+    expect(incentives_feel).to have_image_in_plot
 
-    incentives.open_incentives_list
+    incentives_feel.open_incentives_list
 
-    expect(incentives).to be_complete
+    expect(incentives_feel).to be_complete
   end
 end

@@ -9,13 +9,13 @@ require './lib/pages/participants/social_networking_modules/profile'
 #   @navigation ||= SharedNavigation.new
 # end
 
-def profile
+def profile_login
   @profile ||= Participants::SocialNetworkingModules::Profile.new(
     display_name: 'marigold_2'
   )
 end
 
-def incentives
+def incentives_login
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
     image: 'flower6',
@@ -31,12 +31,12 @@ feature 'Participant login', :marigold, sauce: sauce_labs do
   scenario 'completes 7 day in a row incentive' do
     marigold_3.sign_in
 
-    profile.visit_profile
+    profile_login.visit_profile
 
-    expect(incentives).to have_image_in_plot
+    expect(incentives_login).to have_image_in_plot
 
-    incentives.open_incentives_list
+    incentives_login.open_incentives_list
 
-    expect(incentives).to be_complete
+    expect(incentives_login).to be_complete
   end
 end
