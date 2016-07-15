@@ -48,7 +48,7 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = 'spec/examples.txt'
   config.run_all_when_everything_filtered = true
   config.profile_examples = 10
-  config.before(:suite) { sanity_check }
+  # config.before(:suite) { sanity_check }
 end
 
 # Capybara configuration options

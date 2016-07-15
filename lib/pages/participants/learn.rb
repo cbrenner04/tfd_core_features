@@ -33,6 +33,7 @@ module Participants
       click_on @lesson_title
       sleep(@reading_duration)
       patient_navigation.next
+      sleep(1)
       click_on 'Finish'
     end
 

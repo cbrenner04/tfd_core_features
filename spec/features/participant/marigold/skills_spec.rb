@@ -75,14 +75,17 @@ feature 'SKILLS tool', :marigold, sauce: sauce_labs do
 
     skills_2.open_lesson
     7.times do
+      # need to close incentive notifications if they exist
+      incentives_skills.close_incentive_alerts
+
+      # navigate to next slide
       participant_navigation.scroll_to_bottom
       participant_navigation.next
       sleep(0.5) # pause so next is not clicked before next page loads
     end
+
     skills_2.finish
-
     sleep(1) # pause so skills page can load before profile page
-
     profile_skills.visit_profile
 
     expect(incentives_skills).to have_image_in_plot

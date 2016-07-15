@@ -39,6 +39,8 @@ feature 'Coach, Group Dashboard', :social_networking, :marigold,
     expect(group_6_dashboard).to have_logins_by_week
   end
 
+  # hidden dependency somewhere - fails when run full suite
+  # somehow "Do - Awareness Introduction" no longer exists in full suite
   scenario 'Coach views Lesson View Summary' do
     # implicitly checks that moderator participant does not count toward counts
     expect(group_6_dashboard).to have_lesson_summary_data

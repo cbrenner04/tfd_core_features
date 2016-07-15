@@ -61,20 +61,20 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     expect(positive_events_1).to have_amplifying_examples
   end
 
-  if ENV['chrome'] # alert doesn't show on firefox
-    scenario 'Participant must submit New Positive events with description' do
-      positive_events_1.open
-      sleep(1)
-      participant_navigation.scroll_to_bottom
-      participant_navigation.next
+  scenario 'Participant must submit New Positive events with description' do
+    positive_events_1.open
+    sleep(1)
+    participant_navigation.scroll_to_bottom
+    participant_navigation.next
 
-      expect(positive_events_1).to have_description_alert
-    end
+    # fails in firefox as alert does not show
+    expect(positive_events_1).to have_description_alert
   end
 
   scenario 'Participant creates New Positive events' do
     positive_events_1.open
     positive_events_1.complete
+    participant_navigation.scroll_to_bottom
     participant_navigation.next
 
     expect(positive_events_1).to be_saved
@@ -190,7 +190,10 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     participant_navigation.next
     mindfulness_2.review_completed_activity
     participant_navigation.next
-    mindfulness_2.open_view
+
+    expect(practice).to be_visible
+
+    mindfulness_2.open_view # has thrown a stale element error in full suite
 
     expect(mindfulness_1).to have_incomplete_activity
     expect(mindfulness_2).to have_completed_activity

@@ -104,7 +104,7 @@ feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
     expect(group_9_incentives).to have_created_group_incentive_successfully
   end
 
-  unless ENV['marigold']
+  unless ENV['marigold'] # group incentives don't exist in marigold
     scenario 'Researcher adds a partial group incentive' do
       group_9.open
       group_9_incentives.manage
@@ -152,27 +152,29 @@ feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
     expect(group_6_incentives).to have_like_incentive_successfully_destroyed
   end
 
-  scenario 'Researcher add group incentive, confirm moderator does not count' do
-    group_9.open
-    group_9_incentives.manage
-    group_9_incentives.add_partial_group_incentive
+  unless ENV['marigold'] # group incentives don't exist in marigold
+    scenario 'Researcher add group incentive, confirm moderator do not count' do
+      group_9.open
+      group_9_incentives.manage
+      group_9_incentives.add_partial_group_incentive
 
-    expect(group_9_incentives)
-      .to have_created_partial_group_incentive_successfully
-    group_9_incentives.add_one_comment_behavior
+      expect(group_9_incentives)
+        .to have_created_partial_group_incentive_successfully
+      group_9_incentives.add_one_comment_behavior
 
-    expect(group_9_incentives).to have_added_one_comment_behavior_successfully
+      expect(group_9_incentives).to have_added_one_comment_behavior_successfully
 
-    # check participant facing for lack of moderator in count
-    researcher.sign_out
-    participant_7.sign_in
-    group9_communal_incentive.open_communal_plot
+      # check participant facing for lack of moderator in count
+      researcher.sign_out
+      participant_7.sign_in
+      group9_communal_incentive.open_communal_plot
 
-    expect(group9_communal_incentive).to be_visible
+      expect(group9_communal_incentive).to be_visible
 
-    group9_communal_incentive.open_incentives_list
+      group9_communal_incentive.open_incentives_list
 
-    expect(group9_communal_incentive).to have_incentives_listed
+      expect(group9_communal_incentive).to have_incentives_listed
+    end
   end
 end
 

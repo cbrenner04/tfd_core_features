@@ -81,7 +81,7 @@ module Participants
 
     def has_total_needed_to_complete?
       has_css?('.panel-title',
-               text: "#{@incentive} #{@completed}/#{@total} complete "\
+               text: "#{@incentive} #{@completed}/#{@total} complete " \
                      '(at least 3 is required)')
     end
 

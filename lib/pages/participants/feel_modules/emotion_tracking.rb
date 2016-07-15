@@ -21,6 +21,7 @@ module Participants
       def rate
         emotions_to_rate = emotions.sample(5)
         emotions_to_rate.each do |emotion|
+          participant_navigation.scroll_to_bottom if emotion.start_with?('S')
           find('tr', text: emotion)
             .find("input[value = '#{(1..9).to_a.sample}']").click
         end

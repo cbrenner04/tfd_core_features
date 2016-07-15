@@ -97,7 +97,7 @@ module Users
     end
 
     def has_site_message?
-      find('tr:nth-child(2)')
+      find('tr', text: @message_subject)
         .has_text? "#{@participant} #{@message_subject}  " \
                    "#{@message_body} #{long_date(today)}"
     end
