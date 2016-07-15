@@ -25,7 +25,7 @@ module Participants
       end
 
       def has_like_detail?
-        within('.list-group-item.ng-scope', text: @feed_item) do
+        within first('.list-group-item.ng-scope', text: @feed_item) do
           find('.likes.ng-binding').click
           has_text? @participant
         end

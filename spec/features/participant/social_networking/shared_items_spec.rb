@@ -214,6 +214,7 @@ feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
     pt_5_reviewing_1.find_in_feed
 
     # this fails when run alone
+    # this will also fail if test suite overlaps an hour change
     expect(pt_5_reviewing_1).to have_feed_item_detail
     expect(pt_5_reviewing_2).to have_nonsocial_incomplete_item
   end

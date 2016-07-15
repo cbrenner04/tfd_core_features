@@ -58,7 +58,6 @@ module Participants
         find('label', text: 'What could you do to ACT AS IF you believe this?')
         fill_in 'thought_act_as_if', with: @action
         participant_navigation.next
-        expect(think).to have_success_alert
       end
 
       def find_in_feed
