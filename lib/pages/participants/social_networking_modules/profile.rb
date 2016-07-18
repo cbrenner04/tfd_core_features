@@ -20,9 +20,11 @@ module Participants
 
       def visit_profile
         visit "#{ENV['Base_URL']}/social_networking/profile_page"
+        sleep(1)
         unless has_no_css?('.modal-content')
           find('.modal-content').all('img')[2].click
         end
+        expect(page).to have_no_css('.modal-content')
       end
 
       def navigate_to_profile
@@ -46,10 +48,13 @@ module Participants
       end
 
       def check_for_character_count
-        2.times { participant_navigation.scroll_down }
+        2.times { participant_navigation.scroll_down } unless ENV['tfdso']
         within profile_question('What are your hobbies?') do
-          find('input[type = text]').click
-          sleep(0.25)
+          counter = 0
+          while has_no_css?('.status') && counter < 2
+            find('input[type = text]').click
+            counter += 1
+          end
           expect(social_networking).to have_1000_characters_left
         end
       end
@@ -63,24 +68,26 @@ module Participants
       end
 
       def create
-        question = ['What are your hobbies?', 'What is your favorite color?',
-                    'Animal, vegetable or mineral?', 'Group 1 profile question']
-        question.zip(@answer) do |q, a|
+        questions = ['What are your hobbies?', 'What is your favorite color?',
+                     'Animal, vegetable or mineral?',
+                     'Group 1 profile question']
+        questions.zip(@answer) do |question, answer|
           participant_navigation.scroll_down
-          answer_profile_question(q, a)
+          answer_profile_question(question, answer)
         end
 
-        has_no_text? 'Fill out your profile so other group members can get ' \
-                     'to know you!'
+        expect(page).to have_no_text 'Fill out your profile so other group ' \
+                                     'members can get to know you!'
       end
 
       def create_group_3_profile
         visit_profile
-        incomplete?
-        2.times { participant_navigation.scroll_down }
+        expect(page).to have_text 'Fill out your profile so other group ' \
+                                  'members can get to know you!'
+        2.times { participant_navigation.scroll_down } unless ENV['tfdso']
         answer_profile_question('What are your hobbies?', @answer)
-        has_no_text? 'Fill out your profile so other group members can get ' \
-                     'to know you!'
+        expect(page).to have_no_text 'Fill out your profile so other group ' \
+                                     'members can get to know you!'
       end
 
       def able_to_edit_question?

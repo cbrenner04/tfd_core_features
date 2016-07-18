@@ -29,10 +29,10 @@ module Participants
       find_feed_item('nudged participant1')
     end
 
-    def find_feed_item(x)
+    def find_feed_item(item)
       find('#feed-btn').click unless ENV['tfd'] || ENV['tfdso']
       counter = 0
-      while has_no_css?('.list-group-item.ng-scope', text: x) && counter < 15
+      while has_no_css?('.list-group-item.ng-scope', text: item) && counter < 15
         execute_script('window.scrollTo(0,100000)')
         counter += 1
       end
@@ -43,6 +43,7 @@ module Participants
     end
 
     def has_1000_characters_left?
+      sleep(1)
       has_text? '1000 characters left'
     end
 

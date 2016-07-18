@@ -106,6 +106,7 @@ feature 'SocialNetworking Landing Page',
       participant_1.sign_in unless ENV['safari']
       visit ENV['Base_URL']
       participant_1.resize_to_mobile
+      sleep(1)
 
       expect(to_do_list).to be_visible
     end
@@ -145,7 +146,6 @@ feature 'SocialNetworking Landing Page',
 
       participant_4_profile.create_group_3_profile
       visit ENV['Base_URL']
-      participant_navigation.confirm_with_js
 
       expect(participant_4_to_do_list).to_not have_profile_task
       expect(participant_4_to_do_list).to be_complete

@@ -32,8 +32,11 @@ module Participants
         participant_navigation.scroll_to_bottom
         within first('.list-group-item.ng-scope', text: @feed_item) do
           click_on 'Comment'
-          find('input[type = text]').click
-          sleep(0.5)
+          counter = 0
+          while has_no_css?('.status') && counter < 2
+            find('input[type = text]').click
+            counter += 1
+          end
           expect(social_networking).to have_1000_characters_left
           find('input[type = text]').set(@comment)
           expect(social_networking).to have_updated_character_count(@comment)

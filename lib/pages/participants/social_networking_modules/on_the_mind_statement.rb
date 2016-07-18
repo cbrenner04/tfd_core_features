@@ -14,14 +14,14 @@ module Participants
 
       def create # this include checking for character count
         click_on 'What\'s on your mind?'
-        if ENV['tfdso']
+        counter = 0
+        while has_no_css?('.status') && counter < 2
           find('#new-on-your-mind-description').click
-          expect(social_networking).to have_1000_characters_left
+          counter += 1
         end
+        expect(social_networking).to have_1000_characters_left
         fill_in 'new-on-your-mind-description', with: @statement
-        if ENV['tfdso']
-          expect(social_networking).to have_updated_character_count(@statement)
-        end
+        expect(social_networking).to have_updated_character_count(@statement)
         click_on 'Save'
       end
 
