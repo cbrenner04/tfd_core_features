@@ -92,9 +92,12 @@ module Participants
       def compare_thought(thought)
         participant_navigation.scroll_down
         social_networking.accept_social
-        think.has_success_alert?
-        find('.adjusted-list-group-item').has_no_content? thought
+
+        expect(think).to have_success_alert
+        expect(find('.adjusted-list-group-item')).to_not have_text thought
+
         find('.adjusted-list-group-item').text
+        find('.alert').find('.close').click if has_css?('.alert')
       end
     end
   end

@@ -21,6 +21,7 @@ feature 'THINK tool', :core, sauce: sauce_labs do
     expect(think).to be_visible
   end
 
+  # this is dependent upon the previous spec
   scenario 'Participant completes Patterns module' do
     patterns.open
     patterns.move_to_pattern_entry_form
