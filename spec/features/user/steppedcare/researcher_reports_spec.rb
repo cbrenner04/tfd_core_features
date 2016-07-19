@@ -6,7 +6,8 @@ require 'fileutils'
 
 def check_file(file)
   @driver.find_element(link: file).click
-  file_path = "#{@download_dir}/#{file.downcase.delete(' ')}.csv"
+  link = file == 'PHQ9 Assessment' ? 'phqassessment' : file
+  file_path = "#{@download_dir}/#{link.downcase.delete(' ')}.csv"
   File.size(file_path).should be > 0
 end
 
