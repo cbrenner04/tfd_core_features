@@ -12,6 +12,10 @@ module Participants
       "#{ENV['Base_URL']}/navigator/contexts/SKILLS"
     end
 
+    def visible?
+      has_css?('h1', text: 'SKILLS')
+    end
+
     def unavailable?
       has_css?('.disabled', text: @lesson)
     end
