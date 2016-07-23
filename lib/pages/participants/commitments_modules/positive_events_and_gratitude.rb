@@ -34,12 +34,28 @@ module Participants
 
       def has_commitment_form_visible?
         has_text?('Ready to Make a Commitment') &&
-          has_text?('I will keep an eye out for positive events. At the end ' \
-                    'of each day, I\'ll write down two good things that I ' \
-                    'noticed.') &&
-          has_text?('I will practice amplifying positive events. Each day ' \
-                    'I\'ll do one thing, like telling someone else about an ' \
-                    'event or looking back and savoring it afterward.')
+          has_text?(commitment_choices[0]) &&
+          has_text?(commitment_choices[1])
+      end
+
+      def set_commitment
+        @commitment ||= commitment_choices.sample
+        choose @commitment
+      end
+
+      def has_commitment?
+        has_text? @commitment
+      end
+
+      private
+
+      def commitment_choices
+        ['I will keep an eye out for positive events. At the end ' \
+         'of each day, I\'ll write down two good things that I ' \
+         'noticed.',
+         'I will practice amplifying positive events. Each day ' \
+         'I\'ll do one thing, like telling someone else about an ' \
+         'event or looking back and savoring it afterward.'].freeze
       end
     end
   end
