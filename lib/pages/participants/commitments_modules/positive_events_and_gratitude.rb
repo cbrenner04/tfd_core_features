@@ -47,6 +47,11 @@ module Participants
         has_text? @commitment
       end
 
+      def has_commitment_summary_visible?
+        has_css?('h1',
+                 text: 'My Commitment to Practicing Noticing Positive Events')
+      end
+
       private
 
       def commitment_choices

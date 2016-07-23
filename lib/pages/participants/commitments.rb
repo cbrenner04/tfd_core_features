@@ -54,15 +54,10 @@ module Participants
       fill_in 'commitment[affirmation]', with: @affirmation
     end
 
-    def has_commitment_summary_visible?
-      has_css?('h1',
-               text: 'My Commitment to Practicing Noticing Positive Events')
-    end
-
     def has_responses?
       has_text?('And will continue for at least ' \
                 "#{minimum_time_lookup[@minimum_time]}") &&
-        has_text?("I will do it #{frequency_update[@frequency]}") &&
+        has_text?("I will do it #{frequency_lookup[@frequency]}") &&
         @tracking.each { |tracking_choice| has_text?(tracking_choice) } &&
         has_text?(@details) && has_text?(@affirmation)
     end
@@ -86,7 +81,7 @@ module Participants
       }
     end
 
-    def frequency_update
+    def frequency_lookup
       {
         'More than once a day' => 'more than once a day',
         'Once a day' => 'once a day',
