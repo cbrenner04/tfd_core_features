@@ -23,6 +23,10 @@ module Participants
         click_on 'View Positive Events'
       end
 
+      def has_review_visible?
+        has_css?('h1', text: 'View Positive Events')
+      end
+
       def has_questions?
         find('.control-label', match: :first)
         actual = (0..4).map { |i| all('.control-label')[i].text }

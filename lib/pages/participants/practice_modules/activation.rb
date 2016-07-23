@@ -29,6 +29,10 @@ module Participants
         click_on 'View Activation Activities'
       end
 
+      def has_review_visible?
+        has_css?('h1', text: 'View Activation')
+      end
+
       def show_suggestions
         click_on 'click here for some suggestions'
       end
