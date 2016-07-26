@@ -12,6 +12,11 @@ feature 'Researcher, downloads CSV exports', :marigold do
 
   after(:all) { reports.tear_down }
 
+  scenario 'Commitments' do
+    reports.select_file('Commitments')
+    reports.check_file('commitment')
+  end
+
   scenario 'Emotional Rating' do
     reports.select_file('Emotional Rating')
     reports.check_file('emotionalrating')
