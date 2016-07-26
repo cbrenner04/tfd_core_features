@@ -37,6 +37,18 @@ def activation_commitment
   @activation_commitment ||= Participants::CommitmentsModules::Activation.new
 end
 
+def mindfulness_commitment
+  @mindfulness_commitment ||= Participants::CommitmentsModules::Mindfulness.new
+end
+
+def reappraisal_commitment
+  @reappraisal_commitment ||= Participants::CommitmentsModules::Reappraisal.new
+end
+
+def kindness_commitment
+  @kindness_commitment ||= Participants::CommitmentsModules::Kindness.new
+end
+
 def skills
   @skills ||= Participants::Skills.new(lesson: 'Home Introduction')
 end
@@ -49,6 +61,24 @@ end
 
 def activation
   @activation ||= Participants::PracticeModules::Activation.new(
+    activity_type: 'test'
+  )
+end
+
+def mindfulness
+  @mindfulness ||= Participants::PracticeModules::Mindfulness.new(
+    activity_type: 'test'
+  )
+end
+
+def reappraisals
+  @reappraisals ||= Participants::PracticeModules::Reappraisals.new(
+    activity_type: 'test'
+  )
+end
+
+def kindness
+  @kindness ||= Participants::PracticeModules::Kindness.new(
     activity_type: 'test'
   )
 end
