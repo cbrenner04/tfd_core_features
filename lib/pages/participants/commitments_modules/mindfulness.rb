@@ -52,12 +52,19 @@ module Participants
       private
 
       def commitment_choices
-        ['I will pick a small way to work on something I care about, and keep' \
-         ' track of what I picked',
-         'I will schedule activities for myself, including specific times and' \
-         ' reminders to help make sure I do them.',
-         'I will make or find a list of enjoyable things to do, and pick one ' \
-         'of them to do for at least 5 minutes']
+        ['I will spend five minutes (or more) meditating, ' \
+          'either on my own or using a guided meditation',
+         'I will eat one meal or snack each day mindfully. ' \
+          "For at least a few minutes I won't talk, read, or " \
+          "look at a screen. I'll just pay attention " \
+          'to the experience of eating.',
+         'I will spend a few minutes being accepting toward something ' \
+          "difficult or painful in my life. That doesn't mean liking it " \
+          'or giving up trying to make it better -- just acknowledging ' \
+          "that it's currently real.",
+         'I will pick an ordinary daily activity, such as brushing my teeth ' \
+          'or commuting, and pay full attention to it. When I get ' \
+          'distracted, I will return my attention to the present moment.']
       end
     end
   end
