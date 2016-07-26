@@ -32,7 +32,8 @@ module Participants
         has_text?('Ready to Make a Commitment') &&
           has_text?(commitment_choices[0]) &&
           has_text?(commitment_choices[1]) &&
-          has_text?(commitment_choices[2])
+          has_text?(commitment_choices[2]) &&
+          has_text?(commitment_choices[3])
       end
 
       def set_commitment
