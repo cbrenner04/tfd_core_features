@@ -56,16 +56,17 @@ module Participants
         ['I will spend five minutes (or more) meditating, ' \
           'either on my own or using a guided meditation',
          'I will eat one meal or snack each day mindfully. ' \
-          "For at least a few minutes I won't talk, read, or " \
-          "look at a screen. I'll just pay attention " \
+          'For at least a few minutes I won\'t talk, read, or ' \
+          'look at a screen. I\'ll just pay attention ' \
           'to the experience of eating.',
          'I will spend a few minutes being accepting toward something ' \
-          "difficult or painful in my life. That doesn't mean liking it " \
+          'difficult or painful in my life. That doesn\'t mean liking it ' \
           'or giving up trying to make it better -- just acknowledging ' \
-          "that it's currently real.",
+          'that it\'s currently real.',
          'I will pick an ordinary daily activity, such as brushing my teeth ' \
           'or commuting, and pay full attention to it. When I get ' \
-          'distracted, I will return my attention to the present moment.']
+          'distracted, I will return my attention to ' \
+          'the present moment.'].freeze
       end
     end
   end

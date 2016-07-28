@@ -53,9 +53,10 @@ module Participants
 
       def commitment_choices
         ['Every day, I will spend at least two minutes reappraisig ' \
-          'something that upsets me -- either right when it happens, or later in the day.',
-         "Every day I will write down a small problem I'm dealing with in " \
-          'my life, and look for ways to think about it differently.'
+          'something that upsets me -- either right when ' \
+          'it happens, or later in the day.',
+         'Every day I will write down a small problem I\'m dealing with in ' \
+          'my life, and look for ways to think about it differently.']
       end
     end
   end

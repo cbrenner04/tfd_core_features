@@ -57,7 +57,7 @@ module Participants
          'I will schedule activities for myself, including specific times and' \
          ' reminders to help make sure I do them.',
          'I will make or find a list of enjoyable things to do, and pick one ' \
-         'of them to do for at least 5 minutes']
+         'of them to do for at least 5 minutes'].freeze
       end
     end
   end
