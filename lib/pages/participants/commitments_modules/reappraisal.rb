@@ -52,12 +52,10 @@ module Participants
       private
 
       def commitment_choices
-        ['I will pick a small way to work on something I care about, and keep' \
-         ' track of what I picked',
-         'I will schedule activities for myself, including specific times and' \
-         ' reminders to help make sure I do them.',
-         'I will make or find a list of enjoyable things to do, and pick one ' \
-         'of them to do for at least 5 minutes']
+        ['Every day, I will spend at least two minutes reappraisig ' \
+          'something that upsets me -- either right when it happens, or later in the day.',
+         "Every day I will write down a small problem I'm dealing with in " \
+          'my life, and look for ways to think about it differently.'
       end
     end
   end

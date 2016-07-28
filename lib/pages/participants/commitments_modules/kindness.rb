@@ -52,12 +52,13 @@ module Participants
       private
 
       def commitment_choices
-        ['I will pick a small way to work on something I care about, and keep' \
-         ' track of what I picked',
-         'I will schedule activities for myself, including specific times and' \
-         ' reminders to help make sure I do them.',
-         'I will make or find a list of enjoyable things to do, and pick one ' \
-         'of them to do for at least 5 minutes']
+        ['I will commit to doing something nice for a friend, ' \
+          'loved one, or stranger every day.',
+         'I will watch for spontaneous opportunities to help people or ' \
+          'be kind, and keep a diary of what I do',
+         'I will choose a larger act of kindness, such as getting involved ' \
+          'with a volunteer organization or making a gift for someone ' \
+          'I know. I will steadily make progress toward my goal.']
       end
     end
   end
