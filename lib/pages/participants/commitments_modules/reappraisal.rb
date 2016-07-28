@@ -38,14 +38,18 @@ module Participants
         @commitment ||= commitment_choices.sample
         if @commitment == 'I will...'
           choose @commitment
-          fill_in '.option', with: 'Example Reappraisal commitment'
+          fill_in '.option', with: 'Example reappraisal commitment'
         else
           choose @commitment
         end
       end
 
       def has_commitment?
-        has_text? @commitment
+        if @commitment == 'I will...'
+          has_text 'Example reappaisal commitment'
+        else
+          has_text @commitment
+        end
       end
 
       def has_commitment_summary_visible?
@@ -56,7 +60,7 @@ module Participants
       private
 
       def commitment_choices
-        ['Every day, I will spend at least two minutes reappraisig ' \
+        ['Every day, I will spend at least two minutes reappraising ' \
           'something that upsets me -- either right when ' \
           'it happens, or later in the day.',
          'Every day I will write down a small problem I\'m dealing with in ' \

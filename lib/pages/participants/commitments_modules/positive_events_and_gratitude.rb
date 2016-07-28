@@ -49,7 +49,11 @@ module Participants
       end
 
       def has_commitment?
-        has_text? @commitment
+        if @commitment == 'I will...'
+          has_text 'Example positive events commitment'
+        else
+          has_text @commitment
+        end
       end
 
       def has_commitment_summary_visible?
