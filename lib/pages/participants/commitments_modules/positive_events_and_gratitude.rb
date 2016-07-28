@@ -40,7 +40,12 @@ module Participants
 
       def set_commitment
         @commitment ||= commitment_choices.sample
-        choose @commitment
+        if @commitment == 'I will...'
+          choose @commitment
+          fill_in '.option', with: 'Example positive events commitment'
+        else
+          choose @commitment
+        end
       end
 
       def has_commitment?
@@ -60,7 +65,8 @@ module Participants
          'noticed.',
          'I will practice amplifying positive events. Each day ' \
          'I\'ll do one thing, like telling someone else about an ' \
-         'event or looking back and savoring it afterward.'].freeze
+         'event or looking back and savoring it afterward.',
+         'I will...'].freeze
       end
     end
   end

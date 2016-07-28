@@ -37,7 +37,12 @@ module Participants
 
       def set_commitment
         @commitment ||= commitment_choices.sample
-        choose @commitment
+        if @commitment == 'I will...'
+          choose @commitment
+          fill_in '.option', with: 'Example activation commitment'
+        else
+          choose @commitment
+        end
       end
 
       def has_commitment?
@@ -57,7 +62,8 @@ module Participants
          'I will schedule activities for myself, including specific times and' \
          ' reminders to help make sure I do them.',
          'I will make or find a list of enjoyable things to do, and pick one ' \
-         'of them to do for at least 5 minutes'].freeze
+         'of them to do for at least 5 minutes',
+         'I will...'].freeze
       end
     end
   end

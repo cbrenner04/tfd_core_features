@@ -36,7 +36,12 @@ module Participants
 
       def set_commitment
         @commitment ||= commitment_choices.sample
-        choose @commitment
+        if @commitment == 'I will...'
+          choose @commitment
+          fill_in '.option', with: 'Example Reappraisal commitment'
+        else
+          choose @commitment
+        end
       end
 
       def has_commitment?
@@ -55,7 +60,8 @@ module Participants
           'something that upsets me -- either right when ' \
           'it happens, or later in the day.',
          'Every day I will write down a small problem I\'m dealing with in ' \
-          'my life, and look for ways to think about it differently.'].freeze
+          'my life, and look for ways to think about it differently.',
+         'I will...'].freeze
       end
     end
   end

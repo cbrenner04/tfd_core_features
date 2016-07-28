@@ -38,7 +38,12 @@ module Participants
 
       def set_commitment
         @commitment ||= commitment_choices.sample
-        choose @commitment
+        if @commitment == 'I will...'
+          choose @commitment
+          fill_in '.option', with: 'Example mindfulness commitment'
+        else
+          choose @commitment
+        end
       end
 
       def has_commitment?
@@ -66,7 +71,8 @@ module Participants
          'I will pick an ordinary daily activity, such as brushing my teeth ' \
           'or commuting, and pay full attention to it. When I get ' \
           'distracted, I will return my attention to ' \
-          'the present moment.'].freeze
+          'the present moment.',
+         'I will...'].freeze
       end
     end
   end

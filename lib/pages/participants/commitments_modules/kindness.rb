@@ -37,7 +37,12 @@ module Participants
 
       def set_commitment
         @commitment ||= commitment_choices.sample
-        choose @commitment
+        if @commitment == 'I will...'
+          choose @commitment
+          fill_in '.option', with: 'Example kindness commitment'
+        else
+          choose @commitment
+        end
       end
 
       def has_commitment?
@@ -58,7 +63,8 @@ module Participants
           'be kind, and keep a diary of what I do',
          'I will choose a larger act of kindness, such as getting involved ' \
           'with a volunteer organization or making a gift for someone ' \
-          'I know. I will steadily make progress toward my goal.'].freeze
+          'I know. I will steadily make progress toward my goal.',
+         'I will...'].freeze
       end
     end
   end
