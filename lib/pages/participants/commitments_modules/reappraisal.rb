@@ -31,8 +31,7 @@ module Participants
       def has_commitment_form_visible?
         has_text?('Ready to Make a Commitment') &&
           has_text?(commitment_choices[0]) &&
-          has_text?(commitment_choices[1]) &&
-          has_text?(commitment_choices[2])
+          has_text?(commitment_choices[1])
       end
 
       def set_commitment
@@ -56,7 +55,7 @@ module Participants
           'something that upsets me -- either right when ' \
           'it happens, or later in the day.',
          'Every day I will write down a small problem I\'m dealing with in ' \
-          'my life, and look for ways to think about it differently.']
+          'my life, and look for ways to think about it differently.'].freeze
       end
     end
   end

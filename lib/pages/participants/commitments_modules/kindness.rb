@@ -58,7 +58,7 @@ module Participants
           'be kind, and keep a diary of what I do',
          'I will choose a larger act of kindness, such as getting involved ' \
           'with a volunteer organization or making a gift for someone ' \
-          'I know. I will steadily make progress toward my goal.']
+          'I know. I will steadily make progress toward my goal.'].freeze
       end
     end
   end
