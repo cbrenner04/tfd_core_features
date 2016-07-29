@@ -13,5 +13,9 @@ module Participants
                'overwhelming. To start with, choose just one skill, ' \
                'and we\'ll suggest a few easy options for practicing it.'
     end
+
+    def click
+      click_on 'BOOSTERS'
+    end
   end
 end
