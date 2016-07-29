@@ -25,7 +25,7 @@ feature 'Boosters', :marigold, sauce: sauce_labs do
     participant_marigold_4.sign_in
   end
 
-  scenerio 'invite link takes participant to boosters' do
+  scenario 'invite link takes participant to boosters' do
     visit "#{ENV['Base_URL']}/booster_session"
 
     expect(boosters).to have_thank_you_visisble

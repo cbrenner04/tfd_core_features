@@ -22,14 +22,14 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       positive_events_and_gratitude.move_through_initial_slideshow
       positive_events_and_gratitude.select_review_lessons
 
-      expect(skills).to be_visible
+      expect(skills_visible).to be_visible
 
       commitments.open
       positive_events_and_gratitude.open
       positive_events_and_gratitude.move_through_initial_slideshow
       positive_events_and_gratitude.select_look_back_at_journal
 
-      expect(positive_events).to have_review_visible
+      expect(positive_events_practice_modules).to have_review_visible
 
       commitments.open
       positive_events_and_gratitude.open
@@ -110,14 +110,14 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       activation_commitment.move_through_initial_slideshow
       activation_commitment.select_review_lessons
 
-      expect(skills).to be_visible
+      expect(skills_visible).to be_visible
 
       commitments.open
       activation_commitment.open
       activation_commitment.move_through_initial_slideshow
       activation_commitment.select_look_back_at_journal
 
-      expect(activation).to have_review_visible
+      expect(activation_practice_modules).to have_review_visible
 
       commitments.open
       activation_commitment.open
@@ -198,14 +198,14 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       mindfulness_commitment.move_through_initial_slideshow
       mindfulness_commitment.select_review_lessons
 
-      expect(skills).to be_visible
+      expect(skills_visible).to be_visible
 
       commitments.open
       mindfulness_commitment.open
       mindfulness_commitment.move_through_initial_slideshow
       mindfulness_commitment.select_look_back_at_journal
 
-      expect(mindfulness).to have_review_visible
+      expect(mindfulness_practice_modules).to have_review_visible
 
       commitments.open
       mindfulness_commitment.open
@@ -286,14 +286,14 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       reappraisal_commitment.move_through_initial_slideshow
       reappraisal_commitment.select_review_lessons
 
-      expect(skills).to be_visible
+      expect(skills_visible).to be_visible
 
       commitments.open
       reappraisal_commitment.open
       reappraisal_commitment.move_through_initial_slideshow
       reappraisal_commitment.select_look_back_at_journal
 
-      expect(reappraisals).to have_review_visible
+      expect(reappraisals_practice_modules).to have_review_visible
 
       commitments.open
       reappraisal_commitment.open
@@ -374,14 +374,14 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       kindness_commitment.move_through_initial_slideshow
       kindness_commitment.select_review_lessons
 
-      expect(skills).to be_visible
+      expect(skills_visible).to be_visible
 
       commitments.open
       kindness_commitment.open
       kindness_commitment.move_through_initial_slideshow
       kindness_commitment.select_look_back_at_journal
 
-      expect(kindness).to have_review_visible
+      expect(kindness_practice_modules).to have_review_visible
 
       commitments.open
       kindness_commitment.open

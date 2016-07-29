@@ -55,36 +55,36 @@ def kindness_commitment
   @kindness_commitment ||= Participants::CommitmentsModules::Kindness.new
 end
 
-def skills
-  @skills ||= Participants::Skills.new(lesson: 'Home Introduction')
+def skills_visible
+  @skills_ ||= Participants::Skills.new(lesson: 'Home Introduction')
 end
 
-def positive_events
-  @positive_events ||= Participants::PracticeModules::PositiveEvents.new(
+def positive_events_practice_module
+  @positive_events_practice_module ||= Participants::PracticeModules::PositiveEvents.new(
     description: 'test'
   )
 end
 
-def activation
-  @activation ||= Participants::PracticeModules::Activation.new(
+def activation_practice_module
+  @activation_practice_module ||= Participants::PracticeModules::Activation.new(
     activity_type: 'test'
   )
 end
 
-def mindfulness
-  @mindfulness ||= Participants::PracticeModules::Mindfulness.new(
+def mindfulness_practice_module
+  @mindfulness_practice_module ||= Participants::PracticeModules::Mindfulness.new(
     activity_type: 'test'
   )
 end
 
-def reappraisals
-  @reappraisals ||= Participants::PracticeModules::Reappraisals.new(
+def reappraisals_practice_module
+  @reappraisals_practice_module ||= Participants::PracticeModules::Reappraisals.new(
     activity_type: 'test'
   )
 end
 
-def kindness
-  @kindness ||= Participants::PracticeModules::Kindness.new(
+def kindness_practice_module
+  @kindness_practice_module ||= Participants::PracticeModules::Kindness.new(
     activity_type: 'test'
   )
 end
