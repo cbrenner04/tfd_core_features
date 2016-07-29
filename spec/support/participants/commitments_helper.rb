@@ -5,8 +5,14 @@ require './lib/pages/participants/commitments'
 require './lib/pages/participants/commitments_modules/' \
         'positive_events_and_gratitude'
 require './lib/pages/participants/commitments_modules/activation'
+require './lib/pages/participants/commitments_modules/kindness'
+require './lib/pages/participants/commitments_modules/mindfulness'
+require './lib/pages/participants/commitments_modules/reappraisal'
 require './lib/pages/participants/practice_modules/activation'
 require './lib/pages/participants/practice_modules/positive_events'
+require './lib/pages/participants/practice_modules/kindness'
+require './lib/pages/participants/practice_modules/mindfulness'
+require './lib/pages/participants/practice_modules/reappraisals'
 require './lib/pages/participants/skills'
 
 def participant_marigold_4
