@@ -22,7 +22,7 @@ end
 
 feature 'Boosters', :marigold, sauce: sauce_labs do
   background do
-    marigold_participant.sign_in
+    participant_marigold_4.sign_in
   end
 
   scenerio 'invite link takes participant to boosters' do
