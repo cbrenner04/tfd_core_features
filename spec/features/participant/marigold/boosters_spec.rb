@@ -5,13 +5,6 @@ require './lib/pages/participants'
 require './lib/pages/participants/boosters.rb'
 require './lib/pages/participants/navigation.rb'
 
-def participant_marigold_4
-  @participant_marigold_4 ||= Participant.new(
-    participant: ENV['Marigold_4_Email'],
-    password: ENV['Marigold_4_Password']
-  )
-end
-
 def boosters
   @boosters ||= Participants::Boosters.new
 end
@@ -28,7 +21,7 @@ feature 'Boosters', :marigold, sauce: sauce_labs do
   scenario 'invite link takes participant to boosters' do
     visit "#{ENV['Base_URL']}/booster_session"
 
-    expect(boosters).to have_thank_you_visisble
+    expect(boosters).to have_thank_you_visible
 
     navigation.alt_next
 
