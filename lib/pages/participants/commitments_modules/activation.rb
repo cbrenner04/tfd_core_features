@@ -37,19 +37,17 @@ module Participants
 
       def set_commitment
         @commitment ||= commitment_choices.sample
+        choose @commitment
         if @commitment == 'I will...'
-          choose @commitment
           fill_in '.option', with: 'Example activation commitment'
-        else
-          choose @commitment
         end
       end
 
       def has_commitment?
         if @commitment == 'I will...'
-          has_text 'Example activation commitment'
+          has_text? 'Example activation commitment'
         else
-          has_text @commitment
+          has_text? @commitment
         end
       end
 

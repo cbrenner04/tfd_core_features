@@ -142,6 +142,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     activation_1.open_review
 
     expect(activation_1).to have_planned_activity
+    sleep(0.5)
     expect(activation_2).to have_completed_activity
     expect(activation_3).to have_incomplete_activity
   end
@@ -191,6 +192,7 @@ feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
     mindfulness_2.review_completed_activity
     participant_navigation.next
 
+    sleep(2)
     expect(practice).to be_visible
 
     mindfulness_2.open_view # has thrown a stale element error in full suite
