@@ -3,17 +3,10 @@
 require './lib/pages/participants'
 require './lib/pages/participants/commitments'
 require './lib/pages/participants/skills'
-
-Dir['./lib/pages/participants/commitiments_modules/*.rb'].each { |file| require file }
-Dir['./lib/pages/participants/practice_modules/*.rb'].each { |file| require file }
-
-
-def participant_marigold_4
-  @participant_marigold_4 ||= Participant.new(
-    participant: ENV['Marigold_4_Email'],
-    password: ENV['Marigold_4_Password']
-  )
-end
+Dir['./lib/pages/participants/commitiments_modules/*.rb']
+  .each { |file| require file }
+Dir['./lib/pages/participants/practice_modules/*.rb']
+  .each { |file| require file }
 
 def commitments
   @commitments ||= Participants::Commitments.new

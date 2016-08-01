@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 # filename: ./spec/features/participant/marigold/commitments_spec.rb
 
+require './lib/pages/participants'
 require './spec/support/participants/commitments_helper.rb'
 require './lib/pages/participants/commitments.rb'
-require './lib/pages/participants/commitments_modules/activation.rb'
-require './lib/pages/participants/commitments_modules/kindness.rb'
-require './lib/pages/participants/commitments_modules/mindfulness.rb'
-require './lib/pages/participants/commitments_modules/' \
-          'positive_events_and_gratitude.rb'
-require './lib/pages/participants/commitments_modules/reappraisal.rb'
+Dir['./lib/pages/participants/commitiments_modules/*.rb']
+  .each { |file| require file }
 
 feature 'Commitments', :marigold, sauce: sauce_labs do
   background do
