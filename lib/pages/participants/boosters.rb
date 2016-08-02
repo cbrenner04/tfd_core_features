@@ -14,6 +14,10 @@ module Participants
                'and we\'ll suggest a few easy options for practicing it.'
     end
 
+    def inaccessible?
+      has_css?('.alert', text: 'Boosters Available Soon!')
+    end
+
     def click
       click_on 'COMMITMENTS'
     end
