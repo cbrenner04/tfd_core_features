@@ -34,6 +34,7 @@ feature 'Researcher, downloads CSV exports', :core do
   end
 
   scenario 'Task Completion' do
+    reports.scroll_down
     reports.select_and_check_file('Task Completion')
   end
 

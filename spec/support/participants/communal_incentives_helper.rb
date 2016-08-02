@@ -31,7 +31,7 @@ def partial_communal_incentive_1
     incentive: 'comment on 1 feed items',
     completed: 2,
     total: 7,
-    image: 'flower2',
+    image: 'flower4',
     plot: 'communal'
   )
 end
@@ -41,7 +41,7 @@ def partial_communal_incentive_2
     incentive: 'comment on 1 feed items',
     completed: 3,
     total: 7,
-    image: 'flower2',
+    image: 'flower4',
     plot: 'communal',
     pt_list_item: 0,
     date: long_date_with_hour(Time.now)

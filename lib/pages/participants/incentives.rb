@@ -43,16 +43,14 @@ module Participants
     end
 
     def incomplete?
-      all('.list-group-item')[@pt_list_item].has_no_css?('.fa-check-circle') &&
-        all('.list-group-item.task-status')[@pt_list_item]
-          .has_text?('Completed at: ---')
+      incentive_list_item.has_no_css?('.fa-check-circle') &&
+        incentive_list_item.has_text?('Completed at: ---')
     end
 
     def complete?
       sleep(0.25) # this can be flaky, the sleep seems to help
-      all('.list-group-item')[@pt_list_item].has_css?('.fa-check-circle') &&
-        all('.list-group-item')[@pt_list_item]
-          .has_text?("Completed at: #{@date}")
+      incentive_list_item.has_css?('.fa-check-circle') &&
+        incentive_list_item.has_text?("Completed at: #{@date}")
     end
 
     def has_num_completed?
@@ -66,13 +64,12 @@ module Participants
     end
 
     def has_image_in_home_plot?
-      find('.text-center', text: @participant)
-        .find('.small-garden').has_css? "img[src ^= \"/assets/#{@image}\"]"
+      participant_plot.find('.small-garden')
+                      .has_css? "img[src ^= \"/assets/#{@image}\"]"
     end
 
     def visit_another_pt_incentives
-      find('.text-center', text: @participant)
-        .find('a', text: @participant).click
+      participant_plot.find('a', text: @participant).click
     end
 
     def close_incentive_alerts
@@ -90,6 +87,14 @@ module Participants
     def incentive_title
       find('.panel-title',
            text: "#{@incentive} #{@completed}/#{@total} complete")
+    end
+
+    def incentive_list_item
+      all('.list-group-item')[@pt_list_item]
+    end
+
+    def participant_plot
+      find('.text-center', text: @participant)
     end
   end
 end
