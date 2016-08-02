@@ -44,7 +44,10 @@ feature 'FEEL tool', :marigold, sauce: sauce_labs do
 
     expect(emotions).to be_saved
 
-    sleep(1) # throws an error alert, another expect does not work
+    emotions.complete_dice
+
+    expect(emotions).to have_dice_saved
+
     visit feel.landing_page
     emotions.open
 
@@ -59,7 +62,10 @@ feature 'FEEL tool', :marigold, sauce: sauce_labs do
 
     expect(emotions).to be_saved
 
-    sleep(2)
+    emotions.complete_dice
+
+    expect(emotions).to have_dice_saved
+
     profile_feel.visit_profile
 
     expect(incentives_feel).to have_image_in_plot

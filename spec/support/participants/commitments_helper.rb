@@ -3,7 +3,7 @@
 require './lib/pages/participants'
 require './lib/pages/participants/commitments'
 require './lib/pages/participants/skills'
-Dir['./lib/pages/participants/commitiments_modules/*.rb']
+Dir['./lib/pages/participants/commitments_modules/*.rb']
   .each { |file| require file }
 Dir['./lib/pages/participants/practice_modules/*.rb']
   .each { |file| require file }
@@ -46,27 +46,31 @@ def skills_visible
 end
 
 def positive_events_practice_module
-  @positive_events_practice_module ||= Participants::PracticeModules::PositiveEvents.new(
-    description: 'test'
-  )
+  @positive_events_practice_module ||=
+    Participants::PracticeModules::PositiveEvents.new(
+      description: 'test'
+    )
 end
 
 def activation_practice_module
-  @activation_practice_module ||= Participants::PracticeModules::Activation.new(
-    activity_type: 'test'
-  )
+  @activation_practice_module ||=
+    Participants::PracticeModules::Activation.new(
+      activity_type: 'test'
+    )
 end
 
 def mindfulness_practice_module
-  @mindfulness_practice_module ||= Participants::PracticeModules::Mindfulness.new(
-    activity_type: 'test'
-  )
+  @mindfulness_practice_module ||=
+    Participants::PracticeModules::Mindfulness.new(
+      activity_type: 'test'
+    )
 end
 
 def reappraisals_practice_module
-  @reappraisals_practice_module ||= Participants::PracticeModules::Reappraisals.new(
-    activity_type: 'test'
-  )
+  @reappraisals_practice_module ||=
+    Participants::PracticeModules::Reappraisals.new(
+      activity_type: 'test'
+    )
 end
 
 def kindness_practice_module
