@@ -15,6 +15,12 @@ def profile_login
   )
 end
 
+def profile_login2
+  @profile ||= Participants::SocialNetworkingModules::Profile.new(
+    display_name: 'marigold_5'
+  )
+end
+
 def incentives_login
   @incentives ||= Participants::Incentives.new(
     plot: 'individual',
@@ -38,5 +44,15 @@ feature 'Participant login', :marigold, sauce: sauce_labs do
     incentives_login.open_incentives_list
 
     expect(incentives_login).to be_complete
+  end
+
+  scenario 'to non-incentive group' do
+    marigold_5.sign_in
+
+    expect(incentives_login).to_not have_home_plot
+
+    profile_login2.visit_profile
+
+    expect(incentives_login).to_not have_profile_plot
   end
 end

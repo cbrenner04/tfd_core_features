@@ -76,19 +76,19 @@ module Participants
       end
 
       def has_planned_activity?
-        has_css?('tr', text: "#{@activity}") &&
+        has_css?('tr', text: @activity) &&
           has_css?('tr', text: "#{@reviewed} #{@encouragement} #{@reminder} " \
                                "#{@challenges}")
       end
 
       def has_completed_activity?
-        has_css?('tr', text: "#{@activity}") &&
+        has_css?('tr', text: @activity) &&
           has_css?('tr', text: "#{@reviewed} #{@encouragement} #{@emotions} " \
                                "#{@notes} #{@reminder} #{@challenges}")
       end
 
       def has_incomplete_activity?
-        has_css?('tr', text: "#{@activity}") &&
+        has_css?('tr', text: @activity) &&
           has_css?('tr', text: "#{@reviewed} #{@encouragement} #{@reminder} " \
                                "#{@challenges} #{@noncompliance_reason}")
       end

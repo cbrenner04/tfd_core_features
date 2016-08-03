@@ -91,4 +91,3 @@ module Participants
     end
   end
 end
-

@@ -82,6 +82,14 @@ module Participants
                      '(at least 3 is required)')
     end
 
+    def has_home_plot?
+      has_css? '.small-garden'
+    end
+
+    def has_profile_plot?
+      has_css? '#garden-individual'
+    end
+
     private
 
     def incentive_title

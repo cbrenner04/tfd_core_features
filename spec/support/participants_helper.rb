@@ -66,3 +66,10 @@ def participant_marigold_4
     password: ENV['marigold_4_Password']
   )
 end
+
+def marigold_5
+  @marigold_5 ||= Participant.new(
+    participant: ENV['marigold_5_email'],
+    password: ENV['marigold_5_Password']
+  )
+end
