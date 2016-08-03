@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 # filename: ./spec/features/participant/marigold/commitments_spec.rb
 
-require './lib/pages/participants'
 require './spec/support/participants/commitments_helper.rb'
-require './lib/pages/participants/commitments.rb'
-Dir['./lib/pages/participants/commitiments_modules/*.rb']
-  .each { |file| require file }
 
 feature 'Commitments', :marigold, sauce: sauce_labs do
   background do

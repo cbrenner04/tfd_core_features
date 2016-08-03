@@ -8,7 +8,6 @@ module Participants
 
       def initialize(mindfulness)
         @activity ||= mindfulness[:activity]
-        @planned_for ||= mindfulness[:planned_for]
         @reviewed ||= mindfulness[:reviewed]
         @encouragement ||= mindfulness[:encouragement]
         @emotions ||= mindfulness[:emotions]
