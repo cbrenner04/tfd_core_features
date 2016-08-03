@@ -17,8 +17,8 @@ feature 'Researcher, downloads CSV exports', :marigold do
     reports.check_file('commitment')
   end
 
-  scenario 'DICE Surveys' do
-    reports.select_file('DICE Surveys')
+  scenario 'D-I-S-E Surveys' do
+    reports.select_file('D-I-S-E Surveys')
     reports.check_file('stressassessment')
   end
 

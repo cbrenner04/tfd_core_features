@@ -20,6 +20,7 @@ feature 'Boosters', :marigold, sauce: sauce_labs do
 
     expect(boosters).to be_inaccessible
   end
+
   scenario 'invite link takes participant to boosters' do
     participant_marigold_4.sign_in
     visit "#{ENV['Base_URL']}/booster_session"
