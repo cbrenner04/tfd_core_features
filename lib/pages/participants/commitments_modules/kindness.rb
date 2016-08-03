@@ -2,12 +2,12 @@
 module Participants
   module CommitmentsModules
     # page object for the Positive Events and Gratitude module in Marigold
-    class Activation
+    class Kindness
       include RSpec::Matchers
       include Capybara::DSL
 
       def open
-        click_on 'Activation'
+        click_on 'Kindness'
         expect(page).to have_text 'Slide 1'
       end
 
@@ -17,15 +17,15 @@ module Participants
       end
 
       def select_review_lessons
-        click_on 'Review the Activation lesson on the MARIGOLD course'
+        click_on 'Review the Kindness lesson on the MARIGOLD course'
       end
 
       def select_look_back_at_journal
-        click_on 'Look back at your Activation journal from the course'
+        click_on 'Look back at your Kindness journal from the course'
       end
 
       def select_print_bonus_handout
-        click_on 'Print out the Activation bonus handout to keep with you'
+        click_on 'Print out the Kindness bonus handout to keep with you'
       end
 
       def has_commitment_form_visible?
@@ -39,13 +39,13 @@ module Participants
         @commitment ||= commitment_choices.sample
         choose @commitment
         if @commitment == 'I will...'
-          fill_in '.option', with: 'Example activation commitment'
+          fill_in '.option', with: 'Example kindness commitment'
         end
       end
 
       def has_commitment?
         if @commitment == 'I will...'
-          has_text? 'Example activation commitment'
+          has_text? 'Example kindness commitment'
         else
           has_text? @commitment
         end
@@ -53,18 +53,19 @@ module Participants
 
       def has_commitment_summary_visible?
         has_css?('h1',
-                 text: 'My Commitment to Practicing Activation')
+                 text: 'My Commitment to Practicing Kindness')
       end
 
       private
 
       def commitment_choices
-        ['I will pick a small way to work on something I care about, and keep' \
-         ' track of what I picked',
-         'I will schedule activities for myself, including specific times and' \
-         ' reminders to help make sure I do them.',
-         'I will make or find a list of enjoyable things to do, and pick one ' \
-         'of them to do for at least 5 minutes',
+        ['I will commit to doing something nice for a friend, ' \
+          'loved one, or stranger every day.',
+         'I will watch for spontaneous opportunities to help people or ' \
+          'be kind, and keep a diary of what I do',
+         'I will choose a larger act of kindness, such as getting involved ' \
+          'with a volunteer organization or making a gift for someone ' \
+          'I know. I will steadily make progress toward my goal.',
          'I will...'].freeze
       end
     end

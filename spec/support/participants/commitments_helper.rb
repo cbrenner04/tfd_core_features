@@ -2,19 +2,11 @@
 
 require './lib/pages/participants'
 require './lib/pages/participants/commitments'
-require './lib/pages/participants/commitments_modules/' \
-        'positive_events_and_gratitude'
-require './lib/pages/participants/commitments_modules/activation'
-require './lib/pages/participants/practice_modules/activation'
-require './lib/pages/participants/practice_modules/positive_events'
 require './lib/pages/participants/skills'
-
-def participant_marigold_4
-  @participant_marigold_4 ||= Participant.new(
-    participant: ENV['Marigold_4_Email'],
-    password: ENV['Marigold_4_Password']
-  )
-end
+Dir['./lib/pages/participants/commitments_modules/*.rb']
+  .each { |file| require file }
+Dir['./lib/pages/participants/practice_modules/*.rb']
+  .each { |file| require file }
 
 def commitments
   @commitments ||= Participants::Commitments.new
@@ -37,18 +29,52 @@ def activation_commitment
   @activation_commitment ||= Participants::CommitmentsModules::Activation.new
 end
 
-def skills
-  @skills ||= Participants::Skills.new(lesson: 'Home Introduction')
+def mindfulness_commitment
+  @mindfulness_commitment ||= Participants::CommitmentsModules::Mindfulness.new
 end
 
-def positive_events
-  @positive_events ||= Participants::PracticeModules::PositiveEvents.new(
-    description: 'test'
-  )
+def reappraisal_commitment
+  @reappraisal_commitment ||= Participants::CommitmentsModules::Reappraisal.new
 end
 
-def activation
-  @activation ||= Participants::PracticeModules::Activation.new(
+def kindness_commitment
+  @kindness_commitment ||= Participants::CommitmentsModules::Kindness.new
+end
+
+def skills_visible
+  @skills_ ||= Participants::Skills.new(lesson: 'Home Introduction')
+end
+
+def positive_events_practice_module
+  @positive_events_practice_module ||=
+    Participants::PracticeModules::PositiveEvents.new(
+      description: 'test'
+    )
+end
+
+def activation_practice_module
+  @activation_practice_module ||=
+    Participants::PracticeModules::Activation.new(
+      activity_type: 'test'
+    )
+end
+
+def mindfulness_practice_module
+  @mindfulness_practice_module ||=
+    Participants::PracticeModules::Mindfulness.new(
+      activity_type: 'test'
+    )
+end
+
+def reappraisals_practice_module
+  @reappraisals_practice_module ||=
+    Participants::PracticeModules::Reappraisals.new(
+      activity_type: 'test'
+    )
+end
+
+def kindness_practice_module
+  @kindness_practice_module ||= Participants::PracticeModules::Kindness.new(
     activity_type: 'test'
   )
 end

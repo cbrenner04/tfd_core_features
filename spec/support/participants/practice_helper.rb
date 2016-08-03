@@ -128,7 +128,6 @@ end
 def mindfulness_1
   @mindfulness_1 ||= Participants::PracticeModules::Mindfulness.new(
     activity: 'Speech',
-    planned_for: Time.now - ((1 * 60 * 60 * 24) + (2 * 60 * 60)),
     reviewed: 'Yes',
     encouragement: 'Speech encouragement',
     reminder: 'Speech reminder',
@@ -140,7 +139,6 @@ end
 def mindfulness_2
   @mindfulness_2 ||= Participants::PracticeModules::Mindfulness.new(
     activity: 'Jogging',
-    planned_for: Time.now - ((1 * 60 * 60 * 24) + (1 * 60 * 60)),
     reviewed: 'Yes',
     encouragement: 'Mindfulness encouragement',
     reminder: 'Mindfulness reminder',
@@ -153,7 +151,6 @@ end
 def mindfulness_3
   @mindfulness_3 ||= Participants::PracticeModules::Mindfulness.new(
     activity: 'New mindfulness activity',
-    planned_for: Time.now,
     reviewed: 'No',
     encouragement: 'New mindfulness encouragement',
     reminder: 'New mindfulness reminder',
@@ -164,7 +161,6 @@ end
 def mindfulness_4
   @mindfulness_4 ||= Participants::PracticeModules::Mindfulness.new(
     activity: 'Parkour',
-    planned_for: Time.now - ((1 * 60 * 60 * 24) + (3 * 60 * 60)),
     reviewed: 'Yes',
     encouragement: 'Parkour encouragement',
     reminder: 'Parkour reminder',
