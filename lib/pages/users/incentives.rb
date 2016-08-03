@@ -24,7 +24,7 @@ module Users
     end
 
     def submit_create
-      if driver == :firefox
+      if page.driver == :firefox
         click_on 'Create'
         accept_alert 'Please note that you will not be able to change SCOPE ' \
                      'and REPEATABLE. Please review and make sure everything ' \
