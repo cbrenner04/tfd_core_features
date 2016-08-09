@@ -54,7 +54,7 @@ module Users
       click_on 'Slideshows'
       learn_tool_needed_alert = 'A learn tool has to be created in order to ' \
                                 'access this page'
-      accept_alert learn_tool_needed_alert unless ENV['chrome'] || ENV['safari']
+      accept_alert learn_tool_needed_alert if page.driver == :poltergeist
     end
 
     def created_successfully?

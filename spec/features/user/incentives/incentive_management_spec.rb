@@ -61,7 +61,7 @@ feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
     expect { group_9_incentives.select_group_incentive }
       .to raise_error(Capybara::ElementNotFound)
     expect(group_9_incentives).to be_unable_to_edit_repeatable_scope
-    expect(group_9_incentives).to be_unable_to_edit_group_scope
+    expect(group_9_incentives).to be_unable_to_edit_individual_scope
   end
 
   scenario 'Researcher can only choose valid options when creating behavior' do
@@ -204,7 +204,7 @@ feature 'Incentives, Coach', :superfluous, :incentives, sauce: sauce_labs do
     expect { group_9_incentives.select_group_incentive }
       .to raise_error(Capybara::ElementNotFound)
     expect(group_9_incentives).to be_unable_to_edit_repeatable_scope
-    expect(group_9_incentives).to be_unable_to_edit_group_scope
+    expect(group_9_incentives).to be_unable_to_edit_individual_scope
   end
 
   scenario 'Coach adds a behavior to an incentive' do

@@ -84,8 +84,8 @@ namespace :tfdso do
   end
 end
 
-TAGS = '--tag core --tag social_networking --tag tfdso'
 SET_TFDSO_TRUE = 'tfdso=true'
+TAGS = '--tag core --tag social_networking --tag tfdso'
 NO_SUPERFLUOUS = '--tag ~superfluous'
 NO_BROWSER = '--tag ~browser'
 
@@ -133,6 +133,11 @@ namespace :run_tfdso do
   desc 'Run next failure for MoodTech headlessly'
   task :headless_next_failure do
     system("driver=poltergeist #{SET_TFDSO_TRUE} rspec --next-failure #{TAGS} #{NO_BROWSER}")
+  end
+
+  desc 'Run only browser specs (this usually only for after running headlessly)'
+  task :browser_only do
+    system("#{SET_TFDSO_TRUE} rspec #{TAGS} --tag browser")
   end
 
   # this requires switching databases on staging

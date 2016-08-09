@@ -85,10 +85,17 @@ module Users
                    else
                      8
                    end
+        # this may be removed and everything uses ' Active'
+        # when stylesheets are updated
+        active_badge = if ENV['driver'] == 'poltergeist' && ENV['tfd']
+                         ''
+                       else
+                         ' Active'
+                       end
         has_text? "Started on: #{today.strftime('%A, %m/%d/%Y')}" \
                   "\n#{week_num} weeks from the start date is: " \
                   "#{(today + (week_num * 7)).strftime('%A, %m/%d/%Y')}" \
-                  "\nStatus: Active Currently in week 1" \
+                  "\nStatus:#{active_badge} Currently in week 1" \
                   "\nLessons read this week: 1"
       end
     end

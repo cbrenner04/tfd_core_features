@@ -105,8 +105,16 @@ module Users
     end
 
     def has_group_assigned_successfully?
+      # may be differences in styling between host apps
+      # possible this will be removed later
+      active_badge = if ENV['driver'] == 'poltergeist' && ENV['tfd']
+                       ''
+                     else
+                       ' Active'
+                     end
+
       has_text?('Group was successfully assigned') &&
-        has_text?('Membership Status: Active' \
+        has_text?("Membership Status:#{active_badge}" \
                   "\nCurrent Group: Group #{group_number}")
     end
 

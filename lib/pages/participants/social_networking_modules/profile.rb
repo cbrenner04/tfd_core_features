@@ -15,7 +15,6 @@ module Participants
         @display_name ||= profile[:display_name]
         @other_pt ||= profile[:other_pt]
         @last_seen ||= profile[:last_seen]
-        @nudger ||= profile[:nudger]
       end
 
       def visit_profile
@@ -61,9 +60,9 @@ module Participants
 
       def check_for_updated_character_count
         within profile_question('What are your hobbies?') do
-          response = one_less_than_1000_characters_of_lorem
-          enter_profile_answer(response)
-          expect(social_networking).to have_updated_character_count(response)
+          enter_profile_answer(NINE_HUNDRED_NINETY_NINE_CHARS)
+          expect(social_networking)
+            .to have_updated_character_count(NINE_HUNDRED_NINETY_NINE_CHARS)
         end
       end
 
@@ -117,17 +116,17 @@ module Participants
       end
 
       def has_nudge?
-        has_text? "#{@nudger} nudged you!"
+        has_text? 'participant2 nudged you!'
       end
 
       private
 
       def participant_navigation
-        @participant_navigation ||= Participants::Navigation.new
+        Participants::Navigation.new
       end
 
       def social_networking
-        @social_networking ||= Participants::SocialNetworking.new
+        Participants::SocialNetworking.new
       end
 
       def answer_profile_question(question, answer)
@@ -150,9 +149,8 @@ module Participants
         ENV['sunnyside'] || ENV['marigold'] ? 'success' : 'default'
       end
 
-      def one_less_than_1000_characters_of_lorem
-        @one_less_than_1000_characters_of_lorem ||=
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean i' \
+      NINE_HUNDRED_NINETY_NINE_CHARS = 'Lorem ipsum dolor sit amet, ' \
+          'consectetur adipiscing elit. Aenean i' \
           'n nunc metus. Praesent aliquam faucibus metus. Sed cursus porta d' \
           'ictum. Duis id ornare metus. Nam consectetur mauris quis nibh acc' \
           'umsan tempus. Quisque at viverra quam. Pellentesque dapibus nisi ' \
@@ -168,7 +166,6 @@ module Participants
           'ibero malesuada ultricies. Vestibulum augue mi, pulvinar sed cond' \
           'imentum eget, cursus et nulla. Suspendisse cursus, quam nec iacul' \
           'is faucibus, purus nulla'
-      end
     end
   end
 end

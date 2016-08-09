@@ -16,6 +16,6 @@ end
 
 def pt_1_prof_2
   @pt_1_prof_2 ||= Participants::SocialNetworkingModules::Profile.new(
-    nudger: 'participant2'
+    display_name: 'participant1'
   )
 end
