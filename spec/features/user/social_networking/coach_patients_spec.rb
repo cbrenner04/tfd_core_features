@@ -13,22 +13,22 @@ feature 'Coach, Patient Dashboard', :social_networking, :marigold,
       visit user_navigation.arms_page
       arm_1.open
       group_1.open
-      patient_dashboard_group_1.open
+      patient_table_group_1.open
     end
 
     scenario 'Coach views Tool Use table' do
-      patient_data_dashboard.select_patient
+      patient_data_patient_table.select_patient
 
       expect(patient_data_dashboard).to have_tool_use_data
     end
 
     scenario 'Coach uses the links within Tool Use table' do
-      patient_data_dashboard.select_patient
+      patient_data_patient_table.select_patient
       patient_data_dashboard.click_all_links_in_tool_use_table
     end
 
     scenario 'Coach uses the links within Social Activity table' do
-      patient_data_dashboard.select_patient
+      patient_data_patient_table.select_patient
       patient_data_dashboard.click_all_links_in_social_activity_table
     end
   end
@@ -41,51 +41,51 @@ feature 'Coach, Patient Dashboard', :social_networking, :marigold,
       visit user_navigation.arms_page
       arm_1.open
       group_6.open
-      patient_dashboard_group_6.open
+      patient_table_group_6.open
     end
 
     scenario 'Coach sees consistent # of Logins' do
-      expect(patient_61_dashboard).to have_login_info_in_patients_list
+      expect(patient_61_patient_table).to have_login_info
     end
 
     scenario 'Coach views Social Activity' do
-      patient_61_dashboard.select_patient
+      patient_61_patient_table.select_patient
 
       expect(patient_61_dashboard).to have_social_activity_data
     end
 
     scenario 'Coach views Likes' do
-      patient_61_dashboard.select_patient
+      patient_61_patient_table.select_patient
 
       expect(patient_61_dashboard).to have_likes_data
     end
 
     scenario 'Coach views Goals' do
-      patient_61_dashboard.select_patient
+      patient_61_patient_table.select_patient
 
       expect(patient_61_dashboard).to have_goals_data
     end
 
     scenario 'Coach views Comments' do
-      patient_61_dashboard.select_patient
+      patient_61_patient_table.select_patient
 
       expect(patient_61_dashboard).to have_comments_data
     end
 
     scenario 'Coach views Nudges Initiated' do
-      patient_61_dashboard.select_patient
+      patient_61_patient_table.select_patient
 
       expect(patient_61_dashboard).to have_nudges_initiated_data
     end
 
     scenario 'Coach views Nudges Received' do
-      patient_61_dashboard.select_patient
+      patient_61_patient_table.select_patient
 
       expect(patient_61_dashboard).to have_nudges_received_data
     end
 
     scenario 'Coach views On-My-Mind Statements' do
-      patient_61_dashboard.select_patient
+      patient_61_patient_table.select_patient
 
       expect(patient_61_dashboard).to have_on_the_mind_data
     end
@@ -97,15 +97,14 @@ feature 'Coach, Patient Dashboard', :social_networking, :marigold,
       visit user_navigation.arms_page
       arm_1.open
       group_6.open
-      patient_dashboard_group_6.open
-      patient_65_dashboard.terminate_access
+      patient_table_group_6.open
+      patient_65_patient_table.terminate_access
 
-      expect(patient_65_dashboard)
-        .to_not have_participant_visible_in_patient_table
+      expect(patient_65_patient_table).to_not have_participant_visible
 
-      patient_65_dashboard.navigate_to_inactive_patients
+      patient_65_patient_table.navigate_to_inactive_patients
 
-      expect(patient_65_dashboard).to have_participant_visible_in_patient_table
+      expect(patient_65_patient_table).to have_participant_visible
 
       unless ENV['safari']
         participant_61.sign_in

@@ -26,11 +26,11 @@ feature 'User Dashboard Bugs,', :core, :marigold, sauce: sauce_labs do
       visit user_navigation.arms_page
       arm_1.open
       group_6.open
-      participant_61_dashboard.open
+      participant_61_patient_table.open
 
-      expect(participant_61_dashboard).to have_login_info_in_patients_list
+      expect(participant_61_patient_table).to have_login_info
 
-      participant_61_dashboard.select_patient
+      participant_61_patient_table.select_patient
 
       expect(participant_61_dashboard).to have_partial_login_info
     end
@@ -47,8 +47,8 @@ feature 'User Dashboard Bugs,', :core, :marigold, sauce: sauce_labs do
       visit user_navigation.arms_page
       arm_1.open
       group_1.open
-      patient_1_dashboard.open
-      patient_1_dashboard.select_patient
+      patient_1_patient_table.open
+      patient_1_patient_table.select_patient
 
       expect(patient_1_dashboard).to have_lessons_data
     end

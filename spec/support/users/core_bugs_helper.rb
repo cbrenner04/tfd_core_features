@@ -8,6 +8,7 @@ require './lib/pages/users/arms'
 require './lib/pages/users/lessons'
 require './lib/pages/users/participants_set_up'
 require './lib/pages/users/patient_dashboard'
+require './lib/pages/users/patient_table'
 require './lib/pages/users/slideshows'
 
 def bug_participant
@@ -21,12 +22,26 @@ def bug_participant
   )
 end
 
+def participant_61_patient_table
+  @participant_61_patient_table ||= Users::PatientTable.new(
+    participant: 'participant61',
+    date: today - 4,
+    total_logins: 11
+  )
+end
+
 def participant_61_dashboard
   @participant_61_dashboard ||= Users::PatientDashboard.new(
     participant: 'participant61',
     group: 'Group 6',
     date: today - 4,
     total_logins: 11
+  )
+end
+
+def patient_1_patient_table
+  @patient_1_patient_table ||= Users::PatientTable.new(
+    participant: 'TFD-1111'
   )
 end
 

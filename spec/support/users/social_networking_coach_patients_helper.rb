@@ -2,6 +2,13 @@
 require './lib/pages/participants'
 require './lib/pages/participants/social_networking'
 require './lib/pages/users/patient_dashboard'
+require './lib/pages/users/patient_table'
+
+def patient_table_group_1
+  @patient_table_group_1 ||= Users::PatientTable.new(
+    participant: 'TFD-1111'
+  )
+end
 
 def patient_dashboard_group_1
   @patient_dashboard_group_1 ||= Users::PatientDashboard.new(group: 'Group 1')
@@ -11,9 +18,21 @@ def patient_dashboard_group_6
   @patient_dashboard_group_6 ||= Users::PatientDashboard.new(group: 'Group 6')
 end
 
+def patient_data_patient_table
+  @patient_data_patient_table ||= Users::PatientTable.new(
+    participant: 'TFD-data'
+  )
+end
+
 def patient_data_dashboard
   @patient_data_dashboard ||= Users::PatientDashboard.new(
     participant: 'TFD-data'
+  )
+end
+
+def patient_61_patient_table
+  @patient_61_patient_table ||= Users::PatientTable.new(
+    participant: 'participant61'
   )
 end
 
@@ -25,8 +44,8 @@ def patient_61_dashboard
   )
 end
 
-def patient_65_dashboard
-  @patient_65_dashboard ||= Users::PatientDashboard.new(
+def patient_65_patient_table
+  @patient_65_patient_table ||= Users::PatientTable.new(
     participant: 'participant65'
   )
 end

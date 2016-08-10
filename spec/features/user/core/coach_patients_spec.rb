@@ -12,29 +12,27 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
       visit user_navigation.arms_page
       arm_1.open
       group_1.open
-      patient_dashboard_group_1.open
+      patient_table_group_1.open
     end
 
     scenario 'Coach views active participants assigned to them' do
-      expect(participant_1_dashboard)
-        .to have_participant_visible_in_patient_table
+      expect(participant_1_patient_table).to have_participant_visible
     end
 
     scenario 'Coach views inactive participants assigned to them' do
-      patient_dashboard_group_1.navigate_to_inactive_patients
+      patient_table_group_1.navigate_to_inactive_patients
 
-      expect(completer_dashboard).to have_participant_visible_in_patient_table
+      expect(completer_patient_table).to have_participant_visible
     end
 
     scenario 'Coach selects Terminate Access' do
-      withdraw_dashboard.terminate_access
+      withdraw_patient_table.terminate_access
 
-      expect(withdraw_dashboard)
-        .to_not have_participant_visible_in_patient_table
+      expect(withdraw_patient_table).to_not have_participant_visible
 
-      patient_dashboard_group_1.navigate_to_inactive_patients
+      patient_table_group_1.navigate_to_inactive_patients
 
-      expect(withdraw_dashboard).to have_withdrawal_date
+      expect(withdraw_patient_table).to have_withdrawal_date
     end
 
     scenario 'Coach uses breadcrumbs to return to home' do
@@ -53,8 +51,8 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
       visit user_navigation.arms_page
       arm_1.open
       group_1.open
-      patient_dashboard_group_1.open
-      data_dashboard.select_patient
+      patient_table_group_1.open
+      data_patient_table.select_patient
     end
 
     scenario 'Coach views General Patient Info' do
@@ -66,8 +64,8 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     end
 
     scenario 'Coach uses the table of contents in the patient report' do
-      patient_dashboard_group_1.select_all_toc_links
-      patient_dashboard_group_1.select_activity_viz_from_toc
+      dashboard_table_of_contents.select_all_links
+      dashboard_table_of_contents.select_activity_viz
 
       expect(patient_dashboard_group_1).to have_activity_viz_visible
 
@@ -75,7 +73,7 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
 
       expect(patient_dashboard_group_1).to be_visible
 
-      patient_dashboard_group_1.select_thoughts_viz_from_toc
+      dashboard_table_of_contents.select_thoughts_viz
 
       expect(patient_dashboard_group_1).to have_thoughts_viz_container
 
@@ -85,13 +83,13 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     end
 
     scenario 'Coach views Mood and Emotions viz' do
-      patient_dashboard_group_1.select_mood_emotions_viz_from_toc
+      dashboard_table_of_contents.select_mood_emotions_viz
 
       expect(patient_dashboard_group_1).to have_mood_emotions_viz_visible
     end
 
     scenario 'Coach navigates to 28 day view in Mood and Emotions viz' do
-      patient_dashboard_group_1.select_mood_emotions_viz_from_toc
+      dashboard_table_of_contents.select_mood_emotions_viz
       within(patient_dashboard_group_1.mood_emotions_viz) do
         expect(patient_dashboard_group_1).to have_week_view_visible
 
@@ -102,7 +100,7 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     end
 
     scenario 'Coach navigates to Previous Period in Mood and Emotions viz' do
-      patient_dashboard_group_1.select_mood_emotions_viz_from_toc
+      dashboard_table_of_contents.select_mood_emotions_viz
       within(patient_dashboard_group_1.mood_emotions_viz) do
         patient_dashboard_group_1.switch_to_previous_period
 
@@ -111,31 +109,31 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     end
 
     scenario 'Coach views Mood' do
-      data_dashboard.select_mood_from_toc
+      dashboard_table_of_contents.select_mood
 
       expect(data_dashboard).to have_mood_data
     end
 
     scenario 'Coach views Feelings' do
-      data_dashboard.select_feel_from_toc
+      dashboard_table_of_contents.select_feel
 
       expect(data_dashboard).to have_feelings_data
     end
 
     scenario 'Coach views Logins' do
-      data_dashboard.select_logins_from_toc
+      dashboard_table_of_contents.select_logins
 
       expect(data_dashboard).to have_login_data
     end
 
     scenario 'Coach views Lessons' do
-      data_dashboard.select_lessons_from_toc
+      dashboard_table_of_contents.select_lessons
 
       expect(data_dashboard).to have_lessons_data
     end
 
     scenario 'Coach views Audio Access' do
-      patient_dashboard_group_1.select_audio_access_from_toc
+      dashboard_table_of_contents.select_audio_access
 
       expect(patient_dashboard_group_1).to have_audio_access_data
     end
@@ -191,25 +189,25 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     end
 
     scenario 'Coach views Activities - Future' do
-      patient_dashboard_group_1.select_activities_future_from_toc
+      dashboard_table_of_contents.select_activities_future
 
       expect(patient_dashboard_group_1).to have_activities_future_data
     end
 
     scenario 'Coach views Activities - Past' do
-      patient_dashboard_group_1.select_activities_past_from_toc
+      dashboard_table_of_contents.select_activities_past
 
       expect(patient_dashboard_group_1).to have_completed_activities_past_data
     end
 
     scenario 'Coach views noncompliance reason in Activities - Past' do
-      patient_dashboard_group_1.select_activities_past_from_toc
+      dashboard_table_of_contents.select_activities_past
 
       expect(patient_dashboard_group_1).to have_incomplete_activities_past_data
     end
 
     scenario 'Coach views Thoughts viz' do
-      patient_dashboard_group_1.select_thoughts_from_toc
+      dashboard_table_of_contents.select_thoughts
       patient_dashboard_group_1.select_thoughts_viz_from_body
 
       expect(patient_dashboard_group_1).to have_thoughts_viz_container
@@ -218,19 +216,19 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
     end
 
     scenario 'Coach views Thoughts' do
-      patient_dashboard_group_1.select_thoughts_from_toc
+      dashboard_table_of_contents.select_thoughts
 
       expect(patient_dashboard_group_1).to have_thoughts_data
     end
 
     scenario 'Coach views Messages' do
-      patient_dashboard_group_1.select_messages_from_toc
+      dashboard_table_of_contents.select_messages
 
       expect(patient_dashboard_group_1).to have_messages_data
     end
 
     scenario 'Coach views Tasks' do
-      patient_dashboard_group_1.select_tasks_from_toc
+      dashboard_table_of_contents.select_tasks
 
       expect(patient_dashboard_group_1).to have_tasks_data
     end
@@ -242,14 +240,14 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
       visit user_navigation.arms_page
       arm_1.open
       group_2.open
-      patient_dashboard_group_2.open
-      patient_dashboard_group_2.navigate_to_inactive_patients
-      inactive_dashboard.select_patient
+      patient_table_group_2.open
+      patient_table_group_2.navigate_to_inactive_patients
+      inactive_patient_table.select_patient
 
       expect(inactive_dashboard).to have_inactive_label
 
-      patient_dashboard_group_2.select_all_toc_links
-      patient_dashboard_group_2.select_activity_viz_from_toc
+      dashboard_table_of_contents.select_all_links
+      dashboard_table_of_contents.select_activity_viz
 
       expect(patient_dashboard_group_2).to have_activity_viz_visible
 
@@ -257,7 +255,7 @@ feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
 
       expect(patient_dashboard_group_2).to be_visible
 
-      patient_dashboard_group_2.select_thoughts_viz_from_toc
+      dashboard_table_of_contents.select_thoughts_viz
 
       expect(patient_dashboard_group_2).to have_thoughts_viz_container
 
