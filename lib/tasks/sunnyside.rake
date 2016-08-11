@@ -95,45 +95,53 @@ namespace :sunnyside do
   end
 end
 
+SET_SUNNYSIDE_TRUE = 'sunnyside=true'
+SUNNYSIDE_TAGS = '--tag core --tag social_networking --tag incentives'
+
 namespace :run_sunnyside do
   desc 'Run the test suite for the SunnySide host application on Chrome'
   task :chrome do
-    system('sunnyside=true chrome=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} chrome=true rspec #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the test suite for the SunnySide host application on Safari'
   task :safari do
-    system('sunnyside=true safari=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} safari=true rspec #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the test suite for the SunnySide host application on Firefox'
   task :firefox do
-    system('sunnyside=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the test suite for SunnySide on Firefox without certain example groups to increase speed'
   task :fast do
-    system('sunnyside=true rspec --tag core --tag social_networking --tag incentives --tag ~superfluous')
+    system("#{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS} --tag ~superfluous")
   end
 
   desc 'Run the participants test suite for SunnySide on Firefox'
   task :participants do
-    system('sunnyside=true rspec ./spec/features/participant/ --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} rspec ./spec/features/participant/ #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the users test suite for SunnySide on Firefox'
   task :users do
-    system('sunnyside=true rspec ./spec/features/user/ --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} rspec ./spec/features/user/ #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the test suite for SunnySide headlessly'
   task :headless do
-    system('driver=poltergeist sunnyside=true rspec --tag core --tag social_networking --tag incentives --tag ~browser')
+    system("driver=poltergeist #{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS} --tag ~browser")
+  end
+
+  desc 'Run only browser specs (this is usually only for after running headlessly)'
+  task :browser_only do
+    system("#{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS} --tag browser")
   end
 
   # this requires switching databases on staging
   desc 'Run the test suite for the SunnySide host application on SauceLabs'
   task :sauce do
-    system('sunnyside=true sauce=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} sauce=true rspec #{SUNNYSIDE_TAGS}")
   end
 end

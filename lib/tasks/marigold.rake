@@ -95,45 +95,53 @@ namespace :marigold do
   end
 end
 
+SET_MARIGOLD_TRUE = 'marigold=true'
+MARIGOLD_TAGS = '--tag marigold'
+
 namespace :run_marigold do
   desc 'Run the test suite for the Marigold host application on Chrome'
   task :chrome do
-    system('marigold=true chrome=true rspec --tag marigold')
+    system("#{SET_MARIGOLD_TRUE} chrome=true rspec #{MARIGOLD_TAGS}")
   end
 
   desc 'Run the test suite for the Marigold host application on Safari'
   task :safari do
-    system('marigold=true safari=true rspec --tag marigold')
+    system("#{SET_MARIGOLD_TRUE} safari=true rspec #{MARIGOLD_TAGS}")
   end
 
   desc 'Run the test suite for the Marigold host application on Firefox'
   task :firefox do
-    system('marigold=true rspec --tag marigold')
+    system("#{SET_MARIGOLD_TRUE} rspec #{MARIGOLD_TAGS}")
   end
 
   desc 'Run the test suite for Marigold on Firefox without certain example groups to increase speed'
   task :fast do
-    system('marigold=true rspec --tag marigold --tag ~superfluous')
+    system("#{SET_MARIGOLD_TRUE} rspec #{MARIGOLD_TAGS} --tag ~superfluous")
   end
 
   desc 'Run the participants test suite for Marigold on Firefox'
   task :participants do
-    system('marigold=true rspec --tag marigold')
+    system("#{SET_MARIGOLD_TRUE} rspec #{MARIGOLD_TAGS}")
   end
 
   desc 'Run the users test suite for Marigold on Firefox'
   task :users do
-    system('marigold=true rspec ./spec/features/user --tag marigold')
+    system("#{SET_MARIGOLD_TRUE} rspec ./spec/features/user #{MARIGOLD_TAGS}")
   end
 
   desc 'Run the test suite for Marigold headlessly'
   task :headless do
-    system('driver=poltergeist marigold=true rspec --tag marigold --tag ~browser')
+    system("driver=poltergeist #{SET_MARIGOLD_TRUE} rspec #{MARIGOLD_TAGS} --tag ~browser")
+  end
+
+  desc 'Run only browser specs (this is usually only for after running headlessly)'
+  task :browser_only do
+    system("#{SET_MARIGOLD_TRUE} rspec #{MARIGOLD_TAGS} --tag browser")
   end
 
   # this requires switching databases on staging
   desc 'Run the test suite for the Marigold host application on SauceLabs'
   task :sauce do
-    system('marigold=true sauce=true rspec --tag marigold')
+    system("#{SET_MARIGOLD_TRUE} sauce=true rspec #{MARIGOLD_TAGS}")
   end
 end
