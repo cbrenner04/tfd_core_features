@@ -52,7 +52,7 @@ feature 'Content Author, Slides,',
       expect(slide_4).to be_updated_successfully
     end
 
-    scenario 'Content Author views a video slide' do
+    scenario 'Content Author views a video slide', :browser do
       slide_4.view
 
       expect(slide_4).to be_a_video_slide
@@ -136,7 +136,7 @@ feature 'Content Author, Slides,',
       expect(slide_test_slideshow).to be_visible
     end
 
-    scenario 'Content Author views a video slide' do
+    scenario 'Content Author views a video slide', :browser do
       slide_4.view
 
       expect(slide_4).to be_a_video_slide

@@ -19,16 +19,16 @@ module Participants
     end
 
     def navigate_to_all_modules_through_nav_bar
-      tool = ['#2 Patterns', '#1 Identifying', '#3 Reshape',
-              'Add a New Harmful Thought', 'Thoughts']
+      tools = ['#2 Patterns', '#1 Identifying', '#3 Reshape',
+               'Add a New Harmful Thought', 'Thoughts']
       content = ['Like we said, you are what you think...',
                  'You are what you think...', 'Challenging Harmful Thoughts',
                  'Add a New Harmful Thought', 'Harmful Thoughts']
 
-      tool.zip(content) do |t, c|
+      tools.zip(content) do |tool, text|
         click_on 'THINK'
-        click_on t
-        expect(page).to have_content c
+        click_on tool
+        expect(page).to have_content text
       end
     end
 

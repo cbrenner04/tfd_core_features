@@ -30,12 +30,17 @@ module Participants
     end
 
     def has_incomplete_image?
+      incentive_title = find('.panel-title',
+                             text: "#{@incentive} #{@completed}/" \
+                             "#{@total} complete")
       incentive_title.has_css?('.flower-translucent') &&
         incentive_title.has_css?("img[src ^= \"/assets/#{@image}\"]")
     end
 
     def open_incentives_list
-      incentive_title.click
+      # updated to first for poltergeist
+      first('.panel-title',
+            text: "#{@incentive} #{@completed}/#{@total} complete").click
     end
 
     def has_incentives_listed?
@@ -91,11 +96,6 @@ module Participants
     end
 
     private
-
-    def incentive_title
-      find('.panel-title',
-           text: "#{@incentive} #{@completed}/#{@total} complete")
-    end
 
     def incentive_list_item
       all('.list-group-item')[@pt_list_item]

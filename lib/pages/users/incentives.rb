@@ -24,7 +24,7 @@ module Users
     end
 
     def submit_create
-      if driver == :firefox
+      if page.driver == :firefox
         click_on 'Create'
         accept_alert 'Please note that you will not be able to change SCOPE ' \
                      'and REPEATABLE. Please review and make sure everything ' \
@@ -49,8 +49,8 @@ module Users
       unable_to_edit_scope?('Repeatable')
     end
 
-    def unable_to_edit_group_scope?
-      unable_to_edit_scope?('Group')
+    def unable_to_edit_individual_scope?
+      unable_to_edit_scope?('Scope')
     end
 
     def check_repeatable
@@ -179,19 +179,6 @@ module Users
       user_navigation.scroll_down
       within('.well') { click_new }
       sleep(2)
-      options = ['Create a Goal', 'Complete a Goal', 'Like an Item',
-                 'Comment on an Item', 'Create an Activity',
-                 'Complete an Activity', 'Create a Thought',
-                 'Complete a Thought', 'Complete a Relaxation Exercise']
-      extras = if ENV['marigold']
-                 ['Create Profile', 'Record Feelings',
-                  'Complete at least 1 practice per day for 4 days',
-                  'Log in to the website for 7 consecutive days',
-                  'Read one Skill', 'Read all Skills']
-               else
-                 ['Compete a Lesson']
-               end
-      expected_options = options.concat(extras)
 
       expected_options.all? { |option| has_css?('option', text: option) }
     end
@@ -251,6 +238,23 @@ module Users
     def behavior_created_successfully?(behavior, condition)
       has_css?('.alert-success', text: 'Behavior was successfully created.') &&
         has_text?("Action: #{behavior}\nCondition: #{condition}")
+    end
+
+    def expected_options
+      options = ['Create a Goal', 'Complete a Goal', 'Like an Item',
+                 'Comment on an Item', 'Create an Activity',
+                 'Complete an Activity', 'Create a Thought',
+                 'Complete a Thought']
+      extras = if ENV['marigold']
+                 ['Complete a Relaxation Exercise',
+                  'Create Profile', 'Record Feelings',
+                  'Complete at least 1 practice per day for 4 days',
+                  'Log in to the website for 7 consecutive days',
+                  'Read one Skill', 'Read all Skills']
+               else
+                 ['Compete a Lesson', 'Complete a Relaxation Exercise']
+               end
+      options.concat(extras)
     end
   end
 end

@@ -7,7 +7,7 @@ def reports
   @reports ||= Users::Reports.new
 end
 
-feature 'Researcher downloads CSV Exports', :social_networking do
+feature 'Researcher downloads CSV Exports', :social_networking, :browser do
   background(:all) { reports.set_up }
 
   after(:all) { reports.tear_down }

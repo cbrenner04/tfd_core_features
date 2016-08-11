@@ -15,7 +15,7 @@ module Users
     def navigate_to_lessons
       click_on 'Arm 1'
       click_on 'Manage Content'
-      click_on 'Lesson Modules'
+      click_on_lessons_modules
       visible?
     end
 
@@ -25,10 +25,14 @@ module Users
 
     def manage_lessons_with_no_tools
       click_on 'Manage Content'
-      user_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']
-      click_on 'Lesson Modules'
-      accept_alert 'A learn tool has to be created in order to ' \
-                   'access this page' unless ENV['chrome'] || ENV['safari']
+      if page.driver == :firefox
+        click_on_lessons_modules
+        accept_alert 'A learn tool has to be created in order to ' \
+                     'access this page'
+      else
+        user_navigation.confirm_with_js
+        click_on_lessons_modules
+      end
     end
 
     def create
@@ -76,6 +80,10 @@ module Users
 
     def user_navigation
       @user_navigation ||= Users::Navigation.new
+    end
+
+    def click_on_lessons_modules
+      click_on 'Lesson Modules'
     end
   end
 end

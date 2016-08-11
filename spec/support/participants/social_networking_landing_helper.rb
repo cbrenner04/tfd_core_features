@@ -3,17 +3,22 @@
 
 require './lib/pages/participants'
 require './lib/pages/participants/do'
+require './lib/pages/participants/incentives'
 require './lib/pages/participants/social_networking'
 require './lib/pages/participants/think'
 require './lib/pages/participants/think_modules/thought_visualization'
 Dir['./lib/pages/participants/social_networking_modules/*.rb']
-  .each { |f| require f }
+  .each { |file| require file }
 
 def participant_4
   @participant_4 ||= Participant.new(
     participant: ENV['Participant_4_Email'],
     password: ENV['Participant_4_Password']
   )
+end
+
+def sn_landing_page_incentives
+  @sn_landing_page_incentives ||= Participants::Incentives.new(date: Date.today)
 end
 
 def do_tool

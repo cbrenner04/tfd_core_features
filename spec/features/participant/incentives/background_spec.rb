@@ -3,7 +3,7 @@
 
 require './spec/support/participants/background_helper'
 
-feature 'Background image', :incentives, sauce: sauce_labs do
+feature 'Background image', :incentives, :browser, sauce: sauce_labs do
   background(:all) { background_participant.sign_in if ENV['safari'] }
 
   background do

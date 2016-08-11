@@ -41,6 +41,8 @@ feature 'SocialNetworking Landing Page',
 
     scenario 'Participant navigates to the profile page from not home' do
       visit do_tool.landing_page
+      # close incentive notifications if they are there
+      sn_landing_page_incentives.close_incentive_alerts
       participant_1_profile_2.navigate_to_profile
 
       expect(participant_1_profile_2).to be_visible
@@ -99,7 +101,7 @@ feature 'SocialNetworking Landing Page',
     end
   end
 
-  feature 'Resize window to mobile size' do
+  feature 'Resize window to mobile size', :browser do
     background(:all) { participant_1.sign_in if ENV['safari'] }
 
     background do
@@ -153,7 +155,7 @@ feature 'SocialNetworking Landing Page',
   end
 end
 
-feature 'SocialNetworking Landing Page', :tfdso, sauce: sauce_labs do
+feature 'SocialNetworking Landing Page', :tfdso, :browser, sauce: sauce_labs do
   feature 'Checks moderator' do
     scenario 'Participant does not see \'Last seen:\' for moderator' do
       participant_1.sign_in

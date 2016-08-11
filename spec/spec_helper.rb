@@ -4,6 +4,7 @@
 require 'rspec'
 require 'capybara'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 require 'selenium-webdriver'
 # require 'sauce'
@@ -15,7 +16,7 @@ def sauce_labs
   ENV['sauce'] || false
 end
 
-def driver
+def browser
   if ENV['safari']
     :safari
   elsif ENV['chrome']
@@ -26,18 +27,15 @@ def driver
 end
 
 def sanity_check
-  puts "Sauce Labs is set to #{sauce_labs}\nAuto screenshots is set to " \
-       "#{!sauce_labs}\nRunning in #{driver}\nThe time is " \
-       "#{Time.now.strftime('%H:%M:%S')}\nRunning tests for #{app}"
+  puts "Sauce Labs is set to #{sauce_labs}" \
+       "\nAuto screenshots is set to #{!sauce_labs}" \
+       "\nRunning in #{ENV['driver'] || browser}" \
+       "\nThe time is #{Time.now.strftime('%H:%M:%S')}" \
+       "\nRunning tests for #{app}"
 end
 
-def test_driver
-  if sauce_labs == false
-    :selenium
-  else
-    :sauce
-  end
-end
+# declare Firefox binary path, this is needed for csv specs
+Selenium::WebDriver::Firefox::Binary.path = ENV['Firefox_Path']
 
 # RSpec configuration options
 RSpec.configure do |config|
@@ -54,12 +52,19 @@ end
 # Capybara configuration options
 Capybara.configure do |config|
   config.default_max_wait_time = 1
-  config.default_driver = test_driver
   config.register_driver :selenium do |app|
-    Selenium::WebDriver::Firefox::Binary.path = ENV['Firefox_Path']
-    Capybara::Selenium::Driver.new(app, browser: driver)
+    Capybara::Selenium::Driver.new(app, browser: browser)
   end
-  config.page.driver.browser.manage.window.resize_to(1280, 743)
+  config.register_driver :poltergeist do |app|
+    options = { js: true, js_errors: false, window_size: [1280, 743] }
+    Capybara::Poltergeist::Driver.new(app, options)
+  end
+  # set `driver=poltergeist` on the command line when you want to run headless
+  # or `driver=suace` when running on sauce labs
+  config.default_driver = ENV['driver'].nil? ? :selenium : ENV['driver'].to_sym
+  unless ENV['driver'] == 'poltergeist'
+    config.page.driver.browser.manage.window.resize_to(1280, 743)
+  end
   config.save_path = "#{ENV['Path']}/tfd_core_features/screenshots/"
 end
 

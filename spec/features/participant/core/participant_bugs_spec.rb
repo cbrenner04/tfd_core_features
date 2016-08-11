@@ -52,7 +52,7 @@ feature 'Participant Bugs', :core, sauce: sauce_labs do
 
       expect(awareness).to have_review_tables
 
-      participant_navigation.next
+      participant_navigation.next unless ENV['driver'] == 'poltergeist'
       activity_viz.open
       participant_navigation.scroll_to_bottom
       activity_viz.go_to_previous_day

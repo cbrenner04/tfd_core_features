@@ -53,7 +53,7 @@ feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
       social_networking.decline_social
       participant_navigation.alt_next
 
-      expect(think).to have_success_alert
+      expect(think).to be_visible
 
       visit ENV['Base_URL']
       pt_1_add_new_thought_1.find_in_feed
@@ -145,11 +145,6 @@ feature 'Shared items, Mobile arm', :social_networking, sauce: sauce_labs do
       participant_navigation.next
 
       expect(social_networking).to_not have_share_options
-
-      ns_pt_identifying.enter_thought('Now list another', 'Test thought 1')
-      participant_navigation.next
-
-      expect(ns_pt_identifying).to have_final_slide
     end
 
     scenario 'Participant cannot create in Add a New Harmful Thought' do

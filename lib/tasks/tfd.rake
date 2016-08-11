@@ -7,7 +7,7 @@ namespace :tfd do
   # load development version of think_feel_do locally
   desc 'Set and start think_feel_do for full suite testing locally'
   task :load_app_local do
-    Dir.chdir(ENV['tfd_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do") do
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('tfd=true rake selenium_seed:with_fixtures')
@@ -28,7 +28,7 @@ namespace :tfd do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb think_feel_do_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb think_feel_do_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d think_feel_do_development -f /Users/Chris/Work/dbs/tfd_db.sql')
-    Dir.chdir(ENV['tfd_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do") do
       system('rails s')
     end
   end
@@ -37,7 +37,7 @@ namespace :tfd do
   desc 'Set test database for testing think_feel_do on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
-    Dir.chdir(ENV['tfd_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate')
@@ -64,7 +64,7 @@ namespace :tfd do
   task :load_app_sauce do
     system('export Base_URL=https://steppedcare-staging.cbits.northwestern.edu')
     system('Sauce=true')
-    Dir.chdir(ENV['tfd_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate_db')
@@ -75,46 +75,59 @@ namespace :tfd do
   # load staging version of think_feel_do on staging
   desc 'Returning think_feel_do staging database on staging'
   task :return_staging do
-    Dir.chdir(ENV['tfd_path']) do
+    Dir.chdir("#{ENV['Path']}/think_feel_do") do
       system('cap staging deploy:use_staging_db')
     end
   end
 end
 
+SET_TFD_TRUE = 'tfd=true'
+TFD_TAGS = '--tag core --tag tfd'
+
 namespace :run_tfd do
   desc 'Run the test suite for the TeleHealth host application on Chrome'
   task :chrome do
-    system('tfd=true chrome=true rspec --tag core --tag tfd')
+    system("#{SET_TFD_TRUE} chrome=true rspec #{TFD_TAGS}")
   end
 
   desc 'Run the test suite for the TeleHealth host application on Safari'
   task :safari do
-    system('tfd=true safari=true rspec --tag core --tag tfd')
+    system("#{SET_TFD_TRUE} safari=true rspec #{TFD_TAGS}")
   end
 
   desc 'Run the test suite for the TeleHealth host application on Firefox'
   task :firefox do
-    system('tfd=true rspec --tag core --tag tfd')
+    system("#{SET_TFD_TRUE} rspec #{TFD_TAGS}")
   end
 
   desc 'Run the test suite for TeleHealth on Firefox without certain example groups to increase speed'
   task :fast do
-    system('tfd=true rspec --tag core --tag tfd --tag ~superfluous')
+    system("#{SET_TFD_TRUE} rspec #{TFD_TAGS} --tag ~superfluous")
   end
 
   desc 'Run the participants test suite for TeleHealth on Firefox'
   task :participants do
-    system('tfd=true rspec ./spec/features/participant/ --tag core --tag tfd')
+    system("#{SET_TFD_TRUE} rspec ./spec/features/participant/ #{TFD_TAGS}")
   end
 
   desc 'Run the users test suite for TeleHealth on Firefox'
   task :users do
-    system('tfd=true rspec ./spec/features/user/ --tag core --tag tfd')
+    system("#{SET_TFD_TRUE} rspec ./spec/features/user/ #{TFD_TAGS}")
+  end
+
+  desc 'Run the test suite for TeleHealth headlessly'
+  task :headless do
+    system("driver=poltergeist #{SET_TFD_TRUE} rspec #{TFD_TAGS} --tag ~browser")
+  end
+
+  desc 'Run only browser specs (this is usually only for after running headlessly)'
+  task :browser_only do
+    system("#{SET_TFD_TRUE} rspec #{TFD_TAGS} --tag browser")
   end
 
   # this requires switching databases on staging
   desc 'Run the test suite for the TeleHealth host application on SauceLabs'
   task :sauce do
-    system('tfd=true sauce=true rspec --tag core --tag tfd')
+    system("#{SET_TFD_TRUE} sauce=true rspec #{TFD_TAGS}")
   end
 end

@@ -60,14 +60,25 @@ module Participants
       end
 
       def has_emotion_with_255_characters?
-        all('.bar.positive').last.click
+        positive_bar = all('.bar.positive').last
+        if ENV['driver'] == 'poltergeist'
+          positive_bar.trigger('click')
+        else
+          positive_bar.click
+        end
         actual_text = find('.modal-content').text
         expect(actual_text)
           .to include(more_than_255_characters[0..254].downcase)
       end
 
       def submit
-        participant_navigation.next
+        # this may end up being true for all apps
+        if (ENV['tfdso'] || ENV['tfd']) && ENV['driver'] == 'poltergeist'
+          find('input[type = "submit"]').trigger('click')
+        else
+          participant_navigation.next
+        end
+        sleep(1) # wait for page since the alert below can be on current page
         find('.alert-success', text: 'Emotional Rating saved')
       end
 

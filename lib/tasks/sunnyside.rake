@@ -7,7 +7,7 @@ namespace :sunnyside do
   # load development version of sunnyside locally
   desc 'Set and start sunnyside for full suite testing locally'
   task :load_app_local do
-    Dir.chdir(ENV['sunnyside_path']) do
+    Dir.chdir("#{ENV['Path']}/sunnyside") do
       system('rake db:drop db:create db:migrate')
       system('rake selenium_seed:app_fixtures')
       system('rake selenium_seed:with_fixtures')
@@ -29,7 +29,7 @@ namespace :sunnyside do
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/dropdb sunnyside_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/createdb sunnyside_development')
     system('/Applications/Postgres.app/Contents/Versions/9.3/bin/psql -U Chris -d sunnyside_development -f /Users/Chris/Work/dbs/sunnyside_db.sql')
-    Dir.chdir(ENV['sunnyside_path']) do
+    Dir.chdir("#{ENV['Path']}/sunnyside") do
       system('rails s')
     end
   end
@@ -38,7 +38,7 @@ namespace :sunnyside do
   desc 'Set test database for testing on staging and keep driver'
   task :load_app_staging do
     system('export Base_URL=https://sunnyside-staging.cbits.northwestern.edu')
-    Dir.chdir(ENV['sunnyside_path']) do
+    Dir.chdir("#{ENV['Path']}/sunnyside") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate')
@@ -77,7 +77,7 @@ namespace :sunnyside do
   task :load_app_sauce do
     system('export Base_URL=https://sunnyside-staging.cbits.northwestern.edu')
     system('Sauce=true')
-    Dir.chdir(ENV['sunnyside_path']) do
+    Dir.chdir("#{ENV['Path']}/sunnyside") do
       system('cap staging deploy:use_test_db')
       system('cap staging deploy:clean_db')
       system('cap staging deploy:migrate_db')
@@ -89,46 +89,59 @@ namespace :sunnyside do
   # load staging version of sunnyside on staging
   desc 'Returning staging database on staging'
   task :return_staging do
-    Dir.chdir(ENV['sunnyside_path']) do
+    Dir.chdir("#{ENV['Path']}/sunnyside") do
       system('cap staging deploy:use_staging_db')
     end
   end
 end
 
+SET_SUNNYSIDE_TRUE = 'sunnyside=true'
+SUNNYSIDE_TAGS = '--tag core --tag social_networking --tag incentives'
+
 namespace :run_sunnyside do
   desc 'Run the test suite for the SunnySide host application on Chrome'
   task :chrome do
-    system('sunnyside=true chrome=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} chrome=true rspec #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the test suite for the SunnySide host application on Safari'
   task :safari do
-    system('sunnyside=true safari=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} safari=true rspec #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the test suite for the SunnySide host application on Firefox'
   task :firefox do
-    system('sunnyside=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the test suite for SunnySide on Firefox without certain example groups to increase speed'
   task :fast do
-    system('sunnyside=true rspec --tag core --tag social_networking --tag incentives --tag ~superfluous')
+    system("#{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS} --tag ~superfluous")
   end
 
   desc 'Run the participants test suite for SunnySide on Firefox'
   task :participants do
-    system('sunnyside=true rspec ./spec/features/participant/ --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} rspec ./spec/features/participant/ #{SUNNYSIDE_TAGS}")
   end
 
   desc 'Run the users test suite for SunnySide on Firefox'
   task :users do
-    system('sunnyside=true rspec ./spec/features/user/ --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} rspec ./spec/features/user/ #{SUNNYSIDE_TAGS}")
+  end
+
+  desc 'Run the test suite for SunnySide headlessly'
+  task :headless do
+    system("driver=poltergeist #{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS} --tag ~browser")
+  end
+
+  desc 'Run only browser specs (this is usually only for after running headlessly)'
+  task :browser_only do
+    system("#{SET_SUNNYSIDE_TRUE} rspec #{SUNNYSIDE_TAGS} --tag browser")
   end
 
   # this requires switching databases on staging
   desc 'Run the test suite for the SunnySide host application on SauceLabs'
   task :sauce do
-    system('sunnyside=true sauce=true rspec --tag core --tag social_networking --tag incentives')
+    system("#{SET_SUNNYSIDE_TRUE} sauce=true rspec #{SUNNYSIDE_TAGS}")
   end
 end

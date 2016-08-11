@@ -42,3 +42,4 @@ screenshots/
 output/
 spec/features/experiments/
 spec/examples.txt
+config.reek

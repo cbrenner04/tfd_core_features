@@ -16,6 +16,12 @@ def new_participant_a
   )
 end
 
+def participant_data_patient_table
+  @participant_data_patient_table ||= Users::PatientTable.new(
+    participant: 'TFD-data'
+  )
+end
+
 def participant_data_dashboard
   @participant_data_dashboard ||= Users::PatientDashboard.new(
     participant: 'TFD-data',
@@ -47,8 +53,8 @@ feature 'User Dashboard Bugs', :social_networking, :marigold,
       visit user_navigation.arms_page
       arm_1.open
       group_1.open
-      participant_data_dashboard.open
-      participant_data_dashboard.select_patient
+      participant_data_patient_table.open
+      participant_data_patient_table.select_patient
 
       expect(participant_data_dashboard).to have_tool_use_data
     end
