@@ -38,4 +38,13 @@ feature 'Boosters', :marigold, sauce: sauce_labs do
 
     expect(boosters).to be_visible
   end
+
+  scenario 'give incentive for completing booster 1' do
+  end
+
+  scenario 'give incentive for completing booster 2' do
+  end
+
+  scenario 'give incentives for completing booster 3, and all 3 boosters' do
+  end
 end
