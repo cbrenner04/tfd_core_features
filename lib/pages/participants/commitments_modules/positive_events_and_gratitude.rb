@@ -12,12 +12,12 @@ module Participants
       end
 
       def move_through_initial_slideshow
-        participant_navigation.next
-        expect(page).to have_text 'Why pay attention'
-        participant_navigation.next
-        expect(page).to have_text 'Examples of positive events'
-        participant_navigation.next
-        expect(page).to have_text 'Optional Links'
+        texts = ['Why pay attention', 'Examples of positive events',
+                 'Optional Links']
+        texts.each do |text|
+          participant_navigation.next
+          expect(page).to have_text text
+        end
       end
 
       def select_review_lessons
@@ -34,24 +34,26 @@ module Participants
 
       def has_commitment_form_visible?
         has_text?('Ready to Make a Commitment') &&
-          has_text?(commitment_choices[0]) &&
-          has_text?(commitment_choices[1])
+          has_text?(COMMITMENT_CHOICES[0]) &&
+          has_text?(COMMITMENT_CHOICES[1])
       end
 
       def set_commitment
-        @commitment ||= commitment_choices.sample
+        @commitment ||= COMMITMENT_CHOICES.sample
         choose @commitment
         if @commitment == 'I will...'
-          fill_in '.option', with: 'Example positive events commitment'
+          fill_in 'option', with: 'Example positive events commitment'
         end
       end
 
       def has_commitment?
-        if @commitment == 'I will...'
-          has_text? 'Example positive events commitment'
-        else
-          has_text? @commitment
-        end
+        text = if @commitment == 'I will...'
+                 'Example positive events commitment'
+               else
+                 @commitment
+               end
+
+        has_text? text
       end
 
       def has_commitment_summary_visible?
@@ -59,9 +61,7 @@ module Participants
                  text: 'My Commitment to Practicing Noticing Positive Events')
       end
 
-      private
-
-      def commitment_choices
+      COMMITMENT_CHOICES =
         ['I will keep an eye out for positive events. At the end ' \
          'of each day, I\'ll write down two good things that I ' \
          'noticed.',
@@ -69,7 +69,6 @@ module Participants
          'I\'ll do one thing, like telling someone else about an ' \
          'event or looking back and savoring it afterward.',
          'I will...'].freeze
-      end
     end
   end
 end

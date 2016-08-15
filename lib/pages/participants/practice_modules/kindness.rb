@@ -18,6 +18,10 @@ module Participants
         click_on 'View Kindness Journal'
       end
 
+      def has_review_visible?
+        has_css?('#kindness-table')
+      end
+
       def has_entry_alert?
         has_css?('.alert', text: 'Journal entry can\'t be blank')
       end

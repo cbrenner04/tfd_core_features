@@ -30,25 +30,27 @@ module Participants
 
       def has_commitment_form_visible?
         has_text?('Ready to Make a Commitment') &&
-          has_text?(commitment_choices[0]) &&
-          has_text?(commitment_choices[1]) &&
-          has_text?(commitment_choices[2])
+          has_text?(COMMITMENT_CHOICES[0]) &&
+          has_text?(COMMITMENT_CHOICES[1]) &&
+          has_text?(COMMITMENT_CHOICES[2])
       end
 
       def set_commitment
-        @commitment ||= commitment_choices.sample
+        @commitment ||= COMMITMENT_CHOICES.sample
         choose @commitment
         if @commitment == 'I will...'
-          fill_in '.option', with: 'Example activation commitment'
+          fill_in 'option', with: 'Example activation commitment'
         end
       end
 
       def has_commitment?
-        if @commitment == 'I will...'
-          has_text? 'Example activation commitment'
-        else
-          has_text? @commitment
-        end
+        text = if @commitment == 'I will...'
+                 'Example activation commitment'
+               else
+                 @commitment
+               end
+
+        has_text? text
       end
 
       def has_commitment_summary_visible?
@@ -56,9 +58,7 @@ module Participants
                  text: 'My Commitment to Practicing Activation')
       end
 
-      private
-
-      def commitment_choices
+      COMMITMENT_CHOICES =
         ['I will pick a small way to work on something I care about, and keep' \
          ' track of what I picked',
          'I will schedule activities for myself, including specific times and' \
@@ -66,7 +66,6 @@ module Participants
          'I will make or find a list of enjoyable things to do, and pick one ' \
          'of them to do for at least 5 minutes',
          'I will...'].freeze
-      end
     end
   end
 end

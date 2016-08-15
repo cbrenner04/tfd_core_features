@@ -32,7 +32,7 @@ def incentives_feel
   )
 end
 
-feature 'FEEL tool', :marigold, sauce: sauce_labs do
+feature 'FEEL tool', :marigold, :browser, sauce: sauce_labs do
   scenario 'Participant tracks their emotions for the day' do
     marigold_participant.sign_in
     visit feel.landing_page

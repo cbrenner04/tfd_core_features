@@ -14,6 +14,12 @@ def patient_dashboard_group_1
   @patient_dashboard_group_1 ||= Users::PatientDashboard.new(group: 'Group 1')
 end
 
+def patient_table_group_6
+  @patient_table_group_6 ||= Users::PatientTable.new(
+    participant: 'participant61'
+  )
+end
+
 def patient_dashboard_group_6
   @patient_dashboard_group_6 ||= Users::PatientDashboard.new(group: 'Group 6')
 end
@@ -32,7 +38,8 @@ end
 
 def patient_61_patient_table
   @patient_61_patient_table ||= Users::PatientTable.new(
-    participant: 'participant61'
+    participant: 'participant61',
+    date: today - 4
   )
 end
 

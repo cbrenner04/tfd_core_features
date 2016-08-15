@@ -7,7 +7,7 @@ def reports
   @reports ||= Users::Reports.new
 end
 
-feature 'Researcher, downloads CSV exports', :marigold do
+feature 'Researcher, downloads CSV exports', :marigold, :browser do
   background(:all) { reports.set_up }
 
   after(:all) { reports.tear_down }

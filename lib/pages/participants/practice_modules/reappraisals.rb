@@ -21,6 +21,10 @@ module Participants
         click_on 'View Reappraisals'
       end
 
+      def has_review_visible?
+        has_css?('#reappraisals')
+      end
+
       def view_perspective_examples
         click_on 'Think about the other person\'s perspective'
       end

@@ -48,6 +48,7 @@ module Participants
           answer = ["0 - Didn't happen", '1 - Not at all stressful', '2', '3',
                     '4 - Very stressful'].sample
           within(question) { choose answer }
+          execute_script('window.scrollBy(0,150)')
         end
         participant_navigation.scroll_to_bottom
         participant_navigation.confirm_with_js if ENV['chrome'] || ENV['safari']

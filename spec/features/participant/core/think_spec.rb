@@ -36,7 +36,7 @@ feature 'THINK tool', :core, sauce: sauce_labs do
     reshape.reshape_multiple_thoughts
     # headlessly this fails as the page does not reload on the tool home
     # fine in browser
-    expect(think).to be_visible
+    expect(think).to be_visible unless ENV['driver'] == 'poltergeist'
   end
 
   scenario 'Participant completes Add a New Harmful Thought module' do

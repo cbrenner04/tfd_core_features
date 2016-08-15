@@ -29,6 +29,10 @@ module Participants
         click_on 'View Mindfulness Activities'
       end
 
+      def has_review_visible?
+        has_css?('#mindful-activities')
+      end
+
       def review_completed_activity
         sleep(0.25)
         find('.btn-success').click

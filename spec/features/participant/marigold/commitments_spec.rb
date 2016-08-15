@@ -22,19 +22,21 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       positive_events_and_gratitude.move_through_initial_slideshow
       positive_events_and_gratitude.select_look_back_at_journal
 
-      expect(positive_events_practice_modules).to have_review_visible
+      expect(positive_events_practice_module).to have_review_visible
 
       commitments.open
       positive_events_and_gratitude.open
       positive_events_and_gratitude.move_through_initial_slideshow
       positive_events_and_gratitude.select_print_bonus_handout
 
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.last)
-      expect(current_path).to eq '/positive_events.pdf'
-      page.driver.browser.close
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.first)
+      unless ENV['driver'] == 'poltergeist'
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.last)
+        expect(current_path).to eq '/positive_events.pdf'
+        page.driver.browser.close
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.first)
+      end
     end
 
     scenario 'Participant cannot move on without making a commitment' do
@@ -110,19 +112,21 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       activation_commitment.move_through_initial_slideshow
       activation_commitment.select_look_back_at_journal
 
-      expect(activation_practice_modules).to have_review_visible
+      expect(activation_practice_module).to have_review_visible
 
       commitments.open
       activation_commitment.open
       activation_commitment.move_through_initial_slideshow
       activation_commitment.select_print_bonus_handout
 
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.last)
-      expect(current_path).to eq '/activation.html'
-      page.driver.browser.close
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.first)
+      unless ENV['driver'] == 'poltergeist'
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.last)
+        expect(current_path).to eq '/activation.html'
+        page.driver.browser.close
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.first)
+      end
     end
 
     scenario 'Participant cannot move on without making a commitment' do
@@ -198,19 +202,21 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       mindfulness_commitment.move_through_initial_slideshow
       mindfulness_commitment.select_look_back_at_journal
 
-      expect(mindfulness_practice_modules).to have_review_visible
+      expect(mindfulness_practice_module).to have_review_visible
 
       commitments.open
       mindfulness_commitment.open
       mindfulness_commitment.move_through_initial_slideshow
       mindfulness_commitment.select_print_bonus_handout
 
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.last)
-      expect(current_path).to eq '/mindfulness.pdf'
-      page.driver.browser.close
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.first)
+      unless ENV['driver'] == 'poltergeist'
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.last)
+        expect(current_path).to eq '/mindfulness.pdf'
+        page.driver.browser.close
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.first)
+      end
     end
 
     scenario 'Participant cannot move on without making a commitment' do
@@ -286,19 +292,21 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       reappraisal_commitment.move_through_initial_slideshow
       reappraisal_commitment.select_look_back_at_journal
 
-      expect(reappraisals_practice_modules).to have_review_visible
+      expect(reappraisals_practice_module).to have_review_visible
 
       commitments.open
       reappraisal_commitment.open
       reappraisal_commitment.move_through_initial_slideshow
       reappraisal_commitment.select_print_bonus_handout
 
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.last)
-      expect(current_path).to eq '/reappraisal.pdf'
-      page.driver.browser.close
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.first)
+      unless ENV['driver'] == 'poltergeist'
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.last)
+        expect(current_path).to eq '/reappraisal.pdf'
+        page.driver.browser.close
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.first)
+      end
     end
 
     scenario 'Participant cannot move on without making a commitment' do
@@ -374,19 +382,21 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
       kindness_commitment.move_through_initial_slideshow
       kindness_commitment.select_look_back_at_journal
 
-      expect(kindness_practice_modules).to have_review_visible
+      expect(kindness_practice_module).to have_review_visible
 
       commitments.open
       kindness_commitment.open
       kindness_commitment.move_through_initial_slideshow
       kindness_commitment.select_print_bonus_handout
 
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.last)
-      expect(current_path).to eq '/kindness.pdf'
-      page.driver.browser.close
-      page.driver.browser.switch_to
-          .window(page.driver.browser.window_handles.first)
+      unless ENV['driver'] == 'poltergeist'
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.last)
+        expect(current_path).to eq '/kindness.pdf'
+        page.driver.browser.close
+        page.driver.browser.switch_to
+            .window(page.driver.browser.window_handles.first)
+      end
     end
 
     scenario 'Participant cannot move on without making a commitment' do

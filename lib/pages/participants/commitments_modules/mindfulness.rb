@@ -30,26 +30,28 @@ module Participants
 
       def has_commitment_form_visible?
         has_text?('Ready to Make a Commitment') &&
-          has_text?(commitment_choices[0]) &&
-          has_text?(commitment_choices[1]) &&
-          has_text?(commitment_choices[2]) &&
-          has_text?(commitment_choices[3])
+          has_text?(COMMITMENT_CHOICES[0]) &&
+          has_text?(COMMITMENT_CHOICES[1]) &&
+          has_text?(COMMITMENT_CHOICES[2]) &&
+          has_text?(COMMITMENT_CHOICES[3])
       end
 
       def set_commitment
-        @commitment ||= commitment_choices.sample
+        @commitment ||= COMMITMENT_CHOICES.sample
         choose @commitment
         if @commitment == 'I will...'
-          fill_in '.option', with: 'Example mindfulness commitment'
+          fill_in 'option', with: 'Example mindfulness commitment'
         end
       end
 
       def has_commitment?
-        if @commitment == 'I will...'
-          has_text? 'Example mindfulness commitment'
-        else
-          has_text? @commitment
-        end
+        text = if @commitment == 'I will...'
+                 'Example mindfulness commitment'
+               else
+                 @commitment
+               end
+
+        has_text? text
       end
 
       def has_commitment_summary_visible?
@@ -57,9 +59,7 @@ module Participants
                  text: 'My Commitment to Practicing Mindfulness')
       end
 
-      private
-
-      def commitment_choices
+      COMMITMENT_CHOICES =
         ['I will spend five minutes (or more) meditating, ' \
           'either on my own or using a guided meditation',
          'I will eat one meal or snack each day mindfully. ' \
@@ -75,7 +75,6 @@ module Participants
           'distracted, I will return my attention to ' \
           'the present moment.',
          'I will...'].freeze
-      end
     end
   end
 end

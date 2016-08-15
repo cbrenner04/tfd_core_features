@@ -28,6 +28,7 @@ module Participants
     end
 
     def set_frequency
+      participant_navigation.scroll_down
       @frequency ||= ['More than once a day', 'Once a day', 'Every other day',
                       'At least twice a week'].sample
       choose @frequency
@@ -57,7 +58,7 @@ module Participants
     def has_responses?
       has_text?('And will continue for at least ' \
                 "#{minimum_time_lookup[@minimum_time]}") &&
-        has_text?("I will do it #{frequency_lookup[@frequency]}") &&
+        has_text?("I will do it #{@frequency.downcase}") &&
         @tracking.each { |tracking_choice| has_text?(tracking_choice) } &&
         has_text?(@details) && has_text?(@affirmation)
     end
@@ -78,15 +79,6 @@ module Participants
         'Two weeks' => '14 days',
         'One month' => 'about 1 month',
         'Two months' => '2 months'
-      }
-    end
-
-    def frequency_lookup
-      {
-        'More than once a day' => 'more than once a day',
-        'Once a day' => 'once a day',
-        'Every other day' => 'every other day',
-        'At least twice a week' => 'at least twice a week'
       }
     end
   end
