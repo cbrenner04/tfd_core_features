@@ -27,6 +27,7 @@ module Participants
 
       def in_feed?
         find('#feed-btn').click if ENV['sunnyside'] || ENV['marigold']
+        sleep(1)
         has_text? @statement
       end
 

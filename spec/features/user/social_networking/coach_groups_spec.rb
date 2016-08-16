@@ -71,6 +71,7 @@ feature 'Coach, Group Dashboard', :social_networking, :marigold,
   end
 
   scenario 'Coach views Goals' do
+    user_navigation.scroll_down
     expect(group_6_dashboard).to have_goal_data
   end
 

@@ -43,6 +43,7 @@ feature 'Researcher, downloads CSV exports', :marigold, :browser do
   end
 
   scenario 'Gamification: Participant Incentive' do
+    reports.scroll_down
     reports.select_file('Gamification: Participant Incentive')
     reports.check_file('participantincentive')
   end

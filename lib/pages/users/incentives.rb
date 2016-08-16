@@ -252,7 +252,7 @@ module Users
                   'Log in to the website for 7 consecutive days',
                   'Read one Skill', 'Read all Skills']
                else
-                 ['Compete a Lesson', 'Complete a Relaxation Exercise']
+                 ['Complete a Lesson', 'Complete a Relaxation Exercise']
                end
       options.concat(extras)
     end

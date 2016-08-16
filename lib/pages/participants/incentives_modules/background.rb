@@ -15,15 +15,10 @@ module Participants
       end
 
       def visible?
-        if ENV['safari']
-          find('.snap-content.footless:nth-child(1)')
-            .native.css_value('background-image')
-            .should eq("url(http://localhost:3000/assets/#{@image}.jpg)")
-        else
-          find('.snap-content.footless:nth-child(1)')
-            .native.css_value('background-image')
-            .should eq("url(\"http://localhost:3000/assets/#{@image}.jpg\")")
-        end
+        image_url = find('.snap-content.footless:nth-child(1)')
+                    .native.css_value('background-image')
+
+        image_url.should include @image
       end
 
       def change

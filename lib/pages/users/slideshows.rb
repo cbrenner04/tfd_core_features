@@ -2,6 +2,7 @@
 module Users
   # page object for slideshows
   class Slideshows
+    include RSpec::Matchers
     include Capybara::DSL
 
     def initialize(slideshows)
@@ -65,6 +66,7 @@ module Users
     def update
       user_navigation.scroll_to_bottom
       click_on @title
+      expect(page).to have_css('h1', text: @title)
       all('.btn-default')[5].click
       fill_in 'slideshow_title', with: @new_title
       click_on 'Update'
