@@ -3,6 +3,7 @@
 require './lib/pages/participants'
 require './lib/pages/participants/commitments'
 require './lib/pages/participants/incentives'
+require './lib/pages/participants/social_networking_modules/profile'
 require './lib/pages/participants/skills'
 Dir['./lib/pages/participants/commitments_modules/*.rb']
   .each { |file| require file }
@@ -46,6 +47,51 @@ def skills_visible
   @skills_visible ||= Participants::Skills.new(lesson: 'Home Introduction')
 end
 
+def marigold_6_navigation
+  @marigold_6_navigation ||= Participants::SocialNetworkingModules::Profile.new(
+    display_name: 'marigold_6'
+  )
+end
+
+def marigold_7_navigation
+  @marigold_7_navigation ||= Participants::SocialNetworkingModules::Profile.new(
+    display_name: 'marigold_7'
+  )
+end
+
+def marigold_8_navigation
+  @marigold_8_navigation ||= Participants::SocialNetworkingModules::Profile.new(
+    display_name: 'marigold_8'
+  )
+end
+
+def commitment_incentive
+  @commitment_incentive ||= Participants::Incentives.new(
+    total: 1
+  )
+end
+
+def incentive_1
+  @incentive_1 ||= Participants::Incentives.new(
+    plot: 'individual',
+    image: 'flower6'
+  )
+end
+
+def incentive_2
+  @incentive_2 ||= Participants::Incentives.new(
+    plot: 'individual',
+    image: 'flower5'
+  )
+end
+
+def incentive_3
+  @incentive_3 ||= Participants::Incentives.new(
+    plot: 'individual',
+    image: 'flower4'
+  )
+end
+
 def positive_events_practice_module
   @positive_events_practice_module ||=
     Participants::PracticeModules::PositiveEvents.new(
@@ -84,14 +130,8 @@ def complete_activation_commitment
   activation_commitment.open
   activation_commitment.move_through_initial_slideshow
   participant_navigation.next
-
-  expect(activation_commitment).to have_commitment_form_visible
-
   activation_commitment.set_commitment
   participant_navigation.next
-
-  expect(commitments).to have_making_commitment_form_visible
-
   participant_navigation.next
   commitments_2.set_minimum_time
   commitments_2.set_frequency
@@ -99,13 +139,6 @@ def complete_activation_commitment
   commitments_2.enter_details
   commitments_2.enter_affirmation
   participant_navigation.next
-
-  expect(activation_commitment).to have_commitment_summary_visible
-  expect(activation_commitment).to have_commitment
-  expect(commitments_2).to have_responses
-
   commitments.sign
   participant_navigation.next
-
-  expect(commitments).to be_done
 end

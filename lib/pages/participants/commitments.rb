@@ -38,6 +38,7 @@ module Participants
     def set_minimum_time
       @minimum_time ||= ['One week', 'Two weeks', 'One month',
                          'Two months'].sample
+      participant_navigation.scroll_down
       choose @minimum_time
     end
 
