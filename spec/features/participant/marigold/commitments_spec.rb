@@ -3,6 +3,53 @@
 
 require './spec/support/participants/commitments_helper.rb'
 
+feature 'Boosters', :marigold, sauce: sauce_labs do
+  scenario 'are not accessible before assigned' do
+    marigold_participant.sign_in
+    commitments.open
+
+    expect(commitments).to be_inaccessible
+  end
+
+  scenario 'invite link takes participant to boosters' do
+    participant_marigold_4.sign_in
+    visit "#{ENV['Base_URL']}/booster_session"
+
+    expect(commitments).to have_thank_you_visible
+
+    navigation.alt_next
+
+    expect(commitments).to be_visible
+  end
+
+  scenario 'is navigable after sign in' do
+    participant_marigold_4.sign_in
+    commitments.open
+
+    expect(commitments).to be_visible
+  end
+
+  feature 'give incentive for completing' do
+    scenario 'booster 1' do
+      marigold_6.sign_in
+      commitments.open
+      complete_activation_commitment
+    end
+
+    scenario 'booster 2' do
+      marigold_7.sign_in
+      commitments.open
+      complete_activation_commitment
+    end
+
+    scenario 'booster 3' do
+      marigold_8.sign_in
+      commitments.open
+      complete_activation_commitment
+    end
+  end
+end
+
 feature 'Commitments', :marigold, sauce: sauce_labs do
   background do
     participant_marigold_4.sign_in
@@ -159,33 +206,7 @@ feature 'Commitments', :marigold, sauce: sauce_labs do
     end
 
     scenario 'Participant completes' do
-      activation_commitment.open
-      activation_commitment.move_through_initial_slideshow
-      participant_navigation.next
-
-      expect(activation_commitment).to have_commitment_form_visible
-
-      activation_commitment.set_commitment
-      participant_navigation.next
-
-      expect(commitments).to have_making_commitment_form_visible
-
-      participant_navigation.next
-      commitments_2.set_minimum_time
-      commitments_2.set_frequency
-      commitments_2.set_tracking
-      commitments_2.enter_details
-      commitments_2.enter_affirmation
-      participant_navigation.next
-
-      expect(activation_commitment).to have_commitment_summary_visible
-      expect(activation_commitment).to have_commitment
-      expect(commitments_2).to have_responses
-
-      commitments.sign
-      participant_navigation.next
-
-      expect(commitments).to be_done
+      complete_activation_commitment
     end
   end
 
