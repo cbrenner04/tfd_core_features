@@ -6,7 +6,6 @@ module Users
   # page object for the patient table
   # this is the patient list where you select the patient for viewing dashboard
   class PatientTable
-    include RSpec::Matchers
     include Capybara::DSL
     include Users::PatientDashboards::PHQAssessments
 
