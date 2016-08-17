@@ -35,7 +35,7 @@ module Participants
         find('#new_activity_radio').click
         fill_in 'activity_activity_type_new_title', with: @activity
         participant_navigation.scroll_down
-        find('.fa.fa-calendar').click
+        find('.btn-date_picker').click
         pick_tomorrow
         do_tool.choose_rating('pleasure_0', @pleasure)
         do_tool.choose_rating('accomplishment_0', @accomplishment)

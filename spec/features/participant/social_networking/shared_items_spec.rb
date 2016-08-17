@@ -40,21 +40,19 @@ feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
     scenario 'Participant shares Add a New Harmful Thought responses' do
       pt_1_add_new_thought_1.open
       pt_1_add_new_thought_1.complete
+      sleep(1)
       visit ENV['Base_URL']
       pt_1_add_new_thought_1.find_in_feed
 
       expect(pt_1_add_new_thought_1).to have_timestamp
-    end
 
-    # dependent on previous spec, need to update
-    scenario 'Participant does not share Add a New Harmful Thought response' do
+      # check not sharing
+      visit think.landing_page
       pt_1_add_new_thought_2.open
       pt_1_add_new_thought_2.enter_thought
       social_networking.decline_social
       participant_navigation.alt_next
-
-      expect(think).to be_visible
-
+      sleep(1)
       visit ENV['Base_URL']
       pt_1_add_new_thought_1.find_in_feed
 

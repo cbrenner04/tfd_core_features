@@ -123,9 +123,15 @@ namespace :run_tfdso do
     system("driver=poltergeist #{SET_TFDSO_TRUE} rspec #{TDFSO_TAGS} --tag ~browser")
   end
 
+  # setting the sunnyside tags here basically nullifies the browser tag
+  # exclusions are added to the script to try to minimize wrong specs being run
+  # this will have a rspec report and then immediately run another set of specs
+  # make sure to check all three reports
   desc 'Run only browser specs (this is usually only for after running headlessly)'
   task :browser_only do
-    system("#{SET_TFDSO_TRUE} rspec #{TDFSO_TAGS} --tag browser")
+    system("#{SET_TFDSO_TRUE} rspec --tag browser --tag ~tfd --tag ~marigold --tag ~incentives")
+    system("#{SET_TFDSO_TRUE} rspec --tag browser ./spec/features/user/core/content_author_slides_spec.rb")
+    system("#{SET_TFDSO_TRUE} rspec --tag browser ./spec/features/participant/social_networking/landing_page_spec.rb")
   end
 
   # this requires switching databases on staging

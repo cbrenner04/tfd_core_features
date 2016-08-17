@@ -52,6 +52,7 @@ module Users
 
     def select_patient
       click_on_patient_name
+      sleep(1) # expecting something on the next page fails
     end
 
     def has_login_info?

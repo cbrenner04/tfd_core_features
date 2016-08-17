@@ -120,9 +120,14 @@ namespace :run_tfd do
     system("driver=poltergeist #{SET_TFD_TRUE} rspec #{TFD_TAGS} --tag ~browser")
   end
 
+  # setting the tfd tags here basically nullifies the browser tag
+  # exclusions are added to the script to try to minimize wrong specs being run
+  # this will have a rspec report and then immediately run another set of specs
+  # make sure to check both reports
   desc 'Run only browser specs (this is usually only for after running headlessly)'
   task :browser_only do
-    system("#{SET_TFD_TRUE} rspec #{TFD_TAGS} --tag browser")
+    system("#{SET_TFD_TRUE} rspec --tag browser --tag ~incentives --tag ~marigold --tag ~tfdso --tag ~social_networking")
+    system("#{SET_TFD_TRUE} rspec --tag browser ./spec/features/user/core/content_author_slides_spec.rb")
   end
 
   # this requires switching databases on staging

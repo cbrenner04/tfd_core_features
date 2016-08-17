@@ -134,9 +134,11 @@ namespace :run_marigold do
     system("driver=poltergeist #{SET_MARIGOLD_TRUE} rspec #{MARIGOLD_TAGS} --tag ~browser")
   end
 
+  # setting the marigold tag here basically nullifies the browser tag
+  # exclusions are added to the script to try to minimize wrong specs being run
   desc 'Run only browser specs (this is usually only for after running headlessly)'
   task :browser_only do
-    system("#{SET_MARIGOLD_TRUE} rspec #{MARIGOLD_TAGS} --tag browser")
+    system("#{SET_MARIGOLD_TRUE} rspec --tag browser --tag ~tfd --tag ~tfdso --tag ~incentives --tag ~core_csv --tag ~social_csv")
   end
 
   # this requires switching databases on staging
