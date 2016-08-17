@@ -73,3 +73,24 @@ def marigold_5
     password: ENV['marigold_5_Password']
   )
 end
+
+def marigold_6
+  @marigold_6 ||= Participant.new(
+    participant: ENV['marigold_6_email'],
+    password: ENV['marigold_6_Password']
+  )
+end
+
+def marigold_7
+  @marigold_7 ||= Participant.new(
+    participant: ENV['marigold_7_email'],
+    password: ENV['marigold_7_Password']
+  )
+end
+
+def marigold_8
+  @marigold_8 ||= Participant.new(
+    participant: ENV['marigold_8_email'],
+    password: ENV['marigold_8_Password']
+  )
+end

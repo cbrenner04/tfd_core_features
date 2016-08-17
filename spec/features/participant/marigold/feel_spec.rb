@@ -28,7 +28,8 @@ def incentives_feel
     date: Date.today.strftime('%b %d %Y'),
     incentive: 'emotion tracking 4 days in a row',
     completed: 1,
-    total: 1
+    total: 1,
+    flower_count: 1
   )
 end
 
@@ -69,6 +70,7 @@ feature 'FEEL tool', :marigold, :browser, sauce: sauce_labs do
     profile_feel.visit_profile
 
     expect(incentives_feel).to have_image_in_plot
+    expect(incentives_feel).to have_correct_num_of_flowers_in_plot
 
     incentives_feel.open_incentives_list
 

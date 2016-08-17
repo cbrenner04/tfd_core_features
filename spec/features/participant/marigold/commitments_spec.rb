@@ -3,6 +3,71 @@
 
 require './spec/support/participants/commitments_helper.rb'
 
+feature 'Boosters', :marigold, sauce: sauce_labs do
+  scenario 'are not accessible before assigned' do
+    marigold_participant.sign_in
+    commitments.open
+
+    expect(commitments).to be_inaccessible
+  end
+
+  scenario 'invite link takes participant to boosters' do
+    participant_marigold_4.sign_in
+    visit "#{ENV['Base_URL']}/booster_session"
+
+    expect(commitments).to have_thank_you_visible
+
+    participant_navigation.alt_next
+
+    expect(commitments).to be_visible
+  end
+
+  scenario 'is navigable after sign in' do
+    participant_marigold_4.sign_in
+    commitments.open
+
+    expect(commitments).to be_visible
+  end
+
+  feature 'give incentive for completing' do
+    scenario 'booster 1' do
+      marigold_6.sign_in
+      commitments.open
+      complete_activation_commitment
+      visit ENV['Base_URL']
+      commitment_incentive.close_incentive_alerts
+      marigold_6_navigation.navigate_to_profile
+
+      expect(incentive_1).to have_image_in_plot
+    end
+
+    scenario 'booster 2' do
+      marigold_7.sign_in
+      commitments.open
+      complete_activation_commitment
+      visit ENV['Base_URL']
+      commitment_incentive.close_incentive_alerts
+      marigold_7_navigation.navigate_to_profile
+
+      expect(incentive_1).to have_image_in_plot
+      expect(incentive_2).to have_image_in_plot
+    end
+
+    scenario 'booster 3' do
+      marigold_8.sign_in
+      commitments.open
+      complete_activation_commitment
+      visit ENV['Base_URL']
+      commitment_incentive.close_incentive_alerts
+      marigold_8_navigation.navigate_to_profile
+
+      expect(incentive_1).to have_image_in_plot
+      expect(incentive_2).to have_image_in_plot
+      expect(incentive_3).to have_image_in_plot
+    end
+  end
+end
+
 feature 'Commitments', :marigold, sauce: sauce_labs do
   background do
     participant_marigold_4.sign_in
