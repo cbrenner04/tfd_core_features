@@ -60,6 +60,7 @@ module Participants
       end
 
       def has_emotion_with_255_characters?
+        participant_navigation.scroll_down
         positive_bar = all('.bar.positive').last
         if ENV['driver'] == 'poltergeist'
           positive_bar.trigger('click')

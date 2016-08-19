@@ -40,6 +40,7 @@ module Participants
       end
 
       def open_emotion_modal
+        participant_navigation.scroll_down
         if ENV['driver'] == 'poltergeist'
           find('.bar.negative').trigger('click')
         else
