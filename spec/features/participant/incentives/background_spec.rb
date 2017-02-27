@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/incentives/background_spec.rb
-
-require './spec/support/participants/background_helper'
-
 feature 'Background image', :incentives, :browser, sauce: sauce_labs do
   background(:all) { background_participant.sign_in if ENV['safari'] }
 

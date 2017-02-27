@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/marigold/commitments_spec.rb
-
-require './spec/support/participants/commitments_helper.rb'
-
 feature 'Boosters', :marigold, sauce: sauce_labs do
   scenario 'are not accessible before assigned' do
     marigold_participant.sign_in

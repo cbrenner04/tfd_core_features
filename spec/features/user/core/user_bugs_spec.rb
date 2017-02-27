@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/user_bugs_spec.rb
-
-require './spec/support/users/core_bugs_helper'
-
 feature 'User Dashboard Bugs,', :core, :marigold, sauce: sauce_labs do
   feature 'Researcher' do
     scenario 'Researcher creates a participant, assigns a group membership, ' \

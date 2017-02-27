@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/user_login_spec.rb
-
-require './spec/support/users/user_login_helper'
-
 feature 'User login', :core, :marigold, sauce: sauce_labs do
   scenario 'User signs in' do
     super_user.sign_in

@@ -1,7 +1,11 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/core/do_spec.rb
-
-require './spec/support/participants/do_helper'
+def edit_activity_viz
+  Participants::DoModules::ActivityVisualization.new(
+    activity: 'Parkour',
+    start_time: Time.now,
+    end_time: Time.now + (60 * 60)
+  )
+end
 
 feature 'DO tool', :core, sauce: sauce_labs do
   background(:all) { participant_1.sign_in if ENV['safari'] }
@@ -14,8 +18,12 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant cannot enter more than 255 characters' do
     awareness.open
     awareness.move_to_time_period_selection
-    awareness_1a_to_2a.create_time_period
-    awareness_1a_to_2a.complete_one_hour_review_with_more_than_255_characters
+
+    start_time = "#{week_day(today.prev_day)} 1 AM"
+    end_time = "#{week_day(today.prev_day)} 2 AM"
+
+    awareness.create_time_period(start_time: start_time, end_time: end_time)
+    awareness.complete_one_hour_review_with_more_than_255_characters
     participant_navigation.scroll_to_bottom
     participant_navigation.next
 
@@ -25,10 +33,24 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant completes the Awareness module' do
     awareness.open
     awareness.move_to_time_period_selection
-    awareness_7a_to_10p.create_time_period
-    awareness_7a_to_10p.complete_multiple_hour_review
 
-    expect(awareness_7a_to_10p).to have_entries
+    start_time = "#{week_day(today.prev_day)} 7 AM"
+    end_time = "#{week_day(today.prev_day)} 10 PM"
+
+    awareness.create_time_period(start_time: start_time, end_time: end_time)
+
+    review_responses = {
+      hours: 14,
+      activities: ['Get ready for work', 'Travel to work', 'Work', 'Work',
+                   'Work', 'Work', 'Work', 'Work', 'Work', 'Work',
+                   'Travel from work', 'Eat dinner', 'Watch TV', 'read',
+                   'Get ready for bed'],
+      pleasure_ratings: [6, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 9, 9, 2],
+      accomplishment_ratings: [7, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 3]
+    }
+    awareness.complete_multiple_hour_review(review_responses)
+
+    expect(awareness).to have_entries(counts: [17, 5, 5])
 
     # check to confirm you cannot enter the same time period
     visit do_tool.landing_page
@@ -42,32 +64,44 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant completes for time that overlaps days' do
     awareness.open
     awareness.move_to_time_period_selection
-    awareness_11p_to_1a.create_time_period
-    awareness_11p_to_1a.complete_one_hour_review(0, 'Sleep', 6, 1)
-    awareness_11p_to_1a.copy(0)
+
+    start_time = "#{week_day(today.prev_day)} 11 PM"
+    end_time = "#{week_day(today)} 1 AM"
+
+    awareness.create_time_period(start_time: start_time, end_time: end_time)
+    awareness.complete_one_hour_review(0, 'Sleep', 6, 1)
+    awareness.copy(0)
     participant_navigation.scroll_to_bottom
     participant_navigation.next
 
-    expect(awareness_11p_to_1a).to have_entries
+    expect(awareness).to have_entries(counts: [3, 2, 1])
   end
 
   scenario 'Participant completes Planning module' do
     planning.open
     participant_navigation.next
-    plan_activity_1.plan
+    planning.plan(
+      activity: 'New planned activity',
+      pleasure: 6,
+      accomplishment: 3
+    )
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
 
     participant_navigation.scroll_down
-    plan_activity_2.plan
+    planning.plan(
+      activity: 'Another planned activity',
+      pleasure: 4,
+      accomplishment: 8
+    )
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
 
     planning.move_to_review
 
-    expect(planning).to have_entries
+    expect(planning).to have_entries(6)
 
     planning.finish
   end
@@ -75,14 +109,15 @@ feature 'DO tool', :core, sauce: sauce_labs do
   scenario 'Participant completes Reviewing module' do
     reviewing.open
     reviewing.move_to_review
-    reviewing.review_completed_activity
+    reviewing.review_completed_activity(pleasure: 7, accomplishment: 5)
     ENV['tfd'] ? participant_navigation.next : social_networking.decline_social
 
     expect(do_tool).to have_success_alert
 
     # this is due to a dependency issue, need to update
     unless reviewing.has_another_activity_to_review?
-      reviewing.review_incomplete_activity
+      reviewing
+        .review_incomplete_activity(non_compliance_reason: "I didn't have time")
       social_networking.decline_social
 
       expect(do_tool).to have_success_alert
@@ -91,11 +126,16 @@ feature 'DO tool', :core, sauce: sauce_labs do
 
   scenario 'Participant completes Plan a New Activity module' do
     plan_new_activity.open
-    plan_new_activity.plan_activity
+    planning.plan(
+      activity: 'New planned activity',
+      pleasure: 4,
+      accomplishment: 3
+    )
+
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
-    expect(plan_new_activity).to have_activity
+    expect(planning).to have_activity_visible 'New planned activity'
   end
 
   scenario 'Participant navigates to Your Activities viz' do
@@ -124,11 +164,12 @@ feature 'DO tool', :core, sauce: sauce_labs do
     participant_navigation.scroll_to_bottom
     edit_activity_viz.view_activity_rating
 
-    expect(edit_activity_viz).to have_activity_rating
+    expect(edit_activity_viz).to have_activity_rating(importance: 4, fun: 9)
 
-    edit_activity_viz.edit_ratings
+    edit_activity_viz.edit_ratings(accomplishment: 7, pleasure: 6)
 
-    expect(edit_activity_viz).to have_new_ratings
+    expect(edit_activity_viz)
+      .to have_new_ratings(accomplishment: 7, pleasure: 6)
   end
 
   scenario 'Participant uses the visualization in Your Activities viz' do
@@ -147,7 +188,7 @@ feature 'DO tool', :core, sauce: sauce_labs do
     planned_activities.open
 
     expect(planned_activities).to be_visible
-    expect(planned_activities).to have_activity
+    expect(planned_activities).to have_activity 'Speech'
   end
 
   scenario 'Participant uses navbar functionality for all of DO' do
@@ -205,9 +246,15 @@ feature 'DO Tool, Participant 3', :core, sauce: sauce_labs do
     awareness.open
     awareness.move_to_time_period_selection
     awareness.choose_to_complete_time_period
-    awareness_complete_entry.complete_multiple_hour_review
+    review_responses = {
+      hours: 2,
+      activities: ['Get ready for work', 'Travel to work', 'Work'],
+      pleasure_ratings: [6, 2, 8],
+      accomplishment_ratings: [7, 3, 9]
+    }
+    awareness.complete_multiple_hour_review(review_responses)
 
-    expect(awareness_complete_entry).to have_entries
+    expect(awareness).to have_entries(counts: [4, 3, 3])
     expect(do_tool).to have_landing_visible
   end
 

@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: researcher_participants_spec.rb
-
-require './spec/support/users/researcher_participants_helper'
-
 feature 'Researcher, Participants', :core, :marigold, sauce: sauce_labs do
   background(:all) { researcher.sign_in } if ENV['safari']
 

@@ -1,10 +1,6 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/social_networking/researcher_reports_spec.rb
-
-require './lib/pages/users/reports'
-
 def reports
-  @reports ||= Users::Reports.new
+  Users::Reports.new
 end
 
 feature 'Researcher downloads CSV Exports',

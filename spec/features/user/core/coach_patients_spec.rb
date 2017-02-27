@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/coach_patients_spec.rb
-
-require './spec/support/users/coach_patients_helper'
-
 feature 'Patient Dasbhoard', :core, :marigold, sauce: sauce_labs do
   feature 'Group 1' do
     background(:all) { clinician.sign_in } if ENV['safari']

@@ -1,14 +1,10 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/core/feel_spec.rb
-
-require './spec/support/participants/feel_helper'
-
 feature 'FEEL tool, Tracking Mood', :core, sauce: sauce_labs do
   scenario 'Participant completes Tracking Your Mood' do
     participant_1.sign_in
     visit feel.landing_page
     tracking_mood.open
-    tracking_mood.rate_mood
+    tracking_mood.rate_mood(6)
     tracking_mood.finish
   end
 end
@@ -23,19 +19,27 @@ feature 'FEEL tool, Tracking Mood & Emotions', :core, sauce: sauce_labs do
 
   scenario 'Participant completes Tracking Your Mood & Emotions' do
     tracking_mood_and_emotions.open
-    tracking_mood_and_emotions.rate_mood
-    first_emotion.rate_emotion
-    second_emotion.add_and_rate_emotion
+    tracking_mood_and_emotions.rate_mood(6)
+    tracking_mood_and_emotions.rate_emotion(
+      emotion: 'anxious',
+      type: 'negative',
+      rating: 4
+    )
+    tracking_mood_and_emotions.add_and_rate_emotion(
+      emotion: 'crazy',
+      type: 'negative',
+      rating: 8
+    )
     tracking_mood_and_emotions.submit
     tracking_mood_and_emotions.finish
   end
 
   scenario 'Participant cannot create an emotion more than 255 characters' do
     tracking_mood_and_emotions.open
-    tracking_mood_and_emotions.rate_mood
-    emotion_255.create_emotion_with_more_than_255_characters
+    tracking_mood_and_emotions.rate_mood(6)
+    tracking_mood_and_emotions.create_emotion_with_more_than_255_characters
 
-    expect(emotion_255).to have_emotion_with_255_characters
+    expect(tracking_mood_and_emotions).to have_emotion_with_255_characters
   end
 
   scenario 'Participant uses navbar functionality in all of FEEL' do
@@ -55,7 +59,8 @@ feature 'FEEL Tool, Your Recent Mood & Emotions', :core, sauce: sauce_labs do
   scenario 'Participant views ratings in Mood Graph' do
     recent_mood_and_emotions.open
 
-    expect(recent_mood_and_emotions).to have_moods_in_graph
+    expect(recent_mood_and_emotions)
+      .to have_moods_in_graph(mood_count: 1, mood_type: 'positive')
 
     recent_mood_and_emotions.open_mood_modal
 
@@ -65,7 +70,8 @@ feature 'FEEL Tool, Your Recent Mood & Emotions', :core, sauce: sauce_labs do
   scenario 'Participant views ratings in Emotions graph' do
     recent_mood_and_emotions.open
 
-    expect(recent_mood_and_emotions).to have_emotions_in_graph
+    expect(recent_mood_and_emotions)
+      .to have_emotions_in_graph(emotions_count: 1, emotion_type: 'negative')
 
     recent_mood_and_emotions.open_emotion_modal
 

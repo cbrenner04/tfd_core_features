@@ -1,21 +1,17 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/content_author_slideshows_spec.rb
-
-require './lib/pages/users/slideshows'
-
 def new_slideshow
-  @new_slideshow ||= Users::Slideshows.new(title: 'Test slideshow')
+  Users::Slideshows.new(title: 'Test slideshow')
 end
 
 def test_slideshow
-  @test_slideshow ||= Users::Slideshows.new(
+  Users::Slideshows.new(
     title: 'Another testing slideshow',
     new_title: 'Holy cow!'
   )
 end
 
 def overkill_slideshow
-  @overkill_slideshow ||= Users::Slideshows.new(title: 'Is this overkill?')
+  Users::Slideshows.new(title: 'Is this overkill?')
 end
 
 feature 'Content Author, Slideshows',

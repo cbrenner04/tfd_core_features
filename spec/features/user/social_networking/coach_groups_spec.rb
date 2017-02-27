@@ -1,10 +1,6 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/social_networking/coach_groups_spec.rb
-
-require './lib/pages/users/group_dashboard'
-
 def group_6_dashboard
-  @group_6_dashboard ||= Users::GroupDashboard.new
+  Users::GroupDashboard.new
 end
 
 feature 'Coach, Group Dashboard', :social_networking, :marigold,

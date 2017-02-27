@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/marigold/practice_spec.rb
-
-require './spec/support/participants/practice_helper'
-
 feature 'PRACTICE tool', :marigold, sauce: sauce_labs do
   background(:all) { marigold_participant.sign_in } if ENV['safari']
 

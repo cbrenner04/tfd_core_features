@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/steppedcare/researcher_reports_spec.rb
-
 require 'uuid'
 require 'fileutils'
 

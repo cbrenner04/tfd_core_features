@@ -1,11 +1,6 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/social_networking/user_bugs_spec.rb
-
-require './lib/pages/users/participants_set_up'
-require './lib/pages/users/patient_dashboard'
-
 def new_participant_a
-  @new_participant_a ||= Users::ParticipantsSetUp.new(
+  Users::ParticipantsSetUp.new(
     study_id: 'Fake',
     email: 'fake@test.com',
     contact_preference: 'Email',
@@ -17,13 +12,11 @@ def new_participant_a
 end
 
 def participant_data_patient_table
-  @participant_data_patient_table ||= Users::PatientTable.new(
-    participant: 'TFD-data'
-  )
+  Users::PatientTable.new(participant: 'TFD-data')
 end
 
 def participant_data_dashboard
-  @participant_data_dashboard ||= Users::PatientDashboard.new(
+  Users::PatientDashboard.new(
     participant: 'TFD-data',
     group: 'Group 1'
   )

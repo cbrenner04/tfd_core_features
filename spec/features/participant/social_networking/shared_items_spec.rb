@@ -1,9 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/social_networking/shared_items_spec.rb
-
-require './spec/support/participants/shared_items_helper'
-
-# removed marigold as most of these features are not in marigold
 feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
   feature 'THINK tool' do
     background(:all) { participant_1.sign_in if ENV['safari'] }
@@ -70,60 +65,82 @@ feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Participant shares DO > Planning responses' do
-      pt_1_planning_1.open
+      planning.open
       participant_navigation.next
-      pt_1_planning_1.plan
+      planning.plan(
+        activity: 'New public activity',
+        pleasure: 6,
+        accomplishment: 3
+      )
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
 
       participant_navigation.scroll_to_bottom
-      pt_1_planning_2.plan
+      planning.plan(
+        activity: 'New private activity',
+        pleasure: 4,
+        accomplishment: 8
+      )
       social_networking.decline_social
 
       expect(do_tool).to have_success_alert
 
-      pt_1_planning_2.move_to_review
+      planning.move_to_review
 
-      expect(pt_1_planning_2).to have_review_page_visible
+      expect(planning).to have_review_page_visible
 
       participant_navigation.scroll_down
-      pt_1_planning_2.finish
+      planning.finish
       visit ENV['Base_URL']
-      pt_1_planning_1.find_in_feed
+      planning.find_in_feed 'New public activity'
 
-      expect(pt_1_planning_2).to_not be_visible
-      expect(pt_1_planning_1).to be_visible
-      expect(pt_1_planning_1).to have_timestamp
+      expect(planning).to_not have_activity_visible 'New private activity'
+      expect(planning).to have_activity_visible 'New public activity'
+      expect(planning).to have_timestamp(
+        activity: 'New public activity',
+        timestamp: "Today at #{Time.now.strftime('%l')}"
+      )
     end
 
     scenario 'Participant shares Add a New Activity responses' do
-      pt_1_plan_new_1.open
-      pt_1_plan_new_1.plan_activity
+      plan_new_activity.open
+      planning.plan(
+        activity: 'New public activity 2',
+        pleasure: 4,
+        accomplishment: 3
+      )
       social_networking.accept_social
 
       expect(do_tool).to have_success_alert
       expect(do_tool).to have_landing_visible
 
       visit ENV['Base_URL']
-      pt_1_plan_new_1.find_in_feed
+      plan_new_activity.find_in_feed('New public activity 2')
 
-      expect(pt_1_plan_new_1).to be_visible
-      expect(pt_1_plan_new_1).to have_timestamp
+      expect(planning).to have_activity_visible 'New public activity 2'
+      expect(planning).to have_timestamp(
+        activity: 'New public activity 2',
+        timestamp: "Today at #{Time.now.strftime('%l')}"
+      )
     end
 
     scenario 'Participant does not share Add a New Activity responses' do
-      pt_1_plan_new_2.open
-      pt_1_plan_new_2.plan_activity
+      plan_new_activity.open
+      planning.plan(
+        activity: 'New private activity 2',
+        pleasure: 4,
+        accomplishment: 3
+      )
       social_networking.decline_social
 
       expect(do_tool).to have_success_alert
 
       visit ENV['Base_URL']
-      pt_1_plan_new_1.find_in_feed
+      plan_new_activity.find_in_feed('New public activity 2')
 
-      expect(pt_1_plan_new_2).to_not be_visible
-      expect(pt_1_plan_new_1).to be_visible
+      expect(planning).to_not have_activity_visible 'New private activity 2'
+      expect(planning).to have_activity_visible 'New public activity 2'
     end
   end
 end
@@ -161,25 +178,29 @@ feature 'Shared items, Mobile arm', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Participant cannot create a shared item in Awareness' do
-      ns_pt_awareness.open
+      awareness.open
       participant_navigation.next
-      ns_pt_awareness.create_time_period
+
+      start_time = "#{week_day(today)} 4 AM"
+      end_time = "#{week_day(today)} 7 AM"
+
+      awareness.create_time_period(start_time: start_time, end_time: end_time)
 
       expect(social_networking).to_not have_share_options
     end
 
     scenario 'Participant cannot create a shared item in Planning' do
-      ns_pt_planning.open
+      planning.open
       participant_navigation.next
 
-      expect(ns_pt_planning).to have_planning_form_visible
+      expect(planning).to have_planning_form_visible
       expect(social_networking).to_not have_share_options
     end
 
     scenario 'Participant cannot create shared item in Plan a New Activity' do
-      ns_pt_add_new_activity.open
+      plan_new_activity.open
 
-      expect(ns_pt_add_new_activity).to be_on_form
+      expect(plan_new_activity).to be_on_form
       expect(social_networking).to_not have_share_options
     end
   end
@@ -189,27 +210,36 @@ feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
   background(:all) { participant_5.sign_in if ENV['safari'] }
   background { participant_5.sign_in unless ENV['safari'] }
 
+  # TODO: this fails when run alone and if test suite overlaps an hour change
   scenario 'Participant shared DO > Reviewing responses' do
     visit do_tool.landing_page
-    pt_5_reviewing_1.open
-    pt_5_reviewing_1.move_to_review
-    pt_5_reviewing_1.review_completed_activity
+    reviewing.open
+    reviewing.move_to_review
+    reviewing.review_completed_activity(pleasure: 7, accomplishment: 5)
     social_networking.accept_social
 
     expect(do_tool).to have_success_alert
 
-    pt_5_reviewing_1.review_incomplete_activity
+    reviewing.review_incomplete_activity('I didn\'t have time')
     social_networking.decline_social
 
     expect(do_tool).to have_success_alert
 
     visit ENV['Base_URL']
-    pt_5_reviewing_1.find_in_feed
+    reviewing.find_in_feed 'Parkour'
 
-    # this fails when run alone
-    # this will also fail if test suite overlaps an hour change
-    expect(pt_5_reviewing_1).to have_feed_item_detail
-    expect(pt_5_reviewing_2).to have_nonsocial_incomplete_item
+    feed_item_details = {
+      activity: 'Parkour',
+      start_time: Time.now - (60 * 60 * 24),
+      end_time: Time.now - (60 * 60 * 23),
+      pleasure: 7,
+      accomplishment: 5,
+      predicted_pleasure: 9,
+      predicted_accomplishment: 4
+    }
+
+    expect(reviewing).to have_feed_item_detail(feed_item_details)
+    expect(reviewing).to have_nonsocial_incomplete_item
   end
 
   scenario 'Participant reads Lesson 1 and finds the related feed item' do

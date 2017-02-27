@@ -11,6 +11,9 @@ require 'selenium-webdriver'
 # require 'sauce/capybara'
 # require 'sauce_whisk'
 
+# require support
+Dir['./spec/support/**/*.rb'].each { |file| require file }
+
 # define methods for setting the driver
 def sauce_labs
   ENV['sauce'] || false
@@ -73,7 +76,7 @@ Capybara::Screenshot.register_driver(:sauce) do |driver, path|
   driver.render(path)
 end
 Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
-  example.description.tr(' ', '-').gsub(/^.*\/spec\//, '')
+  example.description.tr(' ', '-').gsub(%r{/^.*\/spec\//}, '')
 end
 Capybara::Screenshot.autosave_on_failure = !sauce_labs
 Capybara::Screenshot.prune_strategy = :keep_last_run

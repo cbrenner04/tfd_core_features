@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/core/think_spec.rb
-
-require './spec/support/participants/think_helper.rb'
-
 feature 'THINK tool', :core, sauce: sauce_labs do
   background(:all) { participant_1.sign_in } if ENV['safari']
 
@@ -21,7 +17,7 @@ feature 'THINK tool', :core, sauce: sauce_labs do
     expect(think).to be_visible
   end
 
-  # this is dependent upon the previous spec
+  # TODO: fix - this is dependent upon the previous spec
   scenario 'Participant completes Patterns module' do
     patterns.open
     patterns.move_to_pattern_entry_form
@@ -30,12 +26,12 @@ feature 'THINK tool', :core, sauce: sauce_labs do
     expect(think).to be_visible
   end
 
+  # TODO: headlessly this fails as the page does not reload on the tool home
   scenario 'Participant completes Reshape module' do
     reshape.open
     reshape.move_to_reshape_form
     reshape.reshape_multiple_thoughts
-    # headlessly this fails as the page does not reload on the tool home
-    # fine in browser
+
     expect(think).to be_visible unless ENV['driver'] == 'poltergeist'
   end
 

@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/social_networking/researcher_groups_spec.rb
-
-require './spec/support/users/social_researcher_groups_helper'
-
 feature 'Researcher, Groups,',
         :superfluous, :social_networking, :marigold, sauce: sauce_labs do
   background(:all) { researcher.sign_in } if ENV['safari']

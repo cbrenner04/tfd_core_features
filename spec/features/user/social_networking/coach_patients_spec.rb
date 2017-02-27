@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/social_networking/coach_patients_spec.rb
-
-require './spec/support/users/social_networking_coach_patients_helper'
-
 feature 'Coach, Patient Dashboard', :social_networking, :marigold,
         sauce: sauce_labs do
   feature 'Group 1' do

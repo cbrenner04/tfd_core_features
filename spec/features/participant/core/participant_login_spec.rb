@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/core/participant_login_spec.rb
-
-require './spec/support/participants/login_helper'
-
 feature 'Login', :core, :marigold, sauce: sauce_labs do
   scenario 'Participant signs in' do
     participant_1.sign_in

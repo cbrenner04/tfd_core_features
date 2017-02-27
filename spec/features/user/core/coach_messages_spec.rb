@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/coach_messages_spec.rb
-
-require './spec/support/users/coach_messages_helper'
-
 feature 'Coach messaging', :core, :marigold, sauce: sauce_labs do
   background(:all) { clinician.sign_in if ENV['safari'] }
 

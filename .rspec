@@ -1,7 +1,8 @@
 --require env_variables.rb
 --require spec_helper
---require support/participants_helper.rb
---require support/users_helper.rb
+--require support/helpers/participants_helper.rb
+--require support/helpers/users_helper.rb
+--color
 --format documentation
 --format progress
 --out 'output/rspec <%= Time.now.strftime('%m.%d.%y %H.%M.%S') %>.txt'

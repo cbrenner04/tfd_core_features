@@ -3,43 +3,28 @@
 AllCops:
   TargetRubyVersion: 2.3
 
+# TODO: remove
 AbcSize:
   Enabled: false
 
+# TODO: remove
 ClassLength:
   Enabled: false
 
 Documentation:
   Enabled: true
 
-DotPosition:
-  Enabled: false
-
-HandleExceptions:
-  Enabled: false
-
-IfUnlessModifier:
-  Enabled: false
-
 LineLength:
   Exclude:
     - '**/*.rake'
     - '**/experiments/*.rb'
 
+# TODO: lower to 15
 MethodLength:
   Max: 25
 
-PredicateName:
-  Enabled: false
-
-RegexpLiteral:
-  Enabled: false
-
 StringLiterals:
   EnforcedStyle: single_quotes
-
-Style/GuardClause:
-  Enabled: false
 
 WordArray:
   Enabled: true

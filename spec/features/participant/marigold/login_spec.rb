@@ -1,28 +1,14 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participants/marigold/login_spec.rb
-
-require './lib/pages/shared/navigation'
-require './lib/pages/participants/incentives'
-require './lib/pages/participants/social_networking_modules/profile'
-
-# def navigation
-#   @navigation ||= SharedNavigation.new
-# end
-
 def profile_login
-  @profile ||= Participants::SocialNetworkingModules::Profile.new(
-    display_name: 'marigold_2'
-  )
+  Participants::SocialNetworkingModules::Profile.new(display_name: 'marigold_2')
 end
 
 def profile_login2
-  @profile ||= Participants::SocialNetworkingModules::Profile.new(
-    display_name: 'marigold_5'
-  )
+  Participants::SocialNetworkingModules::Profile.new(display_name: 'marigold_5')
 end
 
 def incentives_login
-  @incentives ||= Participants::Incentives.new(
+  Participants::Incentives.new(
     plot: 'individual',
     image: 'flower6',
     pt_list_item: 0,

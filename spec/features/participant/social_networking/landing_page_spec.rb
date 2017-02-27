@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/social_networking/landing_page_spec.rb
-
-require './spec/support/participants/social_networking_landing_helper'
-
 feature 'SocialNetworking Landing Page',
         :social_networking, :marigold, sauce: sauce_labs do
   feature 'Social Arm' do

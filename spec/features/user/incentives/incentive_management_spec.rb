@@ -1,27 +1,21 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/incentives/researcher_groups_spec.rb
-
-require './lib/pages/participants'
-require './lib/pages/participants/incentives'
-require './lib/pages/users/incentives'
-
 def group_6_incentives
-  @group_6_incentives ||= Users::Incentives.new(group: 'Group 6')
+  Users::Incentives.new(group: 'Group 6')
 end
 
 def group_9_incentives
-  @group_9_incentives ||= Users::Incentives.new(group: 'Group 9')
+  Users::Incentives.new(group: 'Group 9')
 end
 
-def participant_7
-  @participant_7 ||= Participant.new(
+def participant_seven
+  Participant.new(
     participant: ENV['Participant_7_Email'],
     password: ENV['Participant_7_Password']
   )
 end
 
 def group9_communal_incentive
-  @group9_communal_incentive ||= Participants::Incentives.new(
+  Participants::Incentives.new(
     incentive: 'Partial whatever',
     completed: 0,
     total: 1,
@@ -166,7 +160,7 @@ feature 'Incentive, Researcher', :superfluous, :marigold, :incentives,
 
       # check participant facing for lack of moderator in count
       researcher.sign_out
-      participant_7.sign_in
+      participant_seven.sign_in
       group9_communal_incentive.open_communal_plot
 
       expect(group9_communal_incentive).to be_visible

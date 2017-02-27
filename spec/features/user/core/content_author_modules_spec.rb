@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/content_author_modules_spec.rb
-
-require './spec/support/users/content_modules_helper'
-
 feature 'Content Author, Content Modules',
         :superfluous, :core, :marigold, sauce: sauce_labs do
   background(:all) { content_author.sign_in } if ENV['safari']

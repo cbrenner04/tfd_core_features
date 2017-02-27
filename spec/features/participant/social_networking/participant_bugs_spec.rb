@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-# file: ./spec/features/participant/social_networking/participant_bugs_spec.rb
-
 feature 'Social Networking Bugs, Non-social Participant',
         :social_networking, :marigold, sauce: sauce_labs do
   scenario 'Participant cannot select My Profile from navbar dropdown' do

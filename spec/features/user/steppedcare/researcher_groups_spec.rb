@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/researcher_groups_spec.rb
-
-require './spec/support/users/steppedcare_researcher_groups_helper'
-
 feature 'Researcher, Groups', :superfluous, :tfd, sauce: sauce_labs do
   background(:all) { researcher.sign_in } if ENV['safari']
 

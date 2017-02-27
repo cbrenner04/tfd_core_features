@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# file: ./spec/features/participant/social_networking/participant_login_spec.rb
-
-require './spec/support/participants/social_networking_login_helper'
-
 feature 'Social Networking login', :social_networking, :marigold,
         sauce: sauce_labs do
   scenario 'Completed participant in a social arm sends message' do

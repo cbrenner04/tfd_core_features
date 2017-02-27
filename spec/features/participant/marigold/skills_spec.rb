@@ -1,18 +1,10 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/marigold/skills_spec.rb
-
-require './lib/pages/participants/skills'
-require './lib/pages/participants/incentives'
-require './lib/pages/participants/social_networking_modules/profile'
-
 def profile_skills
-  @profile ||= Participants::SocialNetworkingModules::Profile.new(
-    display_name: 'marigold_2'
-  )
+  Participants::SocialNetworkingModules::Profile.new(display_name: 'marigold_2')
 end
 
 def incentives_skills
-  @incentives ||= Participants::Incentives.new(
+  Participants::Incentives.new(
     plot: 'individual',
     image: 'flower5',
     pt_list_item: 0,
@@ -24,13 +16,11 @@ def incentives_skills
 end
 
 def skills
-  @skills ||= Participants::Skills.new(lesson: 'Home Introduction')
+  Participants::Skills.new(lesson: 'Home Introduction')
 end
 
 def skills_2
-  @skills_2 ||= Participants::Skills.new(
-    lesson: 'Testing adding/updating slides/lessons'
-  )
+  Participants::Skills.new(lesson: 'Testing adding/updating slides/lessons')
 end
 
 feature 'SKILLS tool', :marigold, sauce: sauce_labs do

@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/social_networking/goals_spec.rb
-
-require './spec/support/participants/goal_helper.rb'
-
 feature 'ACHIEVE tool', :social_networking, sauce: sauce_labs do
   background(:all) { participant_1.sign_in if ENV['safari'] }
 

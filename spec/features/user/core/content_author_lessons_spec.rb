@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/user/core/content_author_lessons_spec.rb
-
-require './spec/support/users/lessons_helper'
-
 feature 'Content Author, Lessons', :superfluous, :core, :marigold,
         sauce: sauce_labs do
   background(:all) { content_author.sign_in } if ENV['safari']

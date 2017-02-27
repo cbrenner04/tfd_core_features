@@ -1,27 +1,18 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participants/marigold/feel_spec.rb
-
-require './lib/pages/participants/feel'
-require './lib/pages/participants/feel_modules/emotion_tracking'
-require './lib/pages/participants/incentives'
-require './lib/pages/participants/social_networking_modules/profile'
-
 def feel
-  @feel ||= Participants::Feel.new
+  Participants::Feel.new
 end
 
 def emotions
-  @emotions ||= Participants::FeelModules::EmotionsTracking.new
+  Participants::FeelModules::EmotionsTracking.new
 end
 
 def profile_feel
-  @profile ||= Participants::SocialNetworkingModules::Profile.new(
-    display_name: 'marigold_2'
-  )
+  Participants::SocialNetworkingModules::Profile.new(display_name: 'marigold_2')
 end
 
 def incentives_feel
-  @incentives ||= Participants::Incentives.new(
+  Participants::Incentives.new(
     plot: 'individual',
     image: 'flower3',
     pt_list_item: 0,

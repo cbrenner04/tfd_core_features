@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-# filename: ./spec/features/participant/social_networking/nudge_spec.rb
-
-require './spec/support/participants/nudge_helper'
-
 feature 'Nudge', :social_networking, :marigold, sauce: sauce_labs do
   background(:all) { participant_1.sign_in } if ENV['safari']
 
