@@ -14,6 +14,10 @@ def feel
   Participants::Feel.new
 end
 
+def think
+  Participants::Think.new
+end
+
 def social_networking
   Participants::SocialNetworking.new
 end
@@ -52,6 +56,22 @@ end
 
 def tracking_mood_and_emotions
   Participants::FeelModules::TrackingMoodEmotions.new
+end
+
+def add_new_thought
+  Participants::ThinkModules::AddNewThought.new
+end
+
+def identifying
+  Participants::ThinkModules::Identifying.new
+end
+
+def patterns
+  Participants::ThinkModules::Patterns.new
+end
+
+def reshape
+  Participants::ThinkModules::Reshape.new
 end
 
 def participant_1

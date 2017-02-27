@@ -12,7 +12,12 @@ feature 'THINK tool', :core, sauce: sauce_labs do
   scenario 'Participant completes Identifying module' do
     identifying.open
     identifying.move_to_thought_input
-    identifying.complete
+    thoughts = [
+      first_thought: 'Testing helpful thought',
+      second_thought: 'Testing negative thought',
+      third_thought: 'Forced negative thought'
+    ]
+    identifying.complete(thoughts)
 
     expect(think).to be_visible
   end
@@ -30,14 +35,23 @@ feature 'THINK tool', :core, sauce: sauce_labs do
   scenario 'Participant completes Reshape module' do
     reshape.open
     reshape.move_to_reshape_form
-    reshape.reshape_multiple_thoughts
+    reshape.reshape_multiple_thoughts(
+      challenge: 'Example challenge',
+      action: 'Example act-as-if',
+      thoughts_count: 3
+    )
 
     expect(think).to be_visible unless ENV['driver'] == 'poltergeist'
   end
 
   scenario 'Participant completes Add a New Harmful Thought module' do
     add_new_thought.open
-    add_new_thought.complete
+    add_new_thought.complete(
+      thought: 'Testing add a new thought',
+      pattern: 'Magnification or Catastrophizing',
+      challenge: 'Testing challenge thought',
+      action: 'Testing act-as-if action'
+    )
 
     expect(think).to be_visible
   end

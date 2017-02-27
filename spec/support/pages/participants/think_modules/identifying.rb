@@ -1,22 +1,10 @@
 # frozen_string_literal: true
-require './spec/support/pages/participants/navigation'
-require './spec/support/pages/participants/social_networking'
-require './spec/support/pages/participants/think'
-
 module Participants
   module ThinkModules
     # page object for the Identifying module
     class Identifying
       include RSpec::Matchers
       include Capybara::DSL
-
-      def initialize(think)
-        @first_thought ||= think[:first_thought]
-        @second_thought ||= think[:second_thought]
-        @third_thought ||= think[:third_thought]
-        @feed_item ||= think[:feed_item]
-        @timestamp ||= think[:timestamp]
-      end
 
       def open
         click_on '#1 Identifying'
@@ -34,10 +22,9 @@ module Participants
         end
       end
 
-      def complete
+      def complete(responses)
         headings = ['Now, your turn...', 'Now list another harmful thought...',
                     'Just one more']
-        responses = [@first_thought, @second_thought, @third_thought]
         headings.zip(responses) do |heading, response|
           expect(page).to have_text heading
           enter_thought(heading, response)
@@ -61,30 +48,16 @@ module Participants
         has_text? 'Good work.'
       end
 
-      def find_in_feed
-        social_networking.find_feed_item(@feed_item)
+      def find_in_feed(thought)
+        social_networking.find_feed_item(thought)
       end
 
-      def visible?
-        has_text? @feed_item
+      def has_thought_visible?(thought)
+        has_text? thought
       end
 
-      def has_timestamp?
-        find('.list-group-item.ng-scope', text: @feed_item).has_text? @timestamp
-      end
-
-      private
-
-      def participant_navigation
-        @participant_navigation ||= Participants::Navigation.new
-      end
-
-      def social_networking
-        @social_networking ||= Participants::SocialNetworking.new
-      end
-
-      def think
-        @think ||= Participants::Think.new
+      def has_timestamp?(thought:, timestamp:)
+        find('.list-group-item.ng-scope', text: thought).has_text? timestamp
       end
     end
   end

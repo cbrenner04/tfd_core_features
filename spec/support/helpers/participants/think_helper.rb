@@ -1,37 +1,4 @@
 # frozen_string_literal: true
-def think
-  Participants::Think.new
-end
-
-def identifying
-  Participants::ThinkModules::Identifying.new(
-    first_thought: 'Testing helpful thought',
-    second_thought: 'Testing negative thought',
-    third_thought: 'Forced negative thought'
-  )
-end
-
-def patterns
-  Participants::ThinkModules::Patterns.new(thought: 'fake')
-end
-
-def reshape
-  Participants::ThinkModules::Reshape.new(
-    challenge: 'Example challenge',
-    action: 'Example act-as-if',
-    num_thoughts: 3
-  )
-end
-
-def add_new_thought
-  Participants::ThinkModules::AddNewThought.new(
-    thought: 'Testing add a new thought',
-    pattern: 'Magnification or Catastrophizing',
-    challenge: 'Testing challenge thought',
-    action: 'Testing act-as-if action'
-  )
-end
-
 def thoughts
   Participants::ThinkModules::Thoughts.new(
     thought: 'I am insignificant',

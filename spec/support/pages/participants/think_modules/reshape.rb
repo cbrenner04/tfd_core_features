@@ -1,21 +1,10 @@
 # frozen_string_literal: true
-require './spec/support/pages/participants/navigation'
-require './spec/support/pages/participants/think'
-
 module Participants
   module ThinkModules
     # page object for Reshape module
     class Reshape
       include RSpec::Matchers
       include Capybara::DSL
-
-      def initialize(reshape)
-        @challenge ||= reshape[:challenge]
-        @action ||= reshape[:action]
-        @num_thoughts ||= reshape[:num_thoughts]
-        @thought ||= reshape[:thought]
-        @pattern ||= reshape[:pattern]
-      end
 
       def open
         click_on '#3 Reshape'
@@ -41,14 +30,14 @@ module Participants
         has_text?('In case you\'ve forgotten') || has_text?('You don\'t have')
       end
 
-      def reshape_multiple_thoughts
-        @num_thoughts.times { reshape }
+      def reshape_multiple_thoughts(thoughts_count:, challenge:, action:)
+        thoughts_count.times { reshape(challenge: challenge, action: action) }
       end
 
-      def reshape
+      def reshape(challenge:, action:)
         find('h3', text: 'You said that you thought...')
         participant_navigation.next
-        fill_in 'thought[challenging_thought]', with: @challenge
+        fill_in 'thought[challenging_thought]', with: challenge
         participant_navigation.scroll_down
         participant_navigation.next
         expect(think).to have_success_alert
@@ -56,35 +45,25 @@ module Participants
         participant_navigation.scroll_to_bottom
         participant_navigation.next
         find('label', text: 'What could you do to ACT AS IF you believe this?')
-        fill_in 'thought_act_as_if', with: @action
+        fill_in 'thought_act_as_if', with: action
         participant_navigation.next
       end
 
-      def find_in_feed
-        social_networking.find_feed_item("Reshaped a Thought: #{@thought}")
+      def find_in_feed(thought)
+        social_networking.find_feed_item("Reshaped a Thought: #{thought}")
       end
 
-      def has_feed_details?
+      def has_feed_details?(feed_details)
         within('.list-group-item.ng-scope',
-               text: "Reshaped a Thought: #{@thought}") do
+               text: "Reshaped a Thought: #{feed_details[:thought]}") do
           2.times { participant_navigation.scroll_down }
           social_networking.open_detail
 
-          has_text? "this thought is: #{@thought}" \
-                    "\nthought pattern: #{@pattern}" \
-                    "\nchallenging thought: #{@challenge}" \
-                    "\nas if action: #{@action}"
+          has_text? "this thought is: #{feed_details[:thought]}" \
+                    "\nthought pattern: #{feed_details[:pattern]}" \
+                    "\nchallenging thought: #{feed_details[:challenge]}" \
+                    "\nas if action: #{feed_details[:action]}"
         end
-      end
-
-      private
-
-      def participant_navigation
-        @participant_navigation ||= Participants::Navigation.new
-      end
-
-      def think
-        @think ||= Participants::Think.new
       end
     end
   end

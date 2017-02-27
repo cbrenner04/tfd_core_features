@@ -1,19 +1,10 @@
 # frozen_string_literal: true
-require './spec/support/pages/participants/navigation'
-require './spec/support/pages/participants/social_networking'
-require './spec/support/pages/participants/think'
-
 module Participants
   module ThinkModules
     # page object for Patterns module
     class Patterns
       include RSpec::Matchers
       include Capybara::DSL
-
-      def initialize(pattern)
-        @thought ||= pattern[:thought]
-        @pattern ||= pattern[:pattern]
-      end
 
       def open
         click_on '#2 Patterns'
@@ -58,32 +49,20 @@ module Participants
         has_text? 'You haven\'t listed any negative thoughts'
       end
 
-      def find_in_feed
-        find_feed_item("Assigned a pattern to a Thought: #{@thought}")
+      def find_in_feed(thought)
+        find_feed_item("Assigned a pattern to a Thought: #{thought}")
       end
 
-      def has_feed_detail?
+      def has_feed_detail?(thought:, pattern:)
         within first('.list-group-item.ng-scope',
-                     text: "Assigned a pattern to a Thought: #{@thought}") do
+                     text: "Assigned a pattern to a Thought: #{thought}") do
           2.times { participant_navigation.scroll_down }
           social_networking.open_detail
-          has_text? "this thought is: #{@thought}\nthought pattern: #{@pattern}"
+          has_text? "this thought is: #{thought}\nthought pattern: #{pattern}"
         end
       end
 
       private
-
-      def participant_navigation
-        @participant_navigation ||= Participants::Navigation.new
-      end
-
-      def social_networking
-        @social_networking ||= Participants::SocialNetworking.new
-      end
-
-      def think
-        @think ||= Participants::Think.new
-      end
 
       def select_pattern(pattern)
         select pattern, from: 'thought_pattern_id'

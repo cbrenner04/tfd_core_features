@@ -9,50 +9,62 @@ feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Participant shares THINK > Identifying responses' do
-      pt_1_identify_thought_1.open
+      identifying.open
       participant_navigation.skip
-      pt_1_identify_thought_1
-        .enter_thought('Now, your turn...', 'Public thought 1')
+      identifying.enter_thought('Now, your turn...', 'Public thought 1')
       social_networking.accept_social
 
       expect(think).to have_success_alert
 
-      pt_1_identify_thought_2
-        .enter_thought('Now list another harmful thought...',
-                       'Private thought 1')
+      identifying.enter_thought('Now list another harmful thought...',
+                                'Private thought 1')
       social_networking.decline_social
 
       expect(think).to have_success_alert
 
       visit ENV['Base_URL']
-      pt_1_identify_thought_1.find_in_feed
+      identifying.find_in_feed 'Public thought 1'
 
-      expect(pt_1_identify_thought_2).to_not be_visible
-      expect(pt_1_identify_thought_1).to be_visible
-      expect(pt_1_identify_thought_1).to have_timestamp
+      expect(identifying).to_not have_thought_visible 'Private thought 1'
+      expect(identifying).to have_thought_visible 'Public thought 1'
+      expect(identifying).to have_timestamp(
+        thought: 'Public thought 1',
+        timestamp: "Today at #{Time.now.strftime('%l')}"
+      )
     end
 
     scenario 'Participant shares Add a New Harmful Thought responses' do
-      pt_1_add_new_thought_1.open
-      pt_1_add_new_thought_1.complete
+      add_new_thought.open
+      add_new_thought.complete(
+        thought: 'Public thought 3',
+        pattern: 'Magnification or Catastrophizing',
+        challenge: 'Testing challenge thought',
+        action: 'Testing act-as-if action'
+      )
       sleep(1)
       visit ENV['Base_URL']
-      pt_1_add_new_thought_1.find_in_feed
+      add_new_thought.find_in_feed
 
-      expect(pt_1_add_new_thought_1).to have_timestamp
+      expect(add_new_thought)
+        .to have_timestamp(timestamp: "Today at #{Time.now.strftime('%-l')}")
 
       # check not sharing
       visit think.landing_page
-      pt_1_add_new_thought_2.open
-      pt_1_add_new_thought_2.enter_thought
+      add_new_thought.open
+      add_new_thought.enter_thought(
+        thought: 'Private thought 2',
+        pattern: 'Magnification or Catastrophizing',
+        challenge: 'Testing challenge thought',
+        action: 'Testing act-as-if action'
+      )
       social_networking.decline_social
       participant_navigation.alt_next
       sleep(1)
       visit ENV['Base_URL']
-      pt_1_add_new_thought_1.find_in_feed
+      add_new_thought.find_in_feed 'Public thought 3'
 
-      expect(pt_1_add_new_thought_2).to_not be_visible
-      expect(pt_1_add_new_thought_1).to be_visible
+      expect(add_new_thought).to_not have_thought_visible 'Private thought 2'
+      expect(add_new_thought).to have_thought_visible 'Public thought 3'
     end
   end
 
@@ -155,15 +167,15 @@ feature 'Shared items, Mobile arm', :social_networking, sauce: sauce_labs do
     end
 
     scenario 'Participant cannot create a shared item in Identifying' do
-      ns_pt_identifying.open
-      ns_pt_identifying.move_to_thought_input
+      identifying.open
+      identifying.move_to_thought_input
       participant_navigation.next
 
       expect(social_networking).to_not have_share_options
     end
 
     scenario 'Participant cannot create in Add a New Harmful Thought' do
-      ns_pt_add_new_thought.open
+      identifying.open
 
       expect(social_networking).to_not have_share_options
     end
@@ -263,14 +275,17 @@ feature 'Shared items, Social arm', :social_networking, sauce: sauce_labs do
 
   scenario 'Participant shares THINK > Patterns responses' do
     visit think.landing_page
-    pt_5_pattern.open
-    pt_5_pattern.move_to_pattern_entry_form
-    unless pt_5_pattern.has_nothing_to_do?
-      pt_5_pattern.complete_two_thoughts
+    patterns.open
+    patterns.move_to_pattern_entry_form
+    unless patterns.has_nothing_to_do?
+      patterns.complete_two_thoughts
       visit ENV['Base_URL']
       social_networking.find_feed_item('Assigned a pattern to a Thought: ARG!')
 
-      expect(pt_5_pattern).to have_feed_detail
+      expect(patterns).to have_feed_detail(
+        thought: 'ARG!',
+        pattern: 'Personalization'
+      )
     end
   end
 
