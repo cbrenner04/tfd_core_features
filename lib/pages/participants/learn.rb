@@ -101,8 +101,7 @@ module Participants
     end
 
     def after_study
-      return today + 112 if ENV['tfd']
-      return today + 98 if ENV['sunnyside']
+      return today + 112 if ENV['tfd'] || ENV['sunnyside']
       return today + 56 if ENV['tfdso']
       return today + 35 if ENV['marigold']
     end
